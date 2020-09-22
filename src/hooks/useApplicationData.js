@@ -4,7 +4,7 @@ import reducer, { SET_POINTS } from "../reducers/application";
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
-    points: Number,
+    points: 0,
   });
 
   const setPoints = (points) => dispatch({ type: SET_POINTS, points });
@@ -13,16 +13,17 @@ export default function useApplicationData() {
   useEffect(() => {
     Promise.all([axios.get("/api/points")]).then((all) => {
       const points = all[0].data;
+
       dispatch({
         type: SET_POINTS,
-        points,
+        points: points[0].points,
       });
     });
   }, []);
 
   // FOR WEBSOCKET
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8001");
+    const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
 
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
@@ -37,5 +38,16 @@ export default function useApplicationData() {
     };
   }, []);
 
-  return { state, setPoints };
+  const addPoints = (points) => {
+    const url = `/api/points`;
+    const promise = axios.put(url, { points }).then((res) => {
+      dispatch({
+        type: SET_POINTS,
+        points: res.data.points,
+      });
+    });
+    return promise;
+  };
+
+  return { state, setPoints, addPoints };
 }

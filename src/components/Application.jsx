@@ -1,29 +1,13 @@
 import React from "react";
-import "./App.css";
-import ProgressBar from "./ProgressBar";
-import Button from "./Button";
+import ProgressBar from "./ProgressBar/ProgressBar";
 import useApplicationData from "../hooks/useApplicationData";
 
-const testData = [
-  { bgcolor: "#6a1b9a", completed: 60 },
-  { bgcolor: "#00695c", completed: 30 },
-  { bgcolor: "#ef6c00", completed: 53 },
-];
+const testData = [{ bgcolor: "#6a1b9a" }];
 
-const addPoints = (data) => {
-  data.map((item) => {
-    console.log(item.completed);
-    item.completed++;
-  });
-};
+function Application(props) {
+  const { state, setPoints, addPoints } = useApplicationData();
 
-function App() {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview,
-  } = useApplicationData();
+  const points = state.points;
 
   return (
     <div className="App">
@@ -31,12 +15,12 @@ function App() {
         <ProgressBar
           key={idx}
           bgcolor={item.bgcolor}
-          completed={item.completed}
+          points={points}
+          addPoints={addPoints}
         />
       ))}
-      <Button onClick={() => addPoints(testData)}>Completed task</Button>
     </div>
   );
 }
 
-export default App;
+export default Application;
