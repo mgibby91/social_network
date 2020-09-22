@@ -48,5 +48,6 @@
     "postgresql": "0.0.1",
     "proptypes": "^1.1.0",
     "reactstrap": "^8.6.0"
-  }
+  },
+  "proxy": "http://localhost:8001"
 }

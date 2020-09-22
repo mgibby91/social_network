@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import ProgressBar from "./ProgressBar";
 import Button from "./Button";
 import useApplicationData from "../hooks/useApplicationData";
@@ -23,6 +24,7 @@ function App() {
     bookInterview,
     cancelInterview,
   } = useApplicationData();
+
   return (
     <div className="App">
       {testData.map((item, idx) => (
