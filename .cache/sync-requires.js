@@ -9,6 +9,7 @@ exports.components = {
   "component---src-pages-404-tsx": hot(preferDefault(require("/Users/matthewgibson/lighthouse/final-project/social-network/src/pages/404.tsx"))),
   "component---src-pages-dashboard-tsx": hot(preferDefault(require("/Users/matthewgibson/lighthouse/final-project/social-network/src/pages/dashboard.tsx"))),
   "component---src-pages-index-tsx": hot(preferDefault(require("/Users/matthewgibson/lighthouse/final-project/social-network/src/pages/index.tsx"))),
+  "component---src-pages-messages-tsx": hot(preferDefault(require("/Users/matthewgibson/lighthouse/final-project/social-network/src/pages/messages.tsx"))),
   "component---src-pages-user-profile-tsx": hot(preferDefault(require("/Users/matthewgibson/lighthouse/final-project/social-network/src/pages/user-profile.tsx")))
 }
 

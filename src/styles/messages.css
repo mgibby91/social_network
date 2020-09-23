@@ -1,0 +1,24 @@
+/* main container */
+.main-message-container {
+  display: flex;
+  height: 600px;
+  width: 1000px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+/* left container - message list */
+.left-message-container {
+  height: 100%;
+  width: 40%;
+  border: 1px solid white;
+  border-radius: 5px 0 0 5px;
+}
+
+/* right container - view message */
+.right-message-container {
+  height: 100%;
+  width: 60%;
+  border: 1px solid white;
+  border-radius: 0 5px 5px 0;
+}

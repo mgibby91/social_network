@@ -10,6 +10,10 @@ const items: MenuItemType[] = [
     title: 'Profile',
     link: { to: '/user-profile' },
   },
+  {
+    title: 'Messages',
+    link: { to: '/messages' },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },
