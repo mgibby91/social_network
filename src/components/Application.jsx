@@ -8,7 +8,7 @@ function Application(props) {
   const { state, addPoints } = useApplicationData();
 
 
-  console.log("state: ", props);
+  console.log("state in component: ", state.mentor_stack);
   const points = state.points;
 
   return (

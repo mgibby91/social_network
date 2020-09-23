@@ -23,7 +23,6 @@ export default function useApplicationData() {
         axios.get("/api/comments"),
         axios.get("/api/likes"),
         axios.get("/api/mentor_stack"),
-        axios.get("/api/points"),
         axios.get("/api/posts"),
         axios.get("/api/student_stack"),
         axios.get("/api/tutor_experiences"),
@@ -37,21 +36,19 @@ export default function useApplicationData() {
         const comments = all[0].data;
         const likes = all[1].data;
         const mentor_stack = all[2].data;
-        const points = all[3].data;
-        const posts = all[4].data;
-        const student_stack = all[5].data;
-        const tutor_experiences = all[7].data;
-        const user_profiles = all[8].data;
-        const users = all[9].data;
-        const mentor_points = all[10].data;
-        const student_points = all[11].data;
+        const posts = all[3].data;
+        const student_stack = all[4].data;
+        const tutor_experiences = all[5].data;
+        const user_profiles = all[6].data;
+        const users = all[7].data;
+        const mentor_points = all[8].data;
+        const student_points = all[9].data;
   
         dispatch({
           type: SET_APPLICATION_DATA,
           comments,
           likes,
           mentor_stack,
-          points: points[0].points,
           posts,
           student_stack,
           tutor_experiences,
@@ -63,6 +60,7 @@ export default function useApplicationData() {
       });
     }, []);
 
+    console.log("state in hook: ", state);
   // FOR WEBSOCKET
   useEffect(() => {
     const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
