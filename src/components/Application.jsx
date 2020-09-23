@@ -5,8 +5,10 @@ import useApplicationData from "../hooks/useApplicationData";
 const testData = [{ bgcolor: "#6a1b9a" }];
 
 function Application(props) {
-  const { state, setPoints, addPoints } = useApplicationData();
+  const { state, addPoints } = useApplicationData();
 
+
+  console.log("state: ", props);
   const points = state.points;
 
   return (
