@@ -32,7 +32,7 @@ export default function useApplicationData() {
         axios.get("/api/user_profiles/student_points/:id"),
   
       ]).then((all) => {
-        console.log("all from user_profiles: ", all);
+        console.log("all from applicatin data hook: ", all);
         const comments = all[0].data;
         const likes = all[1].data;
         const mentor_stack = all[2].data;
