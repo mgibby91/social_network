@@ -83,6 +83,7 @@
     "pretty-quick": "3.0.0",
     "proptypes": "^1.1.0",
     "react-live": "2.2.2",
+    "react-star-rating-component": "^1.4.1",
     "reactstrap": "^8.6.0",
     "typescript": "4.0.2"
   },
