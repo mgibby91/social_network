@@ -11,6 +11,10 @@ const items: MenuItemType[] = [
     icon: { name: "person" },
     link: { to: "/user-profile" },
   },
+  {
+    title: 'Messages',
+    link: { to: '/messages' },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },

@@ -7,6 +7,7 @@ import { SidebarRefObject } from '@paljs/ui/Sidebar';
 import Header from './Header';
 import SimpleLayout from './SimpleLayout';
 import SidebarCustom from './Sidebar';
+import useApplicationData from "../hooks/useApplicationData";
 
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({ children, pageContext }) => {
   const [theme, setTheme] = useState<DefaultTheme['name']>('dark');
@@ -21,6 +22,10 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({ children, p
     const newDir = dir === 'ltr' ? 'rtl' : 'ltr';
     setDir(newDir);
   };
+
+  const { state, addPoints } = useApplicationData();
+  console.log("state in index.tsx: ", state);
+  
 
   return (
     <ThemeProvider theme={themes(theme, dir)}>
