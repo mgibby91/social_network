@@ -6,6 +6,8 @@ exports.components = {
   "component---src-pages-404-tsx": () => import("./../../../src/pages/404.tsx" /* webpackChunkName: "component---src-pages-404-tsx" */),
   "component---src-pages-dashboard-tsx": () => import("./../../../src/pages/dashboard.tsx" /* webpackChunkName: "component---src-pages-dashboard-tsx" */),
   "component---src-pages-index-tsx": () => import("./../../../src/pages/index.tsx" /* webpackChunkName: "component---src-pages-index-tsx" */),
+  "component---src-pages-mentor-list-tsx": () => import("./../../../src/pages/mentor-list.tsx" /* webpackChunkName: "component---src-pages-mentor-list-tsx" */),
+  "component---src-pages-student-list-tsx": () => import("./../../../src/pages/student-list.tsx" /* webpackChunkName: "component---src-pages-student-list-tsx" */),
   "component---src-pages-user-profile-tsx": () => import("./../../../src/pages/user-profile.tsx" /* webpackChunkName: "component---src-pages-user-profile-tsx" */)
 }
 

@@ -8,32 +8,35 @@ export default function reducer(state, action) {
       return { ...state, points: action.points };
 
     case SET_APPLICATION_DATA:
-      console.log("action in reducer: ", action);
       const {
         comments,
+        mentor_points,
         mentor_stack,
         likes,
         messages,
         posts,
+        student_points,
         student_stack,
         tutor_experiences,
         user_profiles,
         users,
       } = action;
-      
+
       return {
         ...state,
         comments,
         mentor_stack,
+        mentor_points,
         likes,
         messages,
         posts,
+        student_points,
         student_stack,
         tutor_experiences,
         user_profiles,
         users,
       };
-      
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`

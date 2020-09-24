@@ -17,12 +17,7 @@ const addPoints = (data) => {
 };
 
 function Home() {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview,
-  } = useApplicationData();
+
   return (
     <div className="App">
       {testData.map((item, idx) => (

@@ -9,6 +9,8 @@ exports.components = {
   "component---src-pages-404-tsx": hot(preferDefault(require("/Users/fntcstudent/lighthouse/progress-bar/client/src/pages/404.tsx"))),
   "component---src-pages-dashboard-tsx": hot(preferDefault(require("/Users/fntcstudent/lighthouse/progress-bar/client/src/pages/dashboard.tsx"))),
   "component---src-pages-index-tsx": hot(preferDefault(require("/Users/fntcstudent/lighthouse/progress-bar/client/src/pages/index.tsx"))),
+  "component---src-pages-mentor-list-tsx": hot(preferDefault(require("/Users/fntcstudent/lighthouse/progress-bar/client/src/pages/mentor-list.tsx"))),
+  "component---src-pages-student-list-tsx": hot(preferDefault(require("/Users/fntcstudent/lighthouse/progress-bar/client/src/pages/student-list.tsx"))),
   "component---src-pages-user-profile-tsx": hot(preferDefault(require("/Users/fntcstudent/lighthouse/progress-bar/client/src/pages/user-profile.tsx")))
 }
 
