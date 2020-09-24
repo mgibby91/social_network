@@ -1,14 +1,15 @@
-import { MenuItemType } from '@paljs/ui/types';
+import { MenuItemType } from "@paljs/ui/types";
 
 const items: MenuItemType[] = [
   {
-    title: 'Home Page',
-    icon: { name: 'home' },
-    link: { to: '/dashboard' },
+    title: "Home Page",
+    icon: { name: "home" },
+    link: { to: "/dashboard" },
   },
   {
-    title: 'Profile',
-    link: { to: '/user-profile' },
+    title: "Profile",
+    icon: { name: "person" },
+    link: { to: "/user-profile" },
   },
   {
     title: 'Messages',
@@ -65,102 +66,102 @@ const items: MenuItemType[] = [
   //   ],
   // },
   {
-    title: 'Forms',
-    icon: { name: 'edit-2-outline' },
+    title: "Forms",
+    icon: { name: "edit-2-outline" },
     children: [
       {
-        title: 'Inputs',
-        link: { to: '/forms/inputs' },
+        title: "Inputs",
+        link: { to: "/forms/inputs" },
       },
       {
-        title: 'Layout',
-        link: { to: '/forms/form-layout' },
+        title: "Layout",
+        link: { to: "/forms/form-layout" },
       },
       {
-        title: 'Buttons',
-        link: { to: '/forms/buttons' },
+        title: "Buttons",
+        link: { to: "/forms/buttons" },
       },
       {
-        title: 'Select',
-        link: { to: '/forms/select' },
+        title: "Select",
+        link: { to: "/forms/select" },
       },
     ],
   },
   {
-    title: 'UI Features',
-    icon: { name: 'keypad-outline' },
+    title: "UI Features",
+    icon: { name: "keypad-outline" },
     children: [
       {
-        title: 'Grid',
-        link: { to: '/ui-features/grid' },
+        title: "Grid",
+        link: { to: "/ui-features/grid" },
       },
       {
-        title: 'Animated Searches',
-        link: { to: '/ui-features/search' },
+        title: "Animated Searches",
+        link: { to: "/ui-features/search" },
       },
     ],
   },
   {
-    title: 'Modal & Overlays',
-    icon: { name: 'browser-outline' },
+    title: "Modal & Overlays",
+    icon: { name: "browser-outline" },
     children: [
       {
-        title: 'Popover',
-        link: { to: '/modal-overlays/popover' },
+        title: "Popover",
+        link: { to: "/modal-overlays/popover" },
       },
       {
-        title: 'Tooltip',
-        link: { to: '/modal-overlays/tooltip' },
+        title: "Tooltip",
+        link: { to: "/modal-overlays/tooltip" },
       },
       {
-        title: 'Toastr',
-        link: { to: '/modal-overlays/toastr' },
+        title: "Toastr",
+        link: { to: "/modal-overlays/toastr" },
       },
     ],
   },
   {
-    title: 'Editors',
-    icon: { name: 'text-outline' },
+    title: "Editors",
+    icon: { name: "text-outline" },
     children: [
       {
-        title: 'TinyMCE',
-        link: { to: '/editors/tinymce' },
+        title: "TinyMCE",
+        link: { to: "/editors/tinymce" },
       },
       {
-        title: 'CKEditor',
-        link: { to: '/editors/ckeditor' },
+        title: "CKEditor",
+        link: { to: "/editors/ckeditor" },
       },
     ],
   },
   {
-    title: 'Miscellaneous',
-    icon: { name: 'shuffle-2-outline' },
+    title: "Miscellaneous",
+    icon: { name: "shuffle-2-outline" },
     children: [
       {
-        title: '404',
-        link: { to: '/miscellaneous/404' },
+        title: "404",
+        link: { to: "/miscellaneous/404" },
       },
     ],
   },
   {
-    title: 'Auth',
-    icon: { name: 'lock-outline' },
+    title: "Auth",
+    icon: { name: "lock-outline" },
     children: [
       {
-        title: 'Login',
-        link: { to: '/auth/login' },
+        title: "Login",
+        link: { to: "/auth/login" },
       },
       {
-        title: 'Register',
-        link: { to: '/auth/register' },
+        title: "Register",
+        link: { to: "/auth/register" },
       },
       {
-        title: 'Request Password',
-        link: { to: '/auth/request-password' },
+        title: "Request Password",
+        link: { to: "/auth/request-password" },
       },
       {
-        title: 'Reset Password',
-        link: { to: '/auth/reset-password' },
+        title: "Reset Password",
+        link: { to: "/auth/reset-password" },
       },
     ],
   },
