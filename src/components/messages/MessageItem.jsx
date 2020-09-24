@@ -12,9 +12,27 @@ export default function MessageItem(props) {
     messageBody = props.recentMessage.textBody;
   }
 
-  const timeAgo = timeSince(props.recentMessage.timeSent) + ' ago'
+  const timeAgo = timeSince(props.recentMessage.timeSent) + ' ago';
 
-  // need to convert time to days ago...
+  function changeBg() {
+
+    const msgUsername = document.querySelectorAll('.message-username');
+    let currentEl;
+
+    for (let item of msgUsername) {
+      if (item.textContent === props.username) {
+        currentEl = item.parentElement.parentElement;
+      }
+    }
+
+    const msgTextContainers = document.querySelectorAll('.message-item-container');
+
+    for (let item of msgTextContainers) {
+      item.classList.remove('message-list-selected');
+    }
+    currentEl.classList.add('message-list-selected');
+  }
+
 
   return (
     <div className='message-item-container' onClick={() => props.clickMe(props.username)}>

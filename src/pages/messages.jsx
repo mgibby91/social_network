@@ -42,10 +42,28 @@ export default function Messages() {
         intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
         setCurrentMessages(intMessages);
 
-
-      })
+      });
 
   }, [count]);
+
+  function changeBg(username) {
+
+    const msgUsername = document.querySelectorAll('.message-username');
+    let currentEl;
+
+    for (let item of msgUsername) {
+      if (item.textContent === username) {
+        currentEl = item.parentElement.parentElement;
+      }
+    }
+
+    const msgTextContainers = document.querySelectorAll('.message-item-container');
+
+    for (let item of msgTextContainers) {
+      item.classList.remove('message-list-selected');
+    }
+    currentEl.classList.add('message-list-selected');
+  }
 
 
   function clickMe(username) {
@@ -63,13 +81,20 @@ export default function Messages() {
     setCurrentMessages(intMessages);
 
     document.querySelector('#msg-textarea').value = '';
+    changeBg(username);
   }
 
   function submitMessage() {
 
     const textInput = document.querySelector('#msg-textarea').value;
-    const receiverID = Number(document.querySelector('.text-container').id);
+    const receiverID = document.querySelector('.text-container');
 
+    // error handling for if user message feed isn't clicked on
+    if (!receiverID) {
+      return;
+    }
+
+    // error handling for blank inputs
     if (!textInput) {
       const errorContainer = document.querySelector('.error-container');
       errorContainer.style.display = 'block';
@@ -79,7 +104,7 @@ export default function Messages() {
       }, 2000);
 
     } else {
-      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID })
+      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id })
         .then(() => {
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
@@ -95,6 +120,7 @@ export default function Messages() {
         <MessageList
           messageList={messageList}
           clickMe={clickMe}
+          username={currentUsername}
         />
       </div>
       <div className='right-message-container'>

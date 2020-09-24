@@ -245,7 +245,12 @@ textarea:focus {
   left: 31%;
   top: -2.6rem;
   border: 1px solid rgb(250, 70, 70);
+  background: rgb(250, 70, 70);
   padding: 0.3rem 0.6rem;
   border-radius: 5px;
-  color: rgb(250, 70, 70);
+  color: white
 }
+
+
+/* message list selected */
+.message-list-selected {background: #3366ff}
