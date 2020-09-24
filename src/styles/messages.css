@@ -102,8 +102,9 @@
 .message-text-container-right {
   overflow: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   height: 80%;
+  padding-bottom: 0.6rem;
 }
 
 .text-container {
@@ -221,6 +222,7 @@ textarea {
   margin-top: 3px;
   margin-right: 0.4rem;
   padding: 0.2rem 0.4rem;
+  border: none;
 }
 
 textarea:focus {

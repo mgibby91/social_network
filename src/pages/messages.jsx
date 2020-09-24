@@ -12,6 +12,9 @@ export default function Messages() {
 
   const [messageList, setMessageList] = useState({});
   const [currentData, setCurrentData] = useState([]);
+  const [count, setCount] = useState(0);
+  const [currentMessages, setCurrentMessages] = useState([]);
+  const [currentUsername, setCurrentUsername] = useState('');
 
   console.log('messageList', messageList);
   console.log('currentData', currentData);
@@ -29,18 +32,24 @@ export default function Messages() {
 
         setMessageList({ messageList: newMessageList });
 
-        let usernames = [];
+        const username = document.querySelector('.message-header-username').textContent;
 
-        for (let message in newMessageList) {
-          usernames.push(message)
+        let intMessages = [];
+
+        for (let msg of currentData) {
+          if (msg.sender === username || msg.receiver === username) {
+            intMessages.push(msg);
+          }
         }
+
+        intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
+        setCurrentMessages(intMessages);
+
 
       })
 
-  }, []);
+  }, [count]);
 
-  const [currentMessages, setCurrentMessages] = useState([]);
-  const [currentUsername, setCurrentUsername] = useState('');
 
   function clickMe(username) {
     setCurrentUsername(username);
@@ -53,11 +62,25 @@ export default function Messages() {
       }
     }
 
-    intMessages.sort((a, b) => new Date(a.time_sent) - new Date(b.time_sent))
+    intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
     setCurrentMessages(intMessages);
+
   }
 
-  function submitMessage() {
+  function submitMessage(username) {
+
+    console.log('username', username);
+
+    const textInput = document.querySelector('#msg-textarea').value;
+    const receiverID = Number(document.querySelector('.text-container').id);
+
+    console.log('userID', receiverID);
+
+    axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID })
+      .then((res) => {
+        console.log('new message res', res);
+        setCount(count + 1);
+      })
 
   }
 
@@ -79,6 +102,7 @@ export default function Messages() {
         />
         <MessageTextArea
           submitMessage={submitMessage}
+          username={currentUsername}
         />
       </div>
     </div>
