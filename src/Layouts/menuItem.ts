@@ -10,6 +10,14 @@ const items: MenuItemType[] = [
     title: 'Profile',
     link: { to: '/user-profile' },
   },
+  {
+    title: 'Mentors',
+    link: { to: '/mentor-list' },
+  },
+  {
+    title: 'Students',
+    link: { to: '/student-list' },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },
@@ -34,10 +42,10 @@ const items: MenuItemType[] = [
   //       title: 'Spinner',
   //       link: { to: '/extra-components/spinner' },
   //     },
-  //     {
-  //       title: 'Progress Bar',
-  //       link: { to: '/extra-components/progress' },
-  //     },
+      {
+        title: 'Progress Bar',
+        link: { to: '/extra-components/progress' },
+      },
   //     {
   //       title: 'Tabs',
   //       link: { to: '/extra-components/tabs' },

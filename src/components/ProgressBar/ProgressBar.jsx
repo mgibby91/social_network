@@ -1,7 +1,7 @@
 import React from "react";
-import Button from '../../components/Button'
+
 const ProgressBar = (props) => {
-  let { bgcolor, points } = props;
+  let { points, experience } = props;
 
   const containerStyles = {
     height: 20,
@@ -14,7 +14,7 @@ const ProgressBar = (props) => {
   
   const labelStyles = {
     padding: 5,
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold'
   }
   
@@ -27,69 +27,67 @@ const ProgressBar = (props) => {
   let level = 1;
   let experiencePoints = 0;
   let width;
-  let fullpoints
+  let fullExperience;
   function calculateLevel(points) {
     if (points < 10) {
-      fullpoints = 10;
+      fullExperience = 10;
       width = (10 * points);
-      return (fullpoints, width, experiencePoints += points);
+      return (fullExperience, width, experiencePoints += points);
     }
     if (points < 26) {
       level = 2;
-      fullpoints = 16;
+      fullExperience = 16;
       width = ((points - 10) * 100 / 16)
       experiencePoints += points - 10
-      return (fullpoints, width, level, experiencePoints)
+      return (fullExperience, width, level, experiencePoints)
     } 
     if (points < 52) {
       level = 3;
-      fullpoints = 26;
+      fullExperience = 26;
       width = (((points - 26) * 100) / 26)
       experiencePoints += points - 26
-      return (fullpoints, width, level, experiencePoints)
+      return (fullExperience, width, level, experiencePoints)
     }
     if (points < 100) {
       level = 4;
-      fullpoints = 48;
+      fullExperience = 48;
       width = (((points - 52) * 100) / 48)
       experiencePoints += points - 52
-      return (fullpoints, width, level, experiencePoints)
+      return (fullExperience, width, level, experiencePoints)
     }
     if (points < 168) {
       level = 5;
-      fullpoints = 68;
+      fullExperience = 68;
       width = (((points - 100) * 100) / 68)
       experiencePoints += points - 100
-      return (fullpoints, width, level, experiencePoints)
+      return (fullExperience, width, level, experiencePoints)
     }
     if (points >= 168) {
       level = 'MAX';
       width = 100;
-      fullpoints = 168
+      fullExperience = 168
       experiencePoints = 168;
-      return (fullpoints, width, level, experiencePoints)
+      return (fullExperience, width, level, experiencePoints)
     }
-
   }
+
   
-  calculateLevel(points)
+  calculateLevel(experience)
   
   const fillerStyles = {
     height: '100%',
     width: `${width}%`,
-    backgroundColor: bgcolor,
+    backgroundColor: "red",
     borderRadius: 'inherit',
     textAlign: 'right'
   }
 
-  console.log("points: ", points);
   return (
     <div style={containerStyles}>
       <div style={fillerStyles}>
-        <span style={labelStyles}>{`${experiencePoints}/${fullpoints}`}</span>
+        <span style={labelStyles}>{`${experiencePoints}/${fullExperience}`}</span>
       </div>
-    <span>Level {level}</span>
-        <Button onClick={add}>add xp</Button>
+        <span>Level {level}</span>
     </div>
   );
 };
