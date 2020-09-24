@@ -4,6 +4,7 @@ import '../styles/messages.css';
 import MessageList from '../components/messages/MessageList';
 import MessageView from '../components/messages/MessageView';
 import MessageHeader from '../components/messages/MessageHeader';
+import MessageTextArea from '../components/messages/MessageTextArea';
 import messageCleanSort from '../helpers/messageHelpers';
 
 
@@ -56,6 +57,10 @@ export default function Messages() {
     setCurrentMessages(intMessages);
   }
 
+  function submitMessage() {
+
+  }
+
 
   return (
     <div className='main-message-container'>
@@ -71,6 +76,9 @@ export default function Messages() {
         />
         <MessageView
           currentMessages={currentMessages}
+        />
+        <MessageTextArea
+          submitMessage={submitMessage}
         />
       </div>
     </div>
