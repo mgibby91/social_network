@@ -1,58 +1,66 @@
-import Progress from '@paljs/ui/ProgressBar';
-import { Status } from '@paljs/ui/types';
-import { Card, CardBody, CardHeader, CardFooter } from '@paljs/ui/Card';
-import { Actions } from '@paljs/ui/Actions';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
-import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
-// import SEO from '../../components/SEO';
+import { breakpointUp } from "@paljs/ui/breakpoints";
+import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
+import Row from "@paljs/ui/Row";
+import Col from "@paljs/ui/Col";
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import Editor from "./profile-components/editor";
+import Post from "./profile-components/recent-post";
+import { Button, ButtonLink } from "@paljs/ui/Button";
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  .bar {
-    flex: 1;
-  }
-`;
+interface BoxProps {
+  nested?: boolean;
+  container?: boolean;
+  row?: boolean;
+  large?: boolean;
+}
 
-export default function ProgressPage() {
-  const [value, setValue] = useState(25);
-  const [status, setStatus] = useState<Status>('Danger');
-
-  useEffect(() => {
-    if (value <= 25) {
-      setStatus('Danger');
-    } else if (value <= 50) {
-      setStatus('Warning');
-    } else if (value <= 75) {
-      setStatus('Info');
-    } else {
-      setStatus('Success');
-    }
-  }, [value]);
-
-  const setProgressValue = (newValue: number) => {
-    setValue(Math.min(Math.max(newValue, 0), 100));
-  };
-
-  const style = { marginBottom: '1rem' };
+function Profile() {
   return (
     <>
-      {/* <SEO title="Progress" keywords={['OAH', 'application', 'react']} /> */}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
-            <header>Progress Status</header>
+            <header>Profile</header>
+
             <CardBody>
-              <Progress style={style} value={20} status="Primary">
-                Primary
-              </Progress>
-              <Card accent="Info">
-                <CardHeader>Card with accent</CardHeader>
-                <CardBody>Hello Card component this body of card</CardBody>
-                <CardFooter>Footer</CardFooter>
-              </Card>
+              <Row>
+                <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+                  Avatar Goes Here
+                </Col>
+                <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
+                  <div>
+                    <p>Name</p>
+                    <p>@userName</p>
+                  </div>
+                </Col>
+                <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}></Col>
+              </Row>
+              <Row>
+                <Col breakPoint={{ xs: 12, md: 12 }}>
+                  <Editor />
+                  <Col
+                    key={1}
+                    offset={{ xs: 11 - 1 }}
+                    breakPoint={{ xs: 1 + 1 }}
+                  >
+                    <Button fullWidth appearance="hero" status="Success">
+                      Post
+                    </Button>
+                  </Col>
+                </Col>
+              </Row>
+              <Row>
+                <Col breakPoint={{ xs: 12, md: 12 }}>
+                  <header>Recent Posts</header>
+                </Col>
+              </Row>
+              <Row>
+                <Post></Post>
+                <Post></Post>
+                <Post></Post>
+                <Post></Post>
+              </Row>
             </CardBody>
           </Card>
         </Col>
@@ -60,3 +68,5 @@ export default function ProgressPage() {
     </>
   );
 }
+
+export default Profile;
