@@ -68,7 +68,7 @@
         }
       ],
       "options": {
-        "cacheDirectory": false,
+        "cacheDirectory": true,
         "sourceType": "unambiguous"
       }
     },
@@ -145,5 +145,8 @@
       }
     }
   },
-  "browserslist": [">0.25%", "not dead"]
+  "browserslist": [
+    ">0.25%",
+    "not dead"
+  ]
 }
