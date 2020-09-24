@@ -39,6 +39,12 @@
   border: 1px solid white;
 }
 
+.message-item-container:hover,
+.message-item-container:hover *{
+  cursor: pointer;
+  background: #3366ff;
+}
+
 /* icon left side */
 .message-item-container .message-icon-container {
   max-height: 100%;
@@ -88,4 +94,63 @@
   width: 20%;
   font-size: 0.8rem;
   font-weight: 600;
+}
+
+
+
+/* Text bubble - right side */
+.message-text-container-right {
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 90%;
+}
+
+.text-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.text-container .text-text {
+  position: relative;
+  border: 1px solid white;
+  padding: 0.5rem;
+  max-width: 60%;
+  margin: 0.6rem 0.4rem;
+  /* border-radius: 8px; */
+}
+
+.text-right-container { justify-content: flex-end}
+.text-left-container { justify-content: flex-start}
+
+.text-text-right {border-radius: 9px 9px 0 9px}
+.text-text-left {border-radius: 9px 9px 9px 0}
+
+.text-time {
+  font-size: 0.6rem;
+  font-weight: 500;
+}
+
+.text-time-right {
+  position: absolute;
+  bottom: -7.5px;
+  right: 0;
+  margin-right: 0.6rem;
+}
+
+.text-time-left {
+  position: absolute;
+  bottom: -7.5px;
+  left: 0;
+  margin-left: 0.6rem;
+}
+
+
+/* Header */
+.message-text-header {
+  height: 10%;
+  border: 1px solid white;
 }

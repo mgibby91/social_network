@@ -3,10 +3,7 @@ import timeSince from '../../helpers/timeSince';
 
 export default function MessageItem(props) {
 
-  console.log('messageitemprops', props);
-
   const firstInitial = props.username[0].toUpperCase();
-  console.log(firstInitial);
 
   let messageBody;
   if (props.recentMessage.textBody.length > 35) {
@@ -20,7 +17,7 @@ export default function MessageItem(props) {
   // need to convert time to days ago...
 
   return (
-    <div className='message-item-container'>
+    <div className='message-item-container' onClick={() => props.clickMe(props.username)}>
       <div className="message-icon-container">
         <div className='message-icon'>{firstInitial}</div>
       </div>

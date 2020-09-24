@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/messages.css';
 import MessageList from '../components/messages/MessageList';
+import MessageView from '../components/messages/MessageView';
+import MessageHeader from '../components/messages/MessageHeader';
 import messageCleanSort from '../helpers/messageHelpers';
 
 
 export default function Messages() {
 
   const [messageList, setMessageList] = useState({});
+  const [currentData, setCurrentData] = useState([]);
 
   console.log('messageList', messageList);
+  console.log('currentData', currentData);
 
   useEffect(() => {
 
@@ -18,9 +22,9 @@ export default function Messages() {
         const currentUserID = data.data.userId;
         const currentData = data.data.data;
 
-        const newMessageList = messageCleanSort(currentUserID, currentData);
+        setCurrentData(currentData);
 
-        console.log('newMessageList', newMessageList);
+        const newMessageList = messageCleanSort(currentUserID, currentData);
 
         setMessageList({ messageList: newMessageList });
 
@@ -34,15 +38,40 @@ export default function Messages() {
 
   }, []);
 
+  const [currentMessages, setCurrentMessages] = useState([]);
+  const [currentUsername, setCurrentUsername] = useState('');
+
+  function clickMe(username) {
+    setCurrentUsername(username);
+
+    let intMessages = [];
+
+    for (let msg of currentData) {
+      if (msg.sender === username || msg.receiver === username) {
+        intMessages.push(msg);
+      }
+    }
+
+    intMessages.sort((a, b) => new Date(a.time_sent) - new Date(b.time_sent))
+    setCurrentMessages(intMessages);
+  }
+
+
   return (
     <div className='main-message-container'>
       <div className='left-message-container'>
         <MessageList
           messageList={messageList}
+          clickMe={clickMe}
         />
       </div>
       <div className='right-message-container'>
-
+        <MessageHeader
+          username={currentUsername}
+        />
+        <MessageView
+          currentMessages={currentMessages}
+        />
       </div>
     </div>
   );
