@@ -6,8 +6,8 @@ export default function MessageItem(props) {
   const firstInitial = props.username[0].toUpperCase();
 
   let messageBody;
-  if (props.recentMessage.textBody.length > 35) {
-    messageBody = props.recentMessage.textBody.slice(0, 35) + '...'
+  if (props.recentMessage.textBody.length > 25) {
+    messageBody = props.recentMessage.textBody.slice(0, 25) + '...'
   } else {
     messageBody = props.recentMessage.textBody;
   }

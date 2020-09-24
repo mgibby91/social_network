@@ -7,6 +7,7 @@ export default function MessageTextArea(props) {
 
   return (
     <div className='message-text-area-container'>
+      <div className='error-container'>Please enter valid message!</div>
       <div className="message-text-area">
         <textarea name="message-text-area" id="msg-textarea" cols="30" rows="2"></textarea>
       </div>

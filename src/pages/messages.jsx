@@ -16,9 +16,6 @@ export default function Messages() {
   const [currentMessages, setCurrentMessages] = useState([]);
   const [currentUsername, setCurrentUsername] = useState('');
 
-  console.log('messageList', messageList);
-  console.log('currentData', currentData);
-
   useEffect(() => {
 
     axios.get('http://localhost:8001/api/messages')
@@ -65,22 +62,29 @@ export default function Messages() {
     intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
     setCurrentMessages(intMessages);
 
+    document.querySelector('#msg-textarea').value = '';
   }
 
-  function submitMessage(username) {
-
-    console.log('username', username);
+  function submitMessage() {
 
     const textInput = document.querySelector('#msg-textarea').value;
     const receiverID = Number(document.querySelector('.text-container').id);
 
-    console.log('userID', receiverID);
+    if (!textInput) {
+      const errorContainer = document.querySelector('.error-container');
+      errorContainer.style.display = 'block';
 
-    axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID })
-      .then((res) => {
-        console.log('new message res', res);
-        setCount(count + 1);
-      })
+      setTimeout(() => {
+        errorContainer.style.display = 'none';
+      }, 2000);
+
+    } else {
+      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID })
+        .then(() => {
+          setCount(count + 1);
+          document.querySelector('#msg-textarea').value = '';
+        })
+    }
 
   }
 
