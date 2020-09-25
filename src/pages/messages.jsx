@@ -61,6 +61,7 @@ export default function Messages() {
   function changeBg(username, deselectBG) {
 
     const msgUsername = document.querySelectorAll('.message-username');
+    console.log('msgUsername', msgUsername);
     let currentEl;
 
     for (let item of msgUsername) {
@@ -75,7 +76,7 @@ export default function Messages() {
       item.classList.remove('message-list-selected');
     }
 
-    if (!deselectBG) {
+    if (!deselectBG && currentEl) {
       currentEl.classList.add('message-list-selected');
     }
   }
@@ -103,11 +104,8 @@ export default function Messages() {
   function submitMessage() {
 
     setCreateNew(false);
+
     const textInput = document.querySelector('#msg-textarea').value;
-
-    // const something = document.querySelector('#username-list-data').selectedOptions[0];
-    // console.log('somethign', something);
-
     const selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
 
     let receiverID;
@@ -141,8 +139,9 @@ export default function Messages() {
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
 
-          changeBg(selectedUsername);
-
+          setTimeout(() => {
+            changeBg(selectedUsername);
+          }, 10);
         })
     }
 
