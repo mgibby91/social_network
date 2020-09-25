@@ -6,10 +6,39 @@ export default function LoginLogout() {
   function login() {
     const userID = Number(document.querySelector('#login-user-id').value);
     document.cookie = `userID=${userID};`;
+
+    axios.post('http://localhost:8001/api/login', { userID })
+      .then(res => {
+        const username = res.data[0].username;
+        console.log(username);
+
+        const rightNavContainer = document.querySelector('.sc-kEqYlL.gyZWym.right');
+
+        if (rightNavContainer.firstElementChild.className === 'logged-in-username') {
+          rightNavContainer.firstElementChild.remove();
+        }
+
+        console.log(rightNavContainer);
+
+        const usernameHTML = `
+          <div class='logged-in-username'>
+            <p>Welcome <strong>${username}!</strong></p>
+          </div>
+        `;
+
+        rightNavContainer.insertAdjacentHTML('afterbegin', usernameHTML);
+
+      })
   }
 
   function logout() {
     document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
+    const rightNavContainer = document.querySelector('.sc-kEqYlL.gyZWym.right');
+
+    if (rightNavContainer.firstElementChild.className === 'logged-in-username') {
+      rightNavContainer.firstElementChild.remove();
+    }
   }
 
   return (

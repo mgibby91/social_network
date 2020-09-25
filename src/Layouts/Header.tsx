@@ -133,6 +133,8 @@ const Header: React.FC<HeaderProps> = (props) => {
           className="right"
           actions={[
             {
+            },
+            {
               icon: 'github',
               url: { href: 'https://github.com/paljs/gatsby-admin-template', target: '_blank' },
             },
