@@ -11,7 +11,7 @@ interface Istudents {
 	[index: number]: {username: string; studentrating: string}
 }
 
-export default function StudentList(props: IProps) {
+export default function StudentList(props) {
 	
 	console.log("prop in student liss: ", props);
 	
