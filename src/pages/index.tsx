@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { navigate } from 'gatsby';
+import axios from 'axios';
 
 export default function Index() {
   useEffect(() => {
-    navigate('/extra-components/accordion');
-  }),
-    [];
+    navigate('/');
+
+    axios.get('http://localhost:8001/api/');
+  }, [])
   return <div />;
 }
