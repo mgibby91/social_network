@@ -1,6 +1,7 @@
 import React from 'react';
 import MessageItem from './MessageItem';
 import '../../styles/messages.css'
+import axios from 'axios';
 
 export default function MessageList(props) {
 
@@ -27,6 +28,7 @@ export default function MessageList(props) {
         recentMessage={messageListObj[messageKey][0]}
         username={messageKey}
         clickMe={props.clickMe}
+        avatarList={props.avatarList}
       />
     })
   }

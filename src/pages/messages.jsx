@@ -15,11 +15,11 @@ export default function Messages() {
   const [count, setCount] = useState(0);
   const [currentMessages, setCurrentMessages] = useState([]);
   const [currentUsername, setCurrentUsername] = useState('');
+  const [avatars, setAvatars] = useState([]);
 
   useEffect(() => {
 
     const userID = document.cookie.split('=')[1];
-    console.log('userID', userID);
 
     axios.post('http://localhost:8001/api/messages/', { userID })
       .then((data) => {
@@ -48,6 +48,14 @@ export default function Messages() {
       });
 
   }, [count]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8001/api/user_profiles')
+      .then(res => {
+        console.log('user_profilesData', res.data);
+        setAvatars(res.data);
+      })
+  }, [])
 
   function changeBg(username) {
 
@@ -126,6 +134,7 @@ export default function Messages() {
           messageList={messageList}
           clickMe={clickMe}
           username={currentUsername}
+          avatarList={avatars}
         />
       </div>
       <div className='right-message-container'>

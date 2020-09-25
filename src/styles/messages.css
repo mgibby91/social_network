@@ -39,8 +39,7 @@
   border: 1px solid white;
 }
 
-.message-item-container:hover,
-.message-item-container:hover *{
+.message-item-container:hover{
   cursor: pointer;
   background: #3366ff;
 }
