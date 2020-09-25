@@ -13,8 +13,16 @@ import StudentListItem from "./StudentListItem";
 export default function StudentList(props) {
   console.log("prop in student liss: ", props);
 
-  const { students } = props;
-  console.log("students in list: ", students);
+
+export default function StudentList(props) {
+	
+	console.log("prop in student liss: ", props);
+	
+	const { students } = props;
+	console.log("students in list: ", students);
+	
+	const studentsData = students.map((student, index) => {
+
 
   const studentsData = students.map((student, index) => {
     return (
