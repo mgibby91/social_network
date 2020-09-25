@@ -103,12 +103,15 @@ export default function Messages() {
 
   function submitMessage() {
 
-    setCreateNew(false);
+    let selectedUsername;
+
+    if (createNew) {
+      selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
+    }
 
     const textInput = document.querySelector('#msg-textarea').value;
-    // const selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
 
-    let receiverID, selectedUsername;
+    let receiverID;
 
     if (!createNew) {
       receiverID = document.querySelector('.text-container');
@@ -132,17 +135,20 @@ export default function Messages() {
 
     } else {
       const senderID = document.cookie.split('=')[1];
-      selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
 
       axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id, senderID })
         .then(() => {
-          setCurrentUsername(selectedUsername);
+          if (createNew) {
+            setCurrentUsername(selectedUsername);
+            setTimeout(() => {
+              changeBg(selectedUsername);
+            }, 25);
+          }
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
 
-          setTimeout(() => {
-            changeBg(selectedUsername);
-          }, 10);
+
+          setCreateNew(false);
         })
     }
 
