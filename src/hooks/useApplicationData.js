@@ -1,9 +1,10 @@
 import { useReducer, useEffect } from "react";
 import axios from "axios";
-import fetch from "node-fetch";
 import reducer, {
   SET_POINTS,
   SET_APPLICATION_DATA,
+  SET_STUDENT_POINTS,
+  SET_MENTOR_POINTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -17,8 +18,8 @@ export default function useApplicationData() {
     tutor_experiences: [],
     user_profiles: [],
     users: [],
-    mentor_points: 0,
-    student_points: 0,
+    mentor_points: [],
+    student_points: [],
   });
 
   // RETRIEVES API AND SETS IT WITH REDUCER
@@ -32,10 +33,10 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/tutor_experiences"),
       axios.get("http://localhost:8001/api/user_profiles"),
       axios.get("http://localhost:8001/api/users"),
-      // axios.get("http://localhost:8001/api/user_profiles/mentor_points/:id"),
-      // axios.get("http://localhost:8001/api/user_profiles/student_points/:id"),
+      axios.get("http://localhost:8001/api/mentor_points"),
+      axios.get("http://localhost:8001/api/student_points"),
     ]).then((all) => {
-      console.log("all from applicatin data hook: ", all);
+      // console.log("all from applicatin data hook: ", all);
       const comments = all[0].data;
       const likes = all[1].data;
       const mentor_stack = all[2].data;
@@ -44,9 +45,8 @@ export default function useApplicationData() {
       const tutor_experiences = all[5].data;
       const user_profiles = all[6].data;
       const users = all[7].data;
-      // const mentor_points = all[8].data;
-      // const student_points = all[9].data;
-
+      const mentor_points = all[8].data;
+      const student_points = all[9].data;
       dispatch({
         type: SET_APPLICATION_DATA,
         comments,
@@ -57,13 +57,12 @@ export default function useApplicationData() {
         tutor_experiences,
         user_profiles,
         users,
-        // mentor_points,
-        // student_points,
+        mentor_points,
+        student_points,
       });
     });
   }, []);
 
-  console.log("state in hook: ", state);
   // FOR WEBSOCKET
   useEffect(() => {
     const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
@@ -81,16 +80,29 @@ export default function useApplicationData() {
     };
   }, []);
 
-  const addPoints = (points) => {
-    const url = `/api/points`;
-    const promise = axios.put(url, { points }).then((res) => {
+  const addMentorPoints = (mentorID, mentorPoints) => {
+    const url = `/api/mentor_points`;
+    const promise = axios.put(url, { mentorPoints }).then((req, res) => {
       dispatch({
         type: SET_POINTS,
-        points: res.data.points,
+        points: mentorPoints,
+        id: mentorID,
       });
     });
     return promise;
   };
 
-  return { state, addPoints };
+  const addStudentPoints = (studentID, studentPoints) => {
+    const url = `/api/mentor_points`;
+    const promise = axios.put(url, { studentPoints }).then((req, res) => {
+      dispatch({
+        type: SET_POINTS,
+        points: studentPoints,
+        id: studentID,
+      });
+    });
+    return promise;
+  };
+
+  return { state, addMentorPoints, addStudentPoints };
 }

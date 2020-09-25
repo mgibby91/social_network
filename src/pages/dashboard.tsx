@@ -1,6 +1,6 @@
 import React from "react";
 import ProgressBar from "../components/Button";
-import Button from "../components/Button";
+import { Button } from '@paljs/ui/Button';
 import useApplicationData from "../hooks/useApplicationData";
 
 const testData = [
@@ -17,12 +17,7 @@ const addPoints = (data) => {
 };
 
 function Home() {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview,
-  } = useApplicationData();
+
   return (
     <div className="App">
       {testData.map((item, idx) => (
