@@ -1,22 +1,22 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import styled, { DefaultTheme } from 'styled-components';
-import Select from '@paljs/ui/Select';
-import { LayoutHeader } from '@paljs/ui/Layout';
-import { EvaIcon } from '@paljs/ui/Icon';
-import { Button } from '@paljs/ui/Button';
-import { Actions } from '@paljs/ui/Actions';
-import ContextMenu from '@paljs/ui/ContextMenu';
-import User from '@paljs/ui/User';
-import { getPathReady } from './Sidebar';
-import { Location } from '@reach/router';
-import { breakpointDown } from '@paljs/ui/breakpoints';
+import React from "react";
+import { Link } from "gatsby";
+import styled, { DefaultTheme } from "styled-components";
+import Select from "@paljs/ui/Select";
+import { LayoutHeader } from "@paljs/ui/Layout";
+import { EvaIcon } from "@paljs/ui/Icon";
+import { Button } from "@paljs/ui/Button";
+import { Actions } from "@paljs/ui/Actions";
+import ContextMenu from "@paljs/ui/ContextMenu";
+import User from "@paljs/ui/User";
+import { getPathReady } from "./Sidebar";
+import { Location } from "@reach/router";
+import { breakpointDown } from "@paljs/ui/breakpoints";
 
 const HeaderStyle = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  ${breakpointDown('sm')`
+  ${breakpointDown("sm")`
     .right{
       display: none;
     }
@@ -44,45 +44,45 @@ const SelectStyled = styled(Select)`
 
 interface HeaderProps {
   toggleSidebar: () => void;
-  changeTheme: (value: DefaultTheme['name']) => void;
+  changeTheme: (value: DefaultTheme["name"]) => void;
   changeDir: () => void;
-  dir: 'rtl' | 'ltr';
+  dir: "rtl" | "ltr";
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
   const themeOptions = [
     {
-      value: 'default',
+      value: "default",
       label: (
         <Label>
-          <EvaIcon name="droplet" options={{ fill: '#a6c1ff' }} />
+          <EvaIcon name="droplet" options={{ fill: "#a6c1ff" }} />
           Default
         </Label>
       ),
     },
     {
-      value: 'dark',
+      value: "dark",
       label: (
         <Label>
-          <EvaIcon name="droplet" options={{ fill: '#192038' }} />
+          <EvaIcon name="droplet" options={{ fill: "#192038" }} />
           Dark
         </Label>
       ),
     },
     {
-      value: 'cosmic',
+      value: "cosmic",
       label: (
         <Label>
-          <EvaIcon name="droplet" options={{ fill: '#5a37b8' }} />
+          <EvaIcon name="droplet" options={{ fill: "#5a37b8" }} />
           Cosmic
         </Label>
       ),
     },
     {
-      value: 'corporate',
+      value: "corporate",
       label: (
         <Label>
-          <EvaIcon name="droplet" options={{ fill: '#3366ff' }} />
+          <EvaIcon name="droplet" options={{ fill: "#3366ff" }} />
           Corporate
         </Label>
       ),
@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           size="Medium"
           actions={[
             {
-              icon: { name: 'menu-2-outline' },
+              icon: { name: "menu-2-outline" },
               url: {
                 onClick: props.toggleSidebar,
               },
@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             {
               content: (
                 <Link to="/" className="logo">
-                  Social Network
+                  STACK
                 </Link>
               ),
             },
@@ -137,26 +137,36 @@ const Header: React.FC<HeaderProps> = (props) => {
             {
               icon: 'github',
               url: { href: 'https://github.com/paljs/gatsby-admin-template', target: '_blank' },
+              icon: "github",
+              url: {
+                href: "https://github.com/paljs/gatsby-admin-template",
+                target: "_blank",
+              },
             },
             {
-              icon: 'twitter',
-              url: { href: 'https://twitter.com/AhmedElywh', target: '_blank' },
+              icon: "twitter",
+              url: { href: "https://twitter.com/AhmedElywh", target: "_blank" },
             },
             {
               content: (
                 <Location>
                   {({ location }) => (
                     <ContextMenu
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: "pointer" }}
                       placement="bottom"
                       currentPath={getPathReady(location.pathname)}
                       items={[
-                        { title: 'Profile', link: { to: '/modal-overlays/tooltip' } },
-                        { title: 'Log out', link: { to: '/logout' } },
+                        { title: "Profile", link: { to: "/user-profile" } },
+                        { title: "Log out", link: { to: "/logout" } },
                       ]}
                       Link={Link}
                     >
-                      <User image="url('/icons/icon-72x72.png')" name="Ahmed Elywa" title="Manger" size="Medium" />
+                      <User
+                        image="url('/icons/icon-72x72.png')"
+                        name="Ahmed Elywa"
+                        title="Manger"
+                        size="Medium"
+                      />
                     </ContextMenu>
                   )}
                 </Location>

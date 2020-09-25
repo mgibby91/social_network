@@ -12,6 +12,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@tinymce/tinymce-react": "3.6.0",
+    "@uiw/react-md-editor": "^1.14.4",
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "class-names": "^1.0.0",
@@ -84,6 +85,7 @@
     "pretty-quick": "3.0.0",
     "proptypes": "^1.1.0",
     "react-live": "2.2.2",
+    "react-star-rating-component": "^1.4.1",
     "reactstrap": "^8.6.0",
     "typescript": "4.0.2"
   },
