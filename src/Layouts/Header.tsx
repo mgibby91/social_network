@@ -137,11 +137,6 @@ const Header: React.FC<HeaderProps> = (props) => {
             {
               icon: 'github',
               url: { href: 'https://github.com/paljs/gatsby-admin-template', target: '_blank' },
-              icon: "github",
-              url: {
-                href: "https://github.com/paljs/gatsby-admin-template",
-                target: "_blank",
-              },
             },
             {
               icon: "twitter",

@@ -19,7 +19,7 @@ const items: MenuItemType[] = [
     title: 'Login-Logout',
     link: { to: '/login-logout' },
   },
-
+  {
     title: 'Mentors',
     link: { to: '/mentor-list' },
   },
