@@ -133,16 +133,13 @@ const Header: React.FC<HeaderProps> = (props) => {
           className="right"
           actions={[
             {
-              icon: "github",
-              url: {
-                href: "https://github.com/paljs/gatsby-admin-template",
-                target: "_blank",
-              },
+              icon: "message-square-outline",
+              // link: { to: "/messages" },
             },
-            {
-              icon: "twitter",
-              url: { href: "https://twitter.com/AhmedElywh", target: "_blank" },
-            },
+            // {
+            //   icon: "twitter",
+            //   url: { href: "https://twitter.com/AhmedElywh", target: "_blank" },
+            // },
             {
               content: (
                 <Location>

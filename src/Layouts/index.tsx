@@ -1,38 +1,47 @@
-import React, { useState, useRef } from 'react';
-import { DefaultTheme, ThemeProvider } from 'styled-components';
-import themes from './themes';
-import { Layout, LayoutContent, LayoutFooter, LayoutContainer, LayoutColumns, LayoutColumn } from '@paljs/ui/Layout';
-import icons from '@paljs/icons';
-import { SidebarRefObject } from '@paljs/ui/Sidebar';
-import Header from './Header';
-import SimpleLayout from './SimpleLayout';
-import SidebarCustom from './Sidebar';
-import useApplicationData from "../hooks/useApplicationData";
+import React, { useState, useRef } from "react";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import themes from "./themes";
+import {
+  Layout,
+  LayoutContent,
+  LayoutFooter,
+  LayoutContainer,
+  LayoutColumns,
+  LayoutColumn,
+} from "@paljs/ui/Layout";
+import icons from "@paljs/icons";
+import { SidebarRefObject } from "@paljs/ui/Sidebar";
+import Header from "./Header";
+import SimpleLayout from "./SimpleLayout";
+import SidebarCustom from "./Sidebar";
 
-const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({ children, pageContext }) => {
-  const [theme, setTheme] = useState<DefaultTheme['name']>('dark');
-  const [dir, setDir] = useState<'ltr' | 'rtl'>('ltr');
+const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
+  children,
+  pageContext,
+}) => {
+  const [theme, setTheme] = useState<DefaultTheme["name"]>("dark");
+  const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
   const sidebarRef = useRef<SidebarRefObject>(null);
 
-  const changeTheme = (newTheme: DefaultTheme['name']) => {
+  const changeTheme = (newTheme: DefaultTheme["name"]) => {
     setTheme(newTheme);
   };
 
   const changeDir = () => {
-    const newDir = dir === 'ltr' ? 'rtl' : 'ltr';
+    const newDir = dir === "ltr" ? "rtl" : "ltr";
     setDir(newDir);
   };
-
-  const { state, addPoints } = useApplicationData();
-  console.log("state in index.tsx: ", state);
-  
 
   return (
     <ThemeProvider theme={themes(theme, dir)}>
       <>
         <SimpleLayout />
-        <Layout evaIcons={icons} dir={dir} className={pageContext.layout === 'auth' ? 'auth-layout' : ''}>
-          {pageContext.layout !== 'auth' && (
+        <Layout
+          evaIcons={icons}
+          dir={dir}
+          className={pageContext.layout === "auth" ? "auth-layout" : ""}
+        >
+          {pageContext.layout !== "auth" && (
             <Header
               dir={dir}
               changeDir={changeDir}
@@ -41,7 +50,9 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({ children, p
             />
           )}
           <LayoutContainer>
-            {pageContext.layout !== 'auth' && <SidebarCustom ref={sidebarRef} />}
+            {pageContext.layout !== "auth" && (
+              <SidebarCustom ref={sidebarRef} />
+            )}
             <LayoutContent>
               <LayoutColumns>
                 <LayoutColumn className="main-content">{children}</LayoutColumn>

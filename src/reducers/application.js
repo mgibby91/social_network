@@ -1,6 +1,8 @@
 const SET_POINTS = "SET_POINTS";
 
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
+const SET_MENTOR_POINTS = "SET_MENTOR_POINTS";
+const SET_STUDENT_POINTS = "SET_STUDENT_POINTS";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
@@ -8,32 +10,41 @@ export default function reducer(state, action) {
       return { ...state, points: action.points };
 
     case SET_APPLICATION_DATA:
-      console.log("action in reducer: ", action);
       const {
         comments,
+        mentor_points,
         mentor_stack,
         likes,
         messages,
         posts,
+        student_points,
         student_stack,
         tutor_experiences,
         user_profiles,
         users,
       } = action;
-      
+
       return {
         ...state,
         comments,
         mentor_stack,
+        mentor_points,
         likes,
         messages,
         posts,
+        student_points,
         student_stack,
         tutor_experiences,
         user_profiles,
         users,
       };
-      
+
+    case SET_MENTOR_POINTS:
+      return { ...state, mentor: action.id, points: action.points};
+
+    case SET_STUDENT_POINTS:
+      return { ...state, student: action.id, points: action.points }
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -41,4 +52,4 @@ export default function reducer(state, action) {
   }
 }
 
-export { SET_POINTS, SET_APPLICATION_DATA };
+export { SET_POINTS, SET_APPLICATION_DATA, SET_MENTOR_POINTS, SET_STUDENT_POINTS };
