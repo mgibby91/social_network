@@ -1,10 +1,16 @@
-import React from "react";
-import ProgressBar from "../components/Button";
-import { Button } from "@paljs/ui/Button";
-import useApplicationData from "../hooks/useApplicationData";
+import React,{useState, useEffect} from "react";
+import Application from "../components/DashBoard/Application";
 
-function Home() {
-  return <div className="App"></div>;
+import axios from 'axios';
+
+
+export default function Home() {
+
+  
+
+  return (
+    <div className="App">
+      <Application />
+    </div>
+  );
 }
-
-export default Home;
