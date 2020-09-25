@@ -21,7 +21,6 @@ export default function MessageList(props) {
 
   if (!messageListEmpty) {
 
-    console.log('hi');
     messageData = Object.keys(messageListObj).map(messageKey => {
       return <MessageItem
         key={Object.keys(messageListObj).indexOf(messageKey)}

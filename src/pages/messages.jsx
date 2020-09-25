@@ -5,8 +5,8 @@ import MessageList from '../components/messages/MessageList';
 import MessageView from '../components/messages/MessageView';
 import MessageHeader from '../components/messages/MessageHeader';
 import MessageTextArea from '../components/messages/MessageTextArea';
+import MessageListHeader from '../components/messages/MessageListHeader';
 import messageCleanSort from '../helpers/messageHelpers';
-
 
 export default function Messages() {
 
@@ -16,6 +16,7 @@ export default function Messages() {
   const [currentMessages, setCurrentMessages] = useState([]);
   const [currentUsername, setCurrentUsername] = useState('');
   const [avatars, setAvatars] = useState([]);
+  const [createNew, setCreateNew] = useState(false);
 
   useEffect(() => {
 
@@ -78,6 +79,7 @@ export default function Messages() {
 
 
   function clickMe(username) {
+    setCreateNew(false);
     setCurrentUsername(username);
 
     let intMessages = [];
@@ -97,8 +99,20 @@ export default function Messages() {
 
   function submitMessage() {
 
+    setCreateNew(false);
     const textInput = document.querySelector('#msg-textarea').value;
-    const receiverID = document.querySelector('.text-container');
+
+    // const something = document.querySelector('#username-list-data').selectedOptions[0];
+    // console.log('somethign', something);
+
+
+    let receiverID;
+
+    if (!createNew) {
+      receiverID = document.querySelector('.text-container');
+    } else {
+      receiverID = document.querySelector('#username-list-data').selectedOptions[0];
+    }
 
     // error handling for if user message feed isn't clicked on
     if (!receiverID) {
@@ -126,10 +140,17 @@ export default function Messages() {
 
   }
 
+  function createNewMsg() {
+    setCreateNew(true);
+  }
+
 
   return (
     <div className='main-message-container'>
       <div className='left-message-container'>
+        <MessageListHeader
+          createNewMsg={createNewMsg}
+        />
         <MessageList
           messageList={messageList}
           clickMe={clickMe}
@@ -141,9 +162,11 @@ export default function Messages() {
         <MessageHeader
           username={currentUsername}
           avatarList={avatars}
+          createNew={createNew}
         />
         <MessageView
           currentMessages={currentMessages}
+          createNew={createNew}
         />
         <MessageTextArea
           submitMessage={submitMessage}

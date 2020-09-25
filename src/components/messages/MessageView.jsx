@@ -3,7 +3,6 @@ import MessageTextBubble from '../../components/messages/MessageTextBubble'
 
 export default function MessageView(props) {
 
-  console.log('MsgViewProps', props)
   const currentMessages = props.currentMessages;
 
   const messageData = currentMessages.map(msg => {
