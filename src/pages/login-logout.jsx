@@ -4,22 +4,46 @@ import axios from 'axios';
 export default function LoginLogout() {
 
   function login() {
-
     const userID = Number(document.querySelector('#login-user-id').value);
-    console.log('userID', userID);
-
-    document.cookie = `userID=${userID}; expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/`
+    document.cookie = `userID=${userID};`;
 
     axios.post('http://localhost:8001/api/login', { userID })
-      .then((res) => {
-        console.log(res);
-      })
+      .then(res => {
+        const username = res.data[0].username;
+        console.log(username);
 
+        const rightNavContainer = document.querySelector('.sc-kEqYlL.gyZWym.right');
+
+        if (rightNavContainer.firstElementChild.className === 'logged-in-username') {
+          rightNavContainer.firstElementChild.remove();
+        }
+
+        console.log(rightNavContainer);
+
+        const usernameHTML = `
+          <div class='logged-in-username'>
+            <p>Welcome <strong>${username}!</strong></p>
+          </div>
+        `;
+
+        rightNavContainer.insertAdjacentHTML('afterbegin', usernameHTML);
+
+      })
+  }
+
+  function logout() {
+    document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
+    const rightNavContainer = document.querySelector('.sc-kEqYlL.gyZWym.right');
+
+    if (rightNavContainer.firstElementChild.className === 'logged-in-username') {
+      rightNavContainer.firstElementChild.remove();
+    }
   }
 
   return (
     <div>
-      <label htmlFor="login">User ID</label>
+      <label htmlFor="login">User ID:</label>
       <select name="login" id="login-user-id">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -33,6 +57,7 @@ export default function LoginLogout() {
         <option value="10">10</option>
       </select>
       <button type='button' name='login' onClick={() => login()}>Login</button>
+      <button type='button' name='logout' onClick={() => logout()}>Logout</button>
     </div>
   );
 }
