@@ -15,6 +15,22 @@ const items: MenuItemType[] = [
     title: 'Messages',
     link: { to: '/messages' },
   },
+  {
+    title: 'Mentors',
+    link: { to: '/mentor-list' },
+  },
+  {
+    title: 'Students',
+    link: { to: '/student-list' },
+  },
+  {
+    title: 'User Rating',
+    link: { to: '/user-rating' },
+  },
+  {
+    title: 'Forms',
+    link: { to: '/forms' },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },
@@ -40,10 +56,6 @@ const items: MenuItemType[] = [
   //       link: { to: '/extra-components/spinner' },
   //     },
   //     {
-  //       title: 'Progress Bar',
-  //       link: { to: '/extra-components/progress' },
-  //     },
-  //     {
   //       title: 'Tabs',
   //       link: { to: '/extra-components/tabs' },
   //     },
@@ -65,6 +77,7 @@ const items: MenuItemType[] = [
   //     },
   //   ],
   // },
+
   {
     title: "Forms",
     icon: { name: "edit-2-outline" },
