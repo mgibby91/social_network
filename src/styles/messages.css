@@ -66,6 +66,12 @@
   font-size: 1.5rem;
 }
 
+.message-left-list {
+  overflow: auto;
+  max-height: 90%;
+}
+
+
 /* message username and text preview */
 .message-item-container .message-username-text {
   display: flex;

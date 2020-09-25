@@ -5,6 +5,8 @@ export default function MessageView(props) {
 
   const currentMessages = props.currentMessages;
 
+  console.log('props.createNew', props.createNew);
+
   const messageData = currentMessages.map(msg => {
 
     return <MessageTextBubble
@@ -20,7 +22,7 @@ export default function MessageView(props) {
 
   return (
     <div className='message-text-container-right'>
-      {messageData}
+      {!props.createNew && messageData}
     </div>
   )
 }

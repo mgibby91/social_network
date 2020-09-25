@@ -34,7 +34,7 @@ export default function MessageList(props) {
 
 
   return (
-    <div>
+    <div className='message-left-list'>
       {messageData ? messageData : null}
     </div>
   )
