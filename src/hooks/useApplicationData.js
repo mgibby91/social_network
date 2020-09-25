@@ -3,6 +3,8 @@ import axios from "axios";
 import reducer, {
   SET_POINTS,
   SET_APPLICATION_DATA,
+  SET_STUDENT_POINTS,
+  SET_MENTOR_POINTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -78,16 +80,29 @@ export default function useApplicationData() {
     };
   }, []);
 
-  const addPoints = (points) => {
-    const url = `/api/points`;
-    const promise = axios.put(url, { points }).then((res) => {
+  const addMentorPoints = (mentorID, mentorPoints) => {
+    const url = `/api/mentor_points`;
+    const promise = axios.put(url, { mentorPoints }).then((req, res) => {
       dispatch({
         type: SET_POINTS,
-        points: res.data.points,
+        points: mentorPoints,
+        id: mentorID,
       });
     });
     return promise;
   };
 
-  return { state, addPoints };
+  const addStudentPoints = (studentID, studentPoints) => {
+    const url = `/api/mentor_points`;
+    const promise = axios.put(url, { studentPoints }).then((req, res) => {
+      dispatch({
+        type: SET_POINTS,
+        points: studentPoints,
+        id: studentID,
+      });
+    });
+    return promise;
+  };
+
+  return { state, addMentorPoints, addStudentPoints };
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import ProgressBar from "../components/Button";
-import Button from "../components/Button";
+import { Button } from '@paljs/ui/Button';
 import useApplicationData from "../hooks/useApplicationData";
 
 const testData = [

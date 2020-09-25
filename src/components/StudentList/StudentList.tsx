@@ -3,15 +3,16 @@ import React from "react";
 import StudentListItem from "./StudentListItem";
 
 
-// interface IProps {
-// 	students: Istudents
-// }
+interface IProps {
+	students: Istudents
+}
 
-// interface Istudents {
-// 	[index: number]: {username: string; studentrating: string}
-// }
+interface Istudents {
+	[index: number]: {username: string; studentrating: string}
+}
 
-export default function StudentList(props) {
+export default function StudentList(props: IProps) {
+	
 	console.log("prop in student liss: ", props);
 	
 	const { students } = props;
