@@ -106,9 +106,9 @@ export default function Messages() {
     setCreateNew(false);
 
     const textInput = document.querySelector('#msg-textarea').value;
-    const selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
+    // const selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
 
-    let receiverID;
+    let receiverID, selectedUsername;
 
     if (!createNew) {
       receiverID = document.querySelector('.text-container');
@@ -132,6 +132,7 @@ export default function Messages() {
 
     } else {
       const senderID = document.cookie.split('=')[1];
+      selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
 
       axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id, senderID })
         .then(() => {
