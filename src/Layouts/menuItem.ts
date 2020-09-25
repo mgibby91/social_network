@@ -14,6 +14,11 @@ const items: MenuItemType[] = [
     title: 'Messages',
     link: { to: '/messages' },
   },
+  {
+    title: 'Login-Logout',
+    link: { to: '/login-logout' },
+  },
+
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },

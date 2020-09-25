@@ -14,24 +14,7 @@ export default function MessageItem(props) {
 
   const timeAgo = timeSince(props.recentMessage.timeSent) + ' ago';
 
-  function changeBg() {
 
-    const msgUsername = document.querySelectorAll('.message-username');
-    let currentEl;
-
-    for (let item of msgUsername) {
-      if (item.textContent === props.username) {
-        currentEl = item.parentElement.parentElement;
-      }
-    }
-
-    const msgTextContainers = document.querySelectorAll('.message-item-container');
-
-    for (let item of msgTextContainers) {
-      item.classList.remove('message-list-selected');
-    }
-    currentEl.classList.add('message-list-selected');
-  }
 
 
   return (
