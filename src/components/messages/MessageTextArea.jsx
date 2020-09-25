@@ -3,8 +3,6 @@ import MessageButton from '../messages/MessageButton'
 
 export default function MessageTextArea(props) {
 
-
-
   return (
     <div className='message-text-area-container'>
       <div className='error-container'>Please enter valid message!</div>

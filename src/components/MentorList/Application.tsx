@@ -4,7 +4,8 @@ import MentorList from './MentorList'
 
 function Application(props) {
   const { state } = useApplicationData();
-
+  console.log("state in mentorlist: ", state.posts);
+  
   const mentorXP = state.mentor_points;
 
   return (
