@@ -4,9 +4,11 @@ import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import Editor from "./profile-components/editor";
-import Post from "./profile-components/recent-post";
+import Editor from "./profile-components/Editor";
+import Post from "./profile-components/Post";
+import UserInfo from "./profile-components/UserInfo";
 import { Button, ButtonLink } from "@paljs/ui/Button";
+import axios from "axios";
 
 interface BoxProps {
   nested?: boolean;
@@ -16,29 +18,37 @@ interface BoxProps {
 }
 
 function Profile() {
+  const [state, setState] = useState({
+    user: {},
+    posts: [],
+  });
+
+  const usersPromise = useEffect(() => {
+    Promise.all([
+      axios.get("http://localhost:8001/api/user_profiles/1"),
+      axios.get("http://localhost:8001/api/posts/1"),
+    ])
+      .then((all) => {
+        const userInfo = all[0].data;
+        const posts = all[1].data;
+
+        setState((prev) => ({ ...prev, userInfo, posts }));
+      })
+      .catch((err) => {
+        console.log("user-profile", err);
+      });
+  }, []);
   return (
     <>
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <header>Profile</header>
-
             <CardBody>
-              <Row>
-                <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-                  Avatar Goes Here
-                </Col>
-                <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
-                  <div>
-                    <p>Name</p>
-                    <p>@userName</p>
-                  </div>
-                </Col>
-                <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}></Col>
-              </Row>
+              <UserInfo />
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
-                  <Editor />
+                  <Editor user={state.user} />
                   <Col
                     key={1}
                     offset={{ xs: 11 - 1 }}
