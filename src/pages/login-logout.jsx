@@ -4,24 +4,17 @@ import axios from 'axios';
 export default function LoginLogout() {
 
   function login() {
-
     const userID = Number(document.querySelector('#login-user-id').value);
-    console.log('userID', userID);
+    document.cookie = `userID=${userID};`;
+  }
 
-    document.cookie = `userID=${userID}; expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/`
-
-    console.log(document.cookie);
-
-    axios.post('http://localhost:8001/api/login', { userID })
-      .then((res) => {
-        console.log(res);
-      })
-
+  function logout() {
+    document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   }
 
   return (
     <div>
-      <label htmlFor="login">User ID</label>
+      <label htmlFor="login">User ID:</label>
       <select name="login" id="login-user-id">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -35,6 +28,7 @@ export default function LoginLogout() {
         <option value="10">10</option>
       </select>
       <button type='button' name='login' onClick={() => login()}>Login</button>
+      <button type='button' name='logout' onClick={() => logout()}>Logout</button>
     </div>
   );
 }
