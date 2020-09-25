@@ -140,6 +140,7 @@ export default function Messages() {
       <div className='right-message-container'>
         <MessageHeader
           username={currentUsername}
+          avatarList={avatars}
         />
         <MessageView
           currentMessages={currentMessages}
