@@ -58,7 +58,7 @@ export default function Messages() {
       })
   }, [])
 
-  function changeBg(username) {
+  function changeBg(username, deselectBG) {
 
     const msgUsername = document.querySelectorAll('.message-username');
     let currentEl;
@@ -74,7 +74,10 @@ export default function Messages() {
     for (let item of msgTextContainers) {
       item.classList.remove('message-list-selected');
     }
-    currentEl.classList.add('message-list-selected');
+
+    if (!deselectBG) {
+      currentEl.classList.add('message-list-selected');
+    }
   }
 
 
@@ -105,6 +108,7 @@ export default function Messages() {
     // const something = document.querySelector('#username-list-data').selectedOptions[0];
     // console.log('somethign', something);
 
+    const selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
 
     let receiverID;
 
@@ -133,8 +137,12 @@ export default function Messages() {
 
       axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id, senderID })
         .then(() => {
+          setCurrentUsername(selectedUsername);
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
+
+          changeBg(selectedUsername);
+
         })
     }
 
@@ -142,6 +150,7 @@ export default function Messages() {
 
   function createNewMsg() {
     setCreateNew(true);
+    changeBg(currentUsername, true);
   }
 
 
