@@ -5,6 +5,9 @@ export default function timeSince(date) {
 
   let seconds = Math.floor((new Date() - date) / 1000);
 
+  // for converting GMT to MDT
+  seconds += 21600;
+
   let interval = seconds / 31536000;
 
   if (interval > 1) {

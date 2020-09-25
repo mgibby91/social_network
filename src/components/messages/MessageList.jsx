@@ -26,6 +26,7 @@ export default function MessageList(props) {
         key={Object.keys(messageListObj).indexOf(messageKey)}
         recentMessage={messageListObj[messageKey][0]}
         username={messageKey}
+        clickMe={props.clickMe}
       />
     })
   }
