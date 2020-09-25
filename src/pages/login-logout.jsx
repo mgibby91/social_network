@@ -10,6 +10,8 @@ export default function LoginLogout() {
 
     document.cookie = `userID=${userID}; expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/`
 
+    console.log(document.cookie);
+
     axios.post('http://localhost:8001/api/login', { userID })
       .then((res) => {
         console.log(res);
