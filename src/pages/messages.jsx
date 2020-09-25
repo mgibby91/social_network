@@ -18,7 +18,10 @@ export default function Messages() {
 
   useEffect(() => {
 
-    axios.get('http://localhost:8001/api/messages')
+    const userID = document.cookie.split('=')[1];
+    console.log('userID', userID);
+
+    axios.post('http://localhost:8001/api/messages/', { userID })
       .then((data) => {
         const currentUserID = data.data.userId;
         const currentData = data.data.data;
@@ -104,7 +107,9 @@ export default function Messages() {
       }, 2000);
 
     } else {
-      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id })
+      const senderID = document.cookie.split('=')[1];
+
+      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id, senderID })
         .then(() => {
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
