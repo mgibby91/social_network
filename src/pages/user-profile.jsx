@@ -29,8 +29,15 @@ function Profile() {
         const user = all[0].data[0];
         const posts = all[1].data;
         const mentor_stack = all[2].data;
+<<<<<<< HEAD
 
         //console.log(userInfo, allPosts);
+=======
+        const student_stack = all[3].data;
+
+
+        // console.log(userInfo, allPosts);
+>>>>>>> 050f07c4a1a50f905674b490a2c5df131f84af46
         setState((prev) => ({
           ...prev,
           user,
@@ -43,6 +50,7 @@ function Profile() {
       });
   }, []);
 
+<<<<<<< HEAD
   const createPost = (postDetails) => {
     //need helper method to build this object here
     //pass the state and the other stuff
@@ -73,6 +81,8 @@ function Profile() {
         console.log("axios error");
       });
   };
+=======
+>>>>>>> 050f07c4a1a50f905674b490a2c5df131f84af46
 
   return (
     <>
@@ -87,6 +97,8 @@ function Profile() {
                 username={state.user.username}
                 is_mentor={state.user.is_mentor}
                 is_student={state.user.is_student}
+                mentor_points={state.mentor_points}
+                student_points={state.student_points}
               />
               <Stack mentor={state.mentor_stack} />
               <Row>
@@ -100,6 +112,10 @@ function Profile() {
                 </Col>
               </Row>
               <PostList posts={state.posts} />
+<<<<<<< HEAD
+=======
+              {/* {console.log("profile posts", state.posts)} */}
+>>>>>>> 050f07c4a1a50f905674b490a2c5df131f84af46
             </CardBody>
           </Card>
         </Col>

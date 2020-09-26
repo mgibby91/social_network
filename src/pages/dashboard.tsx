@@ -30,7 +30,7 @@ export default function Home() {
     } else {
       const senderID = document.cookie.split('=')[1];
 
-      axios.post('http://localhost:8001/api/posts/new', { textInput, senderID} )
+      axios.post('http://localhost:8001/api/posts/new', { textInput, senderID, } )
         .then(() => {
           setCount(count + 1);
           document.querySelector('#post-textarea').value = '';
