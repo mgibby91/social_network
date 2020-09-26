@@ -18,7 +18,6 @@ interface IPost {
 }
 
 export default function PostListItem(props: IProps) {
-	console.log("props in postlist: ", props);
 
   return (
 		<div>

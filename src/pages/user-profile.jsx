@@ -38,6 +38,8 @@ function Profile() {
         const posts = all[1].data;
         const mentor_stack = all[2].data;
         const student_stack = all[3].data;
+
+
         // console.log(userInfo, allPosts);
         setState((prev) => ({
           ...prev,
@@ -51,7 +53,8 @@ function Profile() {
         console.log("user-profile", err);
       });
   }, []);
-  console.log("state", state);
+
+
   return (
     <>
       <Row>
@@ -65,6 +68,8 @@ function Profile() {
                 username={state.user.username}
                 is_mentor={state.user.is_mentor}
                 is_student={state.user.is_student}
+                mentor_points={state.mentor_points}
+                student_points={state.student_points}
               />
               <Stack
                 mentor={state.mentor_stack}
@@ -81,7 +86,7 @@ function Profile() {
                 </Col>
               </Row>
               <PostList posts={state.posts} />
-              {console.log("profile posts", state.posts)}
+              {/* {console.log("profile posts", state.posts)} */}
             </CardBody>
           </Card>
         </Col>

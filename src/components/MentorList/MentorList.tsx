@@ -12,7 +12,6 @@ interface IMentors {
 
 export default function MentorList(props) {
   const { mentors } = props;
-  console.log("mentors: ", mentors);
 
   const mentorsData = mentors.map((mentor, index) => {
     return (

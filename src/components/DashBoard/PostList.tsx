@@ -16,7 +16,6 @@ export default function PostList(props) {
 	}, []);		
 	
 	const postData = postList.map((post, index) => {
-		console.log("post in map: ", post);
 	
 		return <PostListItem
 			key={index}

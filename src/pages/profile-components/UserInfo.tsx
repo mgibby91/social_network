@@ -3,7 +3,10 @@ import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import React, { useState, useEffect } from "react";
-
+import ProgressBar from '../../components/ProgressBar/ProgressBar'
+import Progress from "@paljs/ui/ProgressBar";
+import axios from 'axios';
+import {constants} from "buffer";
 // interface IUserInfo {
 //   user: IUser;
 // }
@@ -19,8 +22,38 @@ import React, { useState, useEffect } from "react";
 //   user_id: number;
 // }
 
+
 function UserInfo(props) {
-  console.log("userInfo", props);
+  const [state, setState] = useState({
+    mentor_points: 0,
+    student_points: 0,
+  });
+  useEffect(() => {
+  
+    Promise.all([
+      axios.get('http://localhost:8001/api/mentor_points'),
+      axios.get('http://localhost:8001/api/student_points')
+    ]).then((all) => {				
+      const mentor_points = all[0].data;
+      const student_points = all[1].data;
+    
+      setState((prev) => ({
+        ...prev,
+        mentor_points,
+        student_points,
+      }));
+    })
+  }, []);	
+  
+  const mentors = state.mentor_points
+  const students = state.student_points;
+  const mentorKeys =  Object.keys(mentors);
+  mentorKeys.map(key => {
+    console.log(mentorKeys[key]);
+    
+  });
+  
+
   return (
     <Row>
       <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
@@ -28,7 +61,11 @@ function UserInfo(props) {
       </Col>
       <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
         <div>
-          <p>{props.is_mentor ? "Mentor" : ""}</p>
+          <p>{props.is_mentor ? 
+          <ProgressBar 
+            experience={experience}
+          />
+           : ""}</p>
           <p>{props.is_student ? "Student" : ""}</p>
           <p>{props.username}</p>
           <p>{props.location}</p>
