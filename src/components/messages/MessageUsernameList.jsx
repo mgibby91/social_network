@@ -4,8 +4,6 @@ import MessageUsernameListItem from './MessageUsernameListItem';
 export default function MessageUsernameList(props) {
 
   const usernameList = props.usernameList;
-  console.log('usernamelist', usernameList);
-  console.log(document.cookie.split('=')[1]);
 
   const currentUserID = Number(document.cookie.split('=')[1]);
   const filteredUsernameList = usernameList.filter(user => {

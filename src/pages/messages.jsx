@@ -46,6 +46,10 @@ export default function Messages() {
         intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
         setCurrentMessages(intMessages);
 
+        if (currentUsername) {
+          changeBg(currentUsername);
+        }
+
       });
 
   }, [count]);
@@ -144,6 +148,7 @@ export default function Messages() {
               changeBg(selectedUsername);
             }, 20);
           }
+          console.log('hi');
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
 

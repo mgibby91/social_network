@@ -19,15 +19,28 @@ export default function MessageList(props) {
 
   const messageListEmpty = isEmpty(messageListObj);
 
+  let sortable = [];
+  for (let obj in messageListObj) {
+    sortable.push([obj, messageListObj[obj]]);
+  }
+
+  const sortedMessageList = sortable.sort((a, b) => {
+    return new Date(b[1][0].timeSent) - new Date(a[1][0].timeSent);
+  });
+
+  console.log('sortedMessageList', sortedMessageList)
+
+  console.log('sortable', sortable);
+
   let messageData;
 
   if (!messageListEmpty) {
 
-    messageData = Object.keys(messageListObj).map(messageKey => {
+    messageData = sortedMessageList.map(message => {
       return <MessageItem
-        key={Object.keys(messageListObj).indexOf(messageKey)}
-        recentMessage={messageListObj[messageKey][0]}
-        username={messageKey}
+        key={sortedMessageList.indexOf(message)}
+        recentMessage={message[1][0]}
+        username={message[0]}
         clickMe={props.clickMe}
         avatarList={props.avatarList}
       />
