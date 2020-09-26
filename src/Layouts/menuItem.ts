@@ -20,7 +20,8 @@ const items: MenuItemType[] = [
     title: "Mentors",
     icon: { name: "people-outline" },
     link: { to: "/mentor-list" },
-
+  },
+  {
     title: 'Login-Logout',
     link: { to: '/login-logout' },
   },

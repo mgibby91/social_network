@@ -48,7 +48,8 @@ function UserInfo(props) {
   
   const mentors = state.mentor_points
   console.log("mentors: ", mentors);
-  
+  	
+
   const mentorKeys =  Object.keys(mentors);
 
   let mentorRating, 
