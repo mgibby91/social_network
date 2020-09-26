@@ -35,6 +35,10 @@ const items: MenuItemType[] = [
     title: 'Forms',
     link: { to: '/forms' },
   },
+  {
+    title: 'Tutor Sessions',
+    link: { to: '/tutor-sessions' },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },
