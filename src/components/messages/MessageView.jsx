@@ -5,8 +5,6 @@ export default function MessageView(props) {
 
   const currentMessages = props.currentMessages;
 
-  console.log('props.createNew', props.createNew);
-
   const messageData = currentMessages.map(msg => {
 
     return <MessageTextBubble

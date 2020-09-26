@@ -142,7 +142,7 @@ export default function Messages() {
             setCurrentUsername(selectedUsername);
             setTimeout(() => {
               changeBg(selectedUsername);
-            }, 25);
+            }, 20);
           }
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';

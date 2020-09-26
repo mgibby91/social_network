@@ -7,6 +7,8 @@ export default function MessageList(props) {
 
   const messageListObj = props.messageList.messageList;
 
+  console.log('msglistobj', messageListObj);
+
   function isEmpty(obj) {
     for (var prop in obj) {
       if (obj.hasOwnProperty(prop))
