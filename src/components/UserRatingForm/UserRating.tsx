@@ -42,7 +42,6 @@ export default function UserRating(props: IProps_UserRating) {
   `;
 
   const { students, mentors } = props;
-  console.log("students and mentors in userrating: ", students, mentors);
 
   const addStars = (rating, userID) => {
     /*
