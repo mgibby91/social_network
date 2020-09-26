@@ -6,7 +6,7 @@ import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 function PostList(props) {
   const postData = props.posts.map((post) => {
     return (
-      <Col breakPoint={{ xs: 12, md: 6 }}>
+      <Col key={post.id} breakPoint={{ xs: 12, md: 6 }}>
         <Card accent="Info">
           <CardBody>
             <p>{post.time_posted} </p>

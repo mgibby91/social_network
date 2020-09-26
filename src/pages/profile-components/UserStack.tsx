@@ -9,8 +9,7 @@ function Stack(props) {
     return <li>{stack.name}</li>;
   });
   const studentStack = props.student.map((stack) => {
-    return <li>{stack.name}</li>;
-  });
+    return <li key={stack.id}>{stack.name}</li>;  });
 
   return (
     <Row>

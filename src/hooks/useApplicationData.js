@@ -35,6 +35,8 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/users"),
       axios.get("http://localhost:8001/api/mentor_points"),
       axios.get("http://localhost:8001/api/student_points"),
+      // axios.get('http://localhost:8001/api/mentor_rating/1'),
+      // axios.get('http://localhost:8001/api/student_rating/1'),
     ]).then((all) => {
       // console.log("all from applicatin data hook: ", all);
       const comments = all[0].data;
