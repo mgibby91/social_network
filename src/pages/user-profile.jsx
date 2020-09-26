@@ -11,13 +11,6 @@ import UserInfo from "./profile-components/UserInfo";
 import axios from "axios";
 import { StepButton } from "@material-ui/core";
 
-// interface BoxProps {
-//   nested?: boolean;
-//   container?: boolean;
-//   row?: boolean;
-//   large?: boolean;
-// }
-
 function Profile() {
   const [state, setState] = useState({
     user: {},
@@ -33,9 +26,6 @@ function Profile() {
       axios.get("http://localhost:8001/api/user_profiles/1"),
       axios.get("http://localhost:8001/api/posts/1"),
       axios.get("http://localhost:8001/api/mentor_stack/1"),
-      axios.get("http://localhost:8001/api/student_stack/1"),
-      axios.get('http://localhost:8001/api/mentor_points'),
-      axios.get('http://localhost:8001/api/student_points'),
     ])
       .then((all) => {
         const user = all[0].data[0];
@@ -51,9 +41,6 @@ function Profile() {
           user,
           posts,
           mentor_stack,
-          student_stack,
-          mentor_points,
-          student_points,
         }));
       })
       .catch((err) => {
@@ -61,6 +48,36 @@ function Profile() {
       });
   }, []);
 
+  const createPost = (postDetails) => {
+    //need helper method to build this object here
+    //pass the state and the other stuff
+    const post = {
+      active: true,
+      owner_id: state.user.id,
+      text_body: postDetails.text,
+      time_posted: new Date().toISOString(),
+      is_mentor: false,
+      is_student: true,
+    };
+
+    if (!postDetails.mentor) {
+      (post["is_mentor"] = true), (post["is_student"] = false);
+    }
+    const posts = [...state.posts, post];
+
+    return axios
+      .post(`http://localhost:8001/api/posts`, { post })
+      .then((response, reject) => {
+        // console.log("profile", post);
+        setState({
+          ...state,
+          posts,
+        });
+      })
+      .catch((err) => {
+        console.log("axios error");
+      });
+  };
 
   return (
     <>
@@ -79,13 +96,10 @@ function Profile() {
                 student_points={state.student_points}
                 user_id={state.user.id}
               />
-              <Stack
-                mentor={state.mentor_stack}
-                student={state.student_stack}
-              />
+              <Stack mentor={state.mentor_stack} />
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
-                  <Editor />
+                  <Editor createPost={createPost} />
                 </Col>
               </Row>
               <Row>
