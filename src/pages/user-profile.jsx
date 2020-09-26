@@ -30,7 +30,7 @@ function Profile() {
         const posts = all[1].data;
         const mentor_stack = all[2].data;
 
-        // console.log(userInfo, allPosts);
+        //console.log(userInfo, allPosts);
         setState((prev) => ({
           ...prev,
           user,
@@ -50,7 +50,7 @@ function Profile() {
       active: true,
       owner_id: state.user.id,
       text_body: postDetails.text,
-      time_posted: new Date().toLocaleString(),
+      time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
     };
@@ -63,11 +63,14 @@ function Profile() {
     return axios
       .post(`http://localhost:8001/api/posts`, { post })
       .then((response, reject) => {
-        console.log("profile", post);
+        // console.log("profile", post);
         setState({
           ...state,
           posts,
         });
+      })
+      .catch((err) => {
+        console.log("axios error");
       });
   };
 
