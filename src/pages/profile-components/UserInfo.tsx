@@ -24,6 +24,7 @@ import {constants} from "buffer";
 
 
 function UserInfo(props) {
+  
   const [state, setState] = useState({
     mentor_points: 0,
     student_points: 0,
@@ -46,44 +47,47 @@ function UserInfo(props) {
   }, []);	
   
   const mentors = state.mentor_points
-  // console.log("mentors: ", mentors);
+  console.log("mentors: ", mentors);
   
   const mentorKeys =  Object.keys(mentors);
-  let mentorRating;
-  let username = "";
-  let avatar;
+
+  let mentorRating, 
+      username,
+      avatar,
+      location;
+
   mentorKeys.map(key => {
     // console.log("mentor: ", mentors[key].mentorrating);
-    if (key === "3") {
+    if (key === "1") {
 
     mentorRating = Number(mentors[key].mentorrating);
     username = mentors[key].username
-    console.log("is mentor: ", username);
     avatar = mentors[key].avatar
-    
+    console.log("is mentor: ", username);
+    console.log("mentorrating: ", mentorRating);
     }
 
   });
-console.log("mentorrating: ", avatar);
 
 
   const students = state.student_points;
-
+  console.log("students in userinfo: ", students);
+  
   const studentKeys =  Object.keys(students);
   let studentRating;
   let is_student = "";
   studentKeys.map(key => {
-    console.log("student: ", students[key].username);
+    // console.log("student: ", students[key].username);
     if (students[key].username === username) {
       studentRating = Number(students[key].studentrating);
       is_student = students[key].username;
     }
     console.log("is student: ", is_student);
+    console.log("student rating: ", studentRating);
 
     
   });
 
-  console.log("student rating: ", studentRating);
   
   
   
@@ -97,31 +101,27 @@ console.log("mentorrating: ", avatar);
         src={avatar} alt="avatar"/>
       </Col>
       <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
-        <div>
-          
-          <p>{props.is_mentor ? 
-          "Mentor Level"
+        <Row>         
+          {username ? 
+          <h4>Mentor Level</h4>
           : ""}
-          </p>
-          <p>{props.is_mentor ? 
+          {username ? 
           <ProgressBar 
             experience={mentorRating}
           />
           : ""}
-          </p>
-          <p>{props.is_student ? 
-          "Student Level"
+          {is_student ? 
+          <h4>Student Level</h4>
           : ""}
-          </p>
-          <p>{props.is_student ? 
+          {is_student ? 
           <ProgressBar
             experience={studentRating}
           />
           : ""}
-          </p>
+         
 
           <p>{props.location}</p>
-        </div>
+        </Row>       
       </Col>
       <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}></Col>
     </Row>
