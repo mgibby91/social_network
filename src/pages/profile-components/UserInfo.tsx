@@ -46,28 +46,80 @@ function UserInfo(props) {
   }, []);	
   
   const mentors = state.mentor_points
-  const students = state.student_points;
+  // console.log("mentors: ", mentors);
+  
   const mentorKeys =  Object.keys(mentors);
+  let mentorRating;
+  let username = "";
+  let avatar;
   mentorKeys.map(key => {
-    console.log(mentorKeys[key]);
+    // console.log("mentor: ", mentors[key].mentorrating);
+    if (key === "3") {
+
+    mentorRating = Number(mentors[key].mentorrating);
+    username = mentors[key].username
+    console.log("is mentor: ", username);
+    avatar = mentors[key].avatar
+    
+    }
+
+  });
+console.log("mentorrating: ", avatar);
+
+
+  const students = state.student_points;
+
+  const studentKeys =  Object.keys(students);
+  let studentRating;
+  let is_student = "";
+  studentKeys.map(key => {
+    console.log("student: ", students[key].username);
+    if (students[key].username === username) {
+      studentRating = Number(students[key].studentrating);
+      is_student = students[key].username;
+    }
+    console.log("is student: ", is_student);
+
     
   });
+
+  console.log("student rating: ", studentRating);
+  
+  
   
 
   return (
     <Row>
+      <h1>{username}</h1>
+
       <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <img src={props.avatar} />
+        <img 
+        src={avatar} alt="avatar"/>
       </Col>
       <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
         <div>
+          
+          <p>{props.is_mentor ? 
+          "Mentor Level"
+          : ""}
+          </p>
           <p>{props.is_mentor ? 
           <ProgressBar 
-            experience={experience}
+            experience={mentorRating}
           />
-           : ""}</p>
-          <p>{props.is_student ? "Student" : ""}</p>
-          <p>{props.username}</p>
+          : ""}
+          </p>
+          <p>{props.is_student ? 
+          "Student Level"
+          : ""}
+          </p>
+          <p>{props.is_student ? 
+          <ProgressBar
+            experience={studentRating}
+          />
+          : ""}
+          </p>
+
           <p>{props.location}</p>
         </div>
       </Col>
