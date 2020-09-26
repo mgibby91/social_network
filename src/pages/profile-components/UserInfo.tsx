@@ -4,23 +4,8 @@ import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import React, { useState, useEffect } from "react";
 
-// interface IUserInfo {
-//   user: IUser;
-// }
-
-// interface IUser {
-//   active: boolean;
-//   avatar: string;
-//   dob: Date;
-//   id: number;
-//   is_mentor: boolean;
-//   is_student: boolean;
-//   location: string;
-//   user_id: number;
-// }
-
 function UserInfo(props) {
-  console.log("userInfo", props);
+  // console.log("userInfo", props);
   return (
     <Row>
       <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}>

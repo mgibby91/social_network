@@ -1,29 +1,10 @@
 // import "components/studentList.scss"
 import React from "react";
 import StudentListItem from "./StudentListItem";
-
-// interface IProps {
-// 	students: Istudents
-// }
-
-// interface Istudents {
-// 	[index: number]: {username: string; studentrating: string}
-// }
-
 export default function StudentList(props) {
   console.log("prop in student liss: ", props);
-
-
-export default function StudentList(props) {
-	
-	console.log("prop in student liss: ", props);
-	
-	const { students } = props;
-	console.log("students in list: ", students);
-	
-	const studentsData = students.map((student, index) => {
-
-
+  const { students } = props;
+  console.log("students in list: ", students);
   const studentsData = students.map((student, index) => {
     return (
       <StudentListItem
