@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import useApplicationData from '../hooks/useApplicationData';
 
 export default function LoginLogout() {
+
+  const { state, setSelectedUser } = useApplicationData();
 
   function login() {
     const userID = Number(document.querySelector('#login-user-id').value);
@@ -10,8 +13,8 @@ export default function LoginLogout() {
     axios.post('http://localhost:8001/api/login', { userID })
       .then(res => {
         const username = res.data[0].username;
-        console.log(username);
-
+        console.log(res.data[0]);
+        setSelectedUser(res.data[0].id)
         const rightNavContainer = document.querySelector('.sc-kEqYlL.gyZWym.right');
 
         if (rightNavContainer.firstElementChild.className === 'logged-in-username') {
@@ -30,7 +33,7 @@ export default function LoginLogout() {
 
       })
   }
-
+  console.log("State in login: ", state);
   function logout() {
     document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 

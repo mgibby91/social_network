@@ -17,12 +17,11 @@ export default function MentorList(props) {
     return (
       <MentorListItem
         key={index}
+        userId={mentor.mentor_id}
         username={mentor.username}
         experience={mentor.mentorrating}
         avatar={mentor.avatar}
-        
-        // selected={mentor.id === props.value}
-        // setMentor={props.setMentor}
+        setSelectedUser={props.setSelectedUser}
       />
     );
   });

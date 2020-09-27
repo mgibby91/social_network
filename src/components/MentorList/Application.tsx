@@ -11,6 +11,7 @@ function Application(props) {
     <div className="App">
         <MentorList
           mentors={mentors}
+          setSelectedUser={props.setSelectedUser}
         />
     </div>
   );

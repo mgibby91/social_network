@@ -1,16 +1,15 @@
 import React from "react";
-import useApplicationData from "../../hooks/useApplicationData";
 import StudentList from './StudentList'
 
 function Application(props) {
-  const { state } = useApplicationData();
 
-  const studentXP = state.student_points;
+  const students = props.students;
 
   return (
     <div className="App">
         <StudentList
-          students={studentXP}
+          students={students}
+          setSelectedUser={props.setSelectedUser}
         />
     </div>
   );

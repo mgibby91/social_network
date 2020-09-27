@@ -14,11 +14,14 @@ import { SidebarRefObject } from "@paljs/ui/Sidebar";
 import Header from "./Header";
 import SimpleLayout from "./SimpleLayout";
 import SidebarCustom from "./Sidebar";
+import useApplicationData from "../hooks/useApplicationData";
 
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   children,
   pageContext,
 }) => {
+
+  const { state } = useApplicationData();
   const [theme, setTheme] = useState<DefaultTheme["name"]>("dark");
   const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
   const sidebarRef = useRef<SidebarRefObject>(null);
