@@ -10,6 +10,7 @@ export default function TutorSessions() {
 
   const [currentTutorData, setCurrentTutorData] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
 
@@ -30,13 +31,34 @@ export default function TutorSessions() {
         setCurrentUserData(userData.data);
       })
 
-  }, [])
+  }, [count]);
+
+  function acceptAction(tutorSessionID) {
+    console.log('accepted!', tutorSessionID);
+
+    axios.put('http://localhost:8001/api/tutor_experiences/accept', { tutorSessionID })
+      .then(() => {
+        setCount(count + 1);
+      })
+  }
+
+  function declineCancelAction(tutorSessionID) {
+    console.log('declineCancel', tutorSessionID);
+
+    axios.put('http://localhost:8001/api/tutor_experiences/delete', { tutorSessionID })
+      .then((res) => {
+        console.log(res);
+        setCount(count + 1);
+      })
+  }
 
   return (
     <div className='main-tutor-container'>
       <TutorHistory
         currentTutorData={currentTutorData}
         currentUserData={currentUserData}
+        acceptAction={acceptAction}
+        declineCancelAction={declineCancelAction}
       />
     </div>
   );

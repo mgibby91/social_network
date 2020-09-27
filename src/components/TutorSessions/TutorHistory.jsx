@@ -13,6 +13,8 @@ export default function TutorHistory(props) {
       <TutorHistoryBody
         currentTutorData={props.currentTutorData}
         currentUserData={props.currentUserData}
+        acceptAction={props.acceptAction}
+        declineCancelAction={props.declineCancelAction}
       />
     </div>
   )

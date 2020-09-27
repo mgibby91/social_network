@@ -1,61 +1,22 @@
 import React from 'react';
 import TutorBtn from './TutorBtn';
 import timeSince from '../../helpers/timeSince';
+import { formatDate, getMentorUsername, getStudentUsername, getDateStatus, getTimeAgo } from '../../helpers/tutor-helpers';
+const classNames = require('class-names');
 
 export default function TutorHistoryBodyItem(props) {
 
   console.log('tutorHistoryBodyItem', props);
 
-  function getDateStatus(props) {
-    let dateStatus;
+  const statusClass = classNames('tutor-history-item-status', {
+    'item-status-pending': props.status === 'pending',
+    'item-status-in-progress': props.status === 'in-progress',
+    'item-status-completed': props.status === 'completed'
+  })
 
-    if (props.dateCompleted) dateStatus = 'Completed';
-    else if (props.dateAccepted) dateStatus = 'Accepted';
-    else dateStatus = 'Initiated';
-
-    return dateStatus;
+  function isCreator(props) {
+    return Number(document.cookie.split('=')[1]) === props.creatorID;
   }
-
-  function getTimeAgo(props) {
-    let currentDate;
-
-    if (props.dateCompleted) currentDate = props.dateCompleted;
-    else if (props.dateAccepted) currentDate = props.dateAccepted;
-    else currentDate = props.dateInitiated;
-
-    return currentDate;
-
-  }
-
-  function formatDate(dateString) {
-    const options = { year: "numeric", month: "long", day: "numeric" }
-    return new Date(dateString).toLocaleDateString(undefined, options)
-  }
-
-  function getMentorUsername(props) {
-    let mentorUsername;
-
-    for (let user of props.currentUserData) {
-      if (user.id === props.mentorID) {
-        mentorUsername = user.username;
-      }
-    }
-
-    return mentorUsername;
-  }
-
-  function getStudentUsername(props) {
-    let studentUsername;
-
-    for (let user of props.currentUserData) {
-      if (user.id === props.studentID) {
-        studentUsername = user.username;
-      }
-    }
-
-    return studentUsername;
-  }
-
 
   return (
     <div className='tutor-history-item-container'>
@@ -70,13 +31,43 @@ export default function TutorHistoryBodyItem(props) {
       <div className="tutor-history-item-student-mentor">
         {getMentorUsername(props)} / {getStudentUsername(props)}
       </div>
-      <div className="tutor-history-item-status">
-        Pending...
+      <div className={statusClass}>
+        {props.status.slice(0, 1).toUpperCase() + props.status.slice(1)}
       </div>
       <div className="tutor-history-item-btns">
-        <TutorBtn
-
-        />
+        {props.status === 'pending' && isCreator(props) && (
+          <div className='tutor-btn-container'>
+            <TutorBtn
+              name={'Cancel'}
+              onClick={() => props.declineCancelAction(props.id)}
+            />
+          </div>
+        )}
+        {props.status === 'pending' && !isCreator(props) && (
+          <div className='tutor-btn-container'>
+            <TutorBtn
+              name={'Accept'}
+              onClick={() => props.acceptAction(props.id)}
+            />
+            <TutorBtn
+              name={'Decline'}
+              onClick={() => props.declineCancelAction(props.id)}
+            />
+          </div>
+        )}
+        {props.status === 'in-progress' && (
+          <div className='tutor-btn-container'>
+            <TutorBtn
+              name={'Complete'}
+            />
+          </div>
+        )}
+        {props.status === 'completed' && (
+          <div className='tutor-btn-container'>
+            <TutorBtn
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -21,6 +21,8 @@ export default function TutorHistoryBody(props) {
         studentID={item.student_id}
         creatorID={item.creator_id}
         currentUserData={props.currentUserData}
+        acceptAction={props.acceptAction}
+        declineCancelAction={props.declineCancelAction}
       />
     })
   }
