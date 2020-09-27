@@ -65,8 +65,8 @@ const ProgressBar = (props) => {
     if (points >= 168) {
       level = 'MAX';
       width = 100;
-      fullExperience = 168
-      experiencePoints = 168;
+      fullExperience = 68
+      experiencePoints = 68;
       return (fullExperience, width, level, experiencePoints)
     }
   }
