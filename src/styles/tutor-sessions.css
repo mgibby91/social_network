@@ -92,7 +92,8 @@
 
 
 /* tutor buttons */
-.tutor-btn {
+.tutor-btn,
+.tutor-create-btn {
   border: 1px solid white;
   border-radius: 5px;
   padding: 0.25rem 0.5rem;
@@ -175,4 +176,66 @@
 .tutor-history-header-actions {
   position: absolute;
   left: 760px;
+}
+
+
+
+
+/* CREATE NEW */
+.tutor-create-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #222b45;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.tutor-create-header {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.tutor-create-mentor-student {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.create-mentor-student-header,
+.create-username-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.radio-mentor,
+.radio-student {
+  margin-right: 0.75rem;
+}
+
+.radio-mentor > input,
+.radio-student > input {
+  margin-right: 0.25rem;
+}
+
+.radio-mentor > *:hover,
+.radio-student > *:hover {
+  cursor: pointer;
+}
+
+.tutor-create-btn {
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.tutor-create-btn:hover {
+  cursor: pointer;
+  background: #3366ff;
+  color: white;
 }

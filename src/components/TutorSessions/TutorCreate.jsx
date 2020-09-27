@@ -23,7 +23,7 @@ export default function TutorCreate(props) {
   return (
     <div className='tutor-create-container'>
       <div className="tutor-create-header">
-        Create New Tutor Session
+        Create Tutor Session
       </div>
       <div className="tutor-create-mentor-student">
         <div className="create-mentor-student-header">You're looking for:</div>
@@ -37,10 +37,13 @@ export default function TutorCreate(props) {
         </div>
       </div>
       <div className="tutor-create-username">
-        <label htmlFor="create-username">With who: </label>
+        <label htmlFor="create-username" className='create-username-title'>With who: </label>
         <select name="" id="">
           {usernameListData}
         </select>
+      </div>
+      <div className="tutor-create-btn">
+        Create
       </div>
     </div>
   )
