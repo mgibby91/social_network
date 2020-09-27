@@ -52,13 +52,13 @@ function Editor(props) {
   return (
     <>
       <MDEditor value={value} onChange={setValue} />
-      <ReactTags
+      {/* <ReactTags
         ref={reactTags}
         tags={state.tags}
         suggestions={state.suggestions}
         onDelete={onDelete.bind(this)}
         onAddition={onAddition.bind(this)}
-      />
+      /> */}
       <Checkbox
         checked={checkbox[1]}
         status="Success"
