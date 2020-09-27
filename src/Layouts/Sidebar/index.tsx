@@ -11,7 +11,6 @@ import {
   Sidebar,
 } from "@paljs/ui/Sidebar";
 import { Menu, MenuRefObject } from "@paljs/ui/Menu";
-import { Button } from "@paljs/ui/Button";
 import { EvaIcon } from "@paljs/ui/Icon";
 import menuItems from "../menuItem";
 import { Link } from "gatsby";

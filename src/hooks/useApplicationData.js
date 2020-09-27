@@ -18,8 +18,8 @@ export default function useApplicationData() {
     tutor_experiences: [],
     user_profiles: [],
     users: [],
-    mentor_points: [],
-    student_points: [],
+    mentor: [],
+    student: [],
   });
 
   // RETRIEVES API AND SETS IT WITH REDUCER
@@ -47,8 +47,8 @@ export default function useApplicationData() {
       const tutor_experiences = all[5].data;
       const user_profiles = all[6].data;
       const users = all[7].data;
-      const mentor_points = all[8].data;
-      const student_points = all[9].data;
+      const mentor = all[8].data;
+      const student = all[9].data;
       dispatch({
         type: SET_APPLICATION_DATA,
         comments,
@@ -59,8 +59,8 @@ export default function useApplicationData() {
         tutor_experiences,
         user_profiles,
         users,
-        mentor_points,
-        student_points,
+        mentor,
+        student,
       });
     });
   }, []);

@@ -133,8 +133,8 @@ const Header: React.FC<HeaderProps> = (props) => {
           className="right"
           actions={[
             {
-              icon: "message-square-outline",
-              // link: { to: "/messages" },
+              icon: { name: "message-square-outline" },
+              link: { to: "/messages" },
             },
             {
               icon: 'github',
