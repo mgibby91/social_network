@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PostList from "../components/DashBoard/PostList";
 import axios from 'axios';
 import PostTextArea from '../components/DashBoard/PostTextArea';
+import Row from "@paljs/ui/Row";
 
 interface IProps {
 	value: object,
@@ -40,9 +41,12 @@ export default function Home() {
 
   return (
     <div className="App">
-      <PostTextArea 
-        submitPost={submitPost}
-      />
+      <Row>
+        <PostTextArea 
+          submitPost={submitPost}
+        />
+        
+      </Row>
       <PostList 
       />
     </div>
