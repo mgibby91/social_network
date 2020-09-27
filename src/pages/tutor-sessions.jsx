@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../src/styles/tutor-sessions.css';
 import TutorHistory from '../components/TutorSessions/TutorHistory';
+import TutorCreate from '../components/TutorSessions/TutorCreate';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
 import axios from 'axios';
 
@@ -59,6 +60,9 @@ export default function TutorSessions() {
 
   return (
     <div className='main-tutor-container'>
+      <TutorCreate
+        currentUserData={currentUserData}
+      />
       <TutorHistory
         currentTutorData={currentTutorData}
         currentUserData={currentUserData}
