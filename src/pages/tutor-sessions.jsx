@@ -34,7 +34,6 @@ export default function TutorSessions() {
   }, [count]);
 
   function acceptAction(tutorSessionID) {
-    console.log('accepted!', tutorSessionID);
 
     axios.put('http://localhost:8001/api/tutor_experiences/accept', { tutorSessionID })
       .then(() => {
@@ -43,11 +42,17 @@ export default function TutorSessions() {
   }
 
   function declineCancelAction(tutorSessionID) {
-    console.log('declineCancel', tutorSessionID);
 
     axios.put('http://localhost:8001/api/tutor_experiences/delete', { tutorSessionID })
       .then((res) => {
-        console.log(res);
+        setCount(count + 1);
+      })
+  }
+
+  function completeAction(tutorSessionID) {
+
+    axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID })
+      .then(() => {
         setCount(count + 1);
       })
   }
@@ -59,6 +64,7 @@ export default function TutorSessions() {
         currentUserData={currentUserData}
         acceptAction={acceptAction}
         declineCancelAction={declineCancelAction}
+        completeAction={completeAction}
       />
     </div>
   );

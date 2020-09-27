@@ -23,6 +23,7 @@ export default function TutorHistoryBody(props) {
         currentUserData={props.currentUserData}
         acceptAction={props.acceptAction}
         declineCancelAction={props.declineCancelAction}
+        completeAction={props.completeAction}
       />
     })
   }

@@ -25,7 +25,7 @@ export default function TutorHistoryBodyItem(props) {
           {getDateStatus(props)}: <strong>{formatDate(getTimeAgo(props))}</strong>
         </div>
         <div className="item-date-date">
-          ({timeSince(getTimeAgo(props))} ago)
+          ({timeSince(getTimeAgo(props), true)})
         </div>
       </div>
       <div className="tutor-history-item-student-mentor">
@@ -59,6 +59,7 @@ export default function TutorHistoryBodyItem(props) {
           <div className='tutor-btn-container'>
             <TutorBtn
               name={'Complete'}
+              onClick={() => props.completeAction(props.id)}
             />
           </div>
         )}
