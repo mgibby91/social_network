@@ -1,39 +1,25 @@
-import { Card, CardBody } from '@paljs/ui/Card';
-import Row from '@paljs/ui/Row';
-import Col from '@paljs/ui/Col';
-import React from 'react';
-import Application from '../components/MentorList/Application'
-import useApplicationData from '../hooks/useApplicationData'
-
+import { Card, CardBody } from "@paljs/ui/Card";
+import Row from "@paljs/ui/Row";
+import Col from "@paljs/ui/Col";
+import React, { useState } from "react";
+import Application from "../components/MentorList/Application";
+import useApplicationData from "../hooks/useApplicationData";
+import { Link, BrowserRouter as Router, Route } from "react-router-dom";
 
 export default function MentorList() {
-  
-  const { state } = useApplicationData()
-  console.log("state in mentor-list: ", state);
-  
-  // const getUserByID = (state: any, userID: number) => {
-  //   let userObj = {};
-  //   if (!userID) {
-  //     return userID;
-  //   }
-  //   console.log("state in mentor-list: ", state);
-    
-  //   const student = user;
-  //   const userer = state.users[user.userer];
-  //   userObj.student = student;
-  //   userObj.userer = userer;
-  //   return userObj;
-  // };
-  
-  // getUser(state, user)
+  const { state } = useApplicationData();
+
+  const mentors = state.mentor_points;
+
+  console.log("mentors in mentor list: ", mentors);
+
   return (
     <>
-      {/* <SEO title="Progress" keywords={['OAH', 'application', 'react']} /> */}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <CardBody>
-              <Application />
+              <Application mentors={mentors} />
             </CardBody>
           </Card>
         </Col>

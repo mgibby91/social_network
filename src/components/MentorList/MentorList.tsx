@@ -20,6 +20,7 @@ export default function MentorList(props) {
         username={mentor.username}
         experience={mentor.mentorrating}
         avatar={mentor.avatar}
+        
         // selected={mentor.id === props.value}
         // setMentor={props.setMentor}
       />

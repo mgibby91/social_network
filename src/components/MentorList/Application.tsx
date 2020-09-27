@@ -3,15 +3,14 @@ import useApplicationData from "../../hooks/useApplicationData";
 import MentorList from './MentorList'
 
 function Application(props) {
-  const { state } = useApplicationData();
   
-  const mentorXP = state.mentors;
-  console.log("mentor xp in mentorlist: ", mentorXP);
+  const mentors = props.mentors;
+  console.log("mentors in mentorlist: ", mentors);
   
   return (
     <div className="App">
         <MentorList
-          mentors={mentorXP}
+          mentors={mentors}
         />
     </div>
   );
