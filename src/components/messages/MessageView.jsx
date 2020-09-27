@@ -3,7 +3,6 @@ import MessageTextBubble from '../../components/messages/MessageTextBubble'
 
 export default function MessageView(props) {
 
-  console.log('MsgViewProps', props)
   const currentMessages = props.currentMessages;
 
   const messageData = currentMessages.map(msg => {
@@ -21,7 +20,7 @@ export default function MessageView(props) {
 
   return (
     <div className='message-text-container-right'>
-      {messageData}
+      {!props.createNew && messageData}
     </div>
   )
 }
