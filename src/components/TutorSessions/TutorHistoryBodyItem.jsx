@@ -18,6 +18,21 @@ export default function TutorHistoryBodyItem(props) {
     return Number(document.cookie.split('=')[1]) === props.creatorID;
   }
 
+  function getUsername(props) {
+    const myUserID = Number(document.cookie.split('=')[1]);
+
+    let otherID;
+    if (myUserID === props.mentorID) otherID = props.studentID;
+    else otherID = props.mentorID;
+
+    for (let user of props.currentUserData) {
+      if (user.id === otherID) {
+        return user.username;
+      }
+    }
+    return null;
+  }
+
   return (
     <div className='tutor-history-item-container'>
       <div className="tutor-history-item-date">
@@ -59,7 +74,7 @@ export default function TutorHistoryBodyItem(props) {
           <div className='tutor-btn-container'>
             <TutorBtn
               name={'Complete'}
-              onClick={() => props.completeAction(props.id)}
+              onClick={() => props.completeAction(props.id, getUsername(props))}
             />
           </div>
         )}

@@ -6,14 +6,14 @@
 
 .main-tutor-container {
   width: 1000px;
-  height: 700px;
+  /* height: 700px; */
   border: 5px solid #222b45;
   padding: 1rem;
 }
 
 .tutor-history-container {
   width: 100%;
-  height: 50%;
+  height: 350px;
   border: 1px solid white;
 }
 
@@ -93,7 +93,8 @@
 
 /* tutor buttons */
 .tutor-btn,
-.tutor-create-btn {
+.tutor-create-btn,
+.rate-tutor-btn {
   border: 1px solid white;
   border-radius: 5px;
   padding: 0.25rem 0.5rem;
@@ -190,6 +191,7 @@
   background: #222b45;
   border-radius: 10px;
   padding: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .tutor-create-header {
@@ -227,15 +229,56 @@
   cursor: pointer;
 }
 
-.tutor-create-btn {
+.tutor-create-btn,
+.rate-tutor-btn {
   border: 1px solid #3366ff;
   color: #3366ff;
   font-weight: 500;
   margin-top: 1rem;
 }
 
-.tutor-create-btn:hover {
+.tutor-create-btn:hover,
+.rate-tutor-btn:hover {
   cursor: pointer;
   background: #3366ff;
   color: white;
+}
+
+
+
+
+
+/* tutor-rating container */
+.tutor-rate-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #222b45;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.rate-tutor-header {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.tutor-rating {
+  font-size: 50px;
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+#tutor-rate-comments {
+  background: #192038;
+  color: white;
+  padding: 0.75rem;
+  border: 1px solid #222b45;
+}
+
+#tutor-rate-comments:focus {
+  border: 1px solid #3366ff;
 }

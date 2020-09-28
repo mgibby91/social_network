@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import '../../src/styles/tutor-sessions.css';
 import TutorHistory from '../components/TutorSessions/TutorHistory';
 import TutorCreate from '../components/TutorSessions/TutorCreate';
+import TutorRate from '../components/TutorSessions/TutorRate';
+import { SlideDown } from 'react-slidedown';
+import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
+
 import axios from 'axios';
 
 export default function TutorSessions() {
@@ -12,6 +16,9 @@ export default function TutorSessions() {
   const [currentTutorData, setCurrentTutorData] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
   const [count, setCount] = useState(0);
+  const [rateTutor, setRateTutor] = useState(false);
+  const [currentTutorID, setCurrentTutorID] = useState(0);
+  const [otherUsername, setOtherUsername] = useState(null);
 
   useEffect(() => {
 
@@ -30,6 +37,8 @@ export default function TutorSessions() {
 
         setCurrentTutorData(cleanTutorData);
         setCurrentUserData(userData.data);
+
+        setRateTutor(false);
       })
 
   }, [count]);
@@ -50,12 +59,23 @@ export default function TutorSessions() {
       })
   }
 
-  function completeAction(tutorSessionID) {
+  function completeAction(tutorSessionID, otherUsername) {
 
-    axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID })
-      .then(() => {
-        setCount(count + 1);
-      })
+    setRateTutor(true);
+    setCurrentTutorID(tutorSessionID);
+    setOtherUsername(otherUsername);
+
+    // axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID })
+    //   .then(() => {
+    //     setCount(count + 1);
+    //   })
+  }
+
+  function submitRating(tutorSessionID, isMentor, rating, comments) {
+    console.log(tutorSessionID);
+    console.log(isMentor);
+    console.log(rating);
+    console.log(comments);
   }
 
 
@@ -94,6 +114,15 @@ export default function TutorSessions() {
         currentUserData={currentUserData}
         createTutorSession={createTutorSession}
       />
+      {rateTutor && (
+        <TutorRate
+          currentTutorID={currentTutorID}
+          currentUserData={currentUserData}
+          currentTutorData={currentTutorData}
+          submitRating={submitRating}
+          otherUsername={otherUsername}
+        />
+      )}
       <TutorHistory
         currentTutorData={currentTutorData}
         currentUserData={currentUserData}
