@@ -9,12 +9,12 @@
 // called after every page is created.
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions
-
+  console.log("page path: ", page.path);
   // page.matchPath is a special key that's used for matching pages
   // only on the client.
-  if (page.path.match(/^\/user_profiles/)) {
-    page.matchPath = "/user_profiles/*"
-
+  if (page.path.match(/^\/user-profiles/)) {
+    page.matchPath = "/user-profiles/*"
+    
     // Update the page.
     createPage(page)
   }

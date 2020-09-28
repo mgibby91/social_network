@@ -1,7 +1,10 @@
 import React from "react";
 import Row from '@paljs/ui/Row';
 import Col from '@paljs/ui/Col';
-import { Card, CardBody, CardHeader, CardFooter } from '@paljs/ui/Card';
+import { Card, CardBody } from '@paljs/ui/Card';
+import {
+  Link,
+} from "@reach/router";
 
 interface IProps {
 	key: number,
@@ -25,8 +28,10 @@ export default function PostListItem(props: IProps) {
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <CardBody>
-							<h3>{props.post.username}</h3>
-							<img src={props.post.avatar} alt="avatar"></img>
+								<Link to={`/user-profiles/${props.post.username}`}>
+									<h3>{props.post.username}</h3>
+									<img src={props.post.avatar} alt="avatar"></img>
+								</Link>
 								<Card>
 									<p>{props.post.text_body}</p>
 								</Card>

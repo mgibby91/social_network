@@ -22,18 +22,13 @@ const items: MenuItemType[] = [
     link: { to: "/mentor-list" },
   },
   {
-    title: 'Login-Logout',
-    link: { to: '/login-logout' },
-  },
-  {
-    title: 'Mentors',
-    link: { to: '/mentor-list' },
-
-  },
-  {
     title: "Students",
     icon: { name: "person-outline" },
     link: { to: "/student-list" },
+  },
+  {
+    title: 'Login-Logout',
+    link: { to: '/login-logout' },
   },
   {
     title: "User Rating",
