@@ -12,10 +12,10 @@ import UserInfo from "./profile-components/UserInfo";
 import axios from "axios";
 import { StepButton } from "@material-ui/core";
 import Experience from "./profile-components/UserExperience";
-import useApplicationData from "../hooks/useApplicationData";
+// import useApplicationData from "../hooks/useApplicationData";
+import ContextConsumer from "../context/context";
 
 function Profile() {
-  const { state } = useApplicationData()
   // const [state, setState] = useState({
   //   user: {},
   //   posts: [],
@@ -86,7 +86,15 @@ function Profile() {
   console.log("state in user-profile: ", state);
   return (
     <>
-      {console.log("state", state)}
+      <ContextConsumer>
+        {
+          ({ data, set }) => console.log("data: ", data)
+          // <div onClick={() => set({ menuOpen: !data.menuOpen })}>
+          //   {data.menuOpen ? `Opened Menu` : `Closed Menu`}
+          // </div>
+        }
+      </ContextConsumer>
+      ;{console.log("state", state)}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>

@@ -15,12 +15,12 @@ import Header from "./Header";
 import SimpleLayout from "./SimpleLayout";
 import SidebarCustom from "./Sidebar";
 import useApplicationData from "../hooks/useApplicationData";
+import { ContextProviderComponent } from "./Context";
 
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   children,
   pageContext,
 }) => {
-
   const { state } = useApplicationData();
   const [theme, setTheme] = useState<DefaultTheme["name"]>("dark");
   const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
@@ -36,36 +36,40 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   };
 
   return (
-    <ThemeProvider theme={themes(theme, dir)}>
-      <>
-        <SimpleLayout />
-        <Layout
-          evaIcons={icons}
-          dir={dir}
-          className={pageContext.layout === "auth" ? "auth-layout" : ""}
-        >
-          {pageContext.layout !== "auth" && (
-            <Header
-              dir={dir}
-              changeDir={changeDir}
-              changeTheme={changeTheme}
-              toggleSidebar={() => sidebarRef.current?.toggle()}
-            />
-          )}
-          <LayoutContainer>
+    <ContextProviderComponent>
+      <ThemeProvider theme={themes(theme, dir)}>
+        <>
+          <SimpleLayout />
+          <Layout
+            evaIcons={icons}
+            dir={dir}
+            className={pageContext.layout === "auth" ? "auth-layout" : ""}
+          >
             {pageContext.layout !== "auth" && (
-              <SidebarCustom ref={sidebarRef} />
+              <Header
+                dir={dir}
+                changeDir={changeDir}
+                changeTheme={changeTheme}
+                toggleSidebar={() => sidebarRef.current?.toggle()}
+              />
             )}
-            <LayoutContent>
-              <LayoutColumns>
-                <LayoutColumn className="main-content">{children}</LayoutColumn>
-              </LayoutColumns>
-              {/* {pageContext.layout !== 'auth' && <LayoutFooter>Footer</LayoutFooter>} */}
-            </LayoutContent>
-          </LayoutContainer>
-        </Layout>
-      </>
-    </ThemeProvider>
+            <LayoutContainer>
+              {pageContext.layout !== "auth" && (
+                <SidebarCustom ref={sidebarRef} />
+              )}
+              <LayoutContent>
+                <LayoutColumns>
+                  <LayoutColumn className="main-content">
+                    {children}
+                  </LayoutColumn>
+                </LayoutColumns>
+                {/* {pageContext.layout !== 'auth' && <LayoutFooter>Footer</LayoutFooter>} */}
+              </LayoutContent>
+            </LayoutContainer>
+          </Layout>
+        </>
+      </ThemeProvider>
+    </ContextProviderComponent>
   );
 };
 
