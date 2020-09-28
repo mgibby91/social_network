@@ -44,11 +44,15 @@ export default function TutorSessions() {
             // setUnratedSession(session);
             console.log('session', session);
             setUnratedSession(session);
+            const index = cleanTutorData.indexOf(session);
+            cleanTutorData.splice(index, 1);
           }
           if (session.student_id === loggedInUserID && session.student_rating === null && session.status === "completed") {
             // setUnratedSession(session);
             console.log('session', session);
             setUnratedSession(session);
+            const index = cleanTutorData.indexOf(session);
+            cleanTutorData.splice(index, 1);
           }
         }
 
