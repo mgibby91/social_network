@@ -58,10 +58,41 @@ export default function TutorSessions() {
       })
   }
 
+
+  function createTutorSession() {
+    const radios = document.getElementsByName('radio-mentor-student');
+    let radioChecked;
+    for (let radio of radios) {
+      if (radio.checked) {
+        radioChecked = radio.id;
+      }
+    }
+
+    const receiverID = Number(document.querySelector('#tutor-username-list').selectedOptions[0].id);
+    const creatorID = Number(document.cookie.split('=')[1]);
+
+    let mentorID, studentID;
+    if (radioChecked === 'mentor') {
+      mentorID = receiverID
+      studentID = creatorID;
+    } else {
+      mentorID = creatorID;
+      studentID = receiverID;
+    }
+
+    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+      .then(res => {
+        console.log(res);
+        setCount(count + 1);
+      })
+
+  }
+
   return (
     <div className='main-tutor-container'>
       <TutorCreate
         currentUserData={currentUserData}
+        createTutorSession={createTutorSession}
       />
       <TutorHistory
         currentTutorData={currentTutorData}

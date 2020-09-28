@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TutorCreateOptionItem from './TutorCreateOptionItem';
 
 export default function TutorCreate(props) {
@@ -20,6 +20,7 @@ export default function TutorCreate(props) {
     />
   })
 
+
   return (
     <div className='tutor-create-container'>
       <div className="tutor-create-header">
@@ -38,11 +39,11 @@ export default function TutorCreate(props) {
       </div>
       <div className="tutor-create-username">
         <label htmlFor="create-username" className='create-username-title'>With who: </label>
-        <select name="" id="">
+        <select name="" id="tutor-username-list">
           {usernameListData}
         </select>
       </div>
-      <div className="tutor-create-btn">
+      <div className="tutor-create-btn" onClick={() => props.createTutorSession()}>
         Create
       </div>
     </div>
