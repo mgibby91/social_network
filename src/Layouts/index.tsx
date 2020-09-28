@@ -15,13 +15,14 @@ import Header from "./Header";
 import SimpleLayout from "./SimpleLayout";
 import SidebarCustom from "./Sidebar";
 import useApplicationData from "../hooks/useApplicationData";
-import { ContextProviderComponent } from "./Context";
+import { ContextProviderComponent } from "../context/context";
 
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   children,
   pageContext,
 }) => {
   const { state } = useApplicationData();
+  
   const [theme, setTheme] = useState<DefaultTheme["name"]>("dark");
   const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
   const sidebarRef = useRef<SidebarRefObject>(null);
@@ -34,7 +35,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
     const newDir = dir === "ltr" ? "rtl" : "ltr";
     setDir(newDir);
   };
-
+  const props = {}
   return (
     <ContextProviderComponent>
       <ThemeProvider theme={themes(theme, dir)}>

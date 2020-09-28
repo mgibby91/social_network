@@ -13,7 +13,6 @@ export default function StudentList() {
   const students = state.student_points;
   return (
     <>
-      {/* <SEO title="Progress" keywords={['OAH', 'application', 'react']} /> */}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>

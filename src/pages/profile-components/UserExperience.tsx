@@ -6,22 +6,17 @@ import React, { useState, useEffect } from "react";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 function Experience(props) {
-  console.log("props in exerience: ", props)
   let is_mentor;
   props.mentor.map((mentor) => {
     if (mentor.mentor_id === props.userId)
-    console.log("Mentor in experience: ", mentor);
     is_mentor = mentor
-    console.log("mentor in userexperience: ", is_mentor.mentorrating);
   });
 
   
   let is_student;
   props.mentor.map((student) => {
     if (student.student_id === props.userId)
-    console.log("student in experience: ", student);
     is_student = student
-    console.log("student in userexperience: ", is_student.studentrating);
   });
 
 
