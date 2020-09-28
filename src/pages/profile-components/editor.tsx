@@ -48,7 +48,7 @@ function Editor(props) {
   const onSave = () => {
     //check for empty input here
 
-    props.createPost(postObj);
+    props.createPost(postObj, props.id);
     setValue("");
   };
   return (

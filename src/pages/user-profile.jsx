@@ -11,8 +11,9 @@ import Experience from "./profile-components/UserExperience";
 
 import axios from "axios";
 
-import getUser from "../helpers/profileHelpers";
+import { getUser, getUserPosts, getStack } from "../helpers/profileHelpers";
 import useVisualMode from "../hooks/useVisualMode";
+import useApplicationData from "../hooks/useApplicationData";
 
 const SHOW = "SHOW";
 const CONFIRM = "CONFIRM";
@@ -22,75 +23,14 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 function Profile() {
+  const { state, createPost } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
+
   const senderID = document.cookie.split("=")[1];
-  const [state, setState] = useState({
-    user: {},
-    posts: [],
-    mentor_stack: [],
-    mentor_points: [],
-    student_points: [],
-  });
 
-  const usersPromise = useEffect(() => {
-    Promise.all([
-      axios.get("http://localhost:8001/api/user_profiles/profile"),
-      axios.get("http://localhost:8001/api/posts/1"),
-      axios.get("http://localhost:8001/api/mentor_stack/1"),
-      axios.get("http://localhost:8001/api/mentor_points"),
-      axios.get("http://localhost:8001/api/student_points"),
-    ])
-      .then((all) => {
-        const user = getUser(all[0].data, senderID);
-        const posts = all[1].data;
-        const mentor_stack = all[2].data;
-        const mentor_points = all[3].data;
-        const student_points = all[4].data;
-        console.log(user);
-        setState((prev) => ({
-          ...prev,
-          user,
-          posts,
-          mentor_stack,
-          mentor_points,
-          student_points,
-        }));
-      })
-      .catch((err) => {
-        console.log("user-profile", err);
-      });
-  }, []);
-
-  const createPost = (postDetails) => {
-    //need helper method to build this object here
-    //pass the state and the other stuff
-    const post = {
-      active: true,
-      owner_id: state.user.id,
-      text_body: postDetails.text,
-      time_posted: new Date().toISOString(),
-      is_mentor: false,
-      is_student: true,
-    };
-
-    if (!postDetails.mentor) {
-      (post["is_mentor"] = true), (post["is_student"] = false);
-    }
-    const posts = [...state.posts, post];
-
-    return axios
-      .post(`http://localhost:8001/api/posts`, { post })
-      .then((response, reject) => {
-        // console.log("profile", post);
-        setState({
-          ...state,
-          posts,
-        });
-      })
-      .catch((err) => {
-        console.log("axios error");
-      });
-  };
+  const posts = getUserPosts(state.posts, senderID);
+  const user = getUser(state.user_profiles, senderID);
+  const mentor_stack = getStack(state.mentor_stack, senderID);
 
   function onEdit() {
     transition(EDITING);
@@ -103,7 +43,7 @@ function Profile() {
 
   return (
     <>
-      {console.log("state", state)}
+      {console.log("state", state.posts)}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
@@ -112,39 +52,38 @@ function Profile() {
               {mode === SHOW && (
                 <>
                   <UserInfo
-                    avatar={state.user.avatar}
-                    location={state.user.location}
-                    username={state.user.username}
-                    is_mentor={state.user.is_mentor}
-                    is_student={state.user.is_student}
+                    avatar={user.avatar}
+                    location={user.location}
+                    username={user.username}
+                    is_mentor={user.is_mentor}
+                    is_student={user.is_student}
                     onEdit={onEdit}
-                    mentor_stack={state.mentor_stack}
+                    mentor_stack={mentor_stack}
                   />
                 </>
               )}
               {mode === EDITING && (
                 <>
                   <EditUserInfo
-                    avatar={state.user.avatar}
-                    location={state.user.location}
-                    username={state.user.username}
-                    is_mentor={state.user.is_mentor}
-                    is_student={state.user.is_student}
-                    mentor_stack={state.mentor_stack}
+                    avatar={user.avatar}
+                    location={user.location}
+                    username={user.username}
+                    is_mentor={user.is_mentor}
+                    is_student={user.is_student}
+                    mentor_stack={mentor_stack}
                     // onSave={onSave}
                     onCancel={onCancel}
                   />
-                  {/* <Stack mentor={state.mentor_stack} /> */}
                 </>
               )}
 
-              <Experience
+              {/* <Experience
                 mentor={state.mentor_points}
                 student={state.student_points}
-              />
+              /> */}
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
-                  <Editor createPost={createPost} />
+                  <Editor id={user.id} createPost={createPost} />
                 </Col>
               </Row>
               <Row>
@@ -152,7 +91,7 @@ function Profile() {
                   <header>Recent Posts</header>
                 </Col>
               </Row>
-              <PostList posts={state.posts} />
+              <PostList posts={posts} />
             </CardBody>
           </Card>
         </Col>

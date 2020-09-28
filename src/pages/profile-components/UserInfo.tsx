@@ -20,7 +20,7 @@ function UserInfo(props) {
           <img src={props.avatar} alt="avatar" />
         </Col>
         <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
-          <p>THIS IS INFO</p>
+          <p></p>
         </Col>
         <Col breakPoint={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
           {" "}
