@@ -1,6 +1,7 @@
 import React from 'react';
 import MessageButton from './MessageButton';
 import MessageUsernameList from './MessageUsernameList';
+import UsernameSearchFeature from '../UsernameSearch/UsernameSearchFeature';
 
 export default function MessageHeader(props) {
 
@@ -17,16 +18,25 @@ export default function MessageHeader(props) {
     avatar = null;
   }
 
+  function getUsernameList(props) {
+    return props.avatarList.map(item => item.username);
+  }
+
   return (
     <div className='message-text-header'>
       <div className='message-header-username'>
         <img src={avatar} alt="" />
         <div>{!props.createNew && props.username}</div>
-        <div>{props.createNew &&
-          <MessageUsernameList
-            usernameList={props.avatarList}
-          />
-        }</div>
+        {props.createNew && (
+          <div>
+            <MessageUsernameList
+              usernameList={props.avatarList}
+            />
+            <UsernameSearchFeature
+              usernameList={getUsernameList(props)}
+            />
+          </div>
+        )}
       </div>
       <div className='message-header-buttons'>
         <div className='tutor-session-title'> Tutor Session: </div>

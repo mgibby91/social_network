@@ -1,0 +1,28 @@
+.username-search-container {
+  position: relative;
+}
+
+#search-user-input {
+  background: #192038;
+  color: white;
+  padding: 0.75rem;
+  border: 1px solid #222b45;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+#search-user-input:focus {
+  border: 1px solid #3366ff;
+  outline: none;
+}
+
+.username-search-results {
+  position: absolute;
+  left: 82px;
+  background: white;
+  color: black;
+  width: 190px;
+  font-size: 0.9rem;
+  border-radius: 0 0 4px 4px;
+}
