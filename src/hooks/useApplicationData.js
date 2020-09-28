@@ -5,6 +5,7 @@ import reducer, {
   SET_APPLICATION_DATA,
   SET_STUDENT_POINTS,
   SET_MENTOR_POINTS,
+  SET_POSTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -106,5 +107,44 @@ export default function useApplicationData() {
     return promise;
   };
 
-  return { state, addMentorPoints, addStudentPoints };
+  const createPost = (postDetails, id) => {
+    //need helper method to build this object here
+    //pass the state and the other stuff
+    const post = {
+      active: true,
+      owner_id: id,
+      text_body: postDetails.text,
+      time_posted: new Date().toISOString(),
+      is_mentor: false,
+      is_student: true,
+    };
+
+    if (!postDetails.mentor) {
+      (post["is_mentor"] = true), (post["is_student"] = false);
+    }
+
+    // const newPost = [...state.posts, post];
+
+    const promise = axios
+      .post(`http://localhost:8001/api/posts`, { post })
+      .then((response, reject) => {
+        // console.log("profile", post);
+        // setState({
+        //   ...state,
+        //   posts,
+        // });
+        dispatch({
+          type: SET_POSTS,
+          posts: post,
+        });
+
+        // console.log(state.posts);
+      })
+      .catch((err) => {
+        console.log("axios error");
+      });
+    return promise;
+  };
+
+  return { state, addMentorPoints, addStudentPoints, createPost };
 }

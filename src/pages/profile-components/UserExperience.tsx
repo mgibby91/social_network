@@ -4,6 +4,11 @@ import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import React, { useState, useEffect } from "react";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import Progress from "@paljs/ui/ProgressBar";
+import axios from "axios";
+import { constants } from "buffer";
+
+
 
 function Experience(props) {
   console.log("props in exerience: ", props)

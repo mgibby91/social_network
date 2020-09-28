@@ -5,6 +5,7 @@ import Col from "@paljs/ui/Col";
 import React, { useState, useEffect } from "react";
 
 function Stack(props) {
+  console.log("from USER STACK", props);
   const mentorStack = props.mentor.map((stack) => {
     return <li key={stack.id}>{stack.name}</li>;
   });
