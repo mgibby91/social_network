@@ -1,0 +1,12 @@
+* {
+  padding:0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.main-tutor-container {
+  width: 1000px;
+  height: 700px;
+  border: 5px solid #222b45;
+  padding: 1rem;
+}

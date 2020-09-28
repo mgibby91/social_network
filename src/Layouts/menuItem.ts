@@ -40,6 +40,10 @@ const items: MenuItemType[] = [
     icon: { name: "star" },
     link: { to: "/user-rating" },
   },
+  {
+    title: 'Tutor Sessions',
+    link: { to: '/tutor-sessions' },
+  },
   // {
   //   title: "Forms",
   //   link: { to: "/forms" },
