@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/messages.css';
+import '../styles/tutor-sessions.css'
 import MessageList from '../components/messages/MessageList';
 import MessageView from '../components/messages/MessageView';
 import MessageHeader from '../components/messages/MessageHeader';
 import MessageTextArea from '../components/messages/MessageTextArea';
 import MessageListHeader from '../components/messages/MessageListHeader';
+import MessageTutorCreate from '../components/messages/MessageTutorCreate';
 import messageCleanSort from '../helpers/messageHelpers';
+import TutorCreate from '../components/TutorSessions/TutorCreate';
 
 export default function Messages() {
 
@@ -17,6 +20,7 @@ export default function Messages() {
   const [currentUsername, setCurrentUsername] = useState('');
   const [avatars, setAvatars] = useState([]);
   const [createNew, setCreateNew] = useState(false);
+  const [showTutor, setShowTutor] = useState(false);
 
   useEffect(() => {
 
@@ -164,34 +168,77 @@ export default function Messages() {
     changeBg(currentUsername, true);
   }
 
+  // CREATE TUTOR SESSION STUFF ***************************************
+
+  function displayCreateTutorSession() {
+    setShowTutor(true);
+  }
+
+  function createTutorSession() {
+    const radios = document.getElementsByName('radio-mentor-student');
+    let radioChecked;
+    for (let radio of radios) {
+      if (radio.checked) {
+        radioChecked = radio.id;
+      }
+    }
+
+    const receiverID = Number(document.querySelector('#tutor-username-list').selectedOptions[0].id);
+    const creatorID = Number(document.cookie.split('=')[1]);
+
+    let mentorID, studentID;
+    if (radioChecked === 'mentor') {
+      mentorID = receiverID
+      studentID = creatorID;
+    } else {
+      mentorID = creatorID;
+      studentID = receiverID;
+    }
+
+    console.log(creatorID);
+    console.log(mentorID);
+    console.log(studentID);
+  }
+
+  // CREATE TUTOR SESSION STUFF ***************************************
+
 
   return (
-    <div className='main-message-container'>
-      <div className='left-message-container'>
-        <MessageListHeader
-          createNewMsg={createNewMsg}
-        />
-        <MessageList
-          messageList={messageList}
-          clickMe={clickMe}
-          username={currentUsername}
+    <div className="outside-main-message">
+      {showTutor && (
+        <MessageTutorCreate
           avatarList={avatars}
+          createTutorSession={createTutorSession}
         />
-      </div>
-      <div className='right-message-container'>
-        <MessageHeader
-          username={currentUsername}
-          avatarList={avatars}
-          createNew={createNew}
-        />
-        <MessageView
-          currentMessages={currentMessages}
-          createNew={createNew}
-        />
-        <MessageTextArea
-          submitMessage={submitMessage}
-          username={currentUsername}
-        />
+      )}
+      <div className='main-message-container'>
+        <div className='left-message-container'>
+          <MessageListHeader
+            createNewMsg={createNewMsg}
+          />
+          <MessageList
+            messageList={messageList}
+            clickMe={clickMe}
+            username={currentUsername}
+            avatarList={avatars}
+          />
+        </div>
+        <div className='right-message-container'>
+          <MessageHeader
+            username={currentUsername}
+            avatarList={avatars}
+            createNew={createNew}
+            displayCreateTutorSession={displayCreateTutorSession}
+          />
+          <MessageView
+            currentMessages={currentMessages}
+            createNew={createNew}
+          />
+          <MessageTextArea
+            submitMessage={submitMessage}
+            username={currentUsername}
+          />
+        </div>
       </div>
     </div>
   );

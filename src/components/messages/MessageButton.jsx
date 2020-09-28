@@ -6,7 +6,7 @@ export default function MessageButton(props) {
   const msgBtnClass = classNames('msg-btn', { 'msg-btn-create': props.create, 'msg-btn-complete': props.complete, 'msg-btn-send': props.send })
 
   return (
-    <div className={msgBtnClass}>
+    <div className={msgBtnClass} onClick={() => props.displayCreateTutorSession()}>
       {props.name}
     </div>
   )

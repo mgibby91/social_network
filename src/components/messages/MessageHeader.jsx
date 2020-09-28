@@ -4,7 +4,7 @@ import MessageUsernameList from './MessageUsernameList';
 
 export default function MessageHeader(props) {
 
-  console.log('msgHeaderProps', props)
+  console.log('msgHeaderProps', props);
 
   let avatar;
   for (let item of props.avatarList) {
@@ -16,8 +16,6 @@ export default function MessageHeader(props) {
   if (props.createNew) {
     avatar = null;
   }
-
-  const yes = 'hiiii';
 
   return (
     <div className='message-text-header'>
@@ -32,8 +30,11 @@ export default function MessageHeader(props) {
       </div>
       <div className='message-header-buttons'>
         <div className='tutor-session-title'> Tutor Session: </div>
-        <MessageButton name={'Create'} create={true} />
-        <MessageButton name={'Complete'} complete={true} />
+        <MessageButton
+          name={'Create'}
+          create={true}
+          displayCreateTutorSession={props.displayCreateTutorSession}
+        />
       </div>
     </div>
   )
