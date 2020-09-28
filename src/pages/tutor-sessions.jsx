@@ -92,6 +92,27 @@ export default function TutorSessions() {
       })
   }
 
+  function otherUserSubmitRating(unratedTutorSession, rating, comments) {
+    console.log('urts', unratedTutorSession);
+    console.log('r', rating);
+    console.log('c', comments);
+
+    const tutorSessionID = unratedTutorSession.id;
+
+    let isMentorRating;
+    if (!unratedTutorSession.mentor_rating) {
+      isMentorRating = true;
+    } else {
+      isMentorRating = false;
+    }
+
+    axios.put('http://localhost:8001/api/tutor_experiences/complete-other', { isMentorRating, rating, comments, tutorSessionID })
+      .then((res) => {
+        console.log('updatedRes', res)
+        setUnratedSession(null);
+        setCount(count + 1);
+      })
+  }
 
   function createTutorSession() {
     const radios = document.getElementsByName('radio-mentor-student');
@@ -135,6 +156,7 @@ export default function TutorSessions() {
           submitRating={submitRating}
           otherUsername={otherUsername}
           unratedSession={unratedSession}
+          otherUserSubmitRating={otherUserSubmitRating}
         />
       )}
       <TutorHistory

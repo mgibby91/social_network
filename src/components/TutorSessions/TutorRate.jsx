@@ -71,9 +71,16 @@ export default function TutorRate(props) {
       <div className="rate-tutor-comments">
         <textarea name="tutor-rate-comment" id="tutor-rate-comments" cols="43" rows="7" placeholder='Comments...'></textarea>
       </div>
-      <div className="rate-tutor-btn" onClick={() => props.submitRating(props.currentTutorID, getIsMentor(props), rating, getTutorComments())}>
-        Submit
-      </div>
+      {!props.unratedSession && (
+        <div className="rate-tutor-btn" onClick={() => props.submitRating(props.currentTutorID, getIsMentor(props), rating, getTutorComments())}>
+          Submit
+        </div>
+      )}
+      {props.unratedSession && (
+        <div className="rate-tutor-btn" onClick={() => props.otherUserSubmitRating(props.unratedSession, rating, getTutorComments())}>
+          Submit
+        </div>
+      )}
     </div>
   )
 
