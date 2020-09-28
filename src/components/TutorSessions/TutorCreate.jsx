@@ -3,7 +3,7 @@ import TutorCreateOptionItem from './TutorCreateOptionItem';
 
 export default function TutorCreate(props) {
 
-  console.log('tutor create', props);
+  // console.log('tutor create', props);
 
   const usernameList = props.currentUserData;
 
@@ -29,7 +29,7 @@ export default function TutorCreate(props) {
       <div className="tutor-create-mentor-student">
         <div className="create-mentor-student-header">You're looking for:</div>
         <div className="radio-mentor">
-          <input type="radio" name='radio-mentor-student' id='mentor' checked />
+          <input type="radio" name='radio-mentor-student' id='mentor' defaultChecked />
           <label htmlFor="mentor">Mentorship</label>
         </div>
         <div className="radio-student">

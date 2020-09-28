@@ -3,7 +3,7 @@ import TutorHistoryBodyItem from './TutorHistoryBodyItem';
 
 export default function TutorHistoryBody(props) {
 
-  console.log('tutorHistoryBodyProps', props);
+  // console.log('tutorHistoryBodyProps', props);
 
   const tutorList = props.currentTutorData
   let tutorListData;

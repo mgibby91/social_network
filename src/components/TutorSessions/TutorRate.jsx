@@ -29,15 +29,33 @@ export default function TutorRate(props) {
     return document.querySelector('#tutor-rate-comments').value;
   }
 
-  // *******************
-  // add username to tutor session title
-  // *******************
+  function getOtherUsername(props) {
+    if (props.unratedSession) {
 
+      let otherUserID;
+      const loggedInUserID = Number(document.cookie.split('=')[1]);
+
+      if (props.unratedSession.mentor_id === loggedInUserID) {
+        otherUserID = props.unratedSession.student_id;
+      } else {
+        otherUserID = props.unratedSession.mentor_id;
+      }
+
+      for (let user of props.currentUserData) {
+        if (user.id === otherUserID) {
+          return user.username;
+        }
+      }
+    }
+
+    return props.otherUsername;
+
+  }
 
   return (
     <div className='tutor-rate-container'>
       <div className="rate-tutor-header">
-        Rate Tutor Session: <strong>{props.otherUsername}</strong>
+        Rate Tutor Session: <strong>{getOtherUsername(props)}</strong>
       </div>
       <div className="rate-tutor-stars">
         <ReactStars

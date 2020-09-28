@@ -19,6 +19,9 @@ export default function TutorSessions() {
   const [rateTutor, setRateTutor] = useState(false);
   const [currentTutorID, setCurrentTutorID] = useState(0);
   const [otherUsername, setOtherUsername] = useState(null);
+  const [unratedSession, setUnratedSession] = useState(null);
+
+  console.log('unratesSession', unratedSession);
 
   useEffect(() => {
 
@@ -34,6 +37,20 @@ export default function TutorSessions() {
         const cleanTutorData = sortFilterAllTutorData(tutorData.data, loggedInUserID);
 
         console.log('cleanTutorData', cleanTutorData);
+        console.log('loggedInUser', loggedInUserID);
+
+        for (let session of cleanTutorData) {
+          if (session.mentor_id === loggedInUserID && session.mentor_rating === null && session.status === "completed") {
+            // setUnratedSession(session);
+            console.log('session', session);
+            setUnratedSession(session);
+          }
+          if (session.student_id === loggedInUserID && session.student_rating === null && session.status === "completed") {
+            // setUnratedSession(session);
+            console.log('session', session);
+            setUnratedSession(session);
+          }
+        }
 
         setCurrentTutorData(cleanTutorData);
         setCurrentUserData(userData.data);
@@ -54,7 +71,7 @@ export default function TutorSessions() {
   function declineCancelAction(tutorSessionID) {
 
     axios.put('http://localhost:8001/api/tutor_experiences/delete', { tutorSessionID })
-      .then((res) => {
+      .then(() => {
         setCount(count + 1);
       })
   }
@@ -98,8 +115,7 @@ export default function TutorSessions() {
     }
 
     axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
-      .then(res => {
-        console.log(res);
+      .then(() => {
         setCount(count + 1);
       })
 
@@ -111,13 +127,14 @@ export default function TutorSessions() {
         currentUserData={currentUserData}
         createTutorSession={createTutorSession}
       />
-      {rateTutor && (
+      {(rateTutor || unratedSession) && (
         <TutorRate
           currentTutorID={currentTutorID}
           currentUserData={currentUserData}
           currentTutorData={currentTutorData}
           submitRating={submitRating}
           otherUsername={otherUsername}
+          unratedSession={unratedSession}
         />
       )}
       <TutorHistory

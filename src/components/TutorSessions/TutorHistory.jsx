@@ -4,7 +4,7 @@ import TutorHistoryBody from './TutorHistoryBody';
 
 export default function TutorHistory(props) {
 
-  console.log('tutorHistoryProps', props);
+  // console.log('tutorHistoryProps', props);
 
   return (
     <div className='tutor-history-container'>

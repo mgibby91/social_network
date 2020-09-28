@@ -6,7 +6,7 @@ const classNames = require('class-names');
 
 export default function TutorHistoryBodyItem(props) {
 
-  console.log('tutorHistoryBodyItem', props);
+  // console.log('tutorHistoryBodyItem', props);
 
   const statusClass = classNames('tutor-history-item-status', {
     'item-status-pending': props.status === 'pending',
