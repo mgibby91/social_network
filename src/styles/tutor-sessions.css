@@ -6,7 +6,279 @@
 
 .main-tutor-container {
   width: 1000px;
-  height: 700px;
+  /* height: 700px; */
   border: 5px solid #222b45;
   padding: 1rem;
+}
+
+.tutor-history-container {
+  width: 100%;
+  height: 350px;
+  border: 1px solid white;
+}
+
+.tutor-history-header-container {
+  width: 100%;
+  height: 35px;
+  border: 1px solid white;
+}
+
+.tutor-history-body-container {
+  width: 100%;
+  height: 90%;
+  border: 1px solid white;
+  overflow: auto;
+}
+
+
+/* tutor history list items */
+.tutor-history-item-container {
+  width: 100%;
+  height: 50px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.tutor-history-item-date {
+  width: 210px;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.tutor-history-item-student-mentor {
+  width: 220px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutor-history-item-status {
+  border: 1px solid white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.item-status-pending {
+  background: #fff3cd;
+  border-color: #ffeeba;
+  color: #222b45;
+}
+
+.item-status-in-progress {
+  background: #cce5ff;
+  border-color: #b8daff;
+  color: #222b45;
+}
+
+.item-status-completed {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #222b45;
+}
+
+
+/* tutor buttons */
+.tutor-btn,
+.tutor-create-btn,
+.rate-tutor-btn {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  font-weight: 500;
+  width: 85px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutor-btn-decline-cancel {
+  color: rgb(250, 70, 70);
+  border: 1px solid rgb(250, 70, 70);
+}
+
+.tutor-btn-decline-cancel:hover {
+  cursor: pointer;
+  background: rgb(250, 70, 70);
+  color: white;
+}
+
+.tutor-btn-accept-complete {
+  color: #1cd454;
+  border: 1px solid #1cd454;
+}
+
+.tutor-btn-accept-complete:hover {
+  cursor: pointer;
+  background: #1cd454;
+  color: white;
+}
+
+.tutor-btn-hide {
+  color: inheret;
+  border: none;
+}
+
+.tutor-btn-container {
+  display: flex;
+  min-width: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msg-btn-create {
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 500;
+}
+
+
+/* tutor history header */
+.tutor-history-header-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 0.1rem;
+  font-weight: 700;  
+  font-size: 1.2rem;
+  position: relative;
+}
+
+.tutor-history-header-date {
+  position: absolute;
+  left: 85px;
+}
+
+.tutor-history-header-usernames {
+  position: absolute;
+  left: 318px;
+}
+
+.tutor-history-header-status {
+  position: absolute;
+  left: 575px;
+}
+
+.tutor-history-header-actions {
+  position: absolute;
+  left: 760px;
+}
+
+
+
+
+/* CREATE NEW */
+.tutor-create-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #222b45;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.tutor-create-header {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.tutor-create-mentor-student {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.create-mentor-student-header,
+.create-username-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.radio-mentor,
+.radio-student {
+  margin-right: 0.75rem;
+}
+
+.radio-mentor > input,
+.radio-student > input {
+  margin-right: 0.25rem;
+}
+
+.radio-mentor > *:hover,
+.radio-student > *:hover {
+  cursor: pointer;
+}
+
+.tutor-create-btn,
+.rate-tutor-btn {
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.tutor-create-btn:hover,
+.rate-tutor-btn:hover {
+  cursor: pointer;
+  background: #3366ff;
+  color: white;
+}
+
+
+
+
+
+/* tutor-rating container */
+.tutor-rate-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #222b45;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.rate-tutor-header {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.tutor-rating {
+  font-size: 50px;
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+#tutor-rate-comments {
+  background: #192038;
+  color: white;
+  padding: 0.75rem;
+  border: 1px solid #222b45;
+}
+
+#tutor-rate-comments:focus {
+  border: 1px solid #3366ff;
 }

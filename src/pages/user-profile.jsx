@@ -1,83 +1,90 @@
-import { breakpointUp } from "@paljs/ui/breakpoints";
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
 import Editor from "./profile-components/Editor";
-import Stack from "./profile-components/UserStack";
 import PostList from "./profile-components/PostList";
 import UserInfo from "./profile-components/UserInfo";
-import axios from "axios";
-import { StepButton } from "@material-ui/core";
+import EditUserInfo from "./profile-components/EditUserInfo";
+import Experience from "./profile-components/UserExperience";
 
-// interface BoxProps {
-//   nested?: boolean;
-//   container?: boolean;
-//   row?: boolean;
-//   large?: boolean;
-// }
+import axios from "axios";
+
+import { getUser, getUserPosts, getStack } from "../helpers/profileHelpers";
+import useVisualMode from "../hooks/useVisualMode";
+import useApplicationData from "../hooks/useApplicationData";
+
+const SHOW = "SHOW";
+const CONFIRM = "CONFIRM";
+const SAVING = "SAVING";
+const EDITING = "EDITING";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 function Profile() {
-  const [state, setState] = useState({
-    user: {},
-    posts: [],
-    mentor_stack: [],
-    student_stack: [],
-  });
+  const { state, createPost } = useApplicationData();
+  const { mode, transition, back } = useVisualMode(SHOW);
 
-  const usersPromise = useEffect(() => {
-    Promise.all([
-      axios.get("http://localhost:8001/api/user_profiles/1"),
-      axios.get("http://localhost:8001/api/posts/1"),
-      axios.get("http://localhost:8001/api/mentor_stack/1"),
-      axios.get("http://localhost:8001/api/student_stack/1"),
-    ])
-      .then((all) => {
-        const user = all[0].data[0];
-        const posts = all[1].data;
-        const mentor_stack = all[2].data;
-        const student_stack = all[3].data;
+  const senderID = document.cookie.split("=")[1];
 
+  const posts = getUserPosts(state.posts, senderID);
+  const user = getUser(state.user_profiles, senderID);
+  const mentor_stack = getStack(state.mentor_stack, senderID);
 
-        // console.log(userInfo, allPosts);
-        setState((prev) => ({
-          ...prev,
-          user,
-          posts,
-          mentor_stack,
-          student_stack,
-        }));
-      })
-      .catch((err) => {
-        console.log("user-profile", err);
-      });
-  }, []);
+  function onEdit() {
+    transition(EDITING);
+  }
 
+  function onCancel() {
+    console.log("WOW");
+    back();
+  }
 
   return (
     <>
+      {console.log("state", state.posts)}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <header>Profile</header>
             <CardBody>
-              <UserInfo
-                avatar={state.user.avatar}
-                location={state.user.location}
-                username={state.user.username}
-                is_mentor={state.user.is_mentor}
-                is_student={state.user.is_student}
-                mentor_points={state.mentor_points}
-                student_points={state.student_points}
-              />
-              <Stack
-                mentor={state.mentor_stack}
-                student={state.student_stack}
-              />
+
+              {mode === SHOW && (
+                <>
+                  <UserInfo
+                    avatar={user.avatar}
+                    location={user.location}
+                    username={user.username}
+                    is_mentor={user.is_mentor}
+                    is_student={user.is_student}
+                    onEdit={onEdit}
+                    mentor_stack={mentor_stack}
+                  />
+                </>
+              )}
+              {mode === EDITING && (
+                <>
+                  <EditUserInfo
+                    avatar={user.avatar}
+                    location={user.location}
+                    username={user.username}
+                    is_mentor={user.is_mentor}
+                    is_student={user.is_student}
+                    mentor_stack={mentor_stack}
+                    // onSave={onSave}
+                    onCancel={onCancel}
+                  />
+                </>
+              )}
+
+              {/* <Experience
+                mentor={state.mentor_points}
+                student={state.student_points}
+              /> */}
+
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
-                  <Editor />
+                  <Editor id={user.id} createPost={createPost} />
                 </Col>
               </Row>
               <Row>
@@ -85,8 +92,7 @@ function Profile() {
                   <header>Recent Posts</header>
                 </Col>
               </Row>
-              <PostList posts={state.posts} />
-              {/* {console.log("profile posts", state.posts)} */}
+              <PostList posts={posts} />
             </CardBody>
           </Card>
         </Col>

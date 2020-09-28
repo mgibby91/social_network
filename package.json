@@ -36,7 +36,10 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-ladda": "^6.0.0",
+    "react-rating": "^2.0.5",
     "react-scripts": "3.4.3",
+    "react-slidedown": "^2.4.5",
+    "react-tag-autocomplete": "^6.1.0",
     "styled-components": "^5.2.0",
     "ws": "^7.3.1"
   },

@@ -16,7 +16,7 @@ export default function MessageTextBubble(props) {
         {props.textBody}
       </div>
       <div className={textTimeClass}>
-        {timeAgo + ' ago'}
+        {timeAgo}
       </div>
     </div>
   );

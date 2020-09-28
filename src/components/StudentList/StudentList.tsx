@@ -3,9 +3,8 @@ import React from "react";
 import StudentListItem from "./StudentListItem";
 
 export default function StudentList(props) {
-	
-	const { students } = props;
-	
+  const { students } = props;
+
   const studentsData = students.map((student, index) => {
     return (
       <StudentListItem

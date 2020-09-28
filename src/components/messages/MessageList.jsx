@@ -36,7 +36,7 @@ export default function MessageList(props) {
 
   if (!messageListEmpty) {
 
-    messageData = sortedMessageList.map(message => {
+    messageData = sortedMessageList.map((message, index) => {
       return <MessageItem
         key={sortedMessageList.indexOf(message)}
         recentMessage={message[1][0]}
