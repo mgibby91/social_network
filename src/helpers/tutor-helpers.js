@@ -7,14 +7,18 @@ export function sortFilterAllTutorData(tutorData, loggedInUserID) {
   });;
 
   const pendingData = userTutorData.filter(data => data.status === 'pending').sort((a, b) => {
-    return new Date(b.date_initiated) - new Date(a.date_initiated);
+    return new Date(a.date_initiated) - new Date(b.date_initiated);
   });
   const progressData = userTutorData.filter(data => data.status === 'in-progress').sort((a, b) => {
-    return new Date(b.date_accepted) - new Date(a.date_accepted);
+    return new Date(a.date_accepted) - new Date(b.date_accepted);
   });
   const completedData = userTutorData.filter(data => data.status === 'completed').sort((a, b) => {
-    return new Date(b.date_completed) - new Date(a.date_completed);
+    return new Date(a.date_completed) - new Date(b.date_completed);
   });
+
+  pendingData.reverse();
+  progressData.reverse();
+  completedData.reverse();
 
   return [...pendingData, ...progressData, ...completedData];
 }
