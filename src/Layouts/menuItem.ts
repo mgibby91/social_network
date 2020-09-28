@@ -9,7 +9,7 @@ const items: MenuItemType[] = [
   {
     title: "Profile",
     icon: { name: "person" },
-    link: { to: "/user-profile" },
+    link: { to: "/user-profiles" },
   },
   {
     title: "Messages",

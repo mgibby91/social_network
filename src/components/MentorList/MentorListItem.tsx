@@ -10,7 +10,7 @@ import {
 export default function MentorListItem(props) {
 
   function Profile() {
-    const match = useRouteMatch("/user_profile/:name");
+    const match = useRouteMatch("/user_profiles/:name");
     return match ? <UserProfile /> : <p>My own profile</p>;
   }
 
@@ -21,7 +21,7 @@ export default function MentorListItem(props) {
   
   return (
     <Router>
-      <Link to={`/user_profile/${props.username}`}>
+      <Link to={`/user_profiles/${props.username}`}>
         <div onClick={ () => setMentor(props.userId)}>
           <img src={props.avatar} alt="avatar"></img>
           <h2>{props.username}</h2>
@@ -30,9 +30,6 @@ export default function MentorListItem(props) {
           </div>
         </div>
       </Link>
-      <Route path="/user_profiles">
-        <Profile />
-      </Route>
     </Router>
   );
 }

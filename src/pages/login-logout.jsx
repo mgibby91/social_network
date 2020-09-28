@@ -14,7 +14,7 @@ export default function LoginLogout() {
       const username = res.data[0].username;
       console.log(res.data[0]);
       // setSelectedUser(res.data[0].id)
-      set({ ...data, state: state, selected: res.data[0].id });
+      set({ ...data, state: state, selected: res.data[0].username });
       const rightNavContainer = document.querySelector(
         ".sc-kEqYlL.gyZWym.right"
       );
@@ -52,7 +52,7 @@ export default function LoginLogout() {
   return (
     <ContextConsumer>
       {({ data, set }) => {
-        console.log("data in login: ", data);
+        console.log("data in  login: ", data);
         return (
           <div>
             <label htmlFor="login">User ID:</label>

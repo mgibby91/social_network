@@ -100,7 +100,7 @@ function Profile() {
             <CardBody>
               <ContextConsumer>
                 {({ data, setData }) => {
-                  console.log("data: ", state);
+                  console.log("data: ", data.selected, state.users);
                   return (
                     <UserInfo
                       avatar={state.user.avatar}

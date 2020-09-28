@@ -4,12 +4,18 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-// You can delete this file if you're not using it
-exports.onCreatePage = ({ page, actions }) => {
-  const { createPage } = actions;
+// gatsby-node.js
+// Implement the Gatsby API “onCreatePage”. This is
+// called after every page is created.
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions
 
-  if (page.path.match(/auth/)) {
-    page.context.layout = 'auth';
-    createPage(page);
+  // page.matchPath is a special key that's used for matching pages
+  // only on the client.
+  if (page.path.match(/^\/user_profiles/)) {
+    page.matchPath = "/user_profiles/*"
+
+    // Update the page.
+    createPage(page)
   }
-};
+}
