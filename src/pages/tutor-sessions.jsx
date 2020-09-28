@@ -65,17 +65,14 @@ export default function TutorSessions() {
     setCurrentTutorID(tutorSessionID);
     setOtherUsername(otherUsername);
 
-    // axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID })
-    //   .then(() => {
-    //     setCount(count + 1);
-    //   })
   }
 
   function submitRating(tutorSessionID, isMentor, rating, comments) {
-    console.log(tutorSessionID);
-    console.log(isMentor);
-    console.log(rating);
-    console.log(comments);
+
+    axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID, isMentor, rating, comments })
+      .then(() => {
+        setCount(count + 1);
+      })
   }
 
 
