@@ -9,7 +9,6 @@ import MessageTextArea from '../components/messages/MessageTextArea';
 import MessageListHeader from '../components/messages/MessageListHeader';
 import MessageTutorCreate from '../components/messages/MessageTutorCreate';
 import messageCleanSort from '../helpers/messageHelpers';
-import TutorCreate from '../components/TutorSessions/TutorCreate';
 
 export default function Messages() {
 
@@ -195,9 +194,11 @@ export default function Messages() {
       studentID = receiverID;
     }
 
-    console.log(creatorID);
-    console.log(mentorID);
-    console.log(studentID);
+    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+      .then(() => {
+        setShowTutor(false);
+        setCount(count + 1);
+      })
   }
 
   // CREATE TUTOR SESSION STUFF ***************************************
