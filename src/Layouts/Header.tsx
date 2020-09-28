@@ -133,6 +133,8 @@ const Header: React.FC<HeaderProps> = (props) => {
           className="right"
           actions={[
             {
+              icon: { name: "message-square-outline" },
+              link: { to: "/messages" },
             },
             {
               icon: 'github',
@@ -142,6 +144,11 @@ const Header: React.FC<HeaderProps> = (props) => {
               icon: "twitter",
               url: { href: "https://twitter.com/AhmedElywh", target: "_blank" },
             },
+            // {
+            //   icon: "twitter",
+            //   url: { href: "https://twitter.com/AhmedElywh", target: "_blank" },
+            // },
+
             {
               content: (
                 <Location>
