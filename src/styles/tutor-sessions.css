@@ -282,3 +282,27 @@
 #tutor-rate-comments:focus {
   border: 1px solid #3366ff;
 }
+
+
+
+
+/* CONFIRM DELETE */
+.tutor-confirm-delete-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 4rem;
+}
+
+.confirm-delete-title {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.confirm-delete-btns {
+  display: flex;
+}

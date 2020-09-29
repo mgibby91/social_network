@@ -1,12 +1,12 @@
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import React from "react";
-import { Button, } from "@paljs/ui/Button";
+import { Button } from "@paljs/ui/Button";
 import Stack from "./UserStack";
 
 function UserInfo(props) {
-  console.log("logged in user: ", props);
-  
+  console.log("logged in user in userinfo: ", props.user.username);
+
   if (!props.user) return null;
 
   return (

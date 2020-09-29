@@ -7,7 +7,7 @@ export default function MessageList(props) {
 
   const messageListObj = props.messageList.messageList;
 
-  console.log('msglistobj', messageListObj);
+  // console.log('msglistobj', messageListObj);
 
   function isEmpty(obj) {
     for (var prop in obj) {
@@ -28,9 +28,9 @@ export default function MessageList(props) {
     return new Date(b[1][0].timeSent) - new Date(a[1][0].timeSent);
   });
 
-  console.log('sortedMessageList', sortedMessageList)
+  // console.log('sortedMessageList', sortedMessageList)
 
-  console.log('sortable', sortable);
+  // console.log('sortable', sortable);
 
   let messageData;
 

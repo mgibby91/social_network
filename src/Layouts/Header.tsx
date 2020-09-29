@@ -11,6 +11,8 @@ import User from "@paljs/ui/User";
 import { getPathReady } from "./Sidebar";
 import { Location } from "@reach/router";
 import { breakpointDown } from "@paljs/ui/breakpoints";
+import LogingLogout from '../components/LoginLogout'
+import LoginLogout from "../components/LoginLogout/LoginLogout";
 
 const HeaderStyle = styled.div`
   display: flex;
@@ -108,24 +110,6 @@ const Header: React.FC<HeaderProps> = (props) => {
                 </Link>
               ),
             },
-            // {
-            //   content: (
-            //     <SelectStyled
-            //       isSearchable={false}
-            //       shape="SemiRound"
-            //       placeholder="Themes"
-            //       options={themeOptions}
-            //       onChange={({ value }: { value: DefaultTheme['name'] }) => props.changeTheme(value)}
-            //     />
-            //   ),
-            // },
-            // {
-            //   content: (
-            //     <Button size="Small" onClick={() => props.changeDir()}>
-            //       {props.dir}
-            //     </Button>
-            //   ),
-            // },
           ]}
         />
         <Actions
@@ -136,19 +120,6 @@ const Header: React.FC<HeaderProps> = (props) => {
               icon: { name: "message-square-outline" },
               link: { to: "/messages" },
             },
-            {
-              icon: 'github',
-              url: { href: 'https://github.com/paljs/gatsby-admin-template', target: '_blank' },
-            },
-            {
-              icon: "twitter",
-              url: { href: "https://twitter.com/AhmedElywh", target: "_blank" },
-            },
-            // {
-            //   icon: "twitter",
-            //   url: { href: "https://twitter.com/AhmedElywh", target: "_blank" },
-            // },
-
             {
               content: (
                 <Location>
@@ -163,12 +134,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                       ]}
                       Link={Link}
                     >
-                      <User
-                        image="url('/icons/icon-72x72.png')"
-                        name="Ahmed Elywa"
-                        title="Manger"
-                        size="Medium"
-                      />
+                      <LoginLogout/>
                     </ContextMenu>
                   )}
                 </Location>

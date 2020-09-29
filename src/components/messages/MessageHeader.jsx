@@ -1,10 +1,11 @@
 import React from 'react';
 import MessageButton from './MessageButton';
 import MessageUsernameList from './MessageUsernameList';
+import UsernameSearchFeature from '../UsernameSearch/UsernameSearchFeature';
 
 export default function MessageHeader(props) {
 
-  console.log('msgHeaderProps', props)
+  console.log('msgHeaderProps', props);
 
   let avatar;
   for (let item of props.avatarList) {
@@ -17,23 +18,39 @@ export default function MessageHeader(props) {
     avatar = null;
   }
 
-  const yes = 'hiiii';
+  const currentUserID = Number(document.cookie.split('=')[1]);
+
+  function getUsernameList(props) {
+
+    const filteredList = props.avatarList.filter(item => {
+      return item.id !== currentUserID;
+    });
+
+    return filteredList.map(item => {
+      return item.username;
+    });
+  }
 
   return (
     <div className='message-text-header'>
       <div className='message-header-username'>
         <img src={avatar} alt="" />
         <div>{!props.createNew && props.username}</div>
-        <div>{props.createNew &&
-          <MessageUsernameList
-            usernameList={props.avatarList}
-          />
-        }</div>
+        {props.createNew && (
+          <div>
+            <UsernameSearchFeature
+              usernameList={getUsernameList(props)}
+            />
+          </div>
+        )}
       </div>
       <div className='message-header-buttons'>
         <div className='tutor-session-title'> Tutor Session: </div>
-        <MessageButton name={'Create'} create={true} />
-        <MessageButton name={'Complete'} complete={true} />
+        <MessageButton
+          name={'Create'}
+          create={true}
+          displayCreateTutorSession={props.displayCreateTutorSession}
+        />
       </div>
     </div>
   )

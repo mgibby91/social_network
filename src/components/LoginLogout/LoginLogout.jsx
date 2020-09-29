@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
-import useApplicationData from "../hooks/useApplicationData";
-import ContextConsumer from "../context/context";
+import useApplicationData from "../../hooks/useApplicationData";
+import ContextConsumer from "../../context/context";
 
 export default function LoginLogout() {
   const { state, setSelectedUser } = useApplicationData();
@@ -12,8 +12,7 @@ export default function LoginLogout() {
 
     axios.post("http://localhost:8001/api/login", { userID }).then((res) => {
       const username = res.data[0].username;
-      console.log(res.data[0].id);
-      // setSelectedUser(res.data[0].id)
+
       set({ ...data, state: state, selected: res.data[0].username });
       const rightNavContainer = document.querySelector(
         ".sc-kEqYlL.gyZWym.right"
@@ -52,30 +51,35 @@ export default function LoginLogout() {
   return (
     <ContextConsumer>
       {({ data, set }) => {
-        console.log("data in  login: ", data);
-        return (
-          <div>
-            <label htmlFor="login">User ID:</label>
-            <select name="login" id="login-user-id">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-            <button type="button" name="login" onClick={() => login(data, set)}>
-              Login
-            </button>
-            <button type="button" name="logout" onClick={() => logout()}>
-              Logout
-            </button>
-          </div>
-        );
+        if (!data.selected) {
+          return (
+            <div>
+              <label htmlFor="login">User ID:</label>
+              <select name="login" id="login-user-id">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <button type="button" name="login" onClick={() => login(data, set)}>
+                Login
+              </button>
+            </div>
+          );
+        } else {
+          return (
+
+              <button type="button" name="logout" onClick={() => logout()}>
+                Logout
+              </button>
+          )
+        }
       }}
     </ContextConsumer>
   );

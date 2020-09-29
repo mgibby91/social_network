@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/messages.css';
-import MessageList from '../components/Messages/MessageList';
-import MessageView from '../components/Messages/MessageView';
-import MessageHeader from '../components/Messages/MessageHeader';
-import MessageTextArea from '../components/Messages/MessageTextArea';
-import MessageListHeader from '../components/Messages/MessageListHeader';
+import '../styles/tutor-sessions.css'
+import MessageList from '../components/messages/MessageList';
+import MessageView from '../components/messages/MessageView';
+import MessageHeader from '../components/messages/MessageHeader';
+import MessageTextArea from '../components/messages/MessageTextArea';
+import MessageListHeader from '../components/messages/MessageListHeader';
+import MessageTutorCreate from '../components/messages/MessageTutorCreate';
 import messageCleanSort from '../helpers/messageHelpers';
 
 export default function Messages() {
@@ -17,6 +19,7 @@ export default function Messages() {
   const [currentUsername, setCurrentUsername] = useState('');
   const [avatars, setAvatars] = useState([]);
   const [createNew, setCreateNew] = useState(false);
+  const [showTutor, setShowTutor] = useState(false);
 
   useEffect(() => {
 
@@ -110,18 +113,26 @@ export default function Messages() {
     let selectedUsername;
 
     if (createNew) {
-      selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
+      selectedUsername = document.querySelector('#search-user-input').value;
     }
+
+    console.log('selectedUsername', selectedUsername);
 
     const textInput = document.querySelector('#msg-textarea').value;
 
     let receiverID;
 
     if (!createNew) {
-      receiverID = document.querySelector('.text-container');
+      receiverID = document.querySelector('.text-container').id;
     } else {
-      receiverID = document.querySelector('#username-list-data').selectedOptions[0];
+      for (let user of avatars) {
+        if (user.username === selectedUsername) {
+          receiverID = user.id;
+        }
+      }
     }
+
+    console.log('receiverID', receiverID);
 
     // error handling for if user message feed isn't clicked on
     if (!receiverID) {
@@ -140,7 +151,7 @@ export default function Messages() {
     } else {
       const senderID = document.cookie.split('=')[1];
 
-      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id, senderID })
+      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID, senderID })
         .then(() => {
           if (createNew) {
             setCurrentUsername(selectedUsername);
@@ -164,34 +175,85 @@ export default function Messages() {
     changeBg(currentUsername, true);
   }
 
+  // CREATE TUTOR SESSION STUFF ***************************************
+
+  function displayCreateTutorSession() {
+    setShowTutor(true);
+  }
+
+  function createTutorSession() {
+    const radios = document.getElementsByName('radio-mentor-student');
+    let radioChecked;
+    for (let radio of radios) {
+      if (radio.checked) {
+        radioChecked = radio.id;
+      }
+    }
+
+    const username = document.querySelector('#search-user-input').value;
+    let receiverID;
+    for (let user of avatars) {
+      if (user.username === username) {
+        receiverID = user.id;
+      }
+    }
+    const creatorID = Number(document.cookie.split('=')[1]);
+
+    let mentorID, studentID;
+    if (radioChecked === 'mentor') {
+      mentorID = receiverID
+      studentID = creatorID;
+    } else {
+      mentorID = creatorID;
+      studentID = receiverID;
+    }
+
+    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+      .then(() => {
+        setShowTutor(false);
+        setCount(count + 1);
+      })
+  }
+
+  // CREATE TUTOR SESSION STUFF ***************************************
+
 
   return (
-    <div className='main-message-container'>
-      <div className='left-message-container'>
-        <MessageListHeader
-          createNewMsg={createNewMsg}
-        />
-        <MessageList
-          messageList={messageList}
-          clickMe={clickMe}
-          username={currentUsername}
+    <div className="outside-main-message">
+      {showTutor && (
+        <MessageTutorCreate
           avatarList={avatars}
+          createTutorSession={createTutorSession}
         />
-      </div>
-      <div className='right-message-container'>
-        <MessageHeader
-          username={currentUsername}
-          avatarList={avatars}
-          createNew={createNew}
-        />
-        <MessageView
-          currentMessages={currentMessages}
-          createNew={createNew}
-        />
-        <MessageTextArea
-          submitMessage={submitMessage}
-          username={currentUsername}
-        />
+      )}
+      <div className='main-message-container'>
+        <div className='left-message-container'>
+          <MessageListHeader
+            createNewMsg={createNewMsg}
+          />
+          <MessageList
+            messageList={messageList}
+            clickMe={clickMe}
+            username={currentUsername}
+            avatarList={avatars}
+          />
+        </div>
+        <div className='right-message-container'>
+          <MessageHeader
+            username={currentUsername}
+            avatarList={avatars}
+            createNew={createNew}
+            displayCreateTutorSession={displayCreateTutorSession}
+          />
+          <MessageView
+            currentMessages={currentMessages}
+            createNew={createNew}
+          />
+          <MessageTextArea
+            submitMessage={submitMessage}
+            username={currentUsername}
+          />
+        </div>
       </div>
     </div>
   );

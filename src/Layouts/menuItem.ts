@@ -27,15 +27,6 @@ const items: MenuItemType[] = [
     link: { to: "/student-list" },
   },
   {
-    title: 'Login-Logout',
-    link: { to: '/login-logout' },
-  },
-  {
-    title: "User Rating",
-    icon: { name: "star" },
-    link: { to: "/user-rating" },
-  },
-  {
     title: 'Tutor Sessions',
     link: { to: '/tutor-sessions' },
   },
