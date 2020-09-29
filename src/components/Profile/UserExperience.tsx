@@ -10,7 +10,7 @@ import { constants } from "buffer";
 
 function Experience(props) {
   const loop = props.mentor.map((person) => {
-    console.log(person);
+    //console.log(person);
   });
   return (
     <Row>

@@ -108,12 +108,10 @@ export default function useApplicationData() {
   };
 
   const createPost = (postDetails, id) => {
-    //need helper method to build this object here
-    //pass the state and the other stuff
     const post = {
-      active: true,
-      owner_id: id,
       text_body: postDetails.text,
+      active: true,
+      id: id,
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
@@ -123,25 +121,16 @@ export default function useApplicationData() {
       (post["is_mentor"] = true), (post["is_student"] = false);
     }
 
-    // const newPost = [...state.posts, post];
-
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { post })
       .then((response, reject) => {
-        // console.log("profile", post);
-        // setState({
-        //   ...state,
-        //   posts,
-        // });
         dispatch({
           type: SET_POSTS,
-          posts: post,
+          data: post,
         });
-
-        // console.log(state.posts);
       })
       .catch((err) => {
-        console.log("axios error");
+        console.log(err);
       });
     return promise;
   };

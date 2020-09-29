@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
-import Editor from "./profile-components/Editor";
 
-import PostList from "./profile-components/PostList";
-import UserInfo from "./profile-components/UserInfo";
-import EditUserInfo from "./profile-components/EditUserInfo";
-import Experience from "./profile-components/UserExperience";
+import Editor from "../components/Profile/Editor";
+import PostList from "../components/Profile/PostList";
+import UserInfo from "../components/Profile/UserInfo";
+import EditUserInfo from "../components/Profile/EditUserInfo";
+import Experience from "../components/Profile/UserExperience";
 
 import axios from "axios";
 
@@ -37,7 +37,7 @@ function Profile() {
   }
 
   function onCancel() {
-    console.log("WOW");
+    // console.log("WOW");
     back();
   }
 
@@ -47,7 +47,9 @@ function Profile() {
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
-            <header>Profile</header>
+            <header>
+              <h1>Profile</h1>
+            </header>
             <CardBody>
               {mode === SHOW && (
                 <>
@@ -77,10 +79,10 @@ function Profile() {
                 </>
               )}
 
-              {/* <Experience
+              <Experience
                 mentor={state.mentor_points}
                 student={state.student_points}
-              /> */}
+              />
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
                   <Editor id={user.id} createPost={createPost} />
@@ -88,7 +90,7 @@ function Profile() {
               </Row>
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
-                  <header>Recent Posts</header>
+                  <h2>Recent Posts</h2>
                 </Col>
               </Row>
               <PostList posts={posts} />
