@@ -39,6 +39,7 @@ function UserInfo(props) {
         </Button>
       </Row>
     </>
+
   );
 }
 

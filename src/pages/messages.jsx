@@ -5,8 +5,8 @@ import MessageList from '../components/messages/MessageList';
 import MessageView from '../components/messages/MessageView';
 import MessageHeader from '../components/messages/MessageHeader';
 import MessageTextArea from '../components/messages/MessageTextArea';
+import MessageListHeader from '../components/messages/MessageListHeader';
 import messageCleanSort from '../helpers/messageHelpers';
-
 
 export default function Messages() {
 
@@ -15,11 +15,12 @@ export default function Messages() {
   const [count, setCount] = useState(0);
   const [currentMessages, setCurrentMessages] = useState([]);
   const [currentUsername, setCurrentUsername] = useState('');
+  const [avatars, setAvatars] = useState([]);
+  const [createNew, setCreateNew] = useState(false);
 
   useEffect(() => {
 
     const userID = document.cookie.split('=')[1];
-    console.log('userID', userID);
 
     axios.post('http://localhost:8001/api/messages/', { userID })
       .then((data) => {
@@ -45,13 +46,26 @@ export default function Messages() {
         intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
         setCurrentMessages(intMessages);
 
+        if (currentUsername) {
+          changeBg(currentUsername);
+        }
+
       });
 
   }, [count]);
 
-  function changeBg(username) {
+  useEffect(() => {
+    axios.get('http://localhost:8001/api/user_profiles')
+      .then(res => {
+        console.log('user_profilesData', res.data);
+        setAvatars(res.data);
+      })
+  }, [])
+
+  function changeBg(username, deselectBG) {
 
     const msgUsername = document.querySelectorAll('.message-username');
+    console.log('msgUsername', msgUsername);
     let currentEl;
 
     for (let item of msgUsername) {
@@ -65,11 +79,15 @@ export default function Messages() {
     for (let item of msgTextContainers) {
       item.classList.remove('message-list-selected');
     }
-    currentEl.classList.add('message-list-selected');
+
+    if (!deselectBG && currentEl) {
+      currentEl.classList.add('message-list-selected');
+    }
   }
 
 
   function clickMe(username) {
+    setCreateNew(false);
     setCurrentUsername(username);
 
     let intMessages = [];
@@ -89,8 +107,21 @@ export default function Messages() {
 
   function submitMessage() {
 
+    let selectedUsername;
+
+    if (createNew) {
+      selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
+    }
+
     const textInput = document.querySelector('#msg-textarea').value;
-    const receiverID = document.querySelector('.text-container');
+
+    let receiverID;
+
+    if (!createNew) {
+      receiverID = document.querySelector('.text-container');
+    } else {
+      receiverID = document.querySelector('#username-list-data').selectedOptions[0];
+    }
 
     // error handling for if user message feed isn't clicked on
     if (!receiverID) {
@@ -111,29 +142,51 @@ export default function Messages() {
 
       axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id, senderID })
         .then(() => {
+          if (createNew) {
+            setCurrentUsername(selectedUsername);
+            setTimeout(() => {
+              changeBg(selectedUsername);
+            }, 20);
+          }
+          console.log('hi');
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
+
+
+          setCreateNew(false);
         })
     }
 
+  }
+
+  function createNewMsg() {
+    setCreateNew(true);
+    changeBg(currentUsername, true);
   }
 
 
   return (
     <div className='main-message-container'>
       <div className='left-message-container'>
+        <MessageListHeader
+          createNewMsg={createNewMsg}
+        />
         <MessageList
           messageList={messageList}
           clickMe={clickMe}
           username={currentUsername}
+          avatarList={avatars}
         />
       </div>
       <div className='right-message-container'>
         <MessageHeader
           username={currentUsername}
+          avatarList={avatars}
+          createNew={createNew}
         />
         <MessageView
           currentMessages={currentMessages}
+          createNew={createNew}
         />
         <MessageTextArea
           submitMessage={submitMessage}

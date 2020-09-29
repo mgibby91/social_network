@@ -3,11 +3,11 @@ import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 
-import Editor from "../components/Profile/Editor";
-import PostList from "../components/Profile/PostList";
-import UserInfo from "../components/Profile/UserInfo";
-import EditUserInfo from "../components/Profile/EditUserInfo";
-import Experience from "../components/Profile/UserExperience";
+import Editor from "./profile-components/Editor";
+import PostList from "./profile-components/PostList";
+import UserInfo from "./profile-components/UserInfo";
+import EditUserInfo from "./profile-components/EditUserInfo";
+import Experience from "./profile-components/UserExperience";
 
 import axios from "axios";
 
