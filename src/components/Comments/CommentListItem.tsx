@@ -8,10 +8,10 @@ import {
 
 interface IProps {
 	key: number,
-	post: IPost
+	comment: IComment
 }
 
-interface IPost {
+interface IComment {
 	avatar: string,
 	studentrating: string,
 	text_body: string, 
@@ -20,21 +20,22 @@ interface IPost {
 	username: string
 }
 
-export default function PostListItem(props: IProps) {
-console.log("props in post item: ", props);
+export default function CommentListItem(props: IProps) {
 
+	console.log("props in list item: ", props);
+	
   return (
 		<div>
 			<Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <CardBody>
-								<Link to={`/user-profiles/${props.post.username}`}>
-									<h3>{props.post.username}</h3>
-									<img src={props.post.avatar} alt="avatar"></img>
+								<Link to={`/user-profiles/${props.comment.username}`}>
+									<h3>{props.comment.username}</h3>
+									<img src={props.comment.avatar} alt="avatar"></img>
 								</Link>
-								<Card>
-									<p>{props.post.text_body}</p>
+								 <Card>
+									<p>{props.comment.text_body}</p>
 								</Card>
             </CardBody>
           </Card>

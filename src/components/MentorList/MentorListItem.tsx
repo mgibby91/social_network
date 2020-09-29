@@ -1,15 +1,17 @@
 import React from "react";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
-import { Button } from "@paljs/ui/Button";
+import { Link } from "@reach/router";
 
 export default function MentorListItem(props) {
   return (
-    <div>
-      <img src={props.avatar} alt="avatar"></img>
-      <h2>{props.username}</h2>
+    <Link to={`/user-profiles/${props.username}`}>
       <div>
-        <ProgressBar experience={props.experience} />
+        <img src={props.avatar} alt="avatar"></img>
+        <h2>{props.username}</h2>
+        <div>
+          <ProgressBar experience={props.experience} />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

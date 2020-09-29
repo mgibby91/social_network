@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PostList from "../components/DashBoard/PostList";
 import axios from 'axios';
 import PostTextArea from '../components/DashBoard/PostTextArea';
@@ -13,6 +13,7 @@ interface IProps {
 
 
 export default function Home() {
+  
   const [count, setCount] = useState(0);
 
   function submitPost() {

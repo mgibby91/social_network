@@ -55,7 +55,7 @@ export default function Messages() {
 
       });
 
-  }, [count]);
+  }, [count, currentUsername]);
 
   useEffect(() => {
     axios.get('http://localhost:8001/api/user_profiles')
