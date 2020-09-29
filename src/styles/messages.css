@@ -291,3 +291,15 @@ textarea:focus {
   height: 33px;
   zoom: 0.9;
 }
+
+
+/* empty message list */
+.msg-list-empty-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  overflow: hidden;
+  padding-bottom: 1rem;
+}

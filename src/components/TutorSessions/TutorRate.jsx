@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactStars from "react-star-rating-component";
+import { formatDate, getMentorUsername, getStudentUsername, getDateStatus, getTimeAgo } from '../../helpers/tutor-helpers';
 
 export default function TutorRate(props) {
 
@@ -52,10 +53,16 @@ export default function TutorRate(props) {
 
   }
 
+
+
+
+
   return (
     <div className='tutor-rate-container'>
       <div className="rate-tutor-header">
-        Rate Tutor Session: <strong>{getOtherUsername(props)}</strong>
+        Rate Tutor Session: <strong>{getOtherUsername(props)}</strong> {props.unratedSession && (
+          '(' + formatDate(props.unratedSession.date_completed) + ')'
+        )}
       </div>
       <div className="rate-tutor-stars">
         <ReactStars

@@ -123,7 +123,11 @@ export default function Messages() {
     let receiverID;
 
     if (!createNew) {
-      receiverID = document.querySelector('.text-container').id;
+      if (document.querySelector('.text-container')) {
+        receiverID = document.querySelector('.text-container').id;
+      } else {
+        return;
+      }
     } else {
       for (let user of avatars) {
         if (user.username === selectedUsername) {
