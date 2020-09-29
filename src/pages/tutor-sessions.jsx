@@ -25,6 +25,7 @@ export default function TutorSessions() {
   const [tutorSessionID, setTutorSessionID] = useState(0);
   const [filterStatus, setFilterStatus] = useState('');
   const [selectFilterBtn, setSelectFilterBtn] = useState('');
+  const [createError, setCreateError] = useState('');
 
   console.log('unratesSession', unratedSession);
 
@@ -152,6 +153,18 @@ export default function TutorSessions() {
     }
 
     const username = document.querySelector('#search-user-input').value;
+
+    // error handling for no input
+    if (!username) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+
+      return;
+    }
+
     let receiverID;
     console.log('currentTutorData', currentUserData);
     for (let user of currentUserData) {
@@ -172,11 +185,21 @@ export default function TutorSessions() {
       studentID = receiverID;
     }
 
-    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
-      .then(() => {
-        setCount(count + 1);
-        document.querySelector('#search-user-input').value = '';
-      })
+    // error handling for username not present
+    if (!receiverID) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+      return;
+    } else {
+      axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+        .then(() => {
+          setCount(count + 1);
+          document.querySelector('#search-user-input').value = '';
+        })
+    }
 
   }
 
@@ -201,6 +224,7 @@ export default function TutorSessions() {
       <TutorCreate
         currentUserData={currentUserData}
         createTutorSession={createTutorSession}
+        createError={createError}
       />
       {(rateTutor || unratedSession) && (
         <TutorRate

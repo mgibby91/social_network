@@ -401,3 +401,13 @@
   background: #d4edda;
   border-color: #c3e6cb;
 }
+
+
+.tutor-create-error {
+  border: 1px solid rgb(250, 70, 70);
+  background: rgb(250, 70, 70);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  color: white;
+  margin-top: 0.5rem;
+}
