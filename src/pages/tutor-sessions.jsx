@@ -3,6 +3,7 @@ import '../../src/styles/tutor-sessions.css';
 import TutorHistory from '../components/TutorSessions/TutorHistory';
 import TutorCreate from '../components/TutorSessions/TutorCreate';
 import TutorRate from '../components/TutorSessions/TutorRate';
+import TutorFilter from '../components/TutorSessions/TutorFilter';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
@@ -189,6 +190,9 @@ export default function TutorSessions() {
           otherUserSubmitRating={otherUserSubmitRating}
         />
       )}
+      <TutorFilter
+
+      />
       <TutorHistory
         currentTutorData={currentTutorData}
         currentUserData={currentUserData}
