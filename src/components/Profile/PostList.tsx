@@ -1,0 +1,30 @@
+import React from "react";
+import Row from "@paljs/ui/Row";
+import Col from "@paljs/ui/Col";
+import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
+
+function PostList(props) {
+  const postData = props.posts.map((post) => {
+    {
+      console.log(post);
+    }
+    return (
+      <Col key={post.id} breakPoint={{ xs: 12, md: 6 }}>
+        <Card accent="Info">
+          <CardBody>
+            <p>{post.time_posted} </p>
+            <p>{post.text_body}</p>
+            <ul>
+              {post.stack.map((tech_stack, idx) => {
+                return <li key={idx}>{tech_stack}</li>;
+              })}
+            </ul>
+          </CardBody>
+        </Card>
+      </Col>
+    );
+  });
+  return <Row>{postData}</Row>;
+}
+
+export default PostList;
