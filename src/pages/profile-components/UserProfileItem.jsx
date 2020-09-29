@@ -42,16 +42,22 @@ function UserProfileItem(props) {
   let currentUser = state.users.find(
     (user) => user.id === props.userId || user.username === props.userId
   );
-  console.log("mode after prof item: ", mode);
+  console.log("current user after prof item: ", props.userId);
   return (
     <>
       <ContextConsumer>
         {({ data, set }) => {
           // console.log("data in context: ", data.selected);
           if (!data.state) return null;
-          console.log("users in context: ", data.state.users);
+
           if (!currentUser) {
-            currentUser = data.state.users.find(
+            currentUser = data.state.mentor_points.find(
+              (user) => user.username === data.selected
+            );
+            console.log("current user in context: ", currentUser);
+          }
+          if (!currentUser) {
+            currentUser = data.state.student_points.find(
               (user) => user.username === data.selected
             );
             console.log("current user in context: ", currentUser);
