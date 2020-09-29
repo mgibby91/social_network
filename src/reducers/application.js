@@ -9,11 +9,7 @@ export default function reducer(state, action) {
   switch (action.type) {
     case SET_POSTS: {
       const { data } = action;
-      // console.log("reducer post", action.post);
-      // const posts = ;
-      console.log("before", state.posts);
       state = { ...state, posts: [...state.posts, data] };
-      console.log("after", state.posts);
       return state;
     }
     case SET_POINTS:
@@ -32,6 +28,8 @@ export default function reducer(state, action) {
         tutor_experiences,
         user_profiles,
         users,
+        stack_preferences,
+        posts_stacks,
       } = action;
 
       return {
@@ -47,6 +45,8 @@ export default function reducer(state, action) {
         tutor_experiences,
         user_profiles,
         users,
+        stack_preferences,
+        posts_stacks,
       };
 
     case SET_MENTOR_POINTS:

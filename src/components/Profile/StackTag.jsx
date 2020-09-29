@@ -1,18 +1,15 @@
 import React, { useState, useRef } from "react";
-import ReactDOM from "react-dom";
 import ReactTags from "react-tag-autocomplete";
 
 function Tags(props) {
+  console.log("tags", props.suggested);
   const [tags, setTags] = useState([
-    { id: 1, name: "Apples" },
-    { id: 2, name: "Pears" },
+    {
+      id: 1,
+      name: "Emily",
+    },
   ]);
-  const [suggestions, setSuggestions] = useState([
-    { id: 3, name: "Bananas" },
-    { id: 4, name: "Mangos" },
-    { id: 5, name: "Lemons" },
-    { id: 6, name: "Apricots" },
-  ]);
+  const [suggestions, setSuggestions] = useState(props.suggested);
 
   const reactTags = useRef(null);
 

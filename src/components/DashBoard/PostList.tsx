@@ -3,14 +3,6 @@ import PostListItem from "./PostListItem";
 import axios from "axios";
 
 export default function PostList(props) {
-  // const [postList, setPostList] = useState([]);
-  // useEffect(() => {
-  //   axios.get("http://localhost:8001/api/posts").then((data) => {
-  //     const currentPosts = data.data;
-  //     setPostList(currentPosts);
-  //   });
-  // }, []);
-
   const postData = props.posts.map((post, index) => {
     return <PostListItem key={index} post={post} />;
   });

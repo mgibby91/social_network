@@ -21,6 +21,7 @@ export default function useApplicationData() {
     users: [],
     mentor_points: [],
     student_points: [],
+    stack_preferences: [],
   });
 
   // RETRIEVES API AND SETS IT WITH REDUCER
@@ -36,7 +37,8 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/users"),
       axios.get("http://localhost:8001/api/mentor_points"),
       axios.get("http://localhost:8001/api/student_points"),
-      // axios.get('http://localhost:8001/api/mentor_rating/1'),
+      axios.get("http://localhost:8001/api/stack_preferences"),
+      axios.get("http://localhost:8001/api/posts_stacks"),
       // axios.get('http://localhost:8001/api/student_rating/1'),
     ]).then((all) => {
       // console.log("all from applicatin data hook: ", all);
@@ -50,6 +52,8 @@ export default function useApplicationData() {
       const users = all[7].data;
       const mentor_points = all[8].data;
       const student_points = all[9].data;
+      const stack_preferences = all[10].data;
+      const posts_stacks = all[11].data;
       dispatch({
         type: SET_APPLICATION_DATA,
         comments,
@@ -62,6 +66,8 @@ export default function useApplicationData() {
         users,
         mentor_points,
         student_points,
+        stack_preferences,
+        posts_stacks,
       });
     });
   }, []);
@@ -111,7 +117,7 @@ export default function useApplicationData() {
     const post = {
       text_body: postDetails.text,
       active: true,
-      id: id,
+      owner_id: id,
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
@@ -121,9 +127,17 @@ export default function useApplicationData() {
       (post["is_mentor"] = true), (post["is_student"] = false);
     }
 
+    //     const ids = [12, 32, 657, 1, 67];
+    // const promises = ids.map((id) => axios.get(`myapi.com/user/${id}`));
+
+    // Promise.all([...promises]).then(function (values) {
+    //   console.log(values);
+    // });
+
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { post })
       .then((response, reject) => {
+        console.log("from createPost", response.data);
         dispatch({
           type: SET_POSTS,
           data: post,

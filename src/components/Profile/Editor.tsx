@@ -31,7 +31,7 @@ function Editor(props) {
   return (
     <>
       <MDEditor value={value} onChange={setValue} />
-      <Tags />
+      <Tags suggested={props.stack} />
       <Checkbox
         checked={checkbox[1]}
         status="Success"

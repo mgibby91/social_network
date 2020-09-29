@@ -7,7 +7,6 @@ import { Button, ButtonLink } from "@paljs/ui/Button";
 import Stack from "./UserStack";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Progress from "@paljs/ui/ProgressBar";
-import axios from "axios";
 import { constants } from "buffer";
 
 function UserInfo(props) {
@@ -39,7 +38,6 @@ function UserInfo(props) {
         </Button>
       </Row>
     </>
-
   );
 }
 

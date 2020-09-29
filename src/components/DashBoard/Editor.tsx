@@ -29,16 +29,7 @@ function Editor(props) {
     setCheckbox({ ...checkbox, [name]: value });
   };
 
-  const onDelete = (i) => {
-    const tags = this.state.tags.slice(0);
-    tags.splice(i, 1);
-    this.setState({ tags });
-  };
-
-  const onAddition = (tag) => {
-    const tags = [].concat(this.state.tags, tag);
-    this.setState({ tags });
-  };
+  
 
   const postObj = {
     text: value,

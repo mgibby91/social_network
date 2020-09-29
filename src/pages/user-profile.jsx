@@ -3,13 +3,11 @@ import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 
-import Editor from "./profile-components/Editor";
-import PostList from "./profile-components/PostList";
-import UserInfo from "./profile-components/UserInfo";
-import EditUserInfo from "./profile-components/EditUserInfo";
-import Experience from "./profile-components/UserExperience";
-
-import axios from "axios";
+import Editor from "../components/Profile/Editor";
+import PostList from "../components/Profile/PostList";
+import UserInfo from "../components/Profile/UserInfo";
+import EditUserInfo from "../components/Profile/EditUserInfo";
+import Experience from "../components/Profile/UserExperience";
 
 import { getUser, getUserPosts, getStack } from "../helpers/profileHelpers";
 import useVisualMode from "../hooks/useVisualMode";
@@ -37,7 +35,6 @@ function Profile() {
   }
 
   function onCancel() {
-    // console.log("WOW");
     back();
   }
 
@@ -85,7 +82,11 @@ function Profile() {
               />
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
-                  <Editor id={user.id} createPost={createPost} />
+                  <Editor
+                    id={user.id}
+                    createPost={createPost}
+                    stack={state.posts_stacks}
+                  />
                 </Col>
               </Row>
               <Row>
