@@ -24,6 +24,7 @@ export default function TutorSessions() {
   const [cancelDecline, setCancelDecline] = useState(false);
   const [tutorSessionID, setTutorSessionID] = useState(0);
   const [filterStatus, setFilterStatus] = useState('');
+  const [selectFilterBtn, setSelectFilterBtn] = useState('');
 
   console.log('unratesSession', unratedSession);
 
@@ -182,6 +183,8 @@ export default function TutorSessions() {
   // FILTER STATUS *************************************************
   function sortByStatus(status) {
 
+    setSelectFilterBtn(status);
+
     status = status.toLowerCase();
     console.log('hi status', status);
     setFilterStatus(status);
@@ -212,6 +215,7 @@ export default function TutorSessions() {
       )}
       <TutorFilter
         sortByStatus={sortByStatus}
+        selectFilterBtn={selectFilterBtn}
       />
       <TutorHistory
         currentTutorData={currentTutorData}

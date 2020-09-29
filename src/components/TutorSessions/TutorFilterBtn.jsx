@@ -7,7 +7,8 @@ export default function TutorFilterBtn(props) {
     'filter-btn-all': props.name === 'All Sessions',
     'filter-btn-pending': props.name === 'Pending',
     'filter-btn-in-progress': props.name === 'In-progress',
-    'filter-btn-completed': props.name === 'Completed'
+    'filter-btn-completed': props.name === 'Completed',
+    'filter-btn-selected': props.name === props.selectFilterBtn
   })
 
 
