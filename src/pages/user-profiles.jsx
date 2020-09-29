@@ -2,12 +2,12 @@ import React from "react";
 import { Router } from '@reach/router'
 import UserProfileItem from './profile-components/UserProfileItem';
 
-function Profile() {
-  
+function Profile(props) {
+
   return (
     <Router>
       <UserProfileItem path="user-profiles/" userId="4"/>
-      <UserProfileItem path="user-profiles/:userId" />
+      <UserProfileItem path="user-profiles/:userId"/>
     </Router>
   )
 }

@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
-import Editor from "./Editor";
-import PostList from "./PostList";
-import UserInfo from "./UserInfo";
-import EditUserInfo from "./EditUserInfo";
-import Experience from "./UserExperience";
+import Editor from "./profile-components/Editor";
+import PostList from "./profile-components/PostList";
+import UserInfo from "./profile-components/UserInfo";
+import EditUserInfo from "./profile-components/EditUserInfo";
+import Experience from "./profile-components/UserExperience";
 
 import axios from "axios";
 
-import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
-import useVisualMode from "../../hooks/useVisualMode";
-import useApplicationData from "../../hooks/useApplicationData";
+import { getUser, getUserPosts, getStack } from "../helpers/profileHelpers";
+import useVisualMode from "../hooks/useVisualMode";
+import useApplicationData from "../hooks/useApplicationData";
 
 const SHOW = "SHOW";
 const CONFIRM = "CONFIRM";
@@ -21,8 +21,7 @@ const EDITING = "EDITING";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
-function UserProfileItem(props) {
-  console.log("props in user profile item: ", props);
+function Profile() {
   const { state, createPost } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
 
@@ -41,21 +40,15 @@ function UserProfileItem(props) {
     back();
   }
 
-  const users = state.users;
-  console.log("users in profile item: ", users);
-  const currentUser = state.users.find(
-    (user) => user.id === props.userId || user.username === props.userId
-  );
-
-  console.log("current user: ", currentUser);
   return (
     <>
-      {/* {console.log("state", state.posts)} */}
+      {console.log("state", state.posts)}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <header>Profile</header>
             <CardBody>
+
               {mode === SHOW && (
                 <>
                   <UserInfo
@@ -84,12 +77,10 @@ function UserProfileItem(props) {
                 </>
               )}
 
-              <Experience
+              {/* <Experience
                 mentor={state.mentor_points}
                 student={state.student_points}
-                // userId={state.user.id}
-                // username={state.user.username}
-              />
+              /> */}
 
               <Row>
                 <Col breakPoint={{ xs: 12, md: 12 }}>
@@ -110,4 +101,4 @@ function UserProfileItem(props) {
   );
 }
 
-export default UserProfileItem;
+export default Profile;
