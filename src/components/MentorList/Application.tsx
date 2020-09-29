@@ -1,5 +1,4 @@
 import React from "react";
-import useApplicationData from "../../hooks/useApplicationData";
 import MentorList from "./MentorList";
 
 function Application(props) {

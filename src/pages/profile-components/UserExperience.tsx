@@ -4,7 +4,9 @@ import React from "react";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 function Experience(props) {
-  if (!props.user) return null;
+  console.log("props in experience: ", props);
+  
+  if (!props.user) return {};
   if (!props.mentor) return null;
   if (!props.student) return null;
   

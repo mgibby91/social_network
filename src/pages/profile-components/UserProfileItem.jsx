@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
+import React from "react";
+import { Card, CardBody } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
-import Editor from "./Editor";
-import PostList from "./PostList";
-import UserInfo from "./UserInfo";
-import EditUserInfo from "./EditUserInfo";
+import Editor from "../../components/Profile/Editor";
+import PostList from "../../components/Profile/PostList";
+import UserInfo from "../../components/Profile/UserInfo";
+import EditUserInfo from "../../components/Profile/EditUserInfo";
 import Experience from "./UserExperience";
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
@@ -42,16 +42,22 @@ function UserProfileItem(props) {
   let currentUser = state.users.find(
     (user) => user.id === props.userId || user.username === props.userId
   );
-  console.log("mode after prof item: ", mode);
+  console.log("current user after prof item: ", props.userId);
   return (
     <>
       <ContextConsumer>
         {({ data, set }) => {
           // console.log("data in context: ", data.selected);
           if (!data.state) return null;
-          console.log("users in context: ", data.state.users);
+
           if (!currentUser) {
-            currentUser = data.state.users.find(
+            currentUser = data.state.mentor_points.find(
+              (user) => user.username === data.selected
+            );
+            console.log("current user in context: ", currentUser);
+          }
+          if (!currentUser) {
+            currentUser = data.state.student_points.find(
               (user) => user.username === data.selected
             );
             console.log("current user in context: ", currentUser);
