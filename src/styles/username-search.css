@@ -24,5 +24,17 @@
   color: black;
   width: 190px;
   font-size: 0.9rem;
-  border-radius: 0 0 4px 4px;
+  max-height: 150px;
+  overflow: auto;
+  /* box-shadow: 3px 3px 3px #636363; */
+}
+
+.username-search-results-item {
+  padding: 0.05rem 0.25rem;
+}
+
+.username-search-results-item:hover {
+  cursor: pointer;
+  background: #3366ff;
+  color: white;
 }
