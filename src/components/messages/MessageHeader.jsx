@@ -18,8 +18,17 @@ export default function MessageHeader(props) {
     avatar = null;
   }
 
+  const currentUserID = Number(document.cookie.split('=')[1]);
+
   function getUsernameList(props) {
-    return props.avatarList.map(item => item.username);
+
+    const filteredList = props.avatarList.filter(item => {
+      return item.id !== currentUserID;
+    });
+
+    return filteredList.map(item => {
+      return item.username;
+    });
   }
 
   return (
@@ -29,9 +38,6 @@ export default function MessageHeader(props) {
         <div>{!props.createNew && props.username}</div>
         {props.createNew && (
           <div>
-            <MessageUsernameList
-              usernameList={props.avatarList}
-            />
             <UsernameSearchFeature
               usernameList={getUsernameList(props)}
             />
