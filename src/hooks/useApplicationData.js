@@ -136,7 +136,7 @@ export default function useApplicationData() {
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { post })
       .then((response, reject) => {
-        console.log("from createPost", response.data);
+        // console.log("from createPost", response.data);
         dispatch({
           type: SET_POSTS,
           data: post,

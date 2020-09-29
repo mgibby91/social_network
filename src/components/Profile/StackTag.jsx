@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import ReactTags from "react-tag-autocomplete";
 
 function Tags(props) {
-  console.log("tags", props.suggested);
+  // console.log("tags", props.suggested);
   const [tags, setTags] = useState([
     {
       id: 1,

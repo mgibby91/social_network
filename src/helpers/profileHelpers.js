@@ -14,7 +14,7 @@ export function getUser(users, senderId) {
 }
 
 export function getUserPosts(posts, senderId) {
-  console.log("in here!!!", posts);
+  // console.log("in here!!!", posts);
   const seen = new Set();
   const postsByUser = posts
     .filter((post) => {
@@ -26,7 +26,7 @@ export function getUserPosts(posts, senderId) {
       return !duplicate;
     });
 
-  console.log("from helper", postsByUser);
+  // console.log("from helper", postsByUser);
   //go through the posts and posts by user
   for (let post of postsByUser) {
     post["stack"] = [];
@@ -42,7 +42,7 @@ export function getUserPosts(posts, senderId) {
 }
 
 export function getDashboardPosts(posts) {
-  console.log("in here!!!", posts);
+  // console.log("in here!!!", posts);
   const seen = new Set();
   const postsByUser = posts.filter((el) => {
     const duplicate = seen.has(el.time_posted);
@@ -50,7 +50,7 @@ export function getDashboardPosts(posts) {
     return !duplicate;
   });
 
-  console.log("from helper", postsByUser);
+  // console.log("from helper", postsByUser);
   for (let post of postsByUser) {
     post["stack"] = [];
 
