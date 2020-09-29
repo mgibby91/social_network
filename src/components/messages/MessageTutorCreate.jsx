@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
-import TutorCreateOptionItem from './TutorCreateOptionItem';
+import React from 'react';
+import TutorCreateOptionItem from './../TutorSessions/TutorCreateOptionItem';
 import UsernameSearchFeature from '../UsernameSearch/UsernameSearchFeature';
 
-export default function TutorCreate(props) {
+export default function MessageTutorCreate(props) {
 
-  // console.log('tutor create', props);
+  console.log('MessageTutorCreateProps', props);
+
+  // const usernameList = props.avatarList;
+
+  // const currentUserID = Number(document.cookie.split('=')[1]);
+  // const filteredUsernameList = usernameList.filter(user => {
+  //   return user.id !== currentUserID;
+  // })
+
+  // const usernameListData = filteredUsernameList.map(user => {
+  //   return <TutorCreateOptionItem
+  //     key={user.id}
+  //     id={user.id}
+  //     username={user.username}
+  //   />
+  // })
 
   function getUsernameList(props) {
 
-    const usernameList = props.currentUserData;
+    const usernameList = props.avatarList;
 
     const currentUserID = Number(document.cookie.split('=')[1]);
     const filteredUsernameList = usernameList.filter(user => {
@@ -20,12 +35,13 @@ export default function TutorCreate(props) {
     })
   }
 
-
   return (
-    <div className='tutor-create-container'>
+    <div className='tutor-create-container' style={{
+      width: '1000px'
+    }}>
       <div className="tutor-create-header">
         Create Tutor Session
-      </div>
+    </div>
       <div className="tutor-create-mentor-student">
         <div className="create-mentor-student-header">You're looking for:</div>
         <div className="radio-mentor">
@@ -44,8 +60,8 @@ export default function TutorCreate(props) {
       </div>
       <div className="tutor-create-btn" onClick={() => props.createTutorSession()}>
         Create
-      </div>
     </div>
+    </div >
   )
 
 }
