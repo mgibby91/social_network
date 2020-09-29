@@ -190,7 +190,13 @@ export default function Messages() {
       }
     }
 
-    const receiverID = Number(document.querySelector('#tutor-username-list').selectedOptions[0].id);
+    const username = document.querySelector('#search-user-input').value;
+    let receiverID;
+    for (let user of avatars) {
+      if (user.username === username) {
+        receiverID = user.id;
+      }
+    }
     const creatorID = Number(document.cookie.split('=')[1]);
 
     let mentorID, studentID;

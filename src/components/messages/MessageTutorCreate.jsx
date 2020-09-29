@@ -1,27 +1,39 @@
 import React from 'react';
 import TutorCreateOptionItem from './../TutorSessions/TutorCreateOptionItem';
+import UsernameSearchFeature from '../UsernameSearch/UsernameSearchFeature';
 
 export default function MessageTutorCreate(props) {
 
   console.log('MessageTutorCreateProps', props);
 
-  const usernameList = props.avatarList;
+  // const usernameList = props.avatarList;
 
-  const currentUserID = Number(document.cookie.split('=')[1]);
-  const filteredUsernameList = usernameList.filter(user => {
-    return user.id !== currentUserID;
-  })
+  // const currentUserID = Number(document.cookie.split('=')[1]);
+  // const filteredUsernameList = usernameList.filter(user => {
+  //   return user.id !== currentUserID;
+  // })
 
-  const usernameListData = filteredUsernameList.map(user => {
-    return <TutorCreateOptionItem
-      key={user.id}
-      id={user.id}
-      username={user.username}
-    />
-  })
+  // const usernameListData = filteredUsernameList.map(user => {
+  //   return <TutorCreateOptionItem
+  //     key={user.id}
+  //     id={user.id}
+  //     username={user.username}
+  //   />
+  // })
 
+  function getUsernameList(props) {
 
-  console.log('usernameListdata', usernameListData);
+    const usernameList = props.avatarList;
+
+    const currentUserID = Number(document.cookie.split('=')[1]);
+    const filteredUsernameList = usernameList.filter(user => {
+      return user.id !== currentUserID;
+    });
+
+    return filteredUsernameList.map(user => {
+      return user.username;
+    })
+  }
 
   return (
     <div className='tutor-create-container' style={{
@@ -42,10 +54,9 @@ export default function MessageTutorCreate(props) {
         </div>
       </div>
       <div className="tutor-create-username">
-        <label htmlFor="create-username" className='create-username-title'>With who: </label>
-        <select name="" id="tutor-username-list">
-          {usernameListData}
-        </select>
+        <UsernameSearchFeature
+          usernameList={getUsernameList(props)}
+        />
       </div>
       <div className="tutor-create-btn" onClick={() => props.createTutorSession()}>
         Create

@@ -127,7 +127,16 @@ export default function TutorSessions() {
       }
     }
 
-    const receiverID = Number(document.querySelector('#tutor-username-list').selectedOptions[0].id);
+    const username = document.querySelector('#search-user-input').value;
+    let receiverID;
+    console.log('currentTutorData', currentUserData);
+    for (let user of currentUserData) {
+      if (user.username === username) {
+        receiverID = user.id;
+      }
+    }
+    console.log('username', username);
+    console.log('receiverID', receiverID);
     const creatorID = Number(document.cookie.split('=')[1]);
 
     let mentorID, studentID;
