@@ -37,9 +37,31 @@
   height: 50px;
   border: 1px solid white;
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-items: center;
+  position: relative;
 }
+/* 
+.tutor-history-header-date {
+  position: absolute;
+  left: 85px;
+}
+
+.tutor-history-header-usernames {
+  position: absolute;
+  left: 318px;
+}
+
+.tutor-history-header-status {
+  position: absolute;
+  left: 575px;
+}
+
+.tutor-history-header-actions {
+  position: absolute;
+  left: 760px;
+} */
+
 
 .tutor-history-item-date {
   width: 210px;
@@ -48,6 +70,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  position: absolute;
+  left: 60px;
 }
 
 .tutor-history-item-student-mentor {
@@ -58,6 +82,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 290px;
 }
 
 .tutor-history-item-status {
@@ -69,6 +95,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 560px;
+}
+
+.tutor-history-item-btns {
+  position: absolute;
+  left: 700px;
 }
 
 
