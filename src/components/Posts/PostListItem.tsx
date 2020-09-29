@@ -7,25 +7,27 @@ import {
 } from "@reach/router";
 
 interface IProps {
-	key: number,
-	post: IPost
+  key: number;
+  post: IPost;
 }
 
 interface IPost {
-	avatar: string,
-	studentrating: string,
-	text_body: string, 
-	active: boolean,
-	time_posted: Date,
-	username: string
+  avatar: string;
+  studentrating: string;
+  text_body: string;
+  active: boolean;
+  time_posted: Date;
+  stack: any;
+  username: string;
 }
 
 export default function PostListItem(props: IProps) {
-console.log("props in post item: ", props);
-
+  const stack = props.post.stack.map((tech_stack) => {
+    return <li>{tech_stack}</li>;
+  });
   return (
-		<div>
-			<Row>
+    <div>
+      <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <CardBody>
@@ -40,6 +42,6 @@ console.log("props in post item: ", props);
           </Card>
         </Col>
       </Row>
-		</div>
+    </div>
   );
 }

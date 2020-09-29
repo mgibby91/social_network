@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
+import React from "react";
+import { Card, CardBody } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import Editor from "./Editor";
 import PostList from "./PostList";
 import UserInfo from "./UserInfo";
 import EditUserInfo from "./EditUserInfo";
-import Experience from "./UserExperience";
+import Experience from "../../pages/profile-components/UserExperience";
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
 import useVisualMode from "../../hooks/useVisualMode";

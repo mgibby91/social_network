@@ -3,6 +3,9 @@ import Col from "@paljs/ui/Col";
 import React from "react";
 import { Button } from "@paljs/ui/Button";
 import Stack from "./UserStack";
+import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import Progress from "@paljs/ui/ProgressBar";
+import { constants } from "buffer";
 
 function UserInfo(props) {
   console.log("logged in user in userinfo: ", props.user.username);
