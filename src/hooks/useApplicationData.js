@@ -3,6 +3,7 @@ import axios from "axios";
 import reducer, {
   SET_POINTS,
   SET_APPLICATION_DATA,
+  SET_SELECTED_USER,
   SET_STUDENT_POINTS,
   SET_MENTOR_POINTS,
   SET_POSTS,
@@ -22,6 +23,8 @@ export default function useApplicationData() {
     mentor_points: [],
     student_points: [],
     stack_preferences: [],
+    posts_stacks: [],
+    selected: {},
   });
 
   // RETRIEVES API AND SETS IT WITH REDUCER
@@ -54,6 +57,7 @@ export default function useApplicationData() {
       const student_points = all[9].data;
       const stack_preferences = all[10].data;
       const posts_stacks = all[11].data;
+      const selected = {};
       dispatch({
         type: SET_APPLICATION_DATA,
         comments,
@@ -68,6 +72,7 @@ export default function useApplicationData() {
         student_points,
         stack_preferences,
         posts_stacks,
+        selected,
       });
     });
   }, []);
@@ -113,6 +118,13 @@ export default function useApplicationData() {
     return promise;
   };
 
+  const setSelectedUser = (userID) => {
+    dispatch({
+      type: SET_SELECTED_USER,
+      userId: userID,
+    });
+  };
+
   const createPost = (postDetails, id) => {
     const post = {
       text_body: postDetails.text,
@@ -149,5 +161,11 @@ export default function useApplicationData() {
     return promise;
   };
 
-  return { state, addMentorPoints, addStudentPoints, createPost };
+  return {
+    state,
+    addMentorPoints,
+    addStudentPoints,
+    createPost,
+    setSelectedUser,
+  };
 }
