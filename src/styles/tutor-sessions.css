@@ -402,7 +402,6 @@
   border-color: #c3e6cb;
 }
 
-
 .tutor-create-error {
   border: 1px solid rgb(250, 70, 70);
   background: rgb(250, 70, 70);
@@ -410,4 +409,11 @@
   border-radius: 5px;
   color: white;
   margin-top: 0.5rem;
+}
+
+/* rate tutor btns container */
+.tutor-rate-btns-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }

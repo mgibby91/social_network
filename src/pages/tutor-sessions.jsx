@@ -203,6 +203,11 @@ export default function TutorSessions() {
 
   }
 
+  // Cancel rate tutor session 
+  function cancelRateSession() {
+    setRateTutor(false);
+  }
+
   // FILTER STATUS *************************************************
   function sortByStatus(status) {
 
@@ -235,6 +240,7 @@ export default function TutorSessions() {
           otherUsername={otherUsername}
           unratedSession={unratedSession}
           otherUserSubmitRating={otherUserSubmitRating}
+          cancelRateSession={cancelRateSession}
         />
       )}
       <TutorFilter
