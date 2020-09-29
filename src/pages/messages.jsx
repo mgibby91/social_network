@@ -113,18 +113,29 @@ export default function Messages() {
     let selectedUsername;
 
     if (createNew) {
-      selectedUsername = document.querySelector('#username-list-data').selectedOptions[0].textContent;
+      selectedUsername = document.querySelector('#search-user-input').value;
     }
+
+    console.log('selectedUsername', selectedUsername);
 
     const textInput = document.querySelector('#msg-textarea').value;
 
     let receiverID;
 
     if (!createNew) {
-      receiverID = document.querySelector('.text-container');
+      receiverID = document.querySelector('.text-container').id;
     } else {
-      receiverID = document.querySelector('#username-list-data').selectedOptions[0];
+      for (let user of avatars) {
+        if (user.username === selectedUsername) {
+          receiverID = user.id;
+        }
+      }
+
+      // and also prevent user from sending to self
+      // receiverID = document.querySelector('#username-list-data').selectedOptions[0];
     }
+
+    console.log('receiverID', receiverID);
 
     // error handling for if user message feed isn't clicked on
     if (!receiverID) {
@@ -143,7 +154,7 @@ export default function Messages() {
     } else {
       const senderID = document.cookie.split('=')[1];
 
-      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID: receiverID.id, senderID })
+      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID, senderID })
         .then(() => {
           if (createNew) {
             setCurrentUsername(selectedUsername);
