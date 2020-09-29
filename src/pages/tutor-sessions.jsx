@@ -3,6 +3,7 @@ import '../../src/styles/tutor-sessions.css';
 import TutorHistory from '../components/TutorSessions/TutorHistory';
 import TutorCreate from '../components/TutorSessions/TutorCreate';
 import TutorRate from '../components/TutorSessions/TutorRate';
+import TutorFilter from '../components/TutorSessions/TutorFilter';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
@@ -20,6 +21,8 @@ export default function TutorSessions() {
   const [currentTutorID, setCurrentTutorID] = useState(0);
   const [otherUsername, setOtherUsername] = useState(null);
   const [unratedSession, setUnratedSession] = useState(null);
+  const [cancelDecline, setCancelDecline] = useState(false);
+  const [tutorSessionID, setTutorSessionID] = useState(0);
 
   console.log('unratesSession', unratedSession);
 
@@ -74,8 +77,22 @@ export default function TutorSessions() {
 
   function declineCancelAction(tutorSessionID) {
 
+    setCancelDecline(true);
+    setTutorSessionID(tutorSessionID);
+
+  }
+
+  function cancelConfirmDelete() {
+    setCancelDecline(false);
+    setTutorSessionID(0);
+  }
+
+  function confirmConfirmDelete(tutorSessionID) {
+
     axios.put('http://localhost:8001/api/tutor_experiences/delete', { tutorSessionID })
       .then(() => {
+        setCancelDecline(false);
+        setTutorSessionID(0);
         setCount(count + 1);
       })
   }
@@ -127,7 +144,16 @@ export default function TutorSessions() {
       }
     }
 
-    const receiverID = Number(document.querySelector('#tutor-username-list').selectedOptions[0].id);
+    const username = document.querySelector('#search-user-input').value;
+    let receiverID;
+    console.log('currentTutorData', currentUserData);
+    for (let user of currentUserData) {
+      if (user.username === username) {
+        receiverID = user.id;
+      }
+    }
+    console.log('username', username);
+    console.log('receiverID', receiverID);
     const creatorID = Number(document.cookie.split('=')[1]);
 
     let mentorID, studentID;
@@ -142,6 +168,7 @@ export default function TutorSessions() {
     axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
       .then(() => {
         setCount(count + 1);
+        document.querySelector('#search-user-input').value = '';
       })
 
   }
@@ -163,12 +190,19 @@ export default function TutorSessions() {
           otherUserSubmitRating={otherUserSubmitRating}
         />
       )}
+      <TutorFilter
+
+      />
       <TutorHistory
         currentTutorData={currentTutorData}
         currentUserData={currentUserData}
         acceptAction={acceptAction}
         declineCancelAction={declineCancelAction}
         completeAction={completeAction}
+        cancelDecline={cancelDecline}
+        cancelConfirmDelete={cancelConfirmDelete}
+        confirmConfirmDelete={confirmConfirmDelete}
+        tutorSessionID={tutorSessionID}
       />
     </div>
   );
