@@ -20,6 +20,8 @@ export default function Messages() {
   const [avatars, setAvatars] = useState([]);
   const [createNew, setCreateNew] = useState(false);
   const [showTutor, setShowTutor] = useState(false);
+  const [createError, setCreateError] = useState('');
+
 
   useEffect(() => {
 
@@ -195,6 +197,17 @@ export default function Messages() {
     }
 
     const username = document.querySelector('#search-user-input').value;
+
+    if (!username) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+
+      return;
+    }
+
     let receiverID;
     for (let user of avatars) {
       if (user.username === username) {
@@ -212,11 +225,25 @@ export default function Messages() {
       studentID = receiverID;
     }
 
-    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
-      .then(() => {
-        setShowTutor(false);
-        setCount(count + 1);
-      })
+    // error handling for username not present
+    if (!receiverID) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+      return;
+    } else {
+      axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+        .then(() => {
+          setShowTutor(false);
+          setCount(count + 1);
+        })
+    }
+  }
+
+  function cancelTutorSession() {
+    console.log('hi');
   }
 
   // CREATE TUTOR SESSION STUFF ***************************************
@@ -228,6 +255,8 @@ export default function Messages() {
         <MessageTutorCreate
           avatarList={avatars}
           createTutorSession={createTutorSession}
+          cancelTutorSession={cancelTutorSession}
+          createError={createError}
         />
       )}
       <div className='main-message-container'>

@@ -53,10 +53,6 @@ export default function TutorRate(props) {
 
   }
 
-
-
-
-
   return (
     <div className='tutor-rate-container'>
       <div className="rate-tutor-header">

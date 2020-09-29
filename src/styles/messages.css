@@ -303,3 +303,10 @@ textarea:focus {
   overflow: hidden;
   padding-bottom: 1rem;
 }
+
+
+.message-tutor-btns {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
