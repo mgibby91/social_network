@@ -20,6 +20,8 @@ export default function TutorSessions() {
   const [currentTutorID, setCurrentTutorID] = useState(0);
   const [otherUsername, setOtherUsername] = useState(null);
   const [unratedSession, setUnratedSession] = useState(null);
+  const [cancelDecline, setCancelDecline] = useState(false);
+  const [tutorSessionID, setTutorSessionID] = useState(0);
 
   console.log('unratesSession', unratedSession);
 
@@ -74,8 +76,22 @@ export default function TutorSessions() {
 
   function declineCancelAction(tutorSessionID) {
 
+    setCancelDecline(true);
+    setTutorSessionID(tutorSessionID);
+
+  }
+
+  function cancelConfirmDelete() {
+    setCancelDecline(false);
+    setTutorSessionID(0);
+  }
+
+  function confirmConfirmDelete(tutorSessionID) {
+
     axios.put('http://localhost:8001/api/tutor_experiences/delete', { tutorSessionID })
       .then(() => {
+        setCancelDecline(false);
+        setTutorSessionID(0);
         setCount(count + 1);
       })
   }
@@ -178,6 +194,10 @@ export default function TutorSessions() {
         acceptAction={acceptAction}
         declineCancelAction={declineCancelAction}
         completeAction={completeAction}
+        cancelDecline={cancelDecline}
+        cancelConfirmDelete={cancelConfirmDelete}
+        confirmConfirmDelete={confirmConfirmDelete}
+        tutorSessionID={tutorSessionID}
       />
     </div>
   );
