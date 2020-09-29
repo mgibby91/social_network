@@ -47,14 +47,14 @@ export default function UsernameSearchFeature(props) {
   return (
     <div className='username-search-container'>
       <div className='username-search-input'>
-        <label htmlFor="search-user">Search: </label>
+        <label htmlFor="search-user" id='username-search-label'>Search: </label>
         <input
           type="text"
           id='search-user-input'
           placeholder='Enter username...'
           onChange={() => changeSearchState()} />
       </div>
-      <div className="username-search-results">
+      <div className="username-search-results" id='tutor-search-results'>
         {searchResultData}
       </div>
     </div>

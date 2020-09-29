@@ -2,6 +2,11 @@
   position: relative;
 }
 
+#username-search-label {
+  font-size: 0.9375rem !important;
+  font-weight: 700 !important;
+}
+
 #search-user-input {
   background: #192038;
   color: white;
@@ -19,13 +24,14 @@
 
 .username-search-results {
   position: absolute;
-  left: 82px;
+  left: 62px;
   background: white;
   color: black;
   width: 190px;
   font-size: 0.9rem;
   max-height: 150px;
   overflow: auto;
+  z-index: 1;
   /* box-shadow: 3px 3px 3px #636363; */
 }
 
@@ -37,4 +43,8 @@
   cursor: pointer;
   background: #3366ff;
   color: white;
+}
+
+.tutor-create-username-search {
+
 }

@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import TutorCreateOptionItem from './TutorCreateOptionItem';
+import UsernameSearchFeature from '../UsernameSearch/UsernameSearchFeature';
 
 export default function TutorCreate(props) {
 
   // console.log('tutor create', props);
 
-  const usernameList = props.currentUserData;
+  function getUsernameList(props) {
 
-  const currentUserID = Number(document.cookie.split('=')[1]);
-  const filteredUsernameList = usernameList.filter(user => {
-    return user.id !== currentUserID;
-  })
+    const usernameList = props.currentUserData;
 
-  const usernameListData = filteredUsernameList.map(user => {
-    return <TutorCreateOptionItem
-      key={user.id}
-      id={user.id}
-      username={user.username}
-    />
-  })
+    const currentUserID = Number(document.cookie.split('=')[1]);
+    const filteredUsernameList = usernameList.filter(user => {
+      return user.id !== currentUserID;
+    });
+
+    return filteredUsernameList.map(user => {
+      return user.username;
+    })
+  }
 
 
   return (
@@ -38,10 +38,9 @@ export default function TutorCreate(props) {
         </div>
       </div>
       <div className="tutor-create-username">
-        <label htmlFor="create-username" className='create-username-title'>With who: </label>
-        <select name="" id="tutor-username-list">
-          {usernameListData}
-        </select>
+        <UsernameSearchFeature
+          usernameList={getUsernameList(props)}
+        />
       </div>
       <div className="tutor-create-btn" onClick={() => props.createTutorSession()}>
         Create

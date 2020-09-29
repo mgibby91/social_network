@@ -130,9 +130,6 @@ export default function Messages() {
           receiverID = user.id;
         }
       }
-
-      // and also prevent user from sending to self
-      // receiverID = document.querySelector('#username-list-data').selectedOptions[0];
     }
 
     console.log('receiverID', receiverID);
