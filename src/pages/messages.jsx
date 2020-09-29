@@ -243,7 +243,7 @@ export default function Messages() {
   }
 
   function cancelTutorSession() {
-    console.log('hi');
+    setShowTutor(false);
   }
 
   // CREATE TUTOR SESSION STUFF ***************************************
