@@ -7,9 +7,7 @@ import PostList from "./PostList";
 import UserInfo from "./UserInfo";
 import EditUserInfo from "./EditUserInfo";
 import Experience from "./UserExperience";
-
-import axios from "axios";
-
+import ContextConsumer from '../../context/context'
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
 import useVisualMode from "../../hooks/useVisualMode";
 import useApplicationData from "../../hooks/useApplicationData";
@@ -22,7 +20,7 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 function UserProfileItem(props) {
-  console.log("props in user profile item: ", props);
+
   const { state, createPost } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
 
@@ -41,15 +39,17 @@ function UserProfileItem(props) {
     back();
   }
 
-  const users = state.users;
-  console.log("users in profile item: ", users);
+  // const users = state.users;
+  console.log("props in user item: ", state.selected);
   const currentUser = state.users.find(
     (user) => user.id === props.userId || user.username === props.userId
   );
-  console.log("current user in item: ", currentUser);
+
+  
+  if (!currentUser) return null;
+
   return (
     <>
-      {/* {console.log("state", state.posts)} */}
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
@@ -57,11 +57,16 @@ function UserProfileItem(props) {
             <CardBody>
               {mode === SHOW && (
                 <>
+                <ContextConsumer>
+                  {({ data, set }) => {
                   <UserInfo
                     user={currentUser}
+                    loggedInUser={data.selected}
                     onEdit={onEdit}
                     mentor_stack={mentor_stack}
                   />
+                        }}
+                </ContextConsumer>
                 </>
               )}
               {mode === EDITING && (
@@ -81,8 +86,9 @@ function UserProfileItem(props) {
               )}
 
               <Experience
-                mentor={state.mentor_points}
-                student={state.student_points}
+                mentor={currentUser.mentorrating}
+                student={currentUser.studentrating}
+                user={currentUser}
                 // userId={state.user.id}
                 // username={state.user.username}
               />

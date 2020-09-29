@@ -6,7 +6,7 @@ function Profile(props) {
 
   return (
     <Router>
-      <UserProfileItem path="user-profiles/" userId="4"/>
+      <UserProfileItem path="user-profiles/"/>
       <UserProfileItem path="user-profiles/:userId"/>
     </Router>
   )

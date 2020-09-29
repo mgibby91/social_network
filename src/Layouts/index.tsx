@@ -16,7 +16,7 @@ import SimpleLayout from "./SimpleLayout";
 import SidebarCustom from "./Sidebar";
 import useApplicationData from "../hooks/useApplicationData";
 import { ContextProviderComponent } from "../context/context";
-
+import "./layout.scss"
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   children,
   pageContext,

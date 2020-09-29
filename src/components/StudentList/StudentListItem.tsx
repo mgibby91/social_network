@@ -7,13 +7,9 @@ import {
 
 export default function StudentListItem(props) {
 	
-	const setStudent = (userId) => {
-    props.setSelectedUser(userId)
-	}
-	
   return (
       <Link to={`/user-profiles/${props.username}`}>
-        <div onClick={ () => setStudent(props.userId)}>
+        <div>
           <img src={props.avatar} alt="avatar"></img>
           <h2>{props.username}</h2>
           <div>

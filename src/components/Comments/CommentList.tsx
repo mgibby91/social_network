@@ -14,7 +14,6 @@ export default function CommentList(props) {
 				setCommentList(currentComments)
 			})
 	}, []);		
-	console.log("comment list in comment list: ", commentList);
 	
 	const commentsData = commentList.map((comment, index) => {
 	

@@ -12,7 +12,7 @@ export default function LoginLogout() {
 
     axios.post("http://localhost:8001/api/login", { userID }).then((res) => {
       const username = res.data[0].username;
-      console.log(res.data[0]);
+      console.log(res.data[0].id);
       // setSelectedUser(res.data[0].id)
       set({ ...data, state: state, selected: res.data[0].username });
       const rightNavContainer = document.querySelector(

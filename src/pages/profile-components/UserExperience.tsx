@@ -4,43 +4,28 @@ import React from "react";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 
 function Experience(props) {
-  // console.log("props in exerience: ", props)
-  let is_mentor;
-  props.mentor.map((mentor) => {
-    if (mentor.mentor_id === props.userId)
-    // console.log("Mentor in experience: ", mentor);
-    is_mentor = mentor
-    // console.log("mentor in userexperience: ", is_mentor.mentorrating);
-  });
-
+  if (!props.user) return null;
+  if (!props.mentor) return null;
+  if (!props.student) return null;
   
-  let is_student;
-  props.mentor.map((student) => {
-    if (student.student_id === props.userId)
-    // console.log("student in experience: ", student);
-    is_student = student
-    // console.log("student in userexperience: ", is_student.studentrating);
-  });
-
-
   return (
     <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
       {}
       <Row>         
-          {is_mentor ? 
+          {props.mentor ? 
             <h4>Mentor Level</h4>
           : ""}
-          {is_mentor ? 
+          {props.mentor ? 
             <ProgressBar 
-              experience={is_mentor.mentorrating}
+              experience={Number(props.mentor)}
             />
           : ""}
-          {is_student ? 
+          {props.student ? 
             <h4>Student Level</h4>
           : ""}
-          {is_student ? 
+          {props.student ? 
             <ProgressBar
-              experience={is_student.studentrating}
+              experience={Number(props.student)}
             />
           : ""}
       </Row>       

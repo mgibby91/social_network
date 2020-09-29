@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/messages.css';
-import MessageList from '../components/messages/MessageList';
-import MessageView from '../components/messages/MessageView';
-import MessageHeader from '../components/messages/MessageHeader';
-import MessageTextArea from '../components/messages/MessageTextArea';
-import MessageListHeader from '../components/messages/MessageListHeader';
+import MessageList from '../components/Messages/MessageList';
+import MessageView from '../components/Messages/MessageView';
+import MessageHeader from '../components/Messages/MessageHeader';
+import MessageTextArea from '../components/Messages/MessageTextArea';
+import MessageListHeader from '../components/Messages/MessageListHeader';
 import messageCleanSort from '../helpers/messageHelpers';
 
 export default function Messages() {
@@ -52,7 +52,7 @@ export default function Messages() {
 
       });
 
-  }, [count]);
+  }, [count, currentUsername]);
 
   useEffect(() => {
     axios.get('http://localhost:8001/api/user_profiles')
