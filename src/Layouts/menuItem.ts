@@ -39,10 +39,10 @@ const items: MenuItemType[] = [
     title: 'Tutor Sessions',
     link: { to: '/tutor-sessions' },
   },
-  // {
-  //   title: "Forms",
-  //   link: { to: "/forms" },
-  // },
+  {
+    title: "Comments",
+    link: { to: "/comments" },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },

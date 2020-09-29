@@ -46,8 +46,7 @@ function UserProfileItem(props) {
   const currentUser = state.users.find(
     (user) => user.id === props.userId || user.username === props.userId
   );
-
-  console.log("current user: ", currentUser);
+  console.log("current user in item: ", currentUser);
   return (
     <>
       {/* {console.log("state", state.posts)} */}
@@ -59,11 +58,7 @@ function UserProfileItem(props) {
               {mode === SHOW && (
                 <>
                   <UserInfo
-                    avatar={user.avatar}
-                    location={user.location}
-                    username={user.username}
-                    is_mentor={user.is_mentor}
-                    is_student={user.is_student}
+                    user={currentUser}
                     onEdit={onEdit}
                     mentor_stack={mentor_stack}
                   />
@@ -72,6 +67,7 @@ function UserProfileItem(props) {
               {mode === EDITING && (
                 <>
                   <EditUserInfo
+                    user={currentUser}
                     avatar={user.avatar}
                     location={user.location}
                     username={user.username}
