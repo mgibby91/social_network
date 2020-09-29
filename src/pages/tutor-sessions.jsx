@@ -167,6 +167,7 @@ export default function TutorSessions() {
     axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
       .then(() => {
         setCount(count + 1);
+        document.querySelector('#search-user-input').value = '';
       })
 
   }
