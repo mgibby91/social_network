@@ -29,15 +29,30 @@ interface IPost {
 
 export default function PostListItem(props: IProps) 
 {  
+console.log("props: ", props);
 
   const stack = props.post.stack.map((tech_stack, index) => {
-    
     return <li key={index}>{tech_stack}</li>;
   });
   
-  const comments = props.comment;
-  console.log("comments in item: ", comments);
-  
+  const commentData = props.comments.filter(comment => {
+    if (props.post.post_id === comment.post_id) {
+      return comment
+    }
+  })
+
+  const commentList = commentData.map(comment => {
+
+    return (
+      <div>
+        <p><b>{comment.username}</b></p>
+        <li>{comment.text_body}</li>
+      </div>
+    )
+  })
+  console.log("comment: ", commentList);
+
+
   return (
     <div>
       <Row>
@@ -66,6 +81,7 @@ export default function PostListItem(props: IProps)
               <Card>
                 <p>{props.post.text_body}</p>
               </Card>
+              <ul>{commentList}</ul>
             </CardBody>
           </Card>
         </Col>

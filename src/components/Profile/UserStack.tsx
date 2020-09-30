@@ -6,8 +6,8 @@ import React, { useState, useEffect } from "react";
 
 function Stack(props) {
   //console.log("from USER STACK", props);
-  const mentorStack = props.mentor.map((stack) => {
-    return <li key={stack.id}>{stack.name}</li>;
+  const mentorStack = props.mentor.map((stack, index) => {
+    return <li key={index}>{stack.name}</li>;
   });
   
   return (
