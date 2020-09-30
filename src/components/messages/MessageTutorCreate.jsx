@@ -58,9 +58,17 @@ export default function MessageTutorCreate(props) {
           usernameList={getUsernameList(props)}
         />
       </div>
-      <div className="tutor-create-btn" onClick={() => props.createTutorSession()}>
-        Create
-    </div>
+      {props.createError && (
+        <div className='tutor-create-error'>Please enter valid {props.createError}!</div>
+      )}
+      <div className="message-tutor-btns">
+        <div className="tutor-create-btn" onClick={() => props.createTutorSession()}>
+          Create
+      </div>
+        <div className="tutor-btn tutor-btn-decline-cancel" onClick={() => props.cancelTutorSession()}>
+          Cancel
+      </div>
+      </div>
     </div >
   )
 
