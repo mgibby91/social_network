@@ -8,7 +8,6 @@ import reducer, {
   SET_MENTOR_POINTS,
   SET_POSTS,
 } from "../reducers/application";
-
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     comments: {},
@@ -26,7 +25,6 @@ export default function useApplicationData() {
     posts_stacks: [],
     selected: {},
   });
-
   // RETRIEVES API AND SETS IT WITH REDUCER
   useEffect(() => {
     Promise.all([
@@ -76,11 +74,9 @@ export default function useApplicationData() {
       });
     });
   }, []);
-
   // FOR WEBSOCKET
   useEffect(() => {
     const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -88,12 +84,10 @@ export default function useApplicationData() {
         dispatch(data);
       }
     };
-
     return () => {
       socket.close();
     };
   }, []);
-
   const addMentorPoints = (mentorID, mentorPoints) => {
     const url = `/api/mentor_points`;
     const promise = axios.put(url, { mentorPoints }).then((req, res) => {
@@ -105,7 +99,6 @@ export default function useApplicationData() {
     });
     return promise;
   };
-
   const addStudentPoints = (studentID, studentPoints) => {
     const url = `/api/mentor_points`;
     const promise = axios.put(url, { studentPoints }).then((req, res) => {
@@ -117,7 +110,6 @@ export default function useApplicationData() {
     });
     return promise;
   };
-
   const setSelectedUser = (userID) => {
     dispatch({
       type: SET_SELECTED_USER,
@@ -136,7 +128,6 @@ export default function useApplicationData() {
       is_mentor: false,
       is_student: true,
     };
-
     if (!postDetails.mentor) {
       (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }
@@ -191,7 +182,6 @@ export default function useApplicationData() {
 
     return promise;
   };
-
   return {
     state,
     addMentorPoints,
