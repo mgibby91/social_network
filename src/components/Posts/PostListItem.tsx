@@ -37,7 +37,10 @@ export default function PostListItem(props: IProps) {
               <Card>
                 <p>{props.post.text_body}</p>
               </Card>
-              <Link to={`/messages/${props.post.username}`}>
+              <Link 
+                to={`/messages/`}
+                state={{username: props.post.username}}  
+              >
                 <Button>Message User</Button>
               </Link>
             </CardBody>

@@ -5,7 +5,7 @@ export default function TutorRate(props) {
 
   const [rating, setRating] = useState(0);
 
-  console.log('tutorrateprops', props);
+  // console.log('tutorrateprops', props);
 
   const onStarClick = (nextValue) => setRating(nextValue);
   const onStarHover = (nextValue) => setRating(nextValue);

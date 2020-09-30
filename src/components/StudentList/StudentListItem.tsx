@@ -14,7 +14,10 @@ export default function StudentListItem(props) {
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <CardBody>
-            <Link to={`/messages/${props.username}`}>
+              <Link 
+                to={`/messages/`}
+                state={{username: props.username}}  
+              >
                 <Button>Message User</Button>
               </Link>
               <Link to={`/user-profiles/${props.username}`}>

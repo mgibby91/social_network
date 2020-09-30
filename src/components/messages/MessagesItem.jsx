@@ -10,7 +10,7 @@ import MessageListHeader from './MessageListHeader';
 import MessageTutorCreate from './MessageTutorCreate';
 import messageCleanSort from '../../helpers/messageHelpers';
 
-export default function Messages() {
+export default function Messages(props) {
 
   const [messageList, setMessageList] = useState({});
   const [currentData, setCurrentData] = useState([]);
@@ -217,7 +217,7 @@ export default function Messages() {
 
   // CREATE TUTOR SESSION STUFF ***************************************
 
-
+  console.log("props in message: ", props);
   return (
     <div className="outside-main-message">
       {showTutor && (
