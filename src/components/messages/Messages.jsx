@@ -23,6 +23,7 @@ export default function Messages(props) {
   const [showTutor, setShowTutor] = useState(false);
   const [createError, setCreateError] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [routeUsername, setRouteUsername] = useState('');
 
   useEffect(() => {
 
@@ -105,7 +106,9 @@ export default function Messages(props) {
     intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
     setCurrentMessages(intMessages);
 
-    document.querySelector('#msg-textarea').value = '';
+    if (document.querySelector('#msg-textarea')) {
+      document.querySelector('#msg-textarea').value = '';
+    }
     changeBg(username);
   }
 
@@ -121,10 +124,21 @@ export default function Messages(props) {
 
     let receiverID;
 
+
     if (!createNew) {
       if (document.querySelector('.text-container')) {
         receiverID = document.querySelector('.text-container').id;
+      }
+      else if (document.querySelector('.message-header-username').children[1].textContent) {
+        const intUsername = document.querySelector('.message-header-username').children[1].textContent;
+
+        for (let user of avatars) {
+          if (user.username === intUsername) {
+            receiverID = user.id;
+          }
+        }
       } else {
+        console.log('hello');
         return;
       }
     } else {
@@ -246,8 +260,19 @@ export default function Messages(props) {
 
   // CREATE TUTOR SESSION STUFF ***************************************
 
+  // ROUTE FROM OTHER PAGE FOR SENDING MSG *********************************
 
   console.log('messageProps', props);
+  console.log('locationProps', props.location.state)
+
+  const usernameRoute = props.location.state.username;
+  console.log('usernameRoute', usernameRoute);
+
+  if (usernameRoute && !routeUsername) {
+    setRouteUsername(usernameRoute);
+    clickMe(usernameRoute);
+  }
+  // ROUTE FROM OTHER PAGE FOR SENDING MSG *********************************
 
   return (
     <div className="outside-main-message">

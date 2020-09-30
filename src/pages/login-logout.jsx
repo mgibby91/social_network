@@ -10,6 +10,8 @@ export default function LoginLogout() {
     console.log('userId', userID);
     document.cookie = `userID=${userID};`;
 
+
+
     axios.post('http://localhost:8001/api/login', { userID })
       .then(res => {
         const username = res.data[0].username;
