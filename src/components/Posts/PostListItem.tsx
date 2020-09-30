@@ -22,8 +22,12 @@ interface IPost {
 
 export default function PostListItem(props: IProps) {
   const stack = props.post.stack.map((tech_stack) => {
+    console.log("in stack: ", tech_stack);
+    
     return <li>{tech_stack}</li>;
   });
+  console.log("props in post item: ", props.post.active);
+  
   return (
     <div>
       <Row>
@@ -34,15 +38,21 @@ export default function PostListItem(props: IProps) {
                 <h3>{props.post.username}</h3>
                 <img src={props.post.avatar} alt="avatar"></img>
               </Link>
-              <Card>
-                <p>{props.post.text_body}</p>
-              </Card>
+              <div>
+                {props.active ? 
+                  <h6>User is online</h6>
+                : <h6>User is offline</h6>}
+                </div>
               <Link 
                 to={`/messages/`}
                 state={{username: props.post.username}}  
               >
                 <Button>Message User</Button>
               </Link>
+                <h4>Stack: {stack}</h4>
+              <Card>
+                <p>{props.post.text_body}</p>
+              </Card>
             </CardBody>
           </Card>
         </Col>

@@ -17,7 +17,7 @@ interface IComment {
 	text_body: string, 
 	active: boolean,
 	time_posted: Date,
-	username: string
+	username: string,
 }
 
 export default function CommentListItem(props: IProps) {
@@ -34,6 +34,11 @@ export default function CommentListItem(props: IProps) {
 									<h3>{props.comment.username}</h3>
 									<img src={props.comment.avatar} alt="avatar"></img>
 								</Link>
+								<div>
+                {props.active ? 
+                  <h6>User is online</h6>
+                : <h6>User is offline</h6>}
+                </div>
 								 <Card>
 									<p>{props.comment.text_body}</p>
 								</Card>

@@ -5,7 +5,7 @@ import ContextConsumer from "../../context/context";
 import { Link } from "gatsby";
 
 export default function LoginLogout() {
-  const { state, setSelectedUser } = useApplicationData();
+  const { state } = useApplicationData();
 
   function login(data, set) {
     const userID = Number(document.querySelector("#login-user-id").value);

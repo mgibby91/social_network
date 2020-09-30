@@ -12,7 +12,6 @@ interface IProps {
 	onChange: void;
 }
 
-
 export default function Comments() {
   const { state } = useApplicationData();
 

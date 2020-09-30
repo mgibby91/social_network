@@ -2,10 +2,10 @@ import React from "react";
 import { Card, CardBody } from "@paljs/ui/Card";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
-import Editor from "../../components/Profile/Editor";
-import PostList from "../../components/Profile/PostList";
-import UserInfo from "../../components/Profile/UserInfo";
-import EditUserInfo from "../../components/Profile/EditUserInfo";
+import Editor from "./Editor";
+import PostList from "./PostList";
+import UserInfo from "./UserInfo";
+import EditUserInfo from "./EditUserInfo";
 import Experience from "./UserExperience";
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
@@ -23,7 +23,7 @@ function UserProfileItem(props) {
   const { state, createPost } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
 
-  const senderID = document.cookie.split("=")[1];
+  let senderID = document.cookie.split("=")[1];
 
   const posts = getUserPosts(state.posts, senderID);
   const user = getUser(state.user_profiles, senderID);
@@ -65,6 +65,14 @@ function UserProfileItem(props) {
           if (!currentUser) {
             return <h1>You must be logged in to view this page.</h1>;
           }
+          console.log("current user in item: ", currentUser.id);
+          console.log("current user in item: ", currentUser.student_id);
+          if (currentUser.id || currentUser.student_id || currentUser.mentor_id)
+
+          senderID = currentUser
+          console.log("sender id in context: ", senderID.id);
+          const posts = getUserPosts(state.posts, senderID.id);
+          console.log("posts in prof item: ", posts);
           return (
             <Row>
               <Col breakPoint={{ xs: 12 }}>

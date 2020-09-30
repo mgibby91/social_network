@@ -1,7 +1,7 @@
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import React from "react";
-import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 function Experience(props) {
   console.log("props in experience: ", props);
