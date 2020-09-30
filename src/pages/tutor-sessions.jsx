@@ -4,6 +4,7 @@ import TutorHistory from '../components/TutorSessions/TutorHistory';
 import TutorCreate from '../components/TutorSessions/TutorCreate';
 import TutorRate from '../components/TutorSessions/TutorRate';
 import TutorFilter from '../components/TutorSessions/TutorFilter';
+import MessageTutorSuccess from '../components/messages/MessageTutorSuccess';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
@@ -26,6 +27,7 @@ export default function TutorSessions() {
   const [filterStatus, setFilterStatus] = useState('');
   const [selectFilterBtn, setSelectFilterBtn] = useState('');
   const [createError, setCreateError] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   console.log('unratesSession', unratedSession);
 
@@ -198,6 +200,10 @@ export default function TutorSessions() {
         .then(() => {
           setCount(count + 1);
           document.querySelector('#search-user-input').value = '';
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+          }, 3000)
         })
     }
 
@@ -226,11 +232,17 @@ export default function TutorSessions() {
 
   return (
     <div className='main-tutor-container'>
-      <TutorCreate
+      {!showSuccess && (<TutorCreate
         currentUserData={currentUserData}
         createTutorSession={createTutorSession}
         createError={createError}
       />
+      )}
+      {showSuccess && (
+        <MessageTutorSuccess
+          tutorStyle={'tutor-success-id'}
+        />
+      )}
       {(rateTutor || unratedSession) && (
         <TutorRate
           currentTutorID={currentTutorID}

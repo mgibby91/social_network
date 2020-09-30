@@ -8,6 +8,7 @@ import MessageHeader from '../components/messages/MessageHeader';
 import MessageTextArea from '../components/messages/MessageTextArea';
 import MessageListHeader from '../components/messages/MessageListHeader';
 import MessageTutorCreate from '../components/messages/MessageTutorCreate';
+import MessageTutorSuccess from '../components/messages/MessageTutorSuccess';
 import messageCleanSort from '../helpers/messageHelpers';
 
 export default function Messages() {
@@ -21,6 +22,7 @@ export default function Messages() {
   const [createNew, setCreateNew] = useState(false);
   const [showTutor, setShowTutor] = useState(false);
   const [createError, setCreateError] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
 
   useEffect(() => {
@@ -238,6 +240,10 @@ export default function Messages() {
         .then(() => {
           setShowTutor(false);
           setCount(count + 1);
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+          }, 3000)
         })
     }
   }
@@ -258,6 +264,9 @@ export default function Messages() {
           cancelTutorSession={cancelTutorSession}
           createError={createError}
         />
+      )}
+      {showSuccess && (
+        <MessageTutorSuccess />
       )}
       <div className='main-message-container'>
         <div className='left-message-container'>
