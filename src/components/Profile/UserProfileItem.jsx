@@ -24,17 +24,13 @@ function UserProfileItem(props) {
   const { mode, transition, back } = useVisualMode(SHOW);
 
   let senderID = document.cookie.split("=")[1];
-
-  const posts = getUserPosts(state.posts, senderID);
-  const user = getUser(state.user_profiles, senderID);
-  const mentor_stack = getStack(state.mentor_stack, senderID);
+  console.log("from user-profile", senderID);
 
   function onEdit() {
     transition(EDITING);
   }
 
   function onCancel() {
-    console.log("WOW");
     back();
   }
 
@@ -68,10 +64,13 @@ function UserProfileItem(props) {
           console.log("current user in item: ", currentUser.id);
           console.log("current user in item: ", currentUser.student_id);
           if (currentUser.id || currentUser.student_id || currentUser.mentor_id)
-
-          senderID = currentUser
+            senderID = currentUser;
           console.log("sender id in context: ", senderID.id);
+          // const posts = getUserPosts(state.posts, senderID.id);
           const posts = getUserPosts(state.posts, senderID.id);
+          const user = getUser(state.user_profiles, senderID.id);
+          const mentor_stack = getStack(state.mentor_stack, senderID.id);
+
           console.log("posts in prof item: ", posts);
           return (
             <Row>
@@ -115,7 +114,11 @@ function UserProfileItem(props) {
 
                     <Row>
                       <Col breakPoint={{ xs: 12, md: 12 }}>
-                        <Editor id={user.id} createPost={createPost} />
+                        <Editor
+                          id={user.id}
+                          createPost={createPost}
+                          suggestion={state.stack_preferences}
+                        />
                       </Col>
                     </Row>
                     <Row>
