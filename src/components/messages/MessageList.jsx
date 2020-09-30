@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MessageItem from './MessageItem';
 import '../../styles/messages.css'
 import axios from 'axios';
 
 export default function MessageList(props) {
 
+  const [showNoMsgs, setShowNoMsgs] = useState(false);
+
   const messageListObj = props.messageList.messageList;
 
-  // console.log('msglistobj', messageListObj);
+  console.log('msglistobj', messageListObj);
 
   function isEmpty(obj) {
     for (var prop in obj) {
@@ -28,10 +30,6 @@ export default function MessageList(props) {
     return new Date(b[1][0].timeSent) - new Date(a[1][0].timeSent);
   });
 
-  // console.log('sortedMessageList', sortedMessageList)
-
-  // console.log('sortable', sortable);
-
   let messageData;
 
   if (!messageListEmpty) {
@@ -47,10 +45,20 @@ export default function MessageList(props) {
     })
   }
 
+  // show no msgs delay
+  setTimeout(() => {
+    setShowNoMsgs(true)
+  }, 1000);
+
 
   return (
     <div className='message-left-list'>
       {messageData ? messageData : null}
+      {messageListEmpty && showNoMsgs && (
+        <div className='msg-list-empty-container'>
+          Looks like you have no messages!
+        </div>
+      )}
     </div>
   )
 

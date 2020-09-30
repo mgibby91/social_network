@@ -37,9 +37,31 @@
   height: 50px;
   border: 1px solid white;
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   align-items: center;
+  position: relative;
 }
+/* 
+.tutor-history-header-date {
+  position: absolute;
+  left: 85px;
+}
+
+.tutor-history-header-usernames {
+  position: absolute;
+  left: 318px;
+}
+
+.tutor-history-header-status {
+  position: absolute;
+  left: 575px;
+}
+
+.tutor-history-header-actions {
+  position: absolute;
+  left: 760px;
+} */
+
 
 .tutor-history-item-date {
   width: 210px;
@@ -48,6 +70,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  position: absolute;
+  left: 60px;
 }
 
 .tutor-history-item-student-mentor {
@@ -58,6 +82,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 290px;
 }
 
 .tutor-history-item-status {
@@ -69,6 +95,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  left: 560px;
+}
+
+.tutor-history-item-btns {
+  position: absolute;
+  left: 700px;
 }
 
 
@@ -305,4 +338,86 @@
 
 .confirm-delete-btns {
   display: flex;
+}
+
+
+/* Filter History section */
+.tutor-filter-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.25rem;
+  margin-left: 0.25rem;
+}
+
+.tutor-filter-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+.tutor-filter-btns {
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.filter-btn {
+  padding: 0.3rem 0 0.2rem;
+  margin-right: 0.25rem;
+  color: #222b45;
+  border-radius: 5px;
+  width: 84px;
+  display: flex;
+  justify-content: center;
+}
+
+.filter-btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.filter-btn-selected {
+  opacity: 0.7;
+}
+
+.filter-btn-all {
+  background: #e2e3e5;
+  border-color: #d6d8db;
+}
+
+.filter-btn-pending {
+  background: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.filter-btn-in-progress {
+  background: #cce5ff;
+  border-color: #b8daff;
+}
+
+.filter-btn-completed {
+  background: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.tutor-create-error {
+  border: 1px solid rgb(250, 70, 70);
+  background: rgb(250, 70, 70);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  color: white;
+  margin-top: 0.5rem;
+}
+
+/* rate tutor btns container */
+.tutor-rate-btns-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#tutor-success-id {
+  width: 958px;
 }

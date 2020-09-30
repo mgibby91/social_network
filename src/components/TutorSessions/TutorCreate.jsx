@@ -42,6 +42,9 @@ export default function TutorCreate(props) {
           usernameList={getUsernameList(props)}
         />
       </div>
+      {props.createError && (
+        <div className='tutor-create-error'>Please enter valid {props.createError}!</div>
+      )}
       <div className="tutor-create-btn" onClick={() => props.createTutorSession()}>
         Create
       </div>

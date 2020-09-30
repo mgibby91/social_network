@@ -3,6 +3,7 @@ import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
+import { Button } from "@paljs/ui/Button";
 
 interface IProps {
   key: number;
@@ -35,6 +36,13 @@ export default function PostListItem(props: IProps) {
               </Link>
               <Card>
                 <p>{props.post.text_body}</p>
+              </Card>
+              <Link 
+                to={`/messages/`}
+                state={{username: props.post.username}}  
+              >
+                <Button>Message User</Button>
+              </Link>
                 <ul>{stack}</ul>
               </Card>
             </CardBody>

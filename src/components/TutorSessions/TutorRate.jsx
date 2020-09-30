@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import ReactStars from "react-star-rating-component";
+import { formatDate, getMentorUsername, getStudentUsername, getDateStatus, getTimeAgo } from '../../helpers/tutor-helpers';
 
 export default function TutorRate(props) {
 
   const [rating, setRating] = useState(0);
 
-  console.log('tutorrateprops', props);
+  // console.log('tutorrateprops', props);
 
   const onStarClick = (nextValue) => setRating(nextValue);
   const onStarHover = (nextValue) => setRating(nextValue);
@@ -55,7 +56,9 @@ export default function TutorRate(props) {
   return (
     <div className='tutor-rate-container'>
       <div className="rate-tutor-header">
-        Rate Tutor Session: <strong>{getOtherUsername(props)}</strong>
+        Rate Tutor Session: <strong>{getOtherUsername(props)}</strong> {props.unratedSession && (
+          '(' + formatDate(props.unratedSession.date_completed) + ')'
+        )}
       </div>
       <div className="rate-tutor-stars">
         <ReactStars
@@ -72,8 +75,13 @@ export default function TutorRate(props) {
         <textarea name="tutor-rate-comment" id="tutor-rate-comments" cols="43" rows="7" placeholder='Comments...'></textarea>
       </div>
       {!props.unratedSession && (
-        <div className="rate-tutor-btn" onClick={() => props.submitRating(props.currentTutorID, getIsMentor(props), rating, getTutorComments())}>
-          Submit
+        <div className="tutor-rate-btns-container">
+          <div className="rate-tutor-btn" onClick={() => props.submitRating(props.currentTutorID, getIsMentor(props), rating, getTutorComments())}>
+            Submit
+        </div>
+          <div className="tutor-btn tutor-btn-decline-cancel" onClick={() => props.cancelRateSession()}>
+            Cancel
+        </div>
         </div>
       )}
       {props.unratedSession && (
