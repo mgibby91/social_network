@@ -4,6 +4,7 @@ import TutorHistory from '../components/TutorSessions/TutorHistory';
 import TutorCreate from '../components/TutorSessions/TutorCreate';
 import TutorRate from '../components/TutorSessions/TutorRate';
 import TutorFilter from '../components/TutorSessions/TutorFilter';
+import TutorShowPoints from '../components/TutorSessions/TutorShowPoints';
 import MessageTutorSuccess from '../components/messages/MessageTutorSuccess';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
@@ -28,8 +29,8 @@ export default function TutorSessions() {
   const [selectFilterBtn, setSelectFilterBtn] = useState('');
   const [createError, setCreateError] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
-
-  console.log('unratesSession', unratedSession);
+  const [showPointsGiven, setShowPointsGiven] = useState(false);
+  const [pointsArray, setPointsArray] = useState([]);
 
   useEffect(() => {
 
@@ -117,9 +118,19 @@ export default function TutorSessions() {
 
   function submitRating(tutorSessionID, isMentor, rating, comments) {
 
+    const ratingUsername = document.querySelector('.rate-tutor-header').children[0].textContent;
+
     axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID, isMentor, rating, comments })
-      .then(() => {
+      .then((res) => {
+        console.log('resresres', res);
         setCount(count + 1);
+
+        setPointsArray([ratingUsername, rating]);
+        setShowPointsGiven(true);
+
+        setTimeout(() => {
+          setShowPointsGiven(false);
+        }, 2500)
       })
   }
 
@@ -140,6 +151,7 @@ export default function TutorSessions() {
     axios.put('http://localhost:8001/api/tutor_experiences/complete-other', { isMentorRating, rating, comments, tutorSessionID })
       .then((res) => {
         console.log('updatedRes', res)
+        setShowPointsGiven(true);
         setUnratedSession(null);
         setCount(count + 1);
       })
@@ -203,7 +215,7 @@ export default function TutorSessions() {
           setShowSuccess(true);
           setTimeout(() => {
             setShowSuccess(false);
-          }, 3000)
+          }, 2500)
         })
     }
 
@@ -253,6 +265,11 @@ export default function TutorSessions() {
           unratedSession={unratedSession}
           otherUserSubmitRating={otherUserSubmitRating}
           cancelRateSession={cancelRateSession}
+        />
+      )}
+      {showPointsGiven && (
+        <TutorShowPoints
+          pointsArray={pointsArray}
         />
       )}
       <TutorFilter
