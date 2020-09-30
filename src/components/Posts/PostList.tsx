@@ -36,9 +36,6 @@ export default function PostList(props: IProps) {
       <section>
         <h1>Feed</h1>
         <ul>{postData}</ul>
-        <CommentListItem>
-
-        </CommentListItem>
       </section>
     </div>
   );
