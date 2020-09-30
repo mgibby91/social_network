@@ -44,6 +44,10 @@ const items: MenuItemType[] = [
     title: 'Tutor Sessions',
     link: { to: '/tutor-sessions' },
   },
+  {
+    title: 'Register',
+    link: { to: '/register' },
+  },
   // {
   //   title: "Forms",
   //   link: { to: "/forms" },
