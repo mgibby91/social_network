@@ -421,3 +421,26 @@
 #tutor-success-id {
   width: 958px;
 }
+
+
+/* Tutor points */
+.tutor-points-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 958px;
+  height: 330px;
+  background: #222b45;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.tutor-points-title {
+  border: 2px solid #1cd454;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color:#1cd454;
+}
