@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div className="App">
       <Row>
-        <Editor createPost={createPost} />
+        <Editor createPost={createPost} suggestion={state.stack_preferences} />
       </Row>
       <PostList posts={dashPosts} />
     </div>

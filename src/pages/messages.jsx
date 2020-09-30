@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import '../styles/messages.css';
-import '../styles/tutor-sessions.css'
-import MessageList from '../components/messages/MessageList';
-import MessageView from '../components/messages/MessageView';
-import MessageHeader from '../components/messages/MessageHeader';
-import MessageTextArea from '../components/messages/MessageTextArea';
-import MessageListHeader from '../components/messages/MessageListHeader';
-import MessageTutorCreate from '../components/messages/MessageTutorCreate';
-import messageCleanSort from '../helpers/messageHelpers';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../styles/messages.css";
+import "../styles/tutor-sessions.css";
+import MessageList from "../components/messages/MessageList";
+import MessageView from "../components/messages/MessageView";
+import MessageHeader from "../components/messages/MessageHeader";
+import MessageTextArea from "../components/messages/MessageTextArea";
+import MessageListHeader from "../components/messages/MessageListHeader";
+import MessageTutorCreate from "../components/messages/MessageTutorCreate";
+import messageCleanSort from "../helpers/messageHelpers";
 
 export default function Messages() {
-
   const [messageList, setMessageList] = useState({});
   const [currentData, setCurrentData] = useState([]);
   const [count, setCount] = useState(0);
   const [currentMessages, setCurrentMessages] = useState([]);
-  const [currentUsername, setCurrentUsername] = useState('');
+  const [currentUsername, setCurrentUsername] = useState("");
   const [avatars, setAvatars] = useState([]);
   const [createNew, setCreateNew] = useState(false);
   const [showTutor, setShowTutor] = useState(false);
 
   useEffect(() => {
+    const userID = document.cookie.split("=")[1];
 
-    const userID = document.cookie.split('=')[1];
-
-    axios.post('http://localhost:8001/api/messages/', { userID })
+    axios
+      .post("http://localhost:8001/api/messages/", { userID })
       .then((data) => {
         const currentUserID = data.data.userId;
         const currentData = data.data.data;
@@ -36,7 +35,8 @@ export default function Messages() {
 
         setMessageList({ messageList: newMessageList });
 
-        const username = document.querySelector('.message-header-username').textContent;
+        const username = document.querySelector(".message-header-username")
+          .textContent;
 
         let intMessages = [];
 
@@ -46,29 +46,27 @@ export default function Messages() {
           }
         }
 
-        intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
+        intMessages.sort(
+          (a, b) => new Date(b.time_sent) - new Date(a.time_sent)
+        );
         setCurrentMessages(intMessages);
 
         if (currentUsername) {
           changeBg(currentUsername);
         }
-
       });
-
   }, [count, currentUsername]);
 
   useEffect(() => {
-    axios.get('http://localhost:8001/api/user_profiles')
-      .then(res => {
-        console.log('user_profilesData', res.data);
-        setAvatars(res.data);
-      })
-  }, [])
+    axios.get("http://localhost:8001/api/user_profiles").then((res) => {
+      console.log("user_profilesData", res.data);
+      setAvatars(res.data);
+    });
+  }, []);
 
   function changeBg(username, deselectBG) {
-
-    const msgUsername = document.querySelectorAll('.message-username');
-    console.log('msgUsername', msgUsername);
+    const msgUsername = document.querySelectorAll(".message-username");
+    console.log("msgUsername", msgUsername);
     let currentEl;
 
     for (let item of msgUsername) {
@@ -77,17 +75,18 @@ export default function Messages() {
       }
     }
 
-    const msgTextContainers = document.querySelectorAll('.message-item-container');
+    const msgTextContainers = document.querySelectorAll(
+      ".message-item-container"
+    );
 
     for (let item of msgTextContainers) {
-      item.classList.remove('message-list-selected');
+      item.classList.remove("message-list-selected");
     }
 
     if (!deselectBG && currentEl) {
-      currentEl.classList.add('message-list-selected');
+      currentEl.classList.add("message-list-selected");
     }
   }
-
 
   function clickMe(username) {
     setCreateNew(false);
@@ -101,29 +100,28 @@ export default function Messages() {
       }
     }
 
-    intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent))
+    intMessages.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent));
     setCurrentMessages(intMessages);
 
-    document.querySelector('#msg-textarea').value = '';
+    document.querySelector("#msg-textarea").value = "";
     changeBg(username);
   }
 
   function submitMessage() {
-
     let selectedUsername;
 
     if (createNew) {
-      selectedUsername = document.querySelector('#search-user-input').value;
+      selectedUsername = document.querySelector("#search-user-input").value;
     }
 
-    console.log('selectedUsername', selectedUsername);
+    console.log("selectedUsername", selectedUsername);
 
-    const textInput = document.querySelector('#msg-textarea').value;
+    const textInput = document.querySelector("#msg-textarea").value;
 
     let receiverID;
 
     if (!createNew) {
-      receiverID = document.querySelector('.text-container').id;
+      receiverID = document.querySelector(".text-container").id;
     } else {
       for (let user of avatars) {
         if (user.username === selectedUsername) {
@@ -132,7 +130,7 @@ export default function Messages() {
       }
     }
 
-    console.log('receiverID', receiverID);
+    console.log("receiverID", receiverID);
 
     // error handling for if user message feed isn't clicked on
     if (!receiverID) {
@@ -141,17 +139,21 @@ export default function Messages() {
 
     // error handling for blank inputs
     if (!textInput) {
-      const errorContainer = document.querySelector('.error-container');
-      errorContainer.style.display = 'block';
+      const errorContainer = document.querySelector(".error-container");
+      errorContainer.style.display = "block";
 
       setTimeout(() => {
-        errorContainer.style.display = 'none';
+        errorContainer.style.display = "none";
       }, 2000);
-
     } else {
-      const senderID = document.cookie.split('=')[1];
+      const senderID = document.cookie.split("=")[1];
 
-      axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID, senderID })
+      axios
+        .post("http://localhost:8001/api/messages/new", {
+          textInput,
+          receiverID,
+          senderID,
+        })
         .then(() => {
           if (createNew) {
             setCurrentUsername(selectedUsername);
@@ -159,15 +161,13 @@ export default function Messages() {
               changeBg(selectedUsername);
             }, 20);
           }
-          console.log('hi');
+          console.log("hi");
           setCount(count + 1);
-          document.querySelector('#msg-textarea').value = '';
-
+          document.querySelector("#msg-textarea").value = "";
 
           setCreateNew(false);
-        })
+        });
     }
-
   }
 
   function createNewMsg() {
@@ -182,7 +182,7 @@ export default function Messages() {
   }
 
   function createTutorSession() {
-    const radios = document.getElementsByName('radio-mentor-student');
+    const radios = document.getElementsByName("radio-mentor-student");
     let radioChecked;
     for (let radio of radios) {
       if (radio.checked) {
@@ -190,33 +190,37 @@ export default function Messages() {
       }
     }
 
-    const username = document.querySelector('#search-user-input').value;
+    const username = document.querySelector("#search-user-input").value;
     let receiverID;
     for (let user of avatars) {
       if (user.username === username) {
         receiverID = user.id;
       }
     }
-    const creatorID = Number(document.cookie.split('=')[1]);
+    const creatorID = Number(document.cookie.split("=")[1]);
 
     let mentorID, studentID;
-    if (radioChecked === 'mentor') {
-      mentorID = receiverID
+    if (radioChecked === "mentor") {
+      mentorID = receiverID;
       studentID = creatorID;
     } else {
       mentorID = creatorID;
       studentID = receiverID;
     }
 
-    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+    axios
+      .post("http://localhost:8001/api/tutor_experiences/new", {
+        mentorID,
+        studentID,
+        creatorID,
+      })
       .then(() => {
         setShowTutor(false);
         setCount(count + 1);
-      })
+      });
   }
 
   // CREATE TUTOR SESSION STUFF ***************************************
-
 
   return (
     <div className="outside-main-message">
@@ -226,11 +230,9 @@ export default function Messages() {
           createTutorSession={createTutorSession}
         />
       )}
-      <div className='main-message-container'>
-        <div className='left-message-container'>
-          <MessageListHeader
-            createNewMsg={createNewMsg}
-          />
+      <div className="main-message-container">
+        <div className="left-message-container">
+          <MessageListHeader createNewMsg={createNewMsg} />
           <MessageList
             messageList={messageList}
             clickMe={clickMe}
@@ -238,7 +240,7 @@ export default function Messages() {
             avatarList={avatars}
           />
         </div>
-        <div className='right-message-container'>
+        <div className="right-message-container">
           <MessageHeader
             username={currentUsername}
             avatarList={avatars}
@@ -257,5 +259,4 @@ export default function Messages() {
       </div>
     </div>
   );
-
 }
