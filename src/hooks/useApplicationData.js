@@ -156,19 +156,24 @@ export default function useApplicationData() {
         });
       })
       .then((response, reject) => {
-        axios.all([
-          axios..post(`/my-url`, {
-            myVar: 'myValue'
-          }), 
-          axios.post(`/my-url2`, {
-            myVar: 'myValue'
-          })
-        ])
-        .then(axios.spread((data1, data2) => {
-          // output of req.
-          console.log('data1', data1, 'data2', data2)
-        }));
-        
+        axios
+          .post("http://localhost:8001/api/posts_stacks", { newStack })
+          .catch((err) => {
+            console.log(err);
+          });
+        // axios.all([
+        //   axios.post(`/my-url`, {
+        //     myVar: 'myValue'
+        //   }),
+        //   axios.post(`/my-url2`, {
+        //     myVar: 'myValue'
+        //   })
+        // ])
+        // .then(axios.spread((data1, data2) => {
+        //   // output of req.
+        //   console.log('data1', data1, 'data2', data2)
+        // }));
+
         // const promises = techStack.map((tech) => {
         //   const newStack = {
         //     post_id: response.data.id,

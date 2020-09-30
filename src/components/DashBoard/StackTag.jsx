@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactTags from "react-tag-autocomplete";
 
 function Tags(props) {
-  // console.log("tags", props.suggested);
+  console.log("from tags", props.suggested);
+  // const suggested = Object.values(props.suggested);
   const [tags, setTags] = useState([]);
+
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
@@ -15,7 +17,6 @@ function Tags(props) {
   const onDelete = (i) => {
     let tag = tags.slice(0);
     tag.splice(i, 1);
-
     setTags(tag);
   };
 
