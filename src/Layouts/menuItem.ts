@@ -9,7 +9,7 @@ const items: MenuItemType[] = [
   {
     title: "Profile",
     icon: { name: "person" },
-    link: { to: "/user-profile" },
+    link: { to: "/user-profiles" },
   },
   {
     title: "Messages",
@@ -22,32 +22,18 @@ const items: MenuItemType[] = [
     link: { to: "/mentor-list" },
   },
   {
-    title: 'Login-Logout',
-    link: { to: '/login-logout' },
-  },
-  {
-    title: 'Mentors',
-    link: { to: '/mentor-list' },
-
-  },
-  {
     title: "Students",
     icon: { name: "person-outline" },
     link: { to: "/student-list" },
   },
   {
-    title: "User Rating",
-    icon: { name: "star" },
-    link: { to: "/user-rating" },
-  },
-  {
     title: 'Tutor Sessions',
     link: { to: '/tutor-sessions' },
   },
-  // {
-  //   title: "Forms",
-  //   link: { to: "/forms" },
-  // },
+  {
+    title: "Comments",
+    link: { to: "/comments" },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },

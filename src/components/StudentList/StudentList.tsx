@@ -4,16 +4,15 @@ import StudentListItem from "./StudentListItem";
 
 export default function StudentList(props) {
   const { students } = props;
-
   const studentsData = students.map((student, index) => {
     return (
       <StudentListItem
         key={index}
+        userId={student.student_id}
         username={student.username}
         experience={student.studentrating}
         avatar={student.avatar}
-        // selected={student.id === props.value}
-        // setstudent={props.setstudent}
+        setSelectedUser={props.setSelectedUser}
       />
     );
   });

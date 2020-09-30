@@ -3,10 +3,16 @@ const SET_POINTS = "SET_POINTS";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_MENTOR_POINTS = "SET_MENTOR_POINTS";
 const SET_STUDENT_POINTS = "SET_STUDENT_POINTS";
+const SET_SELECTED_USER = "SET_SELECTED_USER";
 const SET_POSTS = "SET_POSTS";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
+    case SET_POSTS: {
+      const { data } = action;
+      state = { ...state, posts: [...state.posts, data] };
+      return state;
+    }
     case SET_POINTS:
       return { ...state, points: action.points };
 
@@ -23,6 +29,9 @@ export default function reducer(state, action) {
         tutor_experiences,
         user_profiles,
         users,
+        stack_preferences,
+        posts_stacks,
+        selected,
       } = action;
 
       return {
@@ -38,6 +47,9 @@ export default function reducer(state, action) {
         tutor_experiences,
         user_profiles,
         users,
+        stack_preferences,
+        posts_stacks,
+        selected,
       };
 
     case SET_MENTOR_POINTS:
@@ -46,9 +58,12 @@ export default function reducer(state, action) {
     case SET_STUDENT_POINTS:
       return { ...state, student: action.id, points: action.points };
 
-    case SET_POSTS:
-      console.log(action.posts);
-      return { ...state, posts: action.posts };
+    case SET_SELECTED_USER:
+      const matchingUser = state.users.find(
+        (user) => user.id === action.userId
+      );
+      console.log("matching user: ", matchingUser);
+      return { ...state, selected: matchingUser };
 
     default:
       throw new Error(
@@ -59,8 +74,9 @@ export default function reducer(state, action) {
 
 export {
   SET_POINTS,
+  SET_POSTS,
   SET_APPLICATION_DATA,
   SET_MENTOR_POINTS,
   SET_STUDENT_POINTS,
-  SET_POSTS,
+  SET_SELECTED_USER,
 };

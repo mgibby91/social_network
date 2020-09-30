@@ -4,7 +4,7 @@ import UsernameSearchFeature from '../UsernameSearch/UsernameSearchFeature';
 
 export default function MessageTutorCreate(props) {
 
-  console.log('MessageTutorCreateProps', props);
+  // console.log('MessageTutorCreateProps', props);
 
   // const usernameList = props.avatarList;
 

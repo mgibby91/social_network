@@ -5,7 +5,6 @@ export function getUser(users, senderId) {
     for (let key in user) {
       // console.log(user["id"], user);
       if (user["id"] === parseInt(senderId)) {
-        console.log("HELLO");
         specificUser = user;
         break;
       }
@@ -15,9 +14,52 @@ export function getUser(users, senderId) {
 }
 
 export function getUserPosts(posts, senderId) {
-  let postsByUser = posts.filter((post) => {
-    return post.id === parseInt(senderId, 10);
+  // console.log("in here!!!", posts);
+  const seen = new Set();
+  const postsByUser = posts
+    .filter((post) => {
+      return post.owner_id === parseInt(senderId, 10);
+    })
+    .filter((el) => {
+      const duplicate = seen.has(el.text_body);
+      seen.add(el.text_body);
+      return !duplicate;
+    });
+
+  // console.log("from helper", postsByUser);
+  //go through the posts and posts by user
+  for (let post of postsByUser) {
+    post["stack"] = [];
+
+    for (let stack of posts) {
+      if (post["post_id"] === stack["post_id"]) {
+        post["stack"].push(stack["name"]);
+      }
+    }
+  }
+
+  return postsByUser;
+}
+
+export function getDashboardPosts(posts) {
+  // console.log("in here!!!", posts);
+  const seen = new Set();
+  const postsByUser = posts.filter((el) => {
+    const duplicate = seen.has(el.time_posted);
+    seen.add(el.time_posted);
+    return !duplicate;
   });
+
+  // console.log("from helper", postsByUser);
+  for (let post of postsByUser) {
+    post["stack"] = [];
+
+    for (let stack of posts) {
+      if (post["post_id"] === stack["post_id"]) {
+        post["stack"].push(stack["name"]);
+      }
+    }
+  }
 
   return postsByUser;
 }
