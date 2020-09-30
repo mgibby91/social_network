@@ -63,7 +63,6 @@ export default function Messages(props) {
   useEffect(() => {
     axios.get('http://localhost:8001/api/user_profiles')
       .then(res => {
-        console.log('user_profilesData', res.data);
         setAvatars(res.data);
       })
   }, [])
@@ -71,7 +70,6 @@ export default function Messages(props) {
   function changeBg(username, deselectBG) {
 
     const msgUsername = document.querySelectorAll('.message-username');
-    console.log('msgUsername', msgUsername);
     let currentEl;
 
     for (let item of msgUsername) {
@@ -119,8 +117,6 @@ export default function Messages(props) {
       selectedUsername = document.querySelector('#search-user-input').value;
     }
 
-    console.log('selectedUsername', selectedUsername);
-
     const textInput = document.querySelector('#msg-textarea').value;
 
     let receiverID;
@@ -138,8 +134,6 @@ export default function Messages(props) {
         }
       }
     }
-
-    console.log('receiverID', receiverID);
 
     // error handling for if user message feed isn't clicked on
     if (!receiverID) {
@@ -166,7 +160,6 @@ export default function Messages(props) {
               changeBg(selectedUsername);
             }, 20);
           }
-          console.log('hi');
           setCount(count + 1);
           document.querySelector('#msg-textarea').value = '';
 
