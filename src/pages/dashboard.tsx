@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import PostList from "../components/DashBoard/PostList";
 import axios from "axios";
-import PostTextArea from "../components/DashBoard/PostTextArea";
 import Row from "@paljs/ui/Row";
-import PostList from "../components/DashBoard/PostList";
 import Editor from "../components/Dashboard/Editor";
 
 import useApplicationData from "../hooks/useApplicationData";

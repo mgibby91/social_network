@@ -125,39 +125,65 @@ export default function useApplicationData() {
     });
   };
 
-  const createPost = (postDetails, id) => {
-    const post = {
+  const createPost = (postDetails, techStack, id) => {
+    console.log("what comes in", postDetails, techStack, id);
+    const newPost = {
       text_body: postDetails.text,
       active: true,
       owner_id: id,
+      stack: [],
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
     };
 
     if (!postDetails.mentor) {
-      (post["is_mentor"] = true), (post["is_student"] = false);
+      (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }
 
-    //     const ids = [12, 32, 657, 1, 67];
-    // const promises = ids.map((id) => axios.get(`myapi.com/user/${id}`));
+    for (let entry of techStack) {
+      console.log("stack name", entry.name);
+      newPost["stack"].push(entry.name);
+    }
 
-    // Promise.all([...promises]).then(function (values) {
-    //   console.log(values);
-    // });
-
+    console.log("from post", newPost["stack"], Object.values(newPost));
     const promise = axios
-      .post(`http://localhost:8001/api/posts`, { post })
+      .post(`http://localhost:8001/api/posts`, { newPost })
       .then((response, reject) => {
-        console.log("from createPost", response.data);
         dispatch({
           type: SET_POSTS,
-          data: post,
+          data: newPost,
         });
+      })
+      .then((response, reject) => {
+        axios.all([
+          axios..post(`/my-url`, {
+            myVar: 'myValue'
+          }), 
+          axios.post(`/my-url2`, {
+            myVar: 'myValue'
+          })
+        ])
+        .then(axios.spread((data1, data2) => {
+          // output of req.
+          console.log('data1', data1, 'data2', data2)
+        }));
+        
+        // const promises = techStack.map((tech) => {
+        //   const newStack = {
+        //     post_id: response.data.id,
+        //     stack_preference_id: tech.id,
+        //   };
+        //   axios.post("http://localhost:8001/api/posts_stacks", { newStack });
+        // });
+        // Promise.all([...promises]).then(function (values) {
+        //   console.log("from promise all", values);
+        // });
       })
       .catch((err) => {
         console.log(err);
       });
+
     return promise;
   };
 

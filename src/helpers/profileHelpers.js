@@ -14,26 +14,29 @@ export function getUser(users, senderId) {
 }
 
 export function getUserPosts(posts, senderId) {
-  console.log("in here!!!", posts);
+  console.log("in here!!!", senderId);
   const seen = new Set();
   const postsByUser = posts
     .filter((post) => {
       return post.owner_id === parseInt(senderId, 10);
     })
     .filter((el) => {
-      const duplicate = seen.has(el.text_body);
-      seen.add(el.text_body);
+      const duplicate = seen.has(el.time_posted);
+      seen.add(el.time_posted);
       return !duplicate;
     });
 
-  console.log("from helper", postsByUser);
+  console.log("from helper", posts, postsByUser);
   //go through the posts and posts by user
+  // if()
   for (let post of postsByUser) {
-    post["stack"] = [];
-
-    for (let stack of posts) {
-      if (post["post_id"] === stack["post_id"]) {
-        post["stack"].push(stack["name"]);
+    if (!post["stack"]) {
+      post["stack"] = [];
+      console.log("overwritten");
+      for (let stack of posts) {
+        if (post["post_id"] === stack["post_id"]) {
+          post["stack"].push(stack["name"]);
+        }
       }
     }
   }
@@ -42,7 +45,6 @@ export function getUserPosts(posts, senderId) {
 }
 
 export function getDashboardPosts(posts) {
-  console.log("in here!!!", posts);
   const seen = new Set();
   const postsByUser = posts.filter((el) => {
     const duplicate = seen.has(el.time_posted);
@@ -50,7 +52,6 @@ export function getDashboardPosts(posts) {
     return !duplicate;
   });
 
-  console.log("from helper", postsByUser);
   for (let post of postsByUser) {
     post["stack"] = [];
 
