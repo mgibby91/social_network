@@ -15,7 +15,7 @@ export default function MentorListItem(props) {
   const mentor_stack = getStack(props.mentor_stack, props.userId);
   console.log("mentor stack in item: ", mentor_stack);
   
-  // console.log("mentor stack in list item: ", mentor_stack);
+  console.log("mentor stack in list item: ", mentor_stack);
     
 
   return (
