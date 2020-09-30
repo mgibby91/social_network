@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import useApplicationData from "../../hooks/useApplicationData";
 import ContextConsumer from "../../context/context";
+import { Link } from "gatsby";
 
 export default function LoginLogout() {
   const { state, setSelectedUser } = useApplicationData();
@@ -74,10 +75,11 @@ export default function LoginLogout() {
           );
         } else {
           return (
-
+            <Link to={'/'}>
               <button type="button" name="logout" onClick={() => logout()}>
                 Logout
               </button>
+            </Link>
           )
         }
       }}
