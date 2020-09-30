@@ -17,11 +17,11 @@ interface IStack {
 
 export default function MentorList(props) {
   const { mentors } = props;
-  console.log("props in mentor list: ", props.mentor_stack);
+  // console.log("props in mentor list: ", props.mentor_stack);
   
   const mentorsData = mentors.map((mentor, index) => {
 
-    console.log("mentor in list: ", mentor);
+    // console.log("mentor in list: ", mentor);
     
     return (
       <MentorListItem

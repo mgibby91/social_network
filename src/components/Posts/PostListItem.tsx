@@ -8,6 +8,13 @@ import { Button } from "@paljs/ui/Button";
 interface IProps {
   key: number;
   post: IPost;
+  active: boolean;
+  comments: IComments;
+  comment: object;
+}
+
+interface IComments {
+  [index: number]: { id: number, user_id: number, name: string }
 }
 
 interface IPost {
@@ -20,13 +27,16 @@ interface IPost {
   username: string;
 }
 
-export default function PostListItem(props: IProps) {
-  const stack = props.post.stack.map((tech_stack) => {
-    console.log("in stack: ", tech_stack);
+export default function PostListItem(props: IProps) 
+{  
+
+  const stack = props.post.stack.map((tech_stack, index) => {
     
-    return <li>{tech_stack}</li>;
+    return <li key={index}>{tech_stack}</li>;
   });
-  console.log("props in post item: ", props.post.active);
+  
+  const comments = props.comment;
+  console.log("comments in item: ", comments);
   
   return (
     <div>
@@ -49,6 +59,9 @@ export default function PostListItem(props: IProps) {
               >
                 <Button>Message User</Button>
               </Link>
+              <Button>Like</Button>
+              <Button>Comment</Button>
+
                 <h4>Stack: {stack}</h4>
               <Card>
                 <p>{props.post.text_body}</p>

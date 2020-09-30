@@ -13,6 +13,7 @@ export default function MentorList() {
 
   const mentors = state.mentor_points;
   console.log("mentors in -list: ", mentors);
+  // console.log("");
   
   return (
     <>

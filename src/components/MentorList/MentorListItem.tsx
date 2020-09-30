@@ -10,12 +10,29 @@ import { getStack } from '../../helpers/profileHelpers';
 export default function MentorListItem(props) {
 
 
-  console.log("props in mentor item: ", props.userId, props.mentor_stack);
+  // console.log("props in mentor item: ", props.userId, props.mentor_stack);
   
-  const mentor_stack = getStack(props.mentor_stack, props.userId);
-  console.log("mentor stack in item: ", mentor_stack);
+  let mentor_stack = [];
+
+  const stack = props.mentor_stack.map((stack) => {
+    if (stack.user_id === props.userId) {
+      return <li>{stack.name}</li>
+    }
+
+  })
+
+  // console.log("mentor stack in item: ", mentor_stack);
   
-  console.log("mentor stack in list item: ", mentor_stack);
+
+  // const mentor_stack = getStack(props.mentor_stack, props.userId);
+  // console.log("mentor stack in item: ", mentor_stack);
+  
+  // console.log("mentor stack in list item: ", mentor_stack);
+  // const stack = mentor_stack.map((mentor_stack) => {
+  //   console.log("in stack: ", mentor_stack);
+    
+  //   return <li>{mentor_stack}</li>;
+  // });
     
 
   return (
@@ -38,13 +55,9 @@ export default function MentorListItem(props) {
                   <h6>User is online</h6>
                   : <h6>User is offline</h6>}
                 </div>
-                  {/* <ul>
-                    {mentor_stack.map((tech_stack) => {
-                      console.log("in stack: ", tech_stack);
-                      
-                      return <li>{tech_stack}</li>;
-                    })}
-                  </ul> */}
+                  <ul> Mentor Stack:
+                    {stack}
+                  </ul>
                   <Button>Message User</Button>
                 <div>
                   <ProgressBar experience={props.experience} />

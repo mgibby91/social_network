@@ -19,13 +19,17 @@ interface IProps {
 export default function Home() {
   const { state, createPost } = useApplicationData();
   const dashPosts = getDashboardPosts(state.posts);
-
+  console.log("dashposts in dash: ", dashPosts);
+  const comments = state.comments;
   return (
     <div className="App">
       <Row>
         <Editor createPost={createPost} />
       </Row>
-      <PostList posts={dashPosts} />
+      <PostList 
+        posts={dashPosts} 
+        comments={comments}
+      />
     </div>
   );
 }

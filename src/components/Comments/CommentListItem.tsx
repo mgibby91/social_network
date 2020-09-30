@@ -22,28 +22,24 @@ interface IComment {
 
 export default function CommentListItem(props: IProps) {
 
-	console.log("props in list item: ", props);
+	// console.log("props in list item: ", props);
 	
   return (
 		<div>
 			<Row>
         <Col breakPoint={{ xs: 12 }}>
-          <Card>
-            <CardBody>
-								<Link to={`/user-profiles/${props.comment.username}`}>
-									<h3>{props.comment.username}</h3>
-									<img src={props.comment.avatar} alt="avatar"></img>
-								</Link>
-								<div>
-                {props.active ? 
-                  <h6>User is online</h6>
-                : <h6>User is offline</h6>}
-                </div>
-								 <Card>
-									<p>{props.comment.text_body}</p>
-								</Card>
-            </CardBody>
-          </Card>
+					<Link to={`/user-profiles/${props.comment.username}`}>
+						{/* <img src={props.comment.avatar} alt="avatar"></img> */}
+						<p><b>{props.comment.username}</b></p>
+					</Link>
+					{/* <div>
+					{props.active ? 
+						<p>User is online</p>
+					: <p>User is offline</p>}
+					</div> */}
+						<Card>
+						<p>{props.comment.text_body}</p>
+					</Card>
         </Col>
       </Row>
 		</div>
