@@ -4,6 +4,7 @@ import TutorHistory from '../components/TutorSessions/TutorHistory';
 import TutorCreate from '../components/TutorSessions/TutorCreate';
 import TutorRate from '../components/TutorSessions/TutorRate';
 import TutorFilter from '../components/TutorSessions/TutorFilter';
+import MessageTutorSuccess from '../components/messages/MessageTutorSuccess';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
@@ -23,6 +24,10 @@ export default function TutorSessions() {
   const [unratedSession, setUnratedSession] = useState(null);
   const [cancelDecline, setCancelDecline] = useState(false);
   const [tutorSessionID, setTutorSessionID] = useState(0);
+  const [filterStatus, setFilterStatus] = useState('');
+  const [selectFilterBtn, setSelectFilterBtn] = useState('');
+  const [createError, setCreateError] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   console.log('unratesSession', unratedSession);
 
@@ -37,11 +42,16 @@ export default function TutorSessions() {
 
         const [tutorData, userData] = all;
 
-        const cleanTutorData = sortFilterAllTutorData(tutorData.data, loggedInUserID);
+        let cleanTutorData = sortFilterAllTutorData(tutorData.data, loggedInUserID);
+
+        if (filterStatus === 'pending' || filterStatus === 'in-progress' || filterStatus === 'completed') {
+          cleanTutorData = cleanTutorData.filter(session => session.status === filterStatus);
+        }
 
         console.log('cleanTutorData', cleanTutorData);
         console.log('loggedInUser', loggedInUserID);
 
+        // rate session before it completes on unrated side
         for (let session of cleanTutorData) {
           if (session.mentor_id === loggedInUserID && session.mentor_rating === null && session.status === "completed") {
             // setUnratedSession(session);
@@ -145,6 +155,18 @@ export default function TutorSessions() {
     }
 
     const username = document.querySelector('#search-user-input').value;
+
+    // error handling for no input
+    if (!username) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+
+      return;
+    }
+
     let receiverID;
     console.log('currentTutorData', currentUserData);
     for (let user of currentUserData) {
@@ -165,20 +187,62 @@ export default function TutorSessions() {
       studentID = receiverID;
     }
 
-    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
-      .then(() => {
-        setCount(count + 1);
-        document.querySelector('#search-user-input').value = '';
-      })
+    // error handling for username not present
+    if (!receiverID) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+      return;
+    } else {
+      axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+        .then(() => {
+          setCount(count + 1);
+          document.querySelector('#search-user-input').value = '';
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+          }, 3000)
+        })
+    }
 
   }
 
+  // Cancel rate tutor session 
+  function cancelRateSession() {
+    setRateTutor(false);
+  }
+
+  // FILTER STATUS *************************************************
+  function sortByStatus(status) {
+
+    setSelectFilterBtn(status);
+
+    status = status.toLowerCase();
+    console.log('hi status', status);
+    setFilterStatus(status);
+    setCount(count + 1);
+
+  }
+
+
+  // FILTER STATUS *************************************************
+
+
   return (
     <div className='main-tutor-container'>
-      <TutorCreate
+      {!showSuccess && (<TutorCreate
         currentUserData={currentUserData}
         createTutorSession={createTutorSession}
+        createError={createError}
       />
+      )}
+      {showSuccess && (
+        <MessageTutorSuccess
+          tutorStyle={'tutor-success-id'}
+        />
+      )}
       {(rateTutor || unratedSession) && (
         <TutorRate
           currentTutorID={currentTutorID}
@@ -188,10 +252,12 @@ export default function TutorSessions() {
           otherUsername={otherUsername}
           unratedSession={unratedSession}
           otherUserSubmitRating={otherUserSubmitRating}
+          cancelRateSession={cancelRateSession}
         />
       )}
       <TutorFilter
-
+        sortByStatus={sortByStatus}
+        selectFilterBtn={selectFilterBtn}
       />
       <TutorHistory
         currentTutorData={currentTutorData}
