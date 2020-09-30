@@ -30,26 +30,14 @@ const items: MenuItemType[] = [
     title: 'Tutor Sessions',
     link: { to: '/tutor-sessions' },
   },
-<<<<<<< HEAD
-  {
-    title: 'Register',
-    link: { to: '/register' },
-  },
-  // {
-  //   title: "Forms",
-  //   link: { to: "/forms" },
-  // },
-||||||| merged common ancestors
-  // {
-  //   title: "Forms",
-  //   link: { to: "/forms" },
-  // },
-=======
   {
     title: "Comments",
     link: { to: "/comments" },
   },
->>>>>>> 809371239856b42bec1227e1d817e6e8cb4b095b
+  {
+    title: "Register",
+    link: { to: "/register" },
+  },
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },

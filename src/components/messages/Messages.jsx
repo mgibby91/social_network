@@ -8,6 +8,7 @@ import MessageHeader from './MessageHeader';
 import MessageTextArea from './MessageTextArea';
 import MessageListHeader from './MessageListHeader';
 import MessageTutorCreate from './MessageTutorCreate';
+import MessageTutorSuccess from './MessageTutorSuccess';
 import messageCleanSort from '../../helpers/messageHelpers';
 
 export default function Messages(props) {
@@ -20,6 +21,8 @@ export default function Messages(props) {
   const [avatars, setAvatars] = useState([]);
   const [createNew, setCreateNew] = useState(false);
   const [showTutor, setShowTutor] = useState(false);
+  const [createError, setCreateError] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
 
@@ -55,7 +58,7 @@ export default function Messages(props) {
 
       });
 
-  }, [count, currentUsername]);
+  }, [count]);
 
   useEffect(() => {
     axios.get('http://localhost:8001/api/user_profiles')
@@ -123,7 +126,11 @@ export default function Messages(props) {
     let receiverID;
 
     if (!createNew) {
-      receiverID = document.querySelector('.text-container').id;
+      if (document.querySelector('.text-container')) {
+        receiverID = document.querySelector('.text-container').id;
+      } else {
+        return;
+      }
     } else {
       for (let user of avatars) {
         if (user.username === selectedUsername) {
@@ -191,6 +198,17 @@ export default function Messages(props) {
     }
 
     const username = document.querySelector('#search-user-input').value;
+
+    if (!username) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+
+      return;
+    }
+
     let receiverID;
     for (let user of avatars) {
       if (user.username === username) {
@@ -208,24 +226,46 @@ export default function Messages(props) {
       studentID = receiverID;
     }
 
-    axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
-      .then(() => {
-        setShowTutor(false);
-        setCount(count + 1);
-      })
+    // error handling for username not present
+    if (!receiverID) {
+      setCreateError('username');
+
+      setTimeout(() => {
+        setCreateError('');
+      }, 2000);
+      return;
+    } else {
+      axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
+        .then(() => {
+          setShowTutor(false);
+          setCount(count + 1);
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+          }, 3000)
+        })
+    }
+  }
+
+  function cancelTutorSession() {
+    setShowTutor(false);
   }
 
   // CREATE TUTOR SESSION STUFF ***************************************
 
-  console.log("props in message: ", props);
-  
+
   return (
     <div className="outside-main-message">
       {showTutor && (
         <MessageTutorCreate
           avatarList={avatars}
           createTutorSession={createTutorSession}
+          cancelTutorSession={cancelTutorSession}
+          createError={createError}
         />
+      )}
+      {showSuccess && (
+        <MessageTutorSuccess />
       )}
       <div className='main-message-container'>
         <div className='left-message-container'>
