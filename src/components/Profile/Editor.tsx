@@ -7,6 +7,7 @@ import Tags from "./StackTag";
 import Col from "@paljs/ui/Col";
 
 function Editor(props) {
+  // console.log("from editor", props.stack);
   const [value, setValue] = React.useState("**Hello world!!!**");
   const [checkbox, setCheckbox] = React.useState({
     1: false,
@@ -21,17 +22,24 @@ function Editor(props) {
     mentor: checkbox[1],
   };
 
+  let techTags = [];
+  const onChangeInput = (selectedTags) => {
+    techTags = selectedTags;
+  };
+
   const onSave = () => {
     //check for empty input here
 
-    props.createPost(postObj, props.id).then(() => {
+    console.log("from editor", techTags);
+    props.createPost(postObj, techTags, props.id).then(() => {
       setValue("");
     });
   };
+
   return (
     <>
       <MDEditor value={value} onChange={setValue} />
-      <Tags suggested={props.stack} />
+      <Tags suggested={props.suggestion} onChange={onChangeInput} />
       <Checkbox
         checked={checkbox[1]}
         status="Success"

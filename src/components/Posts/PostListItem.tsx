@@ -43,6 +43,8 @@ export default function PostListItem(props: IProps) {
               >
                 <Button>Message User</Button>
               </Link>
+                <ul>{stack}</ul>
+              </Card>
             </CardBody>
           </Card>
         </Col>

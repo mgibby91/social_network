@@ -2,57 +2,45 @@ import React from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { Checkbox } from "@paljs/ui/Checkbox";
 import { Button, ButtonLink } from "@paljs/ui/Button";
-import ReactTags from "react-tag-autocomplete";
+import Tags from "./StackTag";
 
 import Col from "@paljs/ui/Col";
 
 function Editor(props) {
+  // console.log(props);
   const [value, setValue] = React.useState("**Hello world!!!**");
   const [checkbox, setCheckbox] = React.useState({
     1: false,
-  });
-
-  const [state, setState] = React.useState({
-    tags: [
-      { id: 1, name: "Apples" },
-      { id: 2, name: "Pears" },
-    ],
-    suggestions: [
-      { id: 3, name: "Bananas" },
-      { id: 4, name: "Mangos" },
-      { id: 5, name: "Lemons" },
-      { id: 6, name: "Apricots" },
-    ],
   });
 
   const onChangeCheckbox = (value: boolean, name: number) => {
     setCheckbox({ ...checkbox, [name]: value });
   };
 
-  
-
   const postObj = {
     text: value,
     mentor: checkbox[1],
   };
 
+  let techTags = [];
+  const onChangeInput = (selectedTags) => {
+    console.log("HELLOOOOO");
+    techTags = selectedTags;
+  };
+
   const onSave = () => {
     //check for empty input here
 
-    props.createPost(postObj, props.id).then(() => {
-      setValue("");
-    });
+    console.log("from editor", techTags);
+    // props.createPost(postObj, techTags, props.id).then(() => {
+    //   setValue("");
+    // });
   };
+
   return (
     <>
       <MDEditor value={value} onChange={setValue} />
-      {/* <ReactTags
-        ref={reactTags}
-        tags={state.tags}
-        suggestions={state.suggestions}
-        onDelete={onDelete.bind(this)}
-        onAddition={onAddition.bind(this)}
-      /> */}
+      <Tags suggested={props.suggestion} onChange={onChangeInput} />
       <Checkbox
         checked={checkbox[1]}
         status="Success"
