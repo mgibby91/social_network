@@ -13,6 +13,7 @@ export default function StudentList(props) {
         experience={student.studentrating}
         avatar={student.avatar}
         setSelectedUser={props.setSelectedUser}
+        active={student.active}
       />
     );
   });

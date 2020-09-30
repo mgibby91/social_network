@@ -218,6 +218,7 @@ export default function Messages(props) {
   // CREATE TUTOR SESSION STUFF ***************************************
 
   console.log("props in message: ", props);
+  
   return (
     <div className="outside-main-message">
       {showTutor && (

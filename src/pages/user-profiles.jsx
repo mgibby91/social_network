@@ -1,6 +1,6 @@
 import React from "react";
 import { Router } from "@reach/router";
-import UserProfileItem from "./profile-components/UserProfileItem";
+import UserProfileItem from "../components/Profile/UserProfileItem";
 
 function Profile(props) {
   return (

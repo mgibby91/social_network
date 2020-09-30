@@ -8,6 +8,13 @@ import { Button } from "@paljs/ui/Button";
 interface IProps {
   key: number;
   post: IPost;
+  active: boolean;
+  comments: IComments;
+  comment: object;
+}
+
+interface IComments {
+  [index: number]: { id: number, user_id: number, name: string }
 }
 
 interface IPost {
@@ -20,10 +27,17 @@ interface IPost {
   username: string;
 }
 
-export default function PostListItem(props: IProps) {
-  const stack = props.post.stack.map((tech_stack) => {
-    return <li>{tech_stack}</li>;
+export default function PostListItem(props: IProps) 
+{  
+
+  const stack = props.post.stack.map((tech_stack, index) => {
+    
+    return <li key={index}>{tech_stack}</li>;
   });
+  
+  const comments = props.comment;
+  console.log("comments in item: ", comments);
+  
   return (
     <div>
       <Row>
@@ -34,16 +48,23 @@ export default function PostListItem(props: IProps) {
                 <h3>{props.post.username}</h3>
                 <img src={props.post.avatar} alt="avatar"></img>
               </Link>
-              <Card>
-                <p>{props.post.text_body}</p>
-              </Card>
+              <div>
+                {props.active ? 
+                  <h6>User is online</h6>
+                : <h6>User is offline</h6>}
+                </div>
               <Link 
                 to={`/messages/`}
                 state={{username: props.post.username}}  
               >
                 <Button>Message User</Button>
               </Link>
-                <ul>{stack}</ul>
+              <Button>Like</Button>
+              <Button>Comment</Button>
+
+                <h4>Stack: {stack}</h4>
+              <Card>
+                <p>{props.post.text_body}</p>
               </Card>
             </CardBody>
           </Card>

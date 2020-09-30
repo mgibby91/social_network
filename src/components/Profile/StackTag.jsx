@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactTags from "react-tag-autocomplete";
 
 function Tags(props) {

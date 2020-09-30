@@ -9,7 +9,7 @@ function Stack(props) {
   const mentorStack = props.mentor.map((stack) => {
     return <li key={stack.id}>{stack.name}</li>;
   });
-
+  
   return (
     <Row>
       <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>

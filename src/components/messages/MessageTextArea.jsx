@@ -1,5 +1,5 @@
 import React from 'react';
-import MessageButton from '../messages/MessageButton'
+import MessageButton from './MessageButton'
 
 export default function MessageTextArea(props) {
 
@@ -17,5 +17,4 @@ export default function MessageTextArea(props) {
       </div>
     </div>
   )
-
 }

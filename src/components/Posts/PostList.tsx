@@ -1,12 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PostListItem from "./PostListItem";
-import axios from "axios";
 
-export default function PostList(props) {
+interface IProps {
+  comments: IComments
+  posts: IPosts
+}
+
+interface IComments {
+  [index: number]: { id: number, user_id: number, name: string }
+}
+
+interface IPosts {
+  [index: number]: { id: number, user_id: number, name: string }
+}
+
+export default function PostList(props: IProps) {
+  console.log("props: ", props);
+  
+  const comments = props.comments;
+
   const postData = props.posts.map((post, index) => {
-    return <PostListItem key={index} post={post} />;
+    // props.comments.map((comment, index) => {
+    //   let commentArr = []
+    //   if (post.post_id === comment.post_id)
+    //   commentArr.push(comment)
+      return <PostListItem 
+                key={index} 
+                post={post} 
+                comment={comments}
+             />;
+    // })
   });
-
+  console.log("comments in post list: ", props.comments);
+  
   return (
     <div>
       <section>
