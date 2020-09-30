@@ -52,7 +52,6 @@ export default function LoginLogout() {
   return (
     <ContextConsumer>
       {({ data, set }) => {
-        if (!data.selected) {
           return (
             <div>
               <label htmlFor="login">User ID:</label>
@@ -71,17 +70,13 @@ export default function LoginLogout() {
               <button type="button" name="login" onClick={() => login(data, set)}>
                 Login
               </button>
+              <Link to={'/'}>
+                <button type="button" name="logout" onClick={() => logout()}>
+                  Logout
+                </button>
+              </Link>
             </div>
-          );
-        } else {
-          return (
-            <Link to={'/'}>
-              <button type="button" name="logout" onClick={() => logout()}>
-                Logout
-              </button>
-            </Link>
           )
-        }
       }}
     </ContextConsumer>
   );
