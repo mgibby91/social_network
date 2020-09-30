@@ -1,6 +1,6 @@
 import React from "react";
 import PostListItem from "./PostListItem";
-
+import CommentListItem from '../Comments/CommentList'
 interface IProps {
   comments: IComments
   posts: IPosts
@@ -18,16 +18,14 @@ export default function PostList(props: IProps) {
   console.log("props: ", props);
   
   const comments = props.comments;
-
+  console.log("comments in list: ", comments);
+  
   const postData = props.posts.map((post, index) => {
-    // props.comments.map((comment, index) => {
-    //   let commentArr = []
-    //   if (post.post_id === comment.post_id)
-    //   commentArr.push(comment)
+
       return <PostListItem 
                 key={index} 
-                post={post} 
-                comment={comments}
+                post={post}
+                comments={comments}
              />;
     // })
   });
@@ -38,6 +36,9 @@ export default function PostList(props: IProps) {
       <section>
         <h1>Feed</h1>
         <ul>{postData}</ul>
+        <CommentListItem>
+
+        </CommentListItem>
       </section>
     </div>
   );

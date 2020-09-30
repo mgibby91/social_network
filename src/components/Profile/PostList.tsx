@@ -5,12 +5,10 @@ import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 
 function PostList(props) {
   // console.log("from posts:", props.posts);
-  const postData = props.posts.map((post) => {
-    // {
-    //   console.log(post);
-    // }
+  const postData = props.posts.map((post, index) => {
+
     return (
-      <Col key={post.id} breakPoint={{ xs: 12, md: 6 }}>
+      <Col key={index} breakPoint={{ xs: 12, md: 6 }}>
         <Card accent="Info">
           <CardBody>
             <p>{post.time_posted} </p>

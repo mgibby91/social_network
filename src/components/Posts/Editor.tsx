@@ -32,9 +32,9 @@ function Editor(props) {
     //check for empty input here
 
     console.log("from editor", techTags);
-    // props.createPost(postObj, techTags, props.id).then(() => {
-    //   setValue("");
-    // });
+    props.createPost(postObj, techTags, props.id).then(() => {
+      setValue("");
+    });
   };
 
   return (

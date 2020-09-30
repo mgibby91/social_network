@@ -9,7 +9,7 @@ const SET_POSTS = "SET_POSTS";
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_POSTS: {
-      // console.log("before", state.posts);
+      console.log("before", state.posts);
       //console.log("from reducer", action.tech);
       const { data } = action;
 
