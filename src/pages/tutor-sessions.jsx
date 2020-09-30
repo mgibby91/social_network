@@ -203,7 +203,7 @@ export default function TutorSessions() {
           setShowSuccess(true);
           setTimeout(() => {
             setShowSuccess(false);
-          }, 3000)
+          }, 2500)
         })
     }
 

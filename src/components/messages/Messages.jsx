@@ -242,7 +242,7 @@ export default function Messages(props) {
           setShowSuccess(true);
           setTimeout(() => {
             setShowSuccess(false);
-          }, 3000)
+          }, 2500)
         })
     }
   }
@@ -253,6 +253,8 @@ export default function Messages(props) {
 
   // CREATE TUTOR SESSION STUFF ***************************************
 
+
+  console.log('messageProps', props);
 
   return (
     <div className="outside-main-message">

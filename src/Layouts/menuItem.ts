@@ -12,6 +12,10 @@ const items: MenuItemType[] = [
     link: { to: "/user-profiles" },
   },
   {
+    title: "Login-Logout",
+    link: { to: "/login-logout" },
+  },
+  {
     title: "Messages",
     icon: { name: "message-square-outline" },
     link: { to: "/messages" },

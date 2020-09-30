@@ -134,7 +134,6 @@ const Header: React.FC<HeaderProps> = (props) => {
                       ]}
                       Link={Link}
                     >
-                      <LoginLogout/>
                     </ContextMenu>
                   )}
                 </Location>
