@@ -14,19 +14,24 @@ export default function StudentListItem(props) {
         <Col breakPoint={{ xs: 12 }}>
           <Card>
             <CardBody>
+              <Link to={`/user-profiles/${props.username}`}>
+                <h2>{props.username}</h2>
+                <img src={props.avatar} alt="avatar"></img>
+                  </Link>
+                <div>
+                {props.active ? 
+                  <h6>User is online</h6>
+                : <h6>User is offline</h6>}
+                </div>
               <Link 
                 to={`/messages/`}
                 state={{username: props.username}}  
               >
                 <Button>Message User</Button>
               </Link>
-              <Link to={`/user-profiles/${props.username}`}>
-                <img src={props.avatar} alt="avatar"></img>
-                <h2>{props.username}</h2>
                 <div>
                   <ProgressBar experience={props.experience} />
                 </div>
-              </Link>
             </CardBody>
           </Card>
         </Col>

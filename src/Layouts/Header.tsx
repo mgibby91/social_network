@@ -4,14 +4,11 @@ import styled, { DefaultTheme } from "styled-components";
 import Select from "@paljs/ui/Select";
 import { LayoutHeader } from "@paljs/ui/Layout";
 import { EvaIcon } from "@paljs/ui/Icon";
-import { Button } from "@paljs/ui/Button";
 import { Actions } from "@paljs/ui/Actions";
 import ContextMenu from "@paljs/ui/ContextMenu";
-import User from "@paljs/ui/User";
 import { getPathReady } from "./Sidebar";
 import { Location } from "@reach/router";
 import { breakpointDown } from "@paljs/ui/breakpoints";
-import LogingLogout from '../components/LoginLogout'
 import LoginLogout from "../components/LoginLogout/LoginLogout";
 
 const HeaderStyle = styled.div`
@@ -122,21 +119,22 @@ const Header: React.FC<HeaderProps> = (props) => {
             },
             {
               content: (
-                <Location>
-                  {({ location }) => (
-                    <ContextMenu
-                      style={{ cursor: "pointer" }}
-                      placement="bottom"
-                      currentPath={getPathReady(location.pathname)}
-                      items={[
-                        { title: "Profile", link: { to: "/user-profile" } },
-                        { title: "Log out", link: { to: "/logout" } },
-                      ]}
-                      Link={Link}
-                    >
-                    </ContextMenu>
-                  )}
-                </Location>
+                // <Location>
+                //   {({ location }) => (
+                //     <ContextMenu
+                //       style={{ cursor: "pointer" }}
+                //       placement="bottom"
+                //       currentPath={getPathReady(location.pathname)}
+                //       items={[
+                //         { title: "Profile", link: { to: "/user-profile" } },
+                //         { title: "Log out", link: { to: "/logout" } },
+                //       ]}
+                //       Link={Link}
+                //     >
+                  <LoginLogout/>                
+                    // </ContextMenu>
+                  // )}
+                // </Location>
               ),
             },
           ]}

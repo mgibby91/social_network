@@ -12,7 +12,6 @@ interface IProps {
 	onChange: void;
 }
 
-
 export default function Comments() {
   const { state } = useApplicationData();
 
@@ -22,16 +21,12 @@ export default function Comments() {
   return (
     <>
       <Row>
-        <Col breakPoint={{ xs: 12 }}>
-          <Card>
-            <CardBody>
+        {/* <Col breakPoint={{ xs: 12 }}> */}
               <CommentList 
                 comments={comments}
                 // setSelectedUser={setSelectedUser}
               />
-            </CardBody>
-          </Card>
-        </Col>
+        {/* </Col> */}
       </Row>
     </>
   );

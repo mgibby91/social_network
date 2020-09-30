@@ -2,9 +2,10 @@ import React from "react";
 import axios from "axios";
 import useApplicationData from "../../hooks/useApplicationData";
 import ContextConsumer from "../../context/context";
+import { Link } from "gatsby";
 
 export default function LoginLogout() {
-  const { state, setSelectedUser } = useApplicationData();
+  const { state } = useApplicationData();
 
   function login(data, set) {
     const userID = Number(document.querySelector("#login-user-id").value);
@@ -51,7 +52,6 @@ export default function LoginLogout() {
   return (
     <ContextConsumer>
       {({ data, set }) => {
-        if (!data.selected) {
           return (
             <div>
               <label htmlFor="login">User ID:</label>
@@ -70,16 +70,16 @@ export default function LoginLogout() {
               <button type="button" name="login" onClick={() => login(data, set)}>
                 Login
               </button>
-            </div>
-          );
-        } else {
-          return (
-
+            <Link to={'/'}>
               <button type="button" name="logout" onClick={() => logout()}>
                 Logout
               </button>
+            </Link>
+            </div>
+          
+
           )
-        }
+        
       }}
     </ContextConsumer>
   );
