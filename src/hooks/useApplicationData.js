@@ -3,11 +3,11 @@ import axios from "axios";
 import reducer, {
   SET_POINTS,
   SET_APPLICATION_DATA,
+  SET_SELECTED_USER,
   SET_STUDENT_POINTS,
   SET_MENTOR_POINTS,
   SET_POSTS,
 } from "../reducers/application";
-
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     comments: {},
@@ -21,8 +21,10 @@ export default function useApplicationData() {
     users: [],
     mentor_points: [],
     student_points: [],
+    stack_preferences: [],
+    posts_stacks: [],
+    selected: {},
   });
-
   // RETRIEVES API AND SETS IT WITH REDUCER
   useEffect(() => {
     Promise.all([
@@ -36,7 +38,8 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/users"),
       axios.get("http://localhost:8001/api/mentor_points"),
       axios.get("http://localhost:8001/api/student_points"),
-      // axios.get('http://localhost:8001/api/mentor_rating/1'),
+      axios.get("http://localhost:8001/api/stack_preferences"),
+      axios.get("http://localhost:8001/api/posts_stacks"),
       // axios.get('http://localhost:8001/api/student_rating/1'),
     ]).then((all) => {
       // console.log("all from applicatin data hook: ", all);
@@ -50,6 +53,9 @@ export default function useApplicationData() {
       const users = all[7].data;
       const mentor_points = all[8].data;
       const student_points = all[9].data;
+      const stack_preferences = all[10].data;
+      const posts_stacks = all[11].data;
+      const selected = {};
       dispatch({
         type: SET_APPLICATION_DATA,
         comments,
@@ -62,14 +68,15 @@ export default function useApplicationData() {
         users,
         mentor_points,
         student_points,
+        stack_preferences,
+        posts_stacks,
+        selected,
       });
     });
   }, []);
-
   // FOR WEBSOCKET
   useEffect(() => {
     const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -77,12 +84,10 @@ export default function useApplicationData() {
         dispatch(data);
       }
     };
-
     return () => {
       socket.close();
     };
   }, []);
-
   const addMentorPoints = (mentorID, mentorPoints) => {
     const url = `/api/mentor_points`;
     const promise = axios.put(url, { mentorPoints }).then((req, res) => {
@@ -94,7 +99,6 @@ export default function useApplicationData() {
     });
     return promise;
   };
-
   const addStudentPoints = (studentID, studentPoints) => {
     const url = `/api/mentor_points`;
     const promise = axios.put(url, { studentPoints }).then((req, res) => {
@@ -106,45 +110,48 @@ export default function useApplicationData() {
     });
     return promise;
   };
-
+  const setSelectedUser = (userID) => {
+    dispatch({
+      type: SET_SELECTED_USER,
+      userId: userID,
+    });
+  };
   const createPost = (postDetails, id) => {
-    //need helper method to build this object here
-    //pass the state and the other stuff
     const post = {
+      text_body: postDetails.text,
       active: true,
       owner_id: id,
-      text_body: postDetails.text,
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
     };
-
     if (!postDetails.mentor) {
       (post["is_mentor"] = true), (post["is_student"] = false);
     }
-
-    // const newPost = [...state.posts, post];
-
+    //     const ids = [12, 32, 657, 1, 67];
+    // const promises = ids.map((id) => axios.get(`myapi.com/user/${id}`));
+    // Promise.all([...promises]).then(function (values) {
+    //   console.log(values);
+    // });
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { post })
       .then((response, reject) => {
-        // console.log("profile", post);
-        // setState({
-        //   ...state,
-        //   posts,
-        // });
+        // console.log("from createPost", response.data);
         dispatch({
           type: SET_POSTS,
-          posts: post,
+          data: post,
         });
-
-        // console.log(state.posts);
       })
       .catch((err) => {
-        console.log("axios error");
+        console.log(err);
       });
     return promise;
   };
-
-  return { state, addMentorPoints, addStudentPoints, createPost };
+  return {
+    state,
+    addMentorPoints,
+    addStudentPoints,
+    createPost,
+    setSelectedUser,
+  };
 }

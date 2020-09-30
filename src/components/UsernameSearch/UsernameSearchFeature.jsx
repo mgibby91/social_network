@@ -20,7 +20,7 @@ export default function UsernameSearchFeature(props) {
 
   function changeSearchState() {
     const userInput = document.querySelector('#search-user-input').value
-    console.log(userInput);
+    // console.log(userInput);
 
     // user has to input set number of chars
     let currentSearchResults = [];

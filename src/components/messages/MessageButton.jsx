@@ -3,7 +3,7 @@ const classNames = require('class-names');
 
 export default function MessageButton(props) {
 
-  console.log('message btn props', props);
+  // console.log('message btn props', props);
 
   const msgBtnClass = classNames('msg-btn', { 'msg-btn-create': props.create, 'msg-btn-complete': props.complete, 'msg-btn-send': props.send })
 

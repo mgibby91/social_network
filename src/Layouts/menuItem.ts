@@ -9,7 +9,7 @@ const items: MenuItemType[] = [
   {
     title: "Profile",
     icon: { name: "person" },
-    link: { to: "/user-profile" },
+    link: { to: "/user-profiles" },
   },
   {
     title: "Messages",
@@ -22,28 +22,15 @@ const items: MenuItemType[] = [
     link: { to: "/mentor-list" },
   },
   {
-    title: 'Login-Logout',
-    link: { to: '/login-logout' },
-  },
-  {
-    title: 'Mentors',
-    link: { to: '/mentor-list' },
-
-  },
-  {
     title: "Students",
     icon: { name: "person-outline" },
     link: { to: "/student-list" },
   },
   {
-    title: "User Rating",
-    icon: { name: "star" },
-    link: { to: "/user-rating" },
-  },
-  {
     title: 'Tutor Sessions',
     link: { to: '/tutor-sessions' },
   },
+<<<<<<< HEAD
   {
     title: 'Register',
     link: { to: '/register' },
@@ -52,6 +39,17 @@ const items: MenuItemType[] = [
   //   title: "Forms",
   //   link: { to: "/forms" },
   // },
+||||||| merged common ancestors
+  // {
+  //   title: "Forms",
+  //   link: { to: "/forms" },
+  // },
+=======
+  {
+    title: "Comments",
+    link: { to: "/comments" },
+  },
+>>>>>>> 809371239856b42bec1227e1d817e6e8cb4b095b
   // {
   //   title: 'Extra Components',
   //   icon: { name: 'star-outline' },

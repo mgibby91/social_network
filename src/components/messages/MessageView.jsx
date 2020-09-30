@@ -1,5 +1,5 @@
 import React from 'react';
-import MessageTextBubble from '../../components/messages/MessageTextBubble'
+import MessageTextBubble from './MessageTextBubble'
 
 export default function MessageView(props) {
 
