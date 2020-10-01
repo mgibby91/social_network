@@ -7,7 +7,7 @@ function Experience(props) {
   // console.log("props in experience: ", props);
   
   if (!props.user) return {};
-  console.log("user in experience: ", props.user);
+  console.log("user in experience: ", props.user.studentrating);
   if (!props.mentor) return null;
   console.log("student in experience: ", props.mentor);
   
@@ -17,7 +17,6 @@ function Experience(props) {
   
   return (
     <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
-      {}
       <Row>         
           {props.user.mentorrating ? 
             <h4>Mentor Level</h4>
