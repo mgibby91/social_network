@@ -185,6 +185,21 @@
   justify-content: center;
 }
 
+/* copy link text */
+.copy-link {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #1cd454;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color:#1cd454;
+  margin-bottom: 1rem;
+}
+
 .msg-btn-create {
   border: 1px solid #3366ff;
   color: #3366ff;

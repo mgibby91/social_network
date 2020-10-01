@@ -33,6 +33,14 @@ export default function TutorHistoryBodyItem(props) {
     return null;
   }
 
+  function getOtherUserID(props) {
+    const currentUserID = Number(document.cookie.split('=')[1]);
+    if (currentUserID === props.studentID) {
+      return props.mentorID;
+    }
+    return props.studentID;
+  }
+
   // console.log('timeAgo', getTimeAgo(props));
 
   return (
@@ -76,7 +84,7 @@ export default function TutorHistoryBodyItem(props) {
           <div className='tutor-btn-container'>
             <TutorBtn
               name={'Video'}
-              onClick={() => props.generateGoogleLink()}
+              onClick={() => props.generateGoogleLink(getOtherUserID(props))}
             />
             <TutorBtn
               name={'Complete'}

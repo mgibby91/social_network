@@ -31,6 +31,7 @@ export default function TutorSessions() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showPointsGiven, setShowPointsGiven] = useState(false);
   const [pointsArray, setPointsArray] = useState([]);
+  const [showCopyLink, setShowCopyLink] = useState(false);
 
   useEffect(() => {
 
@@ -215,7 +216,6 @@ export default function TutorSessions() {
     } else {
       axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
         .then((res) => {
-          console.log('ressssss', res.data)
           setCount(count + 1);
           document.querySelector('#search-user-input').value = '';
           setShowSuccess(true);
@@ -246,12 +246,24 @@ export default function TutorSessions() {
   // FILTER STATUS *************************************************
 
   // GENERATE GOOGLE HANGOUTS LINK *************************************************
-  function generateGoogleLink() {
-    const link = 'http://hangouts.google.com/start';
-    navigator.clipboard.writeText(link)
-      .then(() => {
-        console.log('copied!!!');
-      })
+  function generateGoogleLink(receiverID) {
+    console.log('otheruserID', receiverID);
+    const senderID = loggedInUserID;
+
+    const textInput = 'https://meet.google.com/nnj-hsyf-xft';
+
+    axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID, senderID })
+      .then(res => {
+        console.log(res);
+        const link = 'http://meet.google.com/new/';
+        // const link = 'https://meet.google.com/nnj-hsyf-xft';
+        navigator.clipboard.writeText(link)
+
+        setShowCopyLink(true);
+        setTimeout(() => {
+          setShowCopyLink(false);
+        }, 2500);
+      });
   }
 
   // GENERATE GOOGLE HANGOUTS LINK *************************************************
@@ -264,6 +276,11 @@ export default function TutorSessions() {
         createTutorSession={createTutorSession}
         createError={createError}
       />
+      )}
+      {showCopyLink && (
+        <div className="copy-link">
+          Link sent and copied to clipboard!
+        </div>
       )}
       {showSuccess && (
         <MessageTutorSuccess
