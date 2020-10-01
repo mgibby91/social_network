@@ -8,7 +8,7 @@ export default function RegisterPassword(props) {
         {!props.confirmPassword ? 'Password: ' : 'Confirm Passord: '}
       </div>
       <div className="password-input">
-        <input type="password" className='register-input' id='password-input' />
+        <input type="password" className='register-input' id={!props.confirmPassword ? 'password-input' : 'confirm-password-input'} />
       </div>
       <div className="password-error register-error">
 

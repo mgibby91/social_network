@@ -9,20 +9,28 @@ import '../styles/register.css';
 export default function Register() {
 
   const [avatarList, setAvatarList] = useState([]);
+  const [randomUsernameList, setRandomUsernameList] = useState([]);
   const [selectedAvatarUrl, setSelectedAvatarUrl] = useState('');
   const [showAvatarList, setShowAvatarList] = useState(false);
 
   useEffect(() => {
 
-    axios.get('http://localhost:8001/api/register')
-      .then(res => {
-        console.log('avatars', res.data);
-        console.log('hi');
+    const promiseAvatars = axios.get('http://localhost:8001/api/register/avatars');
+    const promiseRandomUsernames = axios.get('http://localhost:8001/api/register/random_usernames')
 
-        const uniqueAvatars = [...new Set(res.data)];
-        console.log('uniqueAvatars', uniqueAvatars);
+    Promise.all([promiseAvatars, promiseRandomUsernames])
+      .then(all => {
+
+        const [avatarData, randomUsernameData] = all;
+
+        console.log('random username data', randomUsernameData);
+        console.log('avatar data', avatarData);
+
+        const uniqueAvatars = [...new Set(avatarData.data)];
+        const uniqueRandomUsernames = [...new Set(randomUsernameData.data)];
 
         setAvatarList(uniqueAvatars);
+        setRandomUsernameList(uniqueRandomUsernames);
       })
 
   }, [])
@@ -37,9 +45,12 @@ export default function Register() {
   }
 
 
+
   return (
     <div className='register-main-container'>
-      <RegisterUsername />
+      <RegisterUsername
+        randomUsernameList={randomUsernameList}
+      />
       <RegisterEmail />
       <RegisterPassword
         confirmPassword={false}
