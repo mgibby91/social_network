@@ -233,10 +233,18 @@ textarea {
   margin-right: 0.4rem;
   padding: 0.2rem 0.4rem;
   border: none;
+  background: #192038;
+  color: white;
+  border: 1px solid #222b45;
+  height: 45px;
+  border-radius: 5px;
+  font-size: 1rem;
+  overflow: hidden;
 }
 
 textarea:focus {
   outline: none;
+  border: 1px solid #3366ff;
 }
 
 .msg-btn-send:hover {
