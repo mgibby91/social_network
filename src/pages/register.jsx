@@ -12,6 +12,7 @@ export default function Register() {
   const [randomUsernameList, setRandomUsernameList] = useState([]);
   const [selectedAvatarUrl, setSelectedAvatarUrl] = useState('');
   const [showAvatarList, setShowAvatarList] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
 
@@ -44,7 +45,35 @@ export default function Register() {
     !showAvatarList ? setShowAvatarList(true) : setShowAvatarList(false);
   }
 
-  // ERROR HANDLING
+  // ERROR HANDLING ON SUBMIT
+  function handleSubmit() {
+    setSubmitError('');
+    const registerErrors = document.querySelectorAll('.register-error');
+    for (let error of registerErrors) {
+      if (error.textContent) {
+        setSubmitError('Please check error messages before submitting!');
+        return;
+      }
+    }
+    const userInputs = document.querySelectorAll('.register-input');
+    for (let input of userInputs) {
+      if (!input.value.length) {
+        setSubmitError('At least one field is left blank!');
+        return;
+      }
+    }
+    const avatarSrc = document.querySelector('.selected-avatar').children[0].src;
+    console.log(avatarSrc);
+    if (avatarSrc === 'http://localhost:8000/register') {
+      setSubmitError('Please select avatar!');
+      return;
+    }
+
+    const usernameInput = document.querySelector('#username-input').value;
+    const emailInput = document.querySelector('#email-input').value;
+    const passwordInput = document.querySelector('#password-input').value;
+
+  }
 
 
 
@@ -67,8 +96,13 @@ export default function Register() {
         toggleAvatarList={toggleAvatarList}
         showAvatarList={showAvatarList}
       />
-      <div className="register-btn">
+      <div className="register-btn" onClick={() => handleSubmit()}>
         REGISTER
+      </div>
+      <div className="submit-error-container">
+        {submitError && (
+          submitError
+        )}
       </div>
     </div>
   )
