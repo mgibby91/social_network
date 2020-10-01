@@ -8,11 +8,6 @@ function Experience(props) {
   
   if (!props.user) return {};
   console.log("user in experience: ", props.user);
-  if (!props.mentor) return null;
-  console.log("student in experience: ", props.mentor);
-  
-  if (!props.student) return null;
-  console.log("mentor in experience: ", props.student);
   
   
   return (
