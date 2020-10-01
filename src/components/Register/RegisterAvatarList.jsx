@@ -20,11 +20,11 @@ export default function RegisterAvatarList(props) {
         <div className="avatar-title-title">
           Choose Avatar:
         </div>
-        <div className="toggle-avatar-list-btn" onClick={() => props.toggleAvatarList()}>
-          Toggle List
-        </div>
         <div className="selected-avatar">
           <img src={props.selectedAvatarUrl} alt="" />
+        </div>
+        <div className="toggle-avatar-list-btn" onClick={() => props.toggleAvatarList()}>
+          Toggle List
         </div>
       </div>
       <div className='register-avatar-list-container'>

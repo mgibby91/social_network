@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import RegisterUsername from '../components/Register/RegisterUsername';
+import RegisterEmail from '../components/Register/RegisterEmail';
+import RegisterPassword from '../components/Register/RegisterPassword';
 import RegisterAvatarList from '../components/Register/RegisterAvatarList';
 import '../styles/register.css';
 
@@ -36,6 +39,14 @@ export default function Register() {
 
   return (
     <div className='register-main-container'>
+      <RegisterUsername />
+      <RegisterEmail />
+      <RegisterPassword
+        confirmPassword={false}
+      />
+      <RegisterPassword
+        confirmPassword={true}
+      />
       <RegisterAvatarList
         avatarList={avatarList}
         selectAvatar={selectAvatar}

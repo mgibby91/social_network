@@ -18,13 +18,33 @@
   align-items: center;
 }
 
-.avatar-title-title {
+.avatar-title-title,
+.register-title {
   font-size: 1.4rem;
   font-weight: 700;
   margin-right: 1rem;
 }
 
-.toggle-avatar-list-btn {
+/* register input */
+.register-input {
+  background: #192038;
+  color: white;
+  padding: 0.75rem;
+  border: 1px solid #222b45;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.register-input:focus,
+.register-input:hover {
+  outline: none;
+  border: 1px solid #3366ff;
+}
+
+
+.toggle-avatar-list-btn,
+.username-random-btn {
   border: 1px solid #3366ff;
   color: #3366ff;
   font-weight: 500;
@@ -35,7 +55,8 @@
   align-items: center;
 }
 
-.toggle-avatar-list-btn:hover {
+.toggle-avatar-list-btn:hover,
+.username-random-btn:hover {
   cursor: pointer;
   background: #3366ff;
   color: white;
@@ -45,7 +66,7 @@
   width: 55px;
   height: 55px;
   background: #222b45;
-  margin-left: 1rem;
+  margin-right: 1rem;
   border-radius: 5px;
   border: 1px solid #3366ff;
 }
@@ -75,4 +96,23 @@
 }
 
 
+/* Username */
+.register-username-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
+.username-random-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.username-random-text {
+  font-style: italic;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin:0 1rem;
+}
