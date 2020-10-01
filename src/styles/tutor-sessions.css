@@ -161,6 +161,17 @@
   color: white;
 }
 
+.tutor-btn-video {
+  color: #3366ff;
+  border: 1px solid #3366ff;
+}
+
+.tutor-btn-video:hover {
+  cursor: pointer;
+  background: #3366ff;
+  color: white;
+}
+
 .tutor-btn-hide {
   color: inheret;
   border: none;

@@ -33,6 +33,8 @@ export default function TutorHistoryBodyItem(props) {
     return null;
   }
 
+  // console.log('timeAgo', getTimeAgo(props));
+
   return (
     <div className='tutor-history-item-container'>
       <div className="tutor-history-item-date">
@@ -40,7 +42,7 @@ export default function TutorHistoryBodyItem(props) {
           {getDateStatus(props)}: <strong>{formatDate(getTimeAgo(props))}</strong>
         </div>
         <div className="item-date-date">
-          ({timeSince(getTimeAgo(props), true)})
+          ({timeSince(getTimeAgo(props))})
         </div>
       </div>
       <div className="tutor-history-item-student-mentor">
@@ -72,6 +74,10 @@ export default function TutorHistoryBodyItem(props) {
         )}
         {props.status === 'in-progress' && (
           <div className='tutor-btn-container'>
+            <TutorBtn
+              name={'Video'}
+              onClick={() => props.generateGoogleLink()}
+            />
             <TutorBtn
               name={'Complete'}
               onClick={() => props.completeAction(props.id, getUsername(props))}

@@ -226,7 +226,7 @@
   align-items: center;
 }
 
-textarea {
+.message-text-area textarea {
   resize: none;
   border-radius: 8px;
   margin-top: 3px;
@@ -242,7 +242,8 @@ textarea {
   overflow: hidden;
 }
 
-textarea:focus {
+.message-text-area  textarea:focus,
+.message-text-area  textarea:hover {
   outline: none;
   border: 1px solid #3366ff;
 }

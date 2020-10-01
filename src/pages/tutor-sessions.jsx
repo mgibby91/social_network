@@ -122,7 +122,6 @@ export default function TutorSessions() {
 
     axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID, isMentor, rating, comments })
       .then((res) => {
-        console.log('resresres', res);
         setCount(count + 1);
 
         setPointsArray([ratingUsername, rating]);
@@ -152,7 +151,6 @@ export default function TutorSessions() {
 
     axios.put('http://localhost:8001/api/tutor_experiences/complete-other', { isMentorRating, rating, comments, tutorSessionID })
       .then((res) => {
-        console.log('updatedRes', res)
         setUnratedSession(null);
         setCount(count + 1);
         setPointsArray([ratingUsername, rating]);
@@ -216,7 +214,8 @@ export default function TutorSessions() {
       return;
     } else {
       axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
-        .then(() => {
+        .then((res) => {
+          console.log('ressssss', res.data)
           setCount(count + 1);
           document.querySelector('#search-user-input').value = '';
           setShowSuccess(true);
@@ -244,9 +243,18 @@ export default function TutorSessions() {
     setCount(count + 1);
 
   }
-
-
   // FILTER STATUS *************************************************
+
+  // GENERATE GOOGLE HANGOUTS LINK *************************************************
+  function generateGoogleLink() {
+    const link = 'http://hangouts.google.com/start';
+    navigator.clipboard.writeText(link)
+      .then(() => {
+        console.log('copied!!!');
+      })
+  }
+
+  // GENERATE GOOGLE HANGOUTS LINK *************************************************
 
 
   return (
@@ -293,6 +301,7 @@ export default function TutorSessions() {
         cancelConfirmDelete={cancelConfirmDelete}
         confirmConfirmDelete={confirmConfirmDelete}
         tutorSessionID={tutorSessionID}
+        generateGoogleLink={generateGoogleLink}
       />
     </div>
   );

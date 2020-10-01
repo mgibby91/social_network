@@ -167,7 +167,8 @@ export default function Messages(props) {
       const senderID = document.cookie.split('=')[1];
 
       axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID, senderID })
-        .then(() => {
+        .then((res) => {
+          console.log('resssss', res);
           if (createNew) {
             setCurrentUsername(selectedUsername);
             setTimeout(() => {

@@ -18,6 +18,7 @@ export default function TutorHistory(props) {
           acceptAction={props.acceptAction}
           declineCancelAction={props.declineCancelAction}
           completeAction={props.completeAction}
+          generateGoogleLink={props.generateGoogleLink}
         />
       )}
 
