@@ -15,71 +15,111 @@ export default function LoginLogout() {
       const username = res.data[0].username;
 
       set({ ...data, state: state, selected: res.data[0].username });
-      const rightNavContainer = document.querySelector(
-        ".sc-kEqYlL.gyZWym.right"
-      );
+      // const rightNavContainer = document.querySelector(
+      //   ".sc-kEqYlL.gyZWym.right"
+      // );
 
-      if (
-        rightNavContainer.firstElementChild.className === "logged-in-username"
-      ) {
-        rightNavContainer.firstElementChild.remove();
+      // if (
+      //   rightNavContainer.firstElementChild.className === "logged-in-username"
+      // ) {
+      //   rightNavContainer.firstElementChild.remove();
+      // }
+
+      // console.log(rightNavContainer);
+
+      // const usernameHTML = `
+      //     <div class='logged-in-username'>
+      //       <p>Welcome <strong>${username}!</strong></p>
+      //     </div>
+      //   `;
+
+      // rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
+
+      // MATT'S CODE************************************************************
+      const avatar = res.data[0].avatar;
+      const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
+
+      const userDisplay = document.querySelector('.logged-in-username');
+
+      if (userDisplay) {
+        userDisplay.remove();
       }
 
-      console.log(rightNavContainer);
-
       const usernameHTML = `
-          <div class='logged-in-username'>
-            <p>Welcome <strong>${username}!</strong></p>
-          </div>
+        <div class='logged-in-username' style='display: flex; align-items: center; justify-content: center'>
+        <p style='margin-right: 0.5rem;'>Welcome <strong>${username}!</strong></p>
+        <img src='${avatar}' />
+        </div>
         `;
 
-      rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
+      if (rightNavContainer) {
+        rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
+      }
+
+      // MATT'S CODE************************************************************
+      localStorage.setItem('userID', userID);
+      localStorage.setItem('username', username);
+      localStorage.setItem('avatarUrl', avatar);
+      // MATT'S CODE************************************************************
+
     });
   }
   // console.log("State in login: ", state);
   function logout() {
     document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
-    const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
+    // const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
 
-    if (
-      rightNavContainer.firstElementChild.className === "logged-in-username"
-    ) {
-      rightNavContainer.firstElementChild.remove();
+    // if (
+    //   rightNavContainer.firstElementChild.className === "logged-in-username"
+    // ) {
+    //   rightNavContainer.firstElementChild.remove();
+    // }
+
+    // MATT'S CODE************************************************************
+    const userDisplay = document.querySelector('.logged-in-username');
+
+    if (userDisplay) {
+      userDisplay.remove();
     }
+
+    localStorage.removeItem('userID');
+    localStorage.removeItem('username');
+    localStorage.removeItem('avatarUrl');
+    // MATT'S CODE************************************************************
   }
 
   return (
     <ContextConsumer>
       {({ data, set }) => {
-          return (
-            <div>
-              <label htmlFor="login">User ID:</label>
-              <select name="login" id="login-user-id">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <button type="button" name="login" onClick={() => login(data, set)}>
-                Login
+        return (
+          <div>
+            <label htmlFor="login">User ID:</label>
+            <select name="login" id="login-user-id">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <button type="button" name="login" onClick={() => login(data, set)}>
+              Login
               </button>
             <Link to={'/'}>
               <button type="button" name="logout" onClick={() => logout()}>
                 Logout
               </button>
             </Link>
-            </div>
-          
+          </div>
 
-          )
-        
+
+        )
+
       }}
     </ContextConsumer>
   );
