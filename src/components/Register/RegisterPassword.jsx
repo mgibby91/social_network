@@ -2,6 +2,8 @@ import React from 'react';
 
 export default function RegisterPassword(props) {
 
+
+
   return (
     <div className='register-username-container'>
       <div className="password-title register-title">
