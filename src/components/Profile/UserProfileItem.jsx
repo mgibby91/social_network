@@ -98,12 +98,9 @@ function UserProfileItem(props) {
                   <>
                     <EditUserInfo
                       user={currentUser}
-                      avatar={user.avatar}
-                      location={user.location}
-                      username={user.username}
-                      is_mentor={user.is_mentor}
-                      is_student={user.is_student}
+                      loggedInUser={data.selected}
                       mentor_stack={mentor_stack}
+                      suggestion={state.stack_preferences}
                       // onSave={onSave}
                       onCancel={onCancel}
                     />

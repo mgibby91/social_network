@@ -10,6 +10,10 @@ function Tags(props) {
     setTags(props.tags);
   }, [props.tags]);
 
+  useEffect(() => {
+    setSuggestions(props.suggested);
+  }, [props.suggested]);
+
   const reactTags = useRef(null);
 
   const onDelete = (i) => {

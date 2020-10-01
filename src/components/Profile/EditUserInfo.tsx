@@ -10,14 +10,16 @@ import Stack from "./UserStack";
 import { Link } from "@reach/router";
 
 function EditUserInfo(props) {
-  //console.log("from edit user info", props);
+  const [username, setUsername] = useState(props.user.username || "");
+  const [location, setLocation] = useState(props.user.location || "");
+  const [error, setError] = useState("");
   return (
     <Card>
       <CardBody>
         <div className="user-info">
           <Row>
             <Col
-              className="avatar"
+              className="avatar edit-user-info"
               breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}
             >
               <div className="avatar-container">
@@ -25,12 +27,14 @@ function EditUserInfo(props) {
               </div>
               <input
                 type="text"
-                value={props.user.username}
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
                 placeholder="Round border"
               />
               <input
                 type="text"
-                value={props.user.location}
+                value={location}
+                onChange={(event) => setLocation(event.target.value)}
                 placeholder="Round border"
               />
             </Col>
@@ -46,7 +50,7 @@ function EditUserInfo(props) {
               )}
             </Col>
             <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-              <Tags tags={props.mentor_stack} />
+              <Tags tags={props.mentor_stack} suggested={props.suggestion} />
             </Col>
           </Row>
           <Row>

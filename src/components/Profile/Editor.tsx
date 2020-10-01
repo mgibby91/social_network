@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { Checkbox } from "@paljs/ui/Checkbox";
 import { Button, ButtonLink } from "@paljs/ui/Button";
@@ -8,7 +8,7 @@ import Col from "@paljs/ui/Col";
 import Row from "@paljs/ui/Row";
 
 function Editor(props) {
-  //console.log("from editor", props);
+  const [error, setError] = useState("");
   const [value, setValue] = React.useState("**Hello world!!!**");
   const [checkbox, setCheckbox] = React.useState({
     1: false,
