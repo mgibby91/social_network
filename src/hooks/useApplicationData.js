@@ -8,6 +8,7 @@ import reducer, {
   SET_MENTOR_POINTS,
   SET_POSTS,
   SET_LIKES,
+  SET_COMMENTS,
 } from "../reducers/application";
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
@@ -155,19 +156,51 @@ export default function useApplicationData() {
     };
     const promise = axios
       .post(`http://localhost:8001/api/likes`, { newLike })
-      .then((response, reject) => {
+      .then((response) => {
+        console.log("response in likes hook: ", response);
         dispatch({
           type: SET_LIKES,
           data: newLike,
         })
       })
+      .catch(error => {
+        console.log("I don't *like* this mess", error)
+      })
     return promise;
   }
+
+  const createComment = (postId, commenterId, commentDetails) => {
+    console.log(" data in comment hook: ", postId, commenterId, commentDetails);
+    const newComment = {
+      post_id: postId,
+      commenter_id: commenterId,
+      text_body: commentDetails,
+    };
+    console.log("new comment in hook: ", newComment);
+
+    const promise = axios
+      .post(`http://localhost:8001/api/comments`, { newComment })
+      .then((response) => {
+        console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: SET_COMMENTS,
+          data: newComment,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err)
+      });
+
+    return promise;
+  };
+
+
 
   return {
     state,
     createPost,
     setSelectedUser,
     addLike,
+    createComment,
   };
 }

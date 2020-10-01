@@ -1,10 +1,10 @@
 const SET_POINTS = "SET_POINTS";
-
+const SET_POSTS = "SET_POSTS"
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_MENTOR_POINTS = "SET_MENTOR_POINTS";
 const SET_STUDENT_POINTS = "SET_STUDENT_POINTS";
 const SET_SELECTED_USER = "SET_SELECTED_USER";
-const SET_POSTS = "SET_POSTS";
+const SET_COMMENTS = "SET_COMMENTS";
 const SET_LIKES = "SET_LIKES";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
@@ -20,14 +20,23 @@ export default function reducer(state, action) {
     }
     
     case SET_LIKES: {
-      console.log("before set likes reducer", state.likes);
       const { data } = action;
-
-      state = {...state, likes: [...state.likes, data]}
-      console.log("after set likes reducer", state.likes);
-
+      state = {...state, likes: [...state.likes, data ]}
       return  state;
     }
+
+    case SET_COMMENTS: {
+      console.log("before set comments reducer", state.comments);
+
+      const { data } = action;
+
+      console.log("action in set comments: ", data);
+      state = { ...state, comments: [...state.comments, data] };
+      console.log("after set comments reducer", state.comments);
+
+      return state;
+    }
+
     case SET_POINTS:
       return { ...state, points: action.points };
 
@@ -82,11 +91,12 @@ export default function reducer(state, action) {
 }
 
 export {
-  SET_POINTS,
   SET_POSTS,
+  SET_COMMENTS,
   SET_APPLICATION_DATA,
   SET_MENTOR_POINTS,
   SET_STUDENT_POINTS,
   SET_SELECTED_USER,
   SET_LIKES,
+  SET_POINTS,
 };
