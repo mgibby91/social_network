@@ -43,7 +43,7 @@ function UserProfileItem(props) {
     <>
       <ContextConsumer>
         {({ data, set }) => {
-          // console.log("data in context: ", data.selected);
+          console.log("data in context: ", data.state.users);
           if (!data.state) return null;
 
           if (!currentUser) {
@@ -69,18 +69,24 @@ function UserProfileItem(props) {
           if (currentUser.id || currentUser.student_id || currentUser.mentor_id)
             senderID = currentUser;
           // console.log("sender id in context: ", senderID.id);
-     
+
           const posts = getUserPosts(state.posts, senderID.id);
           // console.log("posts in prof item: ", posts);
           const user = getUser(state.user_profiles, senderID.id);
 
-          const mentor = data.state.mentor_points.find((mentor => mentor.id === user.id));
+          const mentor = data.state.mentor_points.find(
+            (mentor) => mentor.id === user.id
+          );
 
-          const student = data.state.student_points.find((student => student.id === user.id));
+          const student = data.state.student_points.find(
+            (student) => student.id === user.id
+          );
 
-     
+          // console.log("mentor, student: ", mentor, student);
 
           const mentor_stack = getStack(state.mentor_stack, senderID.id);
+          // console.log("data student points ", data.state.student_points);
+          // console.log("data mentor points ", data.state.mentor_points);
 
           // console.log("user in prof item: ", user);
           // console.log("sender id in prof item: ", senderID.id);
@@ -105,11 +111,6 @@ function UserProfileItem(props) {
                       <>
                         <EditUserInfo
                           user={currentUser}
-                          // avatar={user.avatar}
-                          // location={user.location}
-                          // username={user.username}
-                          // is_mentor={user.is_mentor}
-                          // is_student={user.is_student}
                           mentor_stack={mentor_stack}
                           // onSave={onSave}
                           onCancel={onCancel}
@@ -121,8 +122,6 @@ function UserProfileItem(props) {
                       mentor={mentor}
                       student={student}
                       user={currentUser}
-                      // userId={state.user.id}
-                      // username={state.user.username}
                     />
 
                     <Row>
