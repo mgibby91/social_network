@@ -44,6 +44,8 @@ export default function Register() {
     !showAvatarList ? setShowAvatarList(true) : setShowAvatarList(false);
   }
 
+  // ERROR HANDLING
+
 
 
   return (
@@ -65,6 +67,9 @@ export default function Register() {
         toggleAvatarList={toggleAvatarList}
         showAvatarList={showAvatarList}
       />
+      <div className="register-btn">
+        REGISTER
+      </div>
     </div>
   )
 
