@@ -8,6 +8,7 @@ import reducer, {
   SET_MENTOR_POINTS,
   SET_POSTS,
 } from "../reducers/application";
+
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     comments: {},
@@ -25,6 +26,7 @@ export default function useApplicationData() {
     posts_stacks: [],
     selected: {},
   });
+
   // RETRIEVES API AND SETS IT WITH REDUCER
   useEffect(() => {
     Promise.all([
@@ -74,9 +76,11 @@ export default function useApplicationData() {
       });
     });
   }, []);
+
   // FOR WEBSOCKET
   useEffect(() => {
     const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -84,10 +88,12 @@ export default function useApplicationData() {
         dispatch(data);
       }
     };
+
     return () => {
       socket.close();
     };
   }, []);
+
   const addMentorPoints = (mentorID, mentorPoints) => {
     const url = `/api/mentor_points`;
     const promise = axios.put(url, { mentorPoints }).then((req, res) => {
@@ -99,6 +105,7 @@ export default function useApplicationData() {
     });
     return promise;
   };
+
   const addStudentPoints = (studentID, studentPoints) => {
     const url = `/api/mentor_points`;
     const promise = axios.put(url, { studentPoints }).then((req, res) => {
@@ -110,6 +117,7 @@ export default function useApplicationData() {
     });
     return promise;
   };
+
   const setSelectedUser = (userID) => {
     dispatch({
       type: SET_SELECTED_USER,
@@ -117,71 +125,63 @@ export default function useApplicationData() {
     });
   };
 
-  const createPost = (postDetails, techStack, id) => {
-    console.log("what comes in", postDetails, techStack, id);
-    const newPost = {
+  const createPost = (postDetails, id) => {
+    const post = {
       text_body: postDetails.text,
       active: true,
       owner_id: id,
-      stack: [],
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
     };
-    if (!postDetails.mentor) {
-      (newPost["is_mentor"] = true), (newPost["is_student"] = false);
-    }
 
+    if (!postDetails.mentor) {
+      (post["is_mentor"] = true), (post["is_student"] = false);
+    }
     for (let entry of techStack) {
       console.log("stack name", entry.name);
       newPost["stack"].push(entry.name);
     }
 
-    console.log("from post", newPost["stack"], Object.values(newPost));
-    const promise = axios
-      .post(`http://localhost:8001/api/posts`, { newPost })
-      .then((response, reject) => {
-        dispatch({
-          type: SET_POSTS,
-          data: newPost,
-        });
-      })
-      .then((response, reject) => {
-        axios
-          .post("http://localhost:8001/api/posts_stacks", { newStack })
-          .catch((err) => {
-            console.log(err);
+    const promise = () => {
+      axios
+        .post(`http://localhost:8001/api/posts`, { post })
+        .then((response, reject) => {
+          console.log("from createPost", response.data);
+          dispatch({
+            type: SET_POSTS,
+            data: post,
           });
-        // axios.all([
-        //   axios.post(`/my-url`, {
-        //     myVar: 'myValue'
-        //   }),
-        //   axios.post(`/my-url2`, {
-        //     myVar: 'myValue'
-        //   })
-        // ])
-        // .then(axios.spread((data1, data2) => {
-        //   // output of req.
-        //   console.log('data1', data1, 'data2', data2)
-        // }));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
-        // const promises = techStack.map((tech) => {
-        //   const newStack = {
-        //     post_id: response.data.id,
-        //     stack_preference_id: tech.id,
-        //   };
-        //   axios.post("http://localhost:8001/api/posts_stacks", { newStack });
-        // });
-        // Promise.all([...promises]).then(function (values) {
-        //   console.log("from promise all", values);
-        // });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    const getNewPostId = (res) => {
+      console.log(res.id);
+      axios
+        .all(
+          techStack.map((element) => {
+            const newStack = {
+              post_id: id,
+              stack_id: element.id,
+            };
+            axios.post(`http://localhost:8001/api/posts_stacks`, {
+              newStack,
+            });
+          })
+        )
+        .then(
+          axios.spread(function (...res) {
+            // all requests are now complete
+            console.log(res);
+          })
+        );
+    };
     return promise;
   };
+
   return {
     state,
     addMentorPoints,

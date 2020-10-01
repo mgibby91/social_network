@@ -5,9 +5,10 @@ import { Button, ButtonLink } from "@paljs/ui/Button";
 import Tags from "./StackTag";
 
 import Col from "@paljs/ui/Col";
+import Row from "@paljs/ui/Row";
 
 function Editor(props) {
-  // console.log("from editor", props.stack);
+  //console.log("from editor", props);
   const [value, setValue] = React.useState("**Hello world!!!**");
   const [checkbox, setCheckbox] = React.useState({
     1: false,
@@ -29,7 +30,7 @@ function Editor(props) {
 
   const onSave = () => {
     //check for empty input here
-
+    //empty tags should also be checked here.
     console.log("from editor", techTags);
     props.createPost(postObj, techTags, props.id).then(() => {
       setValue("");
@@ -37,27 +38,42 @@ function Editor(props) {
   };
 
   return (
-    <>
-      <MDEditor value={value} onChange={setValue} />
-      <Tags suggested={props.suggestion} onChange={onChangeInput} />
-      <Checkbox
-        checked={checkbox[1]}
-        status="Success"
-        onChange={(value) => onChangeCheckbox(value, 1)}
-      >
-        Mentor Help Needed
-      </Checkbox>
-      <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
-        <Button
-          fullWidth
-          appearance="hero"
-          status="Success"
-          onClick={() => onSave()}
-        >
-          Post
-        </Button>
-      </Col>
-    </>
+    <div className="user-profile">
+      <Row>
+        <Col className="avatar" breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
+          <MDEditor className="editor" value={value} onChange={setValue} />
+        </Col>
+      </Row>
+      <Row>
+        <Col breakPoint={{ xs: 4, sm: 4, md: 4, lg: 4 }}>
+          <Tags
+            className="tagging"
+            suggested={props.suggestion}
+            onChange={onChangeInput}
+          />
+        </Col>
+
+        <Col breakPoint={{ xs: 4, sm: 4, md: 4, lg: 4 }}>
+          <Checkbox
+            checked={checkbox[1]}
+            status="Success"
+            onChange={(value) => onChangeCheckbox(value, 1)}
+          >
+            Mentor Help Needed
+          </Checkbox>
+        </Col>
+        <Col breakPoint={{ xs: 4, sm: 4, md: 4, lg: 4 }}>
+          <Button
+            fullWidth
+            appearance="hero"
+            status="Success"
+            onClick={() => onSave()}
+          >
+            Post
+          </Button>
+        </Col>
+      </Row>
+    </div>
   );
 }
 

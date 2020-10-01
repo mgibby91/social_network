@@ -9,8 +9,11 @@ import EditUserInfo from "./EditUserInfo";
 import Experience from "./UserExperience";
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
+
 import useVisualMode from "../../hooks/useVisualMode";
 import useApplicationData from "../../hooks/useApplicationData";
+
+import "../../styles/profile.css";
 
 const SHOW = "SHOW";
 const CONFIRM = "CONFIRM";
@@ -77,62 +80,59 @@ function UserProfileItem(props) {
           console.log("posts in prof item: ", posts);
           console.log("sender id in prof item: ", senderID.id);
           return (
-            <Row>
+            <Row className="user-profile">
               <Col breakPoint={{ xs: 12 }}>
-                <Card>
-                  <header>Profile</header>
-                  <CardBody>
-                    {mode === SHOW && (
-                      <>
-                        <UserInfo
-                          user={currentUser}
-                          loggedInUser={data.selected}
-                          onEdit={onEdit}
-                          mentor_stack={mentor_stack}
-                        />
-                      </>
-                    )}
-                    {mode === EDITING && (
-                      <>
-                        <EditUserInfo
-                          user={currentUser}
-                          avatar={user.avatar}
-                          location={user.location}
-                          username={user.username}
-                          is_mentor={user.is_mentor}
-                          is_student={user.is_student}
-                          mentor_stack={mentor_stack}
-                          // onSave={onSave}
-                          onCancel={onCancel}
-                        />
-                      </>
-                    )}
+                {/* <header>Profile</header> */}
 
-                    <Experience
-                      mentor={currentUser.mentorrating}
-                      student={currentUser.studentrating}
+                {mode === SHOW && (
+                  <>
+                    <UserInfo
                       user={currentUser}
-                      // userId={state.user.id}
-                      // username={state.user.username}
+                      loggedInUser={data.selected}
+                      onEdit={onEdit}
+                      mentor_stack={mentor_stack}
                     />
+                  </>
+                )}
+                {mode === EDITING && (
+                  <>
+                    <EditUserInfo
+                      user={currentUser}
+                      avatar={user.avatar}
+                      location={user.location}
+                      username={user.username}
+                      is_mentor={user.is_mentor}
+                      is_student={user.is_student}
+                      mentor_stack={mentor_stack}
+                      // onSave={onSave}
+                      onCancel={onCancel}
+                    />
+                  </>
+                )}
 
-                    <Row>
-                      <Col breakPoint={{ xs: 12, md: 12 }}>
-                        <Editor
-                          id={user.id}
-                          createPost={createPost}
-                          suggestion={state.stack_preferences}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col breakPoint={{ xs: 12, md: 12 }}>
-                        <header>Recent Posts</header>
-                      </Col>
-                    </Row>
-                    <PostList posts={posts} />
-                  </CardBody>
-                </Card>
+                <Experience
+                  mentor={currentUser.mentorrating}
+                  student={currentUser.studentrating}
+                  user={currentUser}
+                  // userId={state.user.id}
+                  // username={state.user.username}
+                />
+
+                <Row>
+                  <Col breakPoint={{ xs: 12, md: 12 }}>
+                    <Editor
+                      id={user.id}
+                      createPost={createPost}
+                      suggestion={state.stack_preferences}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col breakPoint={{ xs: 12, md: 12 }}>
+                    <h2>Recent Posts...</h2>
+                  </Col>
+                </Row>
+                <PostList posts={posts} />
               </Col>
             </Row>
           );
