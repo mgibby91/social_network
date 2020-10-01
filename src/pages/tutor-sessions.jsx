@@ -139,6 +139,8 @@ export default function TutorSessions() {
     console.log('r', rating);
     console.log('c', comments);
 
+    const ratingUsername = document.querySelector('.rate-tutor-header').children[0].textContent;
+
     const tutorSessionID = unratedTutorSession.id;
 
     let isMentorRating;
@@ -151,9 +153,14 @@ export default function TutorSessions() {
     axios.put('http://localhost:8001/api/tutor_experiences/complete-other', { isMentorRating, rating, comments, tutorSessionID })
       .then((res) => {
         console.log('updatedRes', res)
-        setShowPointsGiven(true);
         setUnratedSession(null);
         setCount(count + 1);
+        setPointsArray([ratingUsername, rating]);
+        setShowPointsGiven(true);
+
+        setTimeout(() => {
+          setShowPointsGiven(false);
+        }, 2500)
       })
   }
 
