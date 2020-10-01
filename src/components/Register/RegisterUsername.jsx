@@ -28,7 +28,7 @@ export default function RegisterUsername(props) {
 
   function setError() {
     const currentVal = currentInputValue();
-    if (currentVal.length < 6) {
+    if (currentVal.length < 6 && currentVal.length > 0) {
       setErrorMsg(true);
     } else {
       setErrorMsg(false);
