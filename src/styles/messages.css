@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 /* main container */
 .main-message-container {
   display: flex;
@@ -39,7 +38,7 @@
   border: 1px solid white;
 }
 
-.message-item-container:hover{
+.message-item-container:hover {
   cursor: pointer;
   background: #3366ff;
 }
@@ -71,7 +70,6 @@
   max-height: 90%;
 }
 
-
 /* message username and text preview */
 .message-item-container .message-username-text {
   display: flex;
@@ -92,7 +90,6 @@
   font-size: 0.8rem;
 }
 
-
 /* message time ago */
 .message-item-container .message-time {
   max-height: 100%;
@@ -100,8 +97,6 @@
   font-size: 0.8rem;
   font-weight: 600;
 }
-
-
 
 /* Text bubble - right side */
 .message-text-container-right {
@@ -130,11 +125,19 @@
   /* border-radius: 8px; */
 }
 
-.text-right-container { justify-content: flex-end}
-.text-left-container { justify-content: flex-start}
+.text-right-container {
+  justify-content: flex-end;
+}
+.text-left-container {
+  justify-content: flex-start;
+}
 
-.text-text-right {border-radius: 9px 9px 0 9px}
-.text-text-left {border-radius: 9px 9px 9px 0}
+.text-text-right {
+  border-radius: 9px 9px 0 9px;
+}
+.text-text-left {
+  border-radius: 9px 9px 9px 0;
+}
 
 .text-time {
   font-size: 0.6rem;
@@ -154,7 +157,6 @@
   left: 0;
   margin-left: 0.6rem;
 }
-
 
 /* Header */
 .message-text-header {
@@ -213,7 +215,6 @@
   align-items: center;
 }
 
-
 /* message text area */
 .message-text-area-container {
   position: relative;
@@ -253,7 +254,6 @@ textarea:focus {
   background: white;
 }
 
-
 /* error show */
 .error-container {
   display: none;
@@ -264,15 +264,13 @@ textarea:focus {
   background: rgb(250, 70, 70);
   padding: 0.3rem 0.6rem;
   border-radius: 5px;
-  color: white
+  color: white;
 }
 
-
 /* message list selected */
-.message-list-selected {background: #3366ff}
-
-
-
+.message-list-selected {
+  background: #3366ff;
+}
 
 /* Message List Header */
 .message-list-header {
@@ -280,7 +278,7 @@ textarea:focus {
   border: 1px solid white;
   display: flex;
   justify-content: space-evenly;
-  align-items: center; 
+  align-items: center;
 }
 
 .message-list-title {
@@ -300,7 +298,6 @@ textarea:focus {
   zoom: 0.9;
 }
 
-
 /* empty message list */
 .msg-list-empty-container {
   display: flex;
@@ -312,13 +309,11 @@ textarea:focus {
   padding-bottom: 1rem;
 }
 
-
 .message-tutor-btns {
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
-
 
 /* Message success */
 .message-success-container {
@@ -339,6 +334,5 @@ textarea:focus {
   border-radius: 5px;
   font-size: 1.4rem;
   font-weight: 600;
-  color:#1cd454;
+  color: #1cd454;
 }
-

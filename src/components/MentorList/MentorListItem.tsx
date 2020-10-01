@@ -13,7 +13,6 @@ export default function MentorListItem(props) {
     if (stack.user_id === props.userId) {
       return <li key={index}>{stack.name}</li>
     }
-
   })
       
   return (

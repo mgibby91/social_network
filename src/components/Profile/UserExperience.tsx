@@ -28,7 +28,7 @@ function Experience(props) {
             />
           : ""}
           {props.user.studentrating ? 
-            <h4>user.studentrating Level</h4>
+            <h4>Student Level</h4>
           : ""}
           {props.user.studentrating ? 
             <ProgressBar

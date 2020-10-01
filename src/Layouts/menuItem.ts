@@ -17,6 +17,11 @@ const items: MenuItemType[] = [
     link: { to: "/messages" },
   },
   {
+    title: "Users",
+    icon: { name: "people-outline" },
+    link: { to: "/user-list" },
+  },
+  {
     title: "Mentors",
     icon: { name: "people-outline" },
     link: { to: "/mentor-list" },
