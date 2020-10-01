@@ -24,7 +24,7 @@ function UserProfileItem(props) {
   const { mode, transition, back } = useVisualMode(SHOW);
 
   let senderID = document.cookie.split("=")[1];
-  console.log("from user-profile", senderID);
+  // console.log("from user-profile", senderID);
 
   function onEdit() {
     transition(EDITING);
@@ -38,7 +38,7 @@ function UserProfileItem(props) {
   let currentUser = state.users.find(
     (user) => user.id === props.userId || user.username === props.userId
   );
-  console.log("current user after prof item: ", props.userId);
+  // console.log("current user after prof item: ", props.userId);
   return (
     <>
       <ContextConsumer>
@@ -50,14 +50,17 @@ function UserProfileItem(props) {
             currentUser = data.state.mentor_points.find(
               (user) => user.username === data.selected
             );
-            console.log("current user in context: ", currentUser);
+            // console.log("current user in context: ", currentUser);
           }
+          // console.log("mentor points: ", data.state.mentor_points);
           if (!currentUser) {
             currentUser = data.state.student_points.find(
               (user) => user.username === data.selected
             );
-            console.log("current user in context: ", currentUser);
+            // console.log("current user in context: ", currentUser);
           }
+          // console.log("student points: ", data.state.student_points);
+
           if (!currentUser) {
             return <h1>You must be logged in to view this page.</h1>;
           }
@@ -65,17 +68,23 @@ function UserProfileItem(props) {
           // console.log("current user in item: ", currentUser.student_id);
           if (currentUser.id || currentUser.student_id || currentUser.mentor_id)
             senderID = currentUser;
-          console.log("sender id in context: ", senderID.id);
-          // const posts = getUserPosts(state.posts, senderID.id);
+          // console.log("sender id in context: ", senderID.id);
+     
           const posts = getUserPosts(state.posts, senderID.id);
-          console.log("posts in prof item: ", posts);
+          // console.log("posts in prof item: ", posts);
           const user = getUser(state.user_profiles, senderID.id);
-          console.log("get user in prof item: ", user);
+
+          const mentor = data.state.mentor_points.find((mentor => mentor.id === user.id));
+
+          const student = data.state.student_points.find((student => student.id === user.id));
+
+     
 
           const mentor_stack = getStack(state.mentor_stack, senderID.id);
 
-          console.log("posts in prof item: ", posts);
-          console.log("sender id in prof item: ", senderID.id);
+          // console.log("user in prof item: ", user);
+          // console.log("sender id in prof item: ", senderID.id);
+          // console.log("mentor rating in user item: ", currentUser);
           return (
             <Row>
               <Col breakPoint={{ xs: 12 }}>
@@ -96,11 +105,11 @@ function UserProfileItem(props) {
                       <>
                         <EditUserInfo
                           user={currentUser}
-                          avatar={user.avatar}
-                          location={user.location}
-                          username={user.username}
-                          is_mentor={user.is_mentor}
-                          is_student={user.is_student}
+                          // avatar={user.avatar}
+                          // location={user.location}
+                          // username={user.username}
+                          // is_mentor={user.is_mentor}
+                          // is_student={user.is_student}
                           mentor_stack={mentor_stack}
                           // onSave={onSave}
                           onCancel={onCancel}
@@ -109,8 +118,8 @@ function UserProfileItem(props) {
                     )}
 
                     <Experience
-                      mentor={currentUser.mentorrating}
-                      student={currentUser.studentrating}
+                      mentor={mentor}
+                      student={student}
                       user={currentUser}
                       // userId={state.user.id}
                       // username={state.user.username}

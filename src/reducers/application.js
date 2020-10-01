@@ -10,21 +10,21 @@ const SET_LIKES = "SET_LIKES";
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_POSTS: {
-      console.log("before", state.posts);
+      console.log("before set posts reducer", state.posts);
       const { data } = action;
 
       state = { ...state, posts: [...state.posts, data] };
-      console.log("after", state.posts);
+      console.log("after set posts reducer", state.posts);
 
       return state;
     }
     
     case SET_LIKES: {
-      console.log("before", state.likes);
+      console.log("before set likes reducer", state.likes);
       const { data } = action;
 
       state = {...state, likes: [...state.likes, data]}
-      console.log("after", state.likes);
+      console.log("after set likes reducer", state.likes);
 
       return  state;
     }

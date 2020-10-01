@@ -21,10 +21,8 @@ interface ILikes {
 }
 
 export default function PostList(props: IProps) {
-  console.log("props: ", props);
   
   const comments = props.comments;
-  console.log("comments in list: ", comments);
   const likes = props.likes;
   const postData = props.posts.map((post, index) => {
       return <PostListItem 
@@ -36,7 +34,6 @@ export default function PostList(props: IProps) {
              />;
     // })
   });
-  console.log("comments in post list: ", props.comments);
   
   return (
     <div>

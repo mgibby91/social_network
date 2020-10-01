@@ -16,7 +16,7 @@ export default function Home() {
   const { state, createPost, addLike } = useApplicationData();
 
   const dashPosts = getDashboardPosts(state.posts);
-  console.log("dashposts in dash: ", dashPosts);
+  // console.log("dashposts in dash: ", dashPosts);
   const comments = state.comments;
   const likes = state.likes;
   return (

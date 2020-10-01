@@ -1,0 +1,29 @@
+.post_body {
+  &__item {
+    display: flex;
+    &-user_link {
+      justify-content: flex-start;
+      width: 30%;
+    }
+    &-message_button {
+      float: right;
+    }
+    &-list {
+      list-style-type: none;
+    }
+    &-comment_list {
+      background-color: white;
+      border-radius: 5px;
+    }
+    &-comments {
+      list-style-type: none;
+      background-color: white;
+      color: black;
+      display: inline-block;
+    }
+    &-comment_button {
+      float: right;
+      padding-top: 3px;
+    }
+  }
+}

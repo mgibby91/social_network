@@ -8,7 +8,6 @@ import { Card, CardBody } from "@paljs/ui/Card";
 function UserInfo(props) {
 
   if (!props.user) return null;
-  console.log("props in userinfo: ", props.user.active);
   
   return (
     <>

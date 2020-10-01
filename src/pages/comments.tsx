@@ -16,7 +16,6 @@ export default function Comments() {
   const { state } = useApplicationData();
 
   const comments = state.comments;
-  console.log("comments in comments.tsx: ", state);
 	
   return (
     <>

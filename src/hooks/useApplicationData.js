@@ -96,7 +96,7 @@ export default function useApplicationData() {
     });
   };
   const createPost = (postDetails, techStack, id) => {
-    console.log("what comes in", postDetails, techStack, id);
+    // console.log("what comes in hook", postDetails, techStack, id);
     const newPost = {
       text_body: postDetails.text,
       active: true,
@@ -110,10 +110,10 @@ export default function useApplicationData() {
       (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }
     for (let entry of techStack) {
-      console.log("stack name", entry.name);
+      // console.log("stack name in hook", entry.name);
       newPost["stack"].push(entry.name);
     }
-    console.log("from post", newPost["stack"], Object.values(newPost));
+    // console.log("from post in hook", newPost["stack"], Object.values(newPost));
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { newPost })
       .then((response, reject) => {
@@ -161,7 +161,9 @@ export default function useApplicationData() {
           data: newLike,
         })
       })
+    return promise;
   }
+
   return {
     state,
     createPost,

@@ -4,7 +4,7 @@ import React from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
 
 function Experience(props) {
-  console.log("props in experience: ", props);
+  // console.log("props in experience: ", props);
   
   if (!props.user) return {};
   if (!props.mentor) return null;
@@ -19,7 +19,7 @@ function Experience(props) {
           : ""}
           {props.mentor ? 
             <ProgressBar 
-              experience={Number(props.mentor)}
+              experience={Number(props.mentor.mentorrating)}
             />
           : ""}
           {props.student ? 
@@ -27,7 +27,7 @@ function Experience(props) {
           : ""}
           {props.student ? 
             <ProgressBar
-              experience={Number(props.student)}
+              experience={Number(props.student.studentrating)}
             />
           : ""}
       </Row>       

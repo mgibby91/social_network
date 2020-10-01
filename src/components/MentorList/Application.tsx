@@ -2,7 +2,6 @@ import React from "react";
 import MentorList from "./MentorList";
 
 function Application(props) {
-  console.log("props in app mentor: ", props);
   
   const mentors = props.mentors;
 
