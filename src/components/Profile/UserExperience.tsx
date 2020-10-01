@@ -8,12 +8,6 @@ function Experience(props) {
   
   if (!props.user) return {};
   console.log("user in experience: ", props.user.studentrating);
-  if (!props.mentor) return null;
-  console.log("student in experience: ", props.mentor);
-  
-  if (!props.student) return null;
-  console.log("mentor in experience: ", props.student);
-  
   
   return (
     <Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
