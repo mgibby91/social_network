@@ -13,11 +13,12 @@ interface IProps {
 }
 
 export default function Home() {
-  const { state, createPost } = useApplicationData();
+  const { state, createPost, addLike } = useApplicationData();
 
   const dashPosts = getDashboardPosts(state.posts);
   console.log("dashposts in dash: ", dashPosts);
   const comments = state.comments;
+  const likes = state.likes;
   return (
     <div className="App">
       <Row>
@@ -26,6 +27,8 @@ export default function Home() {
       <PostList 
         posts={dashPosts} 
         comments={comments}
+        likes={likes}
+        addLike={addLike}
       />
     </div>
   );

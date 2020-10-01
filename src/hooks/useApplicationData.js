@@ -7,6 +7,7 @@ import reducer, {
   SET_STUDENT_POINTS,
   SET_MENTOR_POINTS,
   SET_POSTS,
+  SET_LIKES,
 } from "../reducers/application";
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
@@ -88,35 +89,12 @@ export default function useApplicationData() {
       socket.close();
     };
   }, []);
-  const addMentorPoints = (mentorID, mentorPoints) => {
-    const url = `/api/mentor_points`;
-    const promise = axios.put(url, { mentorPoints }).then((req, res) => {
-      dispatch({
-        type: SET_POINTS,
-        points: mentorPoints,
-        id: mentorID,
-      });
-    });
-    return promise;
-  };
-  const addStudentPoints = (studentID, studentPoints) => {
-    const url = `/api/mentor_points`;
-    const promise = axios.put(url, { studentPoints }).then((req, res) => {
-      dispatch({
-        type: SET_POINTS,
-        points: studentPoints,
-        id: studentID,
-      });
-    });
-    return promise;
-  };
   const setSelectedUser = (userID) => {
     dispatch({
       type: SET_SELECTED_USER,
       userId: userID,
     });
   };
-
   const createPost = (postDetails, techStack, id) => {
     console.log("what comes in", postDetails, techStack, id);
     const newPost = {
@@ -131,62 +109,63 @@ export default function useApplicationData() {
     if (!postDetails.mentor) {
       (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }
-
     for (let entry of techStack) {
       console.log("stack name", entry.name);
       newPost["stack"].push(entry.name);
     }
-
     console.log("from post", newPost["stack"], Object.values(newPost));
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { newPost })
       .then((response, reject) => {
+        getNewPostId(response);
         dispatch({
           type: SET_POSTS,
           data: newPost,
         });
-      })
-      .then((response, reject) => {
-        axios
-          .post("http://localhost:8001/api/posts_stacks", { newStack })
-          .catch((err) => {
-            console.log(err);
-          });
-        // axios.all([
-        //   axios.post(`/my-url`, {
-        //     myVar: 'myValue'
-        //   }),
-        //   axios.post(`/my-url2`, {
-        //     myVar: 'myValue'
-        //   })
-        // ])
-        // .then(axios.spread((data1, data2) => {
-        //   // output of req.
-        //   console.log('data1', data1, 'data2', data2)
-        // }));
-
-        // const promises = techStack.map((tech) => {
-        //   const newStack = {
-        //     post_id: response.data.id,
-        //     stack_preference_id: tech.id,
-        //   };
-        //   axios.post("http://localhost:8001/api/posts_stacks", { newStack });
-        // });
-        // Promise.all([...promises]).then(function (values) {
-        //   console.log("from promise all", values);
-        // });
-      })
-      .catch((err) => {
-        console.log(err);
       });
-
+    const getNewPostId = (res) => {
+      console.log(res.id);
+      axios
+        .all(
+          techStack.map((element) => {
+            const newStack = {
+              post_id: id,
+              stack_id: element.id,
+            };
+            axios.post(`http://localhost:8001/api/posts_stacks`, {
+              newStack,
+            });
+          })
+        )
+        .then(
+          axios.spread(function (...res) {
+            // all requests are now complete
+            console.log("success");
+          })
+        );
+    };
     return promise;
   };
+
+  const addLike = (postId, likerId) => {
+    console.log("like data in hook: ", postId, likerId);
+    const newLike = {
+      post_id: postId,
+      liker_id: likerId
+    };
+    const promise = axios
+      .post(`http://localhost:8001/api/likes`, { newLike })
+      .then((response, reject) => {
+        dispatch({
+          type: SET_LIKES,
+          data: newLike,
+        })
+      })
+  }
   return {
     state,
-    addMentorPoints,
-    addStudentPoints,
     createPost,
     setSelectedUser,
+    addLike,
   };
 }

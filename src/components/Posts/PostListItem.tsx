@@ -8,13 +8,19 @@ import { Button } from "@paljs/ui/Button";
 interface IProps {
   key: number;
   post: IPost;
+  likes: ILikes
   active: boolean;
   comments: IComments;
   comment: object;
+  addLike: (post_id: number, liker_id: number) => void;
 }
 
 interface IComments {
   [index: number]: { id: number, user_id: number, name: string }
+}
+
+interface ILikes {
+  [index: number]: { id: number, user_id: number, name: string } 
 }
 
 interface IPost {
@@ -25,6 +31,7 @@ interface IPost {
   time_posted: Date;
   stack: any;
   username: string;
+  post_id: number;
 }
 
 export default function PostListItem(props: IProps) 
@@ -52,6 +59,20 @@ console.log("props: ", props);
   })
   console.log("comment: ", commentList);
 
+  const likesData = props.likes.filter(like => {
+    if (props.post.post_id === like.post_id) {
+      return like.sum
+    }
+  })
+
+  console.log("likes in post item: ", likesData);
+
+  const likes = likesData.map(like => {
+    return like.sum
+  })
+
+  console.log("likes: ", likes[0]);
+  
 
   return (
     <div>
@@ -74,13 +95,16 @@ console.log("props: ", props);
               >
                 <Button>Message User</Button>
               </Link>
-              <Button>Like</Button>
+              <Button
+                onClick={props.addLike(props.post.id, props.id)}
+              >Like</Button>
               <Button>Comment</Button>
 
                 <h4>Stack: {stack}</h4>
               <Card>
                 <p>{props.post.text_body}</p>
               </Card>
+              <p><b>{likes[0]} likes</b></p>
               <ul>{commentList}</ul>
             </CardBody>
           </Card>
