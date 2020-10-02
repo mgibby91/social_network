@@ -1,16 +1,26 @@
 .post_body {
   &__item {
     &-user_card {
-      width: 28%;
+      width: 22%;
+      height: 10%;
       background-color: #3366ff;
+      padding-left: 18px;
+      border-radius: 10px;
     }
     &-circle {
       border-radius: 50%;
       width: 80px;
       height: 80px;
       background-color: white;
+      padding-left: 12px;
+      padding-top: 8px;
+      margin-bottom: 5px;
+    }
+    &-inline {
+      display: flex;
     }
     &-user_link {
+      text-decoration: none;
     }
     &-message_button {
       // float: right;

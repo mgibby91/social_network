@@ -103,6 +103,7 @@ export default function PostListItem(props: IProps) {
   console.log("comment in item: ", props.comment);
   const userCard = classNames("post_body__item-user_card");
   const circle = classNames("post_body__item-circle");
+  const inline = classNames("post_body__item-inline")
   return (
     <>
       <ContextConsumer>
@@ -131,19 +132,21 @@ export default function PostListItem(props: IProps) {
                         className={userLink}
                         to={`/user-profiles/${props.post.username}`}
                       >
-                        <div className={circle}>
-                          <img src={props.post.avatar} alt="avatar"></img>
-                        </div>
+                        <div className={inline}>
+                          <div className={circle}>
+                            <img src={props.post.avatar} alt="avatar"></img>
+                          </div>
 
-                        <div className={userCard}>
-                          <h3>{props.post.username}</h3>
-                          <span>
-                            {props.active ? (
-                              <h6>User is online</h6>
-                            ) : (
-                              <h6>User is offline</h6>
-                            )}
-                          </span>
+                          <div className={userCard}>
+                            <h3>{props.post.username}</h3>
+                            <span>
+                              {props.active ? (
+                                <h6>User is online</h6>
+                              ) : (
+                                <h6>User is offline</h6>
+                              )}
+                            </span>
+                          </div>
                         </div>
                       </Link>
 
