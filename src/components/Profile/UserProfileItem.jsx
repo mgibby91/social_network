@@ -9,8 +9,11 @@ import EditUserInfo from "./EditUserInfo";
 import Experience from "./UserExperience";
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
+
 import useVisualMode from "../../hooks/useVisualMode";
 import useApplicationData from "../../hooks/useApplicationData";
+
+import "../../styles/profile.css";
 
 const SHOW = "SHOW";
 const CONFIRM = "CONFIRM";
@@ -75,11 +78,9 @@ function UserProfileItem(props) {
           const mentor_stack = getStack(state.mentor_stack, senderID.id);
 
           return (
-            <Row>
+            <Row className="user-profile">
               <Col breakPoint={{ xs: 12 }}>
-                <Card>
-                  <header>Profile</header>
-                  <CardBody>
+
                     {mode === SHOW && (
                       <>
                         <UserInfo
@@ -94,36 +95,39 @@ function UserProfileItem(props) {
                       <>
                         <EditUserInfo
                           user={currentUser}
+                          loggedInUser={data.selected}
                           mentor_stack={mentor_stack}
+                          suggestion={state.stack_preferences}
                           // onSave={onSave}
                           onCancel={onCancel}
                         />
                       </>
                     )}
 
-                    <Experience
-                      mentor={mentor}
-                      student={student}
-                      user={currentUser}
-                    />
 
-                    <Row>
-                      <Col breakPoint={{ xs: 12, md: 12 }}>
-                        <Editor
-                          id={user.id}
-                          createPost={createPost}
-                          suggestion={state.stack_preferences}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col breakPoint={{ xs: 12, md: 12 }}>
-                        <header>Recent Posts</header>
-                      </Col>
-                    </Row>
-                    <PostList posts={posts} />
-                  </CardBody>
-                </Card>
+                <Experience
+                  mentor={currentUser.mentorrating}
+                  student={currentUser.studentrating}
+                  user={currentUser}
+                  // userId={state.user.id}
+                  // username={state.user.username}
+                />
+
+                <Row>
+                  <Col breakPoint={{ xs: 12, md: 12 }}>
+                    <Editor
+                      id={user.id}
+                      createPost={createPost}
+                      suggestion={state.stack_preferences}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col breakPoint={{ xs: 12, md: 12 }}>
+                    <h2>Recent Posts...</h2>
+                  </Col>
+                </Row>
+                <PostList posts={posts} />
               </Col>
             </Row>
           );

@@ -10,6 +10,7 @@ import reducer, {
   SET_LIKES,
   SET_COMMENTS,
 } from "../reducers/application";
+
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     comments: {},
@@ -27,6 +28,7 @@ export default function useApplicationData() {
     posts_stacks: [],
     selected: {},
   });
+
   // RETRIEVES API AND SETS IT WITH REDUCER
   useEffect(() => {
     Promise.all([
@@ -76,9 +78,11 @@ export default function useApplicationData() {
       });
     });
   }, []);
+
   // FOR WEBSOCKET
   useEffect(() => {
     const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -86,10 +90,24 @@ export default function useApplicationData() {
         dispatch(data);
       }
     };
+
     return () => {
       socket.close();
     };
   }, []);
+
+  const editUserInfo = (newInfo) => {
+    const url = `/api/mentor_points`;
+    const promise = axios.put(url, { studentPoints }).then((req, res) => {
+      dispatch({
+        type: SET_POINTS,
+        points: studentPoints,
+        id: studentID,
+      });
+    });
+    return promise;
+  };
+
   const setSelectedUser = (userID) => {
     dispatch({
       type: SET_SELECTED_USER,
@@ -97,7 +115,6 @@ export default function useApplicationData() {
     });
   };
   const createPost = (postDetails, techStack, id) => {
-    // console.log("what comes in hook", postDetails, techStack, id);
     const newPost = {
       text_body: postDetails.text,
       active: true,
@@ -107,6 +124,7 @@ export default function useApplicationData() {
       is_mentor: false,
       is_student: true,
     };
+
     if (!postDetails.mentor) {
       (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }
@@ -114,11 +132,11 @@ export default function useApplicationData() {
       // console.log("stack name in hook", entry.name);
       newPost["stack"].push(entry.name);
     }
-    // console.log("from post in hook", newPost["stack"], Object.values(newPost));
+
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { newPost })
       .then((response, reject) => {
-        getNewPostId(response);
+        getNewPostId(response.data);
         dispatch({
           type: SET_POSTS,
           data: newPost,
@@ -191,10 +209,29 @@ export default function useApplicationData() {
         console.log("I don't *comment* this mess", err)
       });
 
+    const getNewPostId = (res) => {
+      console.log(res);
+      axios
+        .all(
+          techStack.map((element) => {
+            const newStack = {
+              post_id: id,
+              stack_id: element.id,
+            };
+            axios.post(`http://localhost:8001/api/posts_stacks`, {
+              newStack,
+            });
+          })
+        )
+        .then(
+          axios.spread(function (...res) {
+            // all requests are now complete
+            console.log(res);
+          })
+        );
+    };
     return promise;
   };
-
-
 
   return {
     state,

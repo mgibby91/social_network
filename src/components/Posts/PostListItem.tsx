@@ -62,7 +62,7 @@ export default function PostListItem(props: IProps) {
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
       <li className={list} key={index}>
-        {tech_stack}
+        {tech_stack}&nbsp;
       </li>
     );
   });
@@ -101,7 +101,8 @@ export default function PostListItem(props: IProps) {
   const commentListStyle = classNames("post_body__item-comment_list");
   const commentButton = classNames("post_body__item-comment_button");
   console.log("comment in item: ", props.comment);
-
+  const userCard = classNames("post_body__item-user_card");
+  const circle = classNames("post_body__item-circle");
   return (
     <>
       <ContextConsumer>
@@ -130,19 +131,21 @@ export default function PostListItem(props: IProps) {
                         className={userLink}
                         to={`/user-profiles/${props.post.username}`}
                       >
-                        <h3>{props.post.username}</h3>
-                        <span>
-                          {props.active ? (
-                            <h6>User is online</h6>
-                          ) : (
-                            <h6>User is offline</h6>
-                          )}
-                        </span>
-                        <img src={props.post.avatar} alt="avatar"></img>
-                      </Link>
+                        <div className={circle}>
+                          <img src={props.post.avatar} alt="avatar"></img>
+                        </div>
 
-                      {/* POST TEXT BODY */}
-                      <p>{props.post.text_body}</p>
+                        <div className={userCard}>
+                          <h3>{props.post.username}</h3>
+                          <span>
+                            {props.active ? (
+                              <h6>User is online</h6>
+                            ) : (
+                              <h6>User is offline</h6>
+                            )}
+                          </span>
+                        </div>
+                      </Link>
 
                       {/* MESSAGE BUTTON */}
                       <div className={messageButton}>
@@ -153,6 +156,9 @@ export default function PostListItem(props: IProps) {
                           <Button>Message User</Button>
                         </Link>
                       </div>
+
+                      {/* POST TEXT BODY */}
+                      <p>{props.post.text_body}</p>
 
                       {/* POST STACK LIST */}
                       <h5>Stack: {stack}</h5>

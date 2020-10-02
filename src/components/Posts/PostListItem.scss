@@ -1,15 +1,24 @@
 .post_body {
   &__item {
-    display: flex;
+    &-user_card {
+      width: 28%;
+      background-color: #3366ff;
+    }
+    &-circle {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      background-color: white;
+    }
     &-user_link {
-      justify-content: flex-start;
-      width: 30%;
     }
     &-message_button {
-      float: right;
+      // float: right;
+      padding-top: 15px;
     }
     &-list {
       list-style-type: none;
+      display: inline-block;
     }
     &-comment_list {
       background-color: white;
