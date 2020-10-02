@@ -6,6 +6,7 @@ interface IProps {
   posts: IPosts;
   likes: ILikes;
   addLike: (post_id: number, liker_id: number) => void;
+  removeLike: (post_id: number, liker_id: number) => void;
   users: IUsers;
   createComment: (
     post_id: number,
@@ -32,6 +33,7 @@ interface ILikes {
 export default function PostList(props: IProps) {
   const comments = props.comments;
   const likes = props.likes;
+  
   const postData = props.posts.map((post, index) => {
     return (
       <PostListItem
@@ -40,13 +42,15 @@ export default function PostList(props: IProps) {
         comments={comments}
         likes={likes}
         addLike={props.addLike}
+        removeLike={props.removeLike}
         createComment={props.createComment}
         users={props.users}
       />
     );
     // })
   });
-
+  console.log("posts in postlist: ", props.posts);
+  
   return (
     <div>
       <section>

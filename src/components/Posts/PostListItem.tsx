@@ -6,7 +6,7 @@ import { Link } from "@reach/router";
 import { Button } from "@paljs/ui/Button";
 import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
-import timeSince from '../../helpers/timeSince'
+import timeSince from "../../helpers/timeSince";
 
 const classNames = require("class-names");
 
@@ -18,6 +18,7 @@ interface IProps {
   comments: IComments;
   comment: object;
   addLike: (post_id: number, liker_id: number) => void;
+  removeLike: (post_id: number, liker_id: number) => void;
   onClick: () => void;
   id: number;
   data: any;
@@ -60,7 +61,7 @@ export default function PostListItem(props: IProps) {
 
   const list = classNames("post_body__item-list");
   const commentStyle = classNames("post_body__item-comments");
-  const commentAvatar = classNames("post_body__item-comment_avatar")
+  const commentAvatar = classNames("post_body__item-comment_avatar");
 
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
@@ -92,29 +93,26 @@ export default function PostListItem(props: IProps) {
 
   const commentsLength = commentList.length;
 
-  const likesData = props.likes.filter((like) => {
-    if (props.post.post_id === like.post_id) {
-      return like.liker_id;
-    }
-  });
+  const postLikes = props.likes.filter(
+    (like) => props.post.post_id === like.post_id
+  );
 
-  const likeSum = likesData.length;
+  const likeSum = postLikes.length;
 
   const postBody = classNames("post_body");
-  const textBody = classNames("post_body__item-text_body")
+  const textBody = classNames("post_body__item-text_body");
   const userLink = classNames("post_body__item-user_link");
   const messageButton = classNames("post_body__item-message_button");
   const commentListStyle = classNames("post_body__item-comment_list");
   const commentButton = classNames("post_body__item-comment_button");
-  console.log("comment in item: ", props.comment);
   const userCard = classNames("post_body__item-user_card");
   const circle = classNames("post_body__item-circle");
   const inline = classNames("post_body__item-inline");
   const likesComments = classNames("post_body__item-likes_comments");
-  const bg = classNames("post_body__item-bg")
-  const floatRight = classNames("post_body__item-float_right")
-  const blueButton = classNames("post_body__item-blue_button")
-  const likeButton = classNames("post_body__item-like_button")
+  const bg = classNames("post_body__item-bg");
+  const floatRight = classNames("post_body__item-float_right");
+  const blueButton = classNames("post_body__item-blue_button");
+  const likeButton = classNames("post_body__item-like_button");
   return (
     <>
       <ContextConsumer>
@@ -124,6 +122,12 @@ export default function PostListItem(props: IProps) {
             (user) => user.username === data.selected
           );
 
+          const myLikes = postLikes.filter(
+            (like) => currentUser.id === like.liker_id
+          );
+
+          const iAlreadyLikeThis = myLikes.length > 0;
+
           const onSave = () => {
             //check for empty input here
             props
@@ -132,20 +136,19 @@ export default function PostListItem(props: IProps) {
                 setValue("");
               });
           };
-          console.log("post in listitem props: ", props.post);
-          const timeAgo = timeSince(props.post.time_posted)
+
+          const timeAgo = timeSince(props.post.time_posted);
+
           return (
             <div>
               <Row>
                 <Col breakPoint={{ xs: 12 }}>
                   <Card>
                     <CardBody className={postBody}>
-
                       {/* POST TEXT BODY */}
                       <div className={floatRight}>
                         <small className={floatRight}>{timeAgo}</small>
                         <p className={textBody}>{props.post.text_body}</p>
-
                       </div>
 
                       {/* USERS DETAILS */}
@@ -158,8 +161,8 @@ export default function PostListItem(props: IProps) {
                             <img src={props.post.avatar} alt="avatar"></img>
                           </div>
                           <div className={userCard}>
-                          <span className={bg}>
-                            <h3>{props.post.username}</h3>
+                            <span className={bg}>
+                              <h3>{props.post.username}</h3>
                             </span>
 
                             <span>
@@ -169,14 +172,14 @@ export default function PostListItem(props: IProps) {
                                 <h6>User is offline</h6>
                               )}
                             </span>
-                            
                           </div>
                         </div>
                       </Link>
 
                       {/* MESSAGE BUTTON */}
                       <div className={messageButton}>
-                        <Link className={userLink}
+                        <Link
+                          className={userLink}
                           to={`/messages/`}
                           state={{ username: props.post.username }}
                         >
@@ -188,32 +191,56 @@ export default function PostListItem(props: IProps) {
                       <h5>Stack: {stack}</h5>
 
                       {/* BUTTON FOR LIKES */}
-                      <div 
-                        className={likeButton}
-                        onClick={() =>
-                          props.addLike(props.post.post_id, currentUser.id)
-                        }
-                      >
-                        Like
-                      </div>
+
+                      {iAlreadyLikeThis ? (
+                        <div
+                          className={likeButton}
+                          onClick={() =>
+                            props.removeLike(props.post.post_id, currentUser.id)
+                          }
+                        >
+                          Unlike
+                        </div>
+                      ) : (
+                        <div
+                          className={likeButton}
+                          onClick={() =>
+                            props.addLike(props.post.post_id, currentUser.id)
+                          }
+                        >
+                          Like
+                        </div>
+                      )}
 
                       <div className={likesComments}>
                         {/* LIKE COUNT */}
-                        {likeSum > 1 ?
-                        <p>
-                          <b>{likeSum} Likes</b>
-                        </p> : ""
-                        }
-                        {likeSum === 1 ?
-                        <p>
-                          <b>{likeSum} Like</b>
-                        </p> : ""
-                        }
+                        {likeSum > 1 ? (
+                          <p>
+                            <b>{likeSum} Likes</b>
+                          </p>
+                        ) : (
+                          ""
+                        )}
+                        {likeSum === 1 ? (
+                          <p>
+                            <b>{likeSum} Like</b>
+                          </p>
+                        ) : (
+                          ""
+                        )}
                         {/* COMMENTS LIST FOR POST */}
-                        {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
-                        {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
+                        {commentsLength > 1 ? (
+                          <h6>{commentsLength} comments</h6>
+                        ) : (
+                          ""
+                        )}
+                        {commentsLength === 1 ? (
+                          <h6>{commentsLength} comment</h6>
+                        ) : (
+                          ""
+                        )}
                       </div>
-                        <ul className={commentListStyle}>{commentList}</ul>
+                      <ul className={commentListStyle}>{commentList}</ul>
 
                       {/* FOR COMMENTING */}
                       <textarea

@@ -18,7 +18,7 @@ interface IUsers {
 }
 
 export default function Home() {
-  const { state, createPost, addLike, createComment } = useApplicationData();
+  const { state, createPost, addLike, createComment, removeLike } = useApplicationData();
 
   const dashPosts = getDashboardPosts(state.posts);
   // console.log("dashposts in dash: ", dashPosts);
@@ -28,14 +28,19 @@ export default function Home() {
   return (
     <div className="App">
       <Row>
-        <Editor createPost={createPost} suggestion={state.stack_preferences} />
+        <Editor 
+          createPost={createPost} 
+          suggestion={state.stack_preferences} 
+          users={users}
+        />
       </Row>
       <PostList
-        users ={users} 
+        users={users}
         posts={dashPosts} 
         comments={comments}
         likes={likes}
         addLike={addLike}
+        removeLike={removeLike}
         createComment={createComment}
       />
     </div>

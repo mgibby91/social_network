@@ -4,11 +4,10 @@ import reducer, {
   SET_POINTS,
   SET_APPLICATION_DATA,
   SET_SELECTED_USER,
-  SET_STUDENT_POINTS,
-  SET_MENTOR_POINTS,
   SET_POSTS,
   SET_LIKES,
   SET_COMMENTS,
+  REMOVE_LIKE,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -123,6 +122,8 @@ export default function useApplicationData() {
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
+      avatar: postDetails.avatar,
+      username: postDetails.username,
     };
 
     if (!postDetails.mentor) {
@@ -187,6 +188,27 @@ export default function useApplicationData() {
     return promise;
   }
 
+  const removeLike = (postId, unlikerId) => {
+    console.log("unlike data in hook: ", postId, unlikerId);
+    const removeLike = {
+      post_id: postId,
+      liker_id: unlikerId
+    };
+    const promise = axios
+      .delete(`http://localhost:8001/api/likes`, {params: { removeLike: removeLike }})
+      .then((response) => {
+        console.log("response in likes hook: ", response);
+        dispatch({
+          type: REMOVE_LIKE,
+          data: removeLike,
+        })
+      })
+      .catch(error => { 
+        console.log("I don't *like* this mess", error)
+      })
+    return promise;
+  }
+
   const createComment = (postId, commenterId, commentDetails) => {
     console.log(" data in comment hook: ", postId, commenterId, commentDetails);
     const newComment = {
@@ -239,5 +261,6 @@ export default function useApplicationData() {
     setSelectedUser,
     addLike,
     createComment,
+    removeLike,
   };
 }

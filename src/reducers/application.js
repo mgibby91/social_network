@@ -6,6 +6,8 @@ const SET_STUDENT_POINTS = "SET_STUDENT_POINTS";
 const SET_SELECTED_USER = "SET_SELECTED_USER";
 const SET_COMMENTS = "SET_COMMENTS";
 const SET_LIKES = "SET_LIKES";
+const REMOVE_LIKE = "REMOVE_LIKE";
+
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
@@ -22,6 +24,20 @@ export default function reducer(state, action) {
     case SET_LIKES: {
       const { data } = action;
       state = {...state, likes: [...state.likes, data ]}
+      return  state;
+    }
+    
+    case REMOVE_LIKE: {
+      const { data } = action;
+      const newLikes = state.likes.filter(like => {
+        if (like.post_id === data.post_id && like.liker_id === data.liker_id) {
+          return false;
+        } else {
+          return true;
+        }
+      })
+      console.log("newlike in reducer: ", newLikes);
+      state = {...state, likes: newLikes}
       return  state;
     }
 
@@ -99,4 +115,5 @@ export {
   SET_SELECTED_USER,
   SET_LIKES,
   SET_POINTS,
+  REMOVE_LIKE,
 };
