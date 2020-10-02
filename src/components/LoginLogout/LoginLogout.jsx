@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import useApplicationData from "../../hooks/useApplicationData";
+import setNotifications from '../../helpers/setNotifications';
 import ContextConsumer from "../../context/context";
 import { Link } from "gatsby";
 
@@ -68,31 +69,6 @@ export default function LoginLogout() {
           setNotifications(Number(res.data[0].count));
           localStorage.setItem('unreadMessages', Number(res.data[0].count))
         })
-
-      function setNotifications(notifNum) {
-        console.log('notifNum', notifNum);
-
-        const allMenuTitles = document.querySelectorAll('.menu-title');
-        for (let title of allMenuTitles) {
-          if (title.textContent === 'Messages') {
-
-            title.parentElement.style.position = 'relative';
-
-            if (document.querySelector('.message-notification-num')) {
-              document.querySelector('.message-notification-num').remove();
-            }
-
-            const notificationHTML = `
-                <div class='message-notification-num'>${notifNum}</div>
-              `;
-
-            if (notifNum) {
-              title.insertAdjacentHTML('afterend', notificationHTML);
-            }
-          }
-        }
-
-      }
 
       // MATT'S CODE FOR ADDING MESSAGES NOTIFICATIONS ON LOGIN************************************************************
 

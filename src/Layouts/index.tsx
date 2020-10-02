@@ -16,6 +16,7 @@ import SimpleLayout from "./SimpleLayout";
 import SidebarCustom from "./Sidebar";
 import useApplicationData from "../hooks/useApplicationData";
 import globalAppData from '../hooks/globalAppData';
+import setNotifications from '../helpers/setNotifications';
 import { ContextProviderComponent } from "../context/context";
 import "./layout.scss"
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
@@ -74,31 +75,6 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   const { unreadMessages } = localStorage;
 
   setNotifications(unreadMessages);
-
-  function setNotifications(notifNum) {
-    console.log('notifNum', notifNum);
-
-    const allMenuTitles = document.querySelectorAll('.menu-title');
-    for (let title of allMenuTitles) {
-      if (title.textContent === 'Messages') {
-
-        title.parentElement.style.position = 'relative';
-
-        if (document.querySelector('.message-notification-num')) {
-          document.querySelector('.message-notification-num').remove();
-        }
-
-        const notificationHTML = `
-          <div class='message-notification-num'>${notifNum}</div>
-        `;
-
-        if (Number(notifNum)) {
-          title.insertAdjacentHTML('afterend', notificationHTML);
-        }
-      }
-    }
-
-  }
 
 
   // MATT'S STUFF FOR MESSAGES NOTIFICATIONS *************************************************
