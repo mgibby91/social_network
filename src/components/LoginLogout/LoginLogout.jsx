@@ -62,6 +62,40 @@ export default function LoginLogout() {
       localStorage.setItem('avatarUrl', avatar);
       // MATT'S CODE************************************************************
 
+      // MATT'S CODE FOR ADDING MESSAGES NOTIFICATIONS ON LOGIN************************************************************
+      axios.post('http://localhost:8001/api/messages/unread_count', { userID })
+        .then(res => {
+          setNotifications(Number(res.data[0].count));
+          localStorage.setItem('unreadMessages', Number(res.data[0].count))
+        })
+
+      function setNotifications(notifNum) {
+        console.log('notifNum', notifNum);
+
+        const allMenuTitles = document.querySelectorAll('.menu-title');
+        for (let title of allMenuTitles) {
+          if (title.textContent === 'Messages') {
+
+            title.parentElement.style.position = 'relative';
+
+            if (document.querySelector('.message-notification-num')) {
+              document.querySelector('.message-notification-num').remove();
+            }
+
+            const notificationHTML = `
+                <div class='message-notification-num'>${notifNum}</div>
+              `;
+
+            if (notifNum) {
+              title.insertAdjacentHTML('afterend', notificationHTML);
+            }
+          }
+        }
+
+      }
+
+      // MATT'S CODE FOR ADDING MESSAGES NOTIFICATIONS ON LOGIN************************************************************
+
     });
   }
   // console.log("State in login: ", state);
@@ -86,6 +120,7 @@ export default function LoginLogout() {
     localStorage.removeItem('userID');
     localStorage.removeItem('username');
     localStorage.removeItem('avatarUrl');
+    localStorage.removeItem('unreadMessages');
     // MATT'S CODE************************************************************
   }
 

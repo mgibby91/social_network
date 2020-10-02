@@ -39,11 +39,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   const props = {}
 
   // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
-  console.log('localStorage', localStorage);
   const { avatarUrl, userID, username } = localStorage;
-  console.log('avatarUrl', avatarUrl);
-  console.log('avatarUrl', userID);
-  console.log('avatarUrl', username);
 
   if (avatarUrl && userID) {
 
@@ -54,8 +50,6 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
     if (userDisplay) {
       userDisplay.remove();
     }
-
-    console.log(rightNavContainer);
 
     const usernameHTML = `
     <div class='logged-in-username' style='display: flex; align-items: center; justify-content: center'>
@@ -74,8 +68,40 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
       userDisplay.remove();
     }
   }
-
   // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
+
+  // MATT'S STUFF FOR MESSAGES NOTIFICATIONS *************************************************
+  const { unreadMessages } = localStorage;
+
+  setNotifications(unreadMessages);
+
+  function setNotifications(notifNum) {
+    console.log('notifNum', notifNum);
+
+    const allMenuTitles = document.querySelectorAll('.menu-title');
+    for (let title of allMenuTitles) {
+      if (title.textContent === 'Messages') {
+
+        title.parentElement.style.position = 'relative';
+
+        if (document.querySelector('.message-notification-num')) {
+          document.querySelector('.message-notification-num').remove();
+        }
+
+        const notificationHTML = `
+          <div class='message-notification-num'>${notifNum}</div>
+        `;
+
+        if (Number(notifNum)) {
+          title.insertAdjacentHTML('afterend', notificationHTML);
+        }
+      }
+    }
+
+  }
+
+
+  // MATT'S STUFF FOR MESSAGES NOTIFICATIONS *************************************************
 
   return (
     <ContextProviderComponent>

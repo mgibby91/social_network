@@ -10,6 +10,7 @@ import MessageListHeader from './MessageListHeader';
 import MessageTutorCreate from './MessageTutorCreate';
 import MessageTutorSuccess from './MessageTutorSuccess';
 import messageCleanSort from '../../helpers/messageHelpers';
+import unreadCounter from '../../helpers/unreadCounter';
 
 export default function Messages(props) {
 
@@ -24,6 +25,7 @@ export default function Messages(props) {
   const [createError, setCreateError] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [routeUsername, setRouteUsername] = useState('');
+  const [totalUnread, setTotalUnread] = useState(0);
 
   useEffect(() => {
 
@@ -33,10 +35,21 @@ export default function Messages(props) {
       .then((data) => {
         const currentUserID = data.data.userId;
         const currentData = data.data.data;
+        // console.log('currentData', currentData);
+
+        const unreadCount = unreadCounter(Number(userID), currentData);
+        setTotalUnread(unreadCount);
+        // console.log('unreadCount', unreadCount);
+        setNotifications(unreadCount);
+
+        // insert into local storage ***********
+        localStorage.setItem('unreadMessages', unreadCount);
 
         setCurrentData(currentData);
 
         const newMessageList = messageCleanSort(currentUserID, currentData);
+
+        // console.log('messageList', newMessageList);
 
         setMessageList({ messageList: newMessageList });
 
@@ -67,6 +80,31 @@ export default function Messages(props) {
         setAvatars(res.data);
       })
   }, [])
+
+  function setNotifications(notifNum) {
+    console.log('notifNum', notifNum);
+
+    const allMenuTitles = document.querySelectorAll('.menu-title');
+    for (let title of allMenuTitles) {
+      if (title.textContent === 'Messages') {
+
+        title.parentElement.style.position = 'relative';
+
+        if (document.querySelector('.message-notification-num')) {
+          document.querySelector('.message-notification-num').remove();
+        }
+
+        const notificationHTML = `
+          <div class='message-notification-num'>${notifNum}</div>
+        `;
+
+        if (notifNum) {
+          title.insertAdjacentHTML('afterend', notificationHTML);
+        }
+      }
+    }
+
+  }
 
   function changeBg(username, deselectBG) {
 
@@ -110,6 +148,14 @@ export default function Messages(props) {
       document.querySelector('#msg-textarea').value = '';
     }
     changeBg(username);
+
+    const otherUserID = intMessages[0].senderid ? intMessages[0].senderid : intMessages[0].receiverid;
+    const currentUserID = Number(document.cookie.split('=')[1]);
+
+    axios.put('http://localhost:8001/api/messages/read', { currentUserID, otherUserID })
+      .then(() => {
+        setCount(count + 1);
+      })
   }
 
   function submitMessage() {
@@ -263,11 +309,7 @@ export default function Messages(props) {
 
   // ROUTE FROM OTHER PAGE FOR SENDING MSG *********************************
 
-  console.log('messageProps', props);
-  console.log('locationProps', props.location.state)
-
   const usernameRoute = props.location.state.username;
-  console.log('usernameRoute', usernameRoute);
 
   if (usernameRoute && !routeUsername) {
     setRouteUsername(usernameRoute);
