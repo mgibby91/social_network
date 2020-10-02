@@ -14,16 +14,14 @@ const messageButton = classNames("post_body__item-message_button");
 const userCard = classNames("post_body__item-user_card");
 const circle = classNames("post_body__item-circle");
 const inline = classNames("post_body__item-inline");
+const list = classNames("post_body__item-list")
 
 export default function UserListItem(props) {	
 	const stack = props.mentor_stack.map((stack, index) => {
-		// console.log("user id in stack: ", stack.user_id);
-		// console.log("user id in props: ", props.userId);
-		
     if (stack.user_id === props.userId) {
 			console.log("stack name: ", stack.name);
 			
-      return <li key={index}>{stack.name}</li>
+      return <li className={list} key={index}>{stack.name}&nbsp;</li>
     }
 	})
 	console.log("props stack: ", stack);

@@ -113,7 +113,7 @@ export default function PostListItem(props: IProps) {
   const likesComments = classNames("post_body__item-likes_comments");
   const bg = classNames("post_body__item-bg")
   const floatRight = classNames("post_body__item-float_right")
-  const flexBetween = classNames("post_body__item-flex_between")
+
 
   return (
     <>
@@ -141,7 +141,6 @@ export default function PostListItem(props: IProps) {
                   <Card>
                     <CardBody className={postBody}>
 
-                    <div>
                       {/* POST TEXT BODY */}
                       <div className={floatRight}>
                         <small className={floatRight}>{timeAgo}</small>
@@ -174,7 +173,7 @@ export default function PostListItem(props: IProps) {
                           </div>
                         </div>
                       </Link>
-                      </div>
+
                       {/* MESSAGE BUTTON */}
                       <div className={messageButton}>
                         <Link
