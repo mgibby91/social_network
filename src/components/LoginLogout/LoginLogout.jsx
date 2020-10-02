@@ -127,10 +127,7 @@ export default function LoginLogout() {
               </button>
             </Link>
           </div>
-
-
         )
-
       }}
     </ContextConsumer>
   );
