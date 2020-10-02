@@ -13,6 +13,7 @@ export default function Register() {
   const [selectedAvatarUrl, setSelectedAvatarUrl] = useState('');
   const [showAvatarList, setShowAvatarList] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   useEffect(() => {
 
@@ -73,6 +74,17 @@ export default function Register() {
     const emailInput = document.querySelector('#email-input').value;
     const passwordInput = document.querySelector('#password-input').value;
 
+    axios.post('http://localhost:8001/api/register/new', { usernameInput, emailInput, passwordInput, avatarSrc })
+      .then(res => {
+        console.log(res);
+        setSubmitSuccess(true);
+
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 3000);
+
+      })
+
   }
 
 
@@ -96,13 +108,20 @@ export default function Register() {
         toggleAvatarList={toggleAvatarList}
         showAvatarList={showAvatarList}
       />
-      <div className="register-btn" onClick={() => handleSubmit()}>
-        REGISTER
-      </div>
-      <div className="submit-error-container">
-        {submitError && (
-          submitError
-        )}
+      <div className="register-btn-container">
+        <div className="register-btn" onClick={() => handleSubmit()}>
+          REGISTER
+        </div>
+        <div className="submit-error-container">
+          {submitError && (
+            submitError
+          )}
+        </div>
+        <div className="submit-success-container">
+          {submitSuccess && (
+            'Registration successful!'
+          )}
+        </div>
       </div>
     </div>
   )

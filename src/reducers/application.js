@@ -1,5 +1,5 @@
 const SET_POINTS = "SET_POINTS";
-
+const SET_POSTS = "SET_POSTS";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_MENTOR_POINTS = "SET_MENTOR_POINTS";
 const SET_STUDENT_POINTS = "SET_STUDENT_POINTS";
@@ -7,6 +7,8 @@ const SET_SELECTED_USER = "SET_SELECTED_USER";
 const SET_POSTS = "SET_POSTS";
 const SET_NEW_INFO = "SET_NEW_INFO";
 const SET_NEW_STACK = "SET_NEW_STACK";
+const SET_COMMENTS = "SET_COMMENTS";
+const SET_LIKES = "SET_LIKES";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
@@ -30,6 +32,26 @@ export default function reducer(state, action) {
         console.log("from reducer", el);
         user[el] = data[el];
       }
+      state = { ...state, posts: [...state.posts, data] };
+      console.log("after set posts reducer", state.posts);
+
+      return state;
+    }
+
+    case SET_LIKES: {
+      const { data } = action;
+      state = { ...state, likes: [...state.likes, data] };
+      return state;
+    }
+
+    case SET_COMMENTS: {
+      console.log("before set comments reducer", state.comments);
+
+      const { data } = action;
+
+      console.log("action in set comments: ", data);
+      state = { ...state, comments: [...state.comments, data] };
+      console.log("after set comments reducer", state.comments);
 
       //console.log("from reducer", user, users);
       // const user = state.user_profiles;
@@ -101,12 +123,6 @@ export default function reducer(state, action) {
         selected,
       };
 
-    case SET_MENTOR_POINTS:
-      return { ...state, mentor: action.id, points: action.points };
-
-    case SET_STUDENT_POINTS:
-      return { ...state, student: action.id, points: action.points };
-
     case SET_SELECTED_USER:
       const matchingUser = state.users.find(
         (user) => user.id === action.userId
@@ -122,12 +138,14 @@ export default function reducer(state, action) {
 }
 
 export {
-  SET_POINTS,
   SET_POSTS,
+  SET_COMMENTS,
   SET_APPLICATION_DATA,
   SET_MENTOR_POINTS,
   SET_STUDENT_POINTS,
   SET_SELECTED_USER,
   SET_NEW_INFO,
   SET_NEW_STACK,
+  SET_LIKES,
+  SET_POINTS,
 };

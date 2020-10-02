@@ -21,7 +21,7 @@ function Tags(props) {
 
   const onAddition = (tag) => {
     setTags([...tags, tag]);
-    console.log("tags", tags);
+    // console.log("tags", tags);
   };
 
   return (

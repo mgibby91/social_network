@@ -24,6 +24,7 @@ export default function TutorHistoryBody(props) {
         acceptAction={props.acceptAction}
         declineCancelAction={props.declineCancelAction}
         completeAction={props.completeAction}
+        generateGoogleLink={props.generateGoogleLink}
       />
     })
   }

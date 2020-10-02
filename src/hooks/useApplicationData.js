@@ -10,6 +10,8 @@ import reducer, {
   SET_POSTS,
   SET_NEW_STACK,
   SET_NEW_INFO,
+  SET_LIKES,
+  SET_COMMENTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -100,30 +102,6 @@ export default function useApplicationData() {
     };
   }, []);
 
-  const addMentorPoints = (mentorID, mentorPoints) => {
-    const url = `/api/mentor_points`;
-    const promise = axios.put(url, { mentorPoints }).then((req, res) => {
-      dispatch({
-        type: SET_POINTS,
-        points: mentorPoints,
-        id: mentorID,
-      });
-    });
-    return promise;
-  };
-
-  const addStudentPoints = (studentID, studentPoints) => {
-    const url = `/api/mentor_points`;
-    const promise = axios.put(url, { studentPoints }).then((req, res) => {
-      dispatch({
-        type: SET_POINTS,
-        points: studentPoints,
-        id: studentID,
-      });
-    });
-    return promise;
-  };
-
   const editUserInfo = (newInfo) => {
     const url = `/api/mentor_points`;
     const promise = axios.put(url, { studentPoints }).then((req, res) => {
@@ -142,7 +120,6 @@ export default function useApplicationData() {
       userId: userID,
     });
   };
-
   const createPost = (postDetails, techStack, id) => {
     const newPost = {
       text_body: postDetails.text,
@@ -158,7 +135,7 @@ export default function useApplicationData() {
       (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }
     for (let entry of techStack) {
-      console.log("stack name", entry.name);
+      // console.log("stack name in hook", entry.name);
       newPost["stack"].push(entry.name);
     }
 
@@ -172,9 +149,72 @@ export default function useApplicationData() {
           type: SET_POSTS,
           data: newPost,
         });
+      });
+    const getNewPostId = (res) => {
+      console.log(res.id);
+      axios
+        .all(
+          techStack.map((element) => {
+            const newStack = {
+              post_id: id,
+              stack_id: element.id,
+            };
+            axios.post(`http://localhost:8001/api/posts_stacks`, {
+              newStack,
+            });
+          })
+        )
+        .then(
+          axios.spread(function (...res) {
+            // all requests are now complete
+            console.log("success");
+          })
+        );
+    };
+    return promise;
+  };
+
+  const addLike = (postId, likerId) => {
+    console.log("like data in hook: ", postId, likerId);
+    const newLike = {
+      post_id: postId,
+      liker_id: likerId,
+    };
+    const promise = axios
+      .post(`http://localhost:8001/api/likes`, { newLike })
+      .then((response) => {
+        console.log("response in likes hook: ", response);
+        dispatch({
+          type: SET_LIKES,
+          data: newLike,
+        });
+      })
+      .catch((error) => {
+        console.log("I don't *like* this mess", error);
+      });
+    return promise;
+  };
+
+  const createComment = (postId, commenterId, commentDetails) => {
+    console.log(" data in comment hook: ", postId, commenterId, commentDetails);
+    const newComment = {
+      post_id: postId,
+      commenter_id: commenterId,
+      text_body: commentDetails,
+    };
+    console.log("new comment in hook: ", newComment);
+
+    const promise = axios
+      .post(`http://localhost:8001/api/comments`, { newComment })
+      .then((response) => {
+        console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: SET_COMMENTS,
+          data: newComment,
+        });
       })
       .catch((err) => {
-        console.log(err);
+        console.log("I don't *comment* this mess", err);
       });
 
     const getNewPostId = (res) => {
@@ -223,11 +263,11 @@ export default function useApplicationData() {
 
   return {
     state,
-    addMentorPoints,
-    addStudentPoints,
     createPost,
     setSelectedUser,
     updateUserInfo,
     updateMentorStack,
+    addLike,
+    createComment,
   };
 }

@@ -5,7 +5,6 @@ import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import timeSince from "../../helpers/timeSince";
 
 function PostList(props) {
-  // console.log("from posts:", props.posts);
   const postData = props.posts.map((post, index) => {
     return (
       <Col className="post" key={index} breakPoint={{ xs: 12, md: 6 }}>
