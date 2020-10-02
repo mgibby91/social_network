@@ -85,6 +85,8 @@ export default function PostListItem(props: IProps) {
     );
   });
 
+  const commentsLength = commentList.length;
+
   const likesData = props.likes.filter((like) => {
     if (props.post.post_id === like.post_id) {
       return like.liker_id;
@@ -170,7 +172,7 @@ export default function PostListItem(props: IProps) {
                       </p>
 
                       {/* COMMENTS LIST FOR POST */}
-                      <h6>Comments:</h6>
+                      <h6>{commentsLength > 1 ? commentsLength : ""} </h6>
                       {/* <div className={commentListStyle}> */}
                       <ul className={commentListStyle}>{commentList}</ul>
                       {/* </div> */}
