@@ -40,7 +40,6 @@
       text-decoration: none;
     }
     &-message_button {
-      // float: right;
       padding-top: 15px;
     }
     &-list {
@@ -76,6 +75,40 @@
     &-comment_button {
       float: right;
       padding-top: 3px;
+    }
+    &-blue_button {
+      border: 1px solid #3366ff;
+      color: #3366ff;
+      font-weight: 900;
+      border-radius: 5px;
+      padding: 0.7rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 160px;
+      font-size: 1.1em;
+    }
+    &-blue_button:hover {
+      cursor: pointer;
+      background: #3366ff;
+      color: white;
+    }
+    &-like_button {
+      border: 1px solid #3366ff;
+      color: #3366ff;
+      font-weight: 700;
+      border-radius: 5px;
+      padding: 0.2rem 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      font-size: 1.1em;
+    }
+    &-like_button:hover {
+      cursor: pointer;
+      background: #3366ff;
+      color: white;
     }
   }
 }

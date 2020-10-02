@@ -113,8 +113,8 @@ export default function PostListItem(props: IProps) {
   const likesComments = classNames("post_body__item-likes_comments");
   const bg = classNames("post_body__item-bg")
   const floatRight = classNames("post_body__item-float_right")
-
-
+  const blueButton = classNames("post_body__item-blue_button")
+  const likeButton = classNames("post_body__item-like_button")
   return (
     <>
       <ContextConsumer>
@@ -176,11 +176,11 @@ export default function PostListItem(props: IProps) {
 
                       {/* MESSAGE BUTTON */}
                       <div className={messageButton}>
-                        <Link
+                        <Link className={userLink}
                           to={`/messages/`}
                           state={{ username: props.post.username }}
                         >
-                          <Button>Message User</Button>
+                          <div className={blueButton}>Message User</div>
                         </Link>
                       </div>
 
@@ -188,13 +188,14 @@ export default function PostListItem(props: IProps) {
                       <h5>Stack: {stack}</h5>
 
                       {/* BUTTON FOR LIKES */}
-                      <Button
+                      <div 
+                        className={likeButton}
                         onClick={() =>
                           props.addLike(props.post.post_id, currentUser.id)
                         }
                       >
                         Like
-                      </Button>
+                      </div>
 
                       <div className={likesComments}>
                         {/* LIKE COUNT */}
