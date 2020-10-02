@@ -17,6 +17,7 @@ import SidebarCustom from "./Sidebar";
 import useApplicationData from "../hooks/useApplicationData";
 import globalAppData from '../hooks/globalAppData';
 import setNotifications from '../helpers/setNotifications';
+import setUnseenTutor from '../helpers/setUnseenTutor';
 import { ContextProviderComponent } from "../context/context";
 import "./layout.scss"
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
@@ -71,13 +72,13 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   }
   // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
 
-  // MATT'S STUFF FOR MESSAGES NOTIFICATIONS *************************************************
-  const { unreadMessages } = localStorage;
+  // MATT'S STUFF FOR MESSAGES + TUTOR NOTIFICATIONS *************************************************
+  const { unreadMessages, unreadTutor } = localStorage;
 
   setNotifications(unreadMessages);
+  setUnseenTutor(unreadTutor);
 
-
-  // MATT'S STUFF FOR MESSAGES NOTIFICATIONS *************************************************
+  // MATT'S STUFF FOR MESSAGES + TUTOR NOTIFICATIONS *************************************************
 
   return (
     <ContextProviderComponent>

@@ -252,6 +252,8 @@ export default function TutorSessions() {
 
     const textInput = 'https://meet.google.com/nnj-hsyf-xft';
 
+    window.open('http://meet.google.com/new/');
+
     axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID, senderID })
       .then(res => {
         console.log(res);
@@ -262,7 +264,7 @@ export default function TutorSessions() {
         setShowCopyLink(true);
         setTimeout(() => {
           setShowCopyLink(false);
-        }, 2500);
+        }, 5000);
       });
   }
 
