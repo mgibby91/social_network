@@ -1,4 +1,5 @@
 import { useReducer, useEffect } from "react";
+import { getStack, makeStackObj } from "../helpers/profileHelpers";
 import axios from "axios";
 import reducer, {
   SET_POINTS,
@@ -7,6 +8,8 @@ import reducer, {
   SET_STUDENT_POINTS,
   SET_MENTOR_POINTS,
   SET_POSTS,
+  SET_NEW_STACK,
+  SET_NEW_INFO,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -24,6 +27,7 @@ export default function useApplicationData() {
     student_points: [],
     stack_preferences: [],
     posts_stacks: [],
+    avatars: [],
     selected: {},
   });
 
@@ -42,7 +46,7 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/student_points"),
       axios.get("http://localhost:8001/api/stack_preferences"),
       axios.get("http://localhost:8001/api/posts_stacks"),
-      // axios.get('http://localhost:8001/api/student_rating/1'),
+      axios.get("http://localhost:8001/api/register/avatars"),
     ]).then((all) => {
       // console.log("all from applicatin data hook: ", all);
       const comments = all[0].data;
@@ -57,6 +61,7 @@ export default function useApplicationData() {
       const student_points = all[9].data;
       const stack_preferences = all[10].data;
       const posts_stacks = all[11].data;
+      const avatars = all[12].data;
       const selected = {};
       dispatch({
         type: SET_APPLICATION_DATA,
@@ -72,6 +77,7 @@ export default function useApplicationData() {
         student_points,
         stack_preferences,
         posts_stacks,
+        avatars,
         selected,
       });
     });
@@ -158,8 +164,10 @@ export default function useApplicationData() {
 
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { newPost })
-      .then((response, reject) => {
+      .then((response) => {
+        console.log("response.data in first .then", response.data);
         getNewPostId(response.data);
+
         dispatch({
           type: SET_POSTS,
           data: newPost,
@@ -171,26 +179,46 @@ export default function useApplicationData() {
 
     const getNewPostId = (res) => {
       console.log(res);
-      axios
-        .all(
-          techStack.map((element) => {
-            const newStack = {
-              post_id: id,
-              stack_id: element.id,
-            };
-            axios.post(`http://localhost:8001/api/posts_stacks`, {
-              newStack,
-            });
-          })
-        )
-        .then(
-          axios.spread(function (...res) {
-            // all requests are now complete
-            console.log(res);
-          })
-        );
+      Promise.all(
+        techStack.map((element) => {
+          // const newStack = {};
+          return axios.post(`http://localhost:8001/api/posts_stacks`, {
+            post_id: res.id,
+            stack_id: element.id,
+          });
+        })
+      ).then((postsstacks_replies) => {
+        console.log("my goodness", postsstacks_replies);
+      });
     };
     return promise;
+  };
+
+  const updateUserInfo = (newInfo, id) => {
+    console.log(
+      "here in create",
+      state.user_profiles,
+      state.mentor_stack,
+      newInfo
+    );
+    dispatch({
+      type: SET_NEW_INFO,
+      data: newInfo,
+      id: id,
+    });
+  };
+
+  const updateMentorStack = (removed, added, id) => {
+    console.log("here in stack", removed, added);
+
+    const arrOfRemoved = makeStackObj(removed, id);
+    const arrOfAdded = makeStackObj(added, id);
+    // console.log(arrOfRemoved);
+    dispatch({
+      type: SET_NEW_STACK,
+      removed: arrOfRemoved,
+      added: arrOfAdded,
+    });
   };
 
   return {
@@ -199,5 +227,7 @@ export default function useApplicationData() {
     addStudentPoints,
     createPost,
     setSelectedUser,
+    updateUserInfo,
+    updateMentorStack,
   };
 }

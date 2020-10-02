@@ -72,3 +72,17 @@ export function getStack(stack, senderId) {
   // console.log("stack", currentStack);
   return currentStack;
 }
+
+export function makeStackObj(stackArray, id) {
+  const arrOfObj = [];
+
+  for (let el of stackArray) {
+    let obj = {
+      user_id: id,
+      name: el,
+    };
+    arrOfObj.push(obj);
+  }
+
+  return arrOfObj;
+}

@@ -23,7 +23,12 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 function UserProfileItem(props) {
-  const { state, createPost } = useApplicationData();
+  const {
+    state,
+    createPost,
+    updateUserInfo,
+    updateMentorStack,
+  } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
 
   let senderID = document.cookie.split("=")[1];
@@ -101,7 +106,9 @@ function UserProfileItem(props) {
                       loggedInUser={data.selected}
                       mentor_stack={mentor_stack}
                       suggestion={state.stack_preferences}
-                      // onSave={onSave}
+                      avatars={state.avatars}
+                      onSaveNewInfo={updateUserInfo}
+                      onSaveNewStack={updateMentorStack}
                       onCancel={onCancel}
                     />
                   </>
