@@ -14,7 +14,7 @@ export function getUser(users, senderId) {
 }
 
 export function getUserPosts(posts, senderId) {
-  console.log("in here!!!", senderId);
+  // console.log("in profile helper!!!", senderId);
   const seen = new Set();
   const postsByUser = posts
     .filter((post) => {
@@ -26,13 +26,13 @@ export function getUserPosts(posts, senderId) {
       return !duplicate;
     });
 
-  console.log("from helper", posts, postsByUser);
+  // console.log("from helper", posts, postsByUser);
   //go through the posts and posts by user
   // if()
   for (let post of postsByUser) {
     if (!post["stack"]) {
       post["stack"] = [];
-      console.log("overwritten");
+      // console.log("overwritten in helper");
       for (let stack of posts) {
         if (post["post_id"] === stack["post_id"]) {
           post["stack"].push(stack["name"]);

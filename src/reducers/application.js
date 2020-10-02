@@ -1,26 +1,42 @@
 const SET_POINTS = "SET_POINTS";
-
+const SET_POSTS = "SET_POSTS"
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_MENTOR_POINTS = "SET_MENTOR_POINTS";
 const SET_STUDENT_POINTS = "SET_STUDENT_POINTS";
 const SET_SELECTED_USER = "SET_SELECTED_USER";
-const SET_POSTS = "SET_POSTS";
+const SET_COMMENTS = "SET_COMMENTS";
+const SET_LIKES = "SET_LIKES";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_POSTS: {
-      console.log("before", state.posts);
-      //console.log("from reducer", action.tech);
+      console.log("before set posts reducer", state.posts);
       const { data } = action;
 
-      // const newPost = data;
-      // console.log("after", data);
-
       state = { ...state, posts: [...state.posts, data] };
-      console.log("after", state.posts);
+      console.log("after set posts reducer", state.posts);
 
       return state;
     }
+    
+    case SET_LIKES: {
+      const { data } = action;
+      state = {...state, likes: [...state.likes, data ]}
+      return  state;
+    }
+
+    case SET_COMMENTS: {
+      console.log("before set comments reducer", state.comments);
+
+      const { data } = action;
+
+      console.log("action in set comments: ", data);
+      state = { ...state, comments: [...state.comments, data] };
+      console.log("after set comments reducer", state.comments);
+
+      return state;
+    }
+
     case SET_POINTS:
       return { ...state, points: action.points };
 
@@ -60,12 +76,6 @@ export default function reducer(state, action) {
         selected,
       };
 
-    case SET_MENTOR_POINTS:
-      return { ...state, mentor: action.id, points: action.points };
-
-    case SET_STUDENT_POINTS:
-      return { ...state, student: action.id, points: action.points };
-
     case SET_SELECTED_USER:
       const matchingUser = state.users.find(
         (user) => user.id === action.userId
@@ -81,10 +91,12 @@ export default function reducer(state, action) {
 }
 
 export {
-  SET_POINTS,
   SET_POSTS,
+  SET_COMMENTS,
   SET_APPLICATION_DATA,
   SET_MENTOR_POINTS,
   SET_STUDENT_POINTS,
   SET_SELECTED_USER,
+  SET_LIKES,
+  SET_POINTS,
 };

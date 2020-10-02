@@ -161,6 +161,17 @@
   color: white;
 }
 
+.tutor-btn-video {
+  color: #3366ff;
+  border: 1px solid #3366ff;
+}
+
+.tutor-btn-video:hover {
+  cursor: pointer;
+  background: #3366ff;
+  color: white;
+}
+
 .tutor-btn-hide {
   color: inheret;
   border: none;
@@ -172,6 +183,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* copy link text */
+.copy-link {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #1cd454;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color:#1cd454;
+  margin-bottom: 1rem;
 }
 
 .msg-btn-create {

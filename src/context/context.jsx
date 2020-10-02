@@ -6,10 +6,10 @@ const defaultContextValue = {
     // set your initial data shape here
     menuOpen: false,
   },
-  set: () => {},
+  set: () => { },
 }
 
-const { Provider, Consumer } = React.createContext(defaultContextValue)
+const { Provider, Consumer } = React.createContext(defaultContextValue);
 
 class ContextProviderComponent extends React.Component {
   constructor() {

@@ -2,11 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import ReactTags from "react-tag-autocomplete";
 
 function Tags(props) {
-  // console.log("from tags", props.suggested);
-  // const suggested = Object.values(props.suggested);
+  // console.log("tags", props.suggested);
   const [tags, setTags] = useState([]);
-
   const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    setTags(props.tags);
+  }, [props.tags]);
 
   useEffect(() => {
     setSuggestions(props.suggested);
@@ -17,12 +19,13 @@ function Tags(props) {
   const onDelete = (i) => {
     let tag = tags.slice(0);
     tag.splice(i, 1);
+
     setTags(tag);
   };
 
   const onAddition = (tag) => {
     setTags([...tags, tag]);
-    // console.log("tags", tags);
+    console.log("tags", tags);
   };
 
   return (
@@ -32,7 +35,7 @@ function Tags(props) {
       suggestions={suggestions}
       onDelete={onDelete}
       onAddition={onAddition}
-      onChange={props.onChange(tags)}
+      // onChange={props.onChange(tags)}
     />
   );
 }

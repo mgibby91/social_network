@@ -21,8 +21,6 @@ interface IComment {
 }
 
 export default function CommentListItem(props: IProps) {
-
-	// console.log("props in list item: ", props);
 	
   return (
 		<div>

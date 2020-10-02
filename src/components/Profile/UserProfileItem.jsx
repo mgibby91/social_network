@@ -9,8 +9,11 @@ import EditUserInfo from "./EditUserInfo";
 import Experience from "./UserExperience";
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
+
 import useVisualMode from "../../hooks/useVisualMode";
 import useApplicationData from "../../hooks/useApplicationData";
+
+import "../../styles/profile.css";
 
 const SHOW = "SHOW";
 const CONFIRM = "CONFIRM";
@@ -24,7 +27,7 @@ function UserProfileItem(props) {
   const { mode, transition, back } = useVisualMode(SHOW);
 
   let senderID = document.cookie.split("=")[1];
-  console.log("from user-profile", senderID);
+  // console.log("from user-profile", senderID);
 
   function onEdit() {
     transition(EDITING);
@@ -34,54 +37,50 @@ function UserProfileItem(props) {
     back();
   }
 
-  // const users = state.users;
+  console.log(state.users);
   let currentUser = state.users.find(
     (user) => user.id === props.userId || user.username === props.userId
   );
-  console.log("current user after prof item: ", props.userId);
+  // console.log("current user after prof item: ", props.userId);
   return (
     <>
       <ContextConsumer>
         {({ data, set }) => {
-          // console.log("data in context: ", data.selected);
           if (!data.state) return null;
+          console.log("data in context: ", data.state.users);
 
           if (!currentUser) {
-            currentUser = data.state.mentor_points.find(
+            currentUser = data.state.users.find(
               (user) => user.username === data.selected
             );
             console.log("current user in context: ", currentUser);
           }
-          if (!currentUser) {
-            currentUser = data.state.student_points.find(
-              (user) => user.username === data.selected
-            );
-            console.log("current user in context: ", currentUser);
-          }
+
           if (!currentUser) {
             return <h1>You must be logged in to view this page.</h1>;
           }
-          // console.log("current user in item: ", currentUser.id);
-          // console.log("current user in item: ", currentUser.student_id);
+
           if (currentUser.id || currentUser.student_id || currentUser.mentor_id)
             senderID = currentUser;
-          console.log("sender id in context: ", senderID.id);
-          // const posts = getUserPosts(state.posts, senderID.id);
+
           const posts = getUserPosts(state.posts, senderID.id);
-          console.log("posts in prof item: ", posts);
+
           const user = getUser(state.user_profiles, senderID.id);
-          console.log("get user in prof item: ", user);
+
+          const mentor = data.state.mentor_points.find(
+            (mentor) => mentor.id === user.id
+          );
+
+          const student = data.state.student_points.find(
+            (student) => student.id === user.id
+          );
 
           const mentor_stack = getStack(state.mentor_stack, senderID.id);
 
-          console.log("posts in prof item: ", posts);
-          console.log("sender id in prof item: ", senderID.id);
           return (
-            <Row>
+            <Row className="user-profile">
               <Col breakPoint={{ xs: 12 }}>
-                <Card>
-                  <header>Profile</header>
-                  <CardBody>
+
                     {mode === SHOW && (
                       <>
                         <UserInfo
@@ -96,43 +95,39 @@ function UserProfileItem(props) {
                       <>
                         <EditUserInfo
                           user={currentUser}
-                          avatar={user.avatar}
-                          location={user.location}
-                          username={user.username}
-                          is_mentor={user.is_mentor}
-                          is_student={user.is_student}
+                          loggedInUser={data.selected}
                           mentor_stack={mentor_stack}
+                          suggestion={state.stack_preferences}
                           // onSave={onSave}
                           onCancel={onCancel}
                         />
                       </>
                     )}
 
-                    <Experience
-                      mentor={currentUser.mentorrating}
-                      student={currentUser.studentrating}
-                      user={currentUser}
-                      // userId={state.user.id}
-                      // username={state.user.username}
-                    />
 
-                    <Row>
-                      <Col breakPoint={{ xs: 12, md: 12 }}>
-                        <Editor
-                          id={user.id}
-                          createPost={createPost}
-                          suggestion={state.stack_preferences}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col breakPoint={{ xs: 12, md: 12 }}>
-                        <header>Recent Posts</header>
-                      </Col>
-                    </Row>
-                    <PostList posts={posts} />
-                  </CardBody>
-                </Card>
+                <Experience
+                  mentor={currentUser.mentorrating}
+                  student={currentUser.studentrating}
+                  user={currentUser}
+                  // userId={state.user.id}
+                  // username={state.user.username}
+                />
+
+                <Row>
+                  <Col breakPoint={{ xs: 12, md: 12 }}>
+                    <Editor
+                      id={user.id}
+                      createPost={createPost}
+                      suggestion={state.stack_preferences}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col breakPoint={{ xs: 12, md: 12 }}>
+                    <h2>Recent Posts...</h2>
+                  </Col>
+                </Row>
+                <PostList posts={posts} />
               </Col>
             </Row>
           );

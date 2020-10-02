@@ -15,6 +15,8 @@ import Header from "./Header";
 import SimpleLayout from "./SimpleLayout";
 import SidebarCustom from "./Sidebar";
 import useApplicationData from "../hooks/useApplicationData";
+import globalAppData from '../hooks/globalAppData';
+import setNotifications from '../helpers/setNotifications';
 import { ContextProviderComponent } from "../context/context";
 import "./layout.scss"
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
@@ -22,7 +24,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   pageContext,
 }) => {
   const { state } = useApplicationData();
-  
+
   const [theme, setTheme] = useState<DefaultTheme["name"]>("dark");
   const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
   const sidebarRef = useRef<SidebarRefObject>(null);
@@ -36,6 +38,47 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
     setDir(newDir);
   };
   const props = {}
+
+  // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
+  const { avatarUrl, userID, username } = localStorage;
+
+  if (avatarUrl && userID) {
+
+    const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
+
+    const userDisplay = document.querySelector('.logged-in-username');
+
+    if (userDisplay) {
+      userDisplay.remove();
+    }
+
+    const usernameHTML = `
+    <div class='logged-in-username' style='display: flex; align-items: center; justify-content: center'>
+    <p style='margin-right: 0.5rem;'>Welcome <strong>${username}!</strong></p>
+    <img src='${avatarUrl}' />
+    </div>
+      `;
+
+    if (rightNavContainer) {
+      rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
+    }
+  } else {
+    const userDisplay = document.querySelector('.logged-in-username');
+
+    if (userDisplay) {
+      userDisplay.remove();
+    }
+  }
+  // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
+
+  // MATT'S STUFF FOR MESSAGES NOTIFICATIONS *************************************************
+  const { unreadMessages } = localStorage;
+
+  setNotifications(unreadMessages);
+
+
+  // MATT'S STUFF FOR MESSAGES NOTIFICATIONS *************************************************
+
   return (
     <ContextProviderComponent>
       <ThemeProvider theme={themes(theme, dir)}>
