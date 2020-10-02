@@ -23,7 +23,7 @@ export default function StudentList(props) {
   });
   return (
     <section>
-      <h1>users</h1>
+      {/* <h1>Users</h1> */}
       <ul>{usersData}</ul>
     </section>
   );

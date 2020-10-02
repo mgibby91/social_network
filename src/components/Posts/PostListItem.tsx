@@ -103,7 +103,8 @@ export default function PostListItem(props: IProps) {
   console.log("comment in item: ", props.comment);
   const userCard = classNames("post_body__item-user_card");
   const circle = classNames("post_body__item-circle");
-  const inline = classNames("post_body__item-inline")
+  const inline = classNames("post_body__item-inline");
+  const likesComments = classNames("post_body__item-likes_comments")
   return (
     <>
       <ContextConsumer>
@@ -175,24 +176,23 @@ export default function PostListItem(props: IProps) {
                         Like
                       </Button>
 
-                      {/* LIKE COUNT */}
-                      {likeSum > 1 ?
-                      <p>
-                        <b>{likeSum} Likes</b>
-                      </p> : ""
-                      }
-                      {likeSum === 1 ?
-                      <p>
-                        <b>{likeSum} Like</b>
-                      </p> : ""
-                      }
-
-                      {/* COMMENTS LIST FOR POST */}
-                      {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
-                      {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
-                      {/* <div className={commentListStyle}> */}
-                      <ul className={commentListStyle}>{commentList}</ul>
-                      {/* </div> */}
+                      <div className={likesComments}>
+                        {/* LIKE COUNT */}
+                        {likeSum > 1 ?
+                        <p>
+                          <b>{likeSum} Likes</b>
+                        </p> : ""
+                        }
+                        {likeSum === 1 ?
+                        <p>
+                          <b>{likeSum} Like</b>
+                        </p> : ""
+                        }
+                        {/* COMMENTS LIST FOR POST */}
+                        {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
+                        {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
+                      </div>
+                        <ul className={commentListStyle}>{commentList}</ul>
 
                       {/* FOR COMMENTING */}
                       <textarea
