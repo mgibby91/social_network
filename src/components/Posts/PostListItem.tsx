@@ -6,6 +6,8 @@ import { Link } from "@reach/router";
 import { Button } from "@paljs/ui/Button";
 import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
+import timeSince from '../../helpers/timeSince'
+
 const classNames = require("class-names");
 
 interface IProps {
@@ -58,6 +60,7 @@ export default function PostListItem(props: IProps) {
 
   const list = classNames("post_body__item-list");
   const commentStyle = classNames("post_body__item-comments");
+  const commentAvatar = classNames("post_body__item-comment_avatar")
 
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
@@ -76,11 +79,13 @@ export default function PostListItem(props: IProps) {
   const commentList = commentData.map((comment, index) => {
     return (
       <div key={index}>
-        <img src={comment.avatar} alt="avatar" />
-        <p className={commentStyle}>
-          <b>{comment.username}</b>
-        </p>
-        <li className={commentStyle}>{comment.text_body}</li>
+        <img className={commentAvatar} src={comment.avatar} alt="avatar" />
+        <div className={commentStyle}>
+          <p>
+            <b>{comment.username}</b>
+          </p>
+          <li>{comment.text_body}</li>
+        </div>
       </div>
     );
   });
@@ -96,6 +101,7 @@ export default function PostListItem(props: IProps) {
   const likeSum = likesData.length;
 
   const postBody = classNames("post_body");
+  const textBody = classNames("post_body__item-text_body")
   const userLink = classNames("post_body__item-user_link");
   const messageButton = classNames("post_body__item-message_button");
   const commentListStyle = classNames("post_body__item-comment_list");
@@ -104,7 +110,11 @@ export default function PostListItem(props: IProps) {
   const userCard = classNames("post_body__item-user_card");
   const circle = classNames("post_body__item-circle");
   const inline = classNames("post_body__item-inline");
-  const likesComments = classNames("post_body__item-likes_comments")
+  const likesComments = classNames("post_body__item-likes_comments");
+  const bg = classNames("post_body__item-bg")
+  const floatRight = classNames("post_body__item-float_right")
+  const flexBetween = classNames("post_body__item-flex_between")
+
   return (
     <>
       <ContextConsumer>
@@ -122,12 +132,23 @@ export default function PostListItem(props: IProps) {
                 setValue("");
               });
           };
+          console.log("post in listitem props: ", props.post);
+          const timeAgo = timeSince(props.post.time_posted)
           return (
             <div>
               <Row>
                 <Col breakPoint={{ xs: 12 }}>
                   <Card>
                     <CardBody className={postBody}>
+
+                    <div>
+                      {/* POST TEXT BODY */}
+                      <div className={floatRight}>
+                        <small className={floatRight}>{timeAgo}</small>
+                        <p className={textBody}>{props.post.text_body}</p>
+
+                      </div>
+
                       {/* USERS DETAILS */}
                       <Link
                         className={userLink}
@@ -137,9 +158,11 @@ export default function PostListItem(props: IProps) {
                           <div className={circle}>
                             <img src={props.post.avatar} alt="avatar"></img>
                           </div>
-
                           <div className={userCard}>
+                          <span className={bg}>
                             <h3>{props.post.username}</h3>
+                            </span>
+
                             <span>
                               {props.active ? (
                                 <h6>User is online</h6>
@@ -147,10 +170,11 @@ export default function PostListItem(props: IProps) {
                                 <h6>User is offline</h6>
                               )}
                             </span>
+                            
                           </div>
                         </div>
                       </Link>
-
+                      </div>
                       {/* MESSAGE BUTTON */}
                       <div className={messageButton}>
                         <Link
@@ -160,9 +184,6 @@ export default function PostListItem(props: IProps) {
                           <Button>Message User</Button>
                         </Link>
                       </div>
-
-                      {/* POST TEXT BODY */}
-                      <p>{props.post.text_body}</p>
 
                       {/* POST STACK LIST */}
                       <h5>Stack: {stack}</h5>

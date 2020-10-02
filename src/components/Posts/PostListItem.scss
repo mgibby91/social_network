@@ -1,14 +1,25 @@
 .post_body {
   &__item {
+    &-flex_between {
+      display: flex;
+      justify-content: space-between;
+    }
+    &-float_right {
+      float: right;
+    }
+    &-text_body {
+      float: right;
+      width: 60%;
+      padding-top: 20px;
+    }
     &-user_card {
       margin-left: 10px;
       margin-top: 10px;
       width: 22%;
       height: 10%;
-      background-color: #3366ff;
       padding-left: 18px;
-      border-radius: 10px;
     }
+
     &-likes_comments {
       display: flex;
       justify-content: space-between;
@@ -37,16 +48,30 @@
       display: inline-block;
     }
     &-comment_list {
-      background-color: white;
       border-radius: 5px;
       overflow: scroll;
+      background-color: white;
       height: 150px;
+    }
+    &-comment_avatar {
+      display: flex;
     }
     &-comments {
       list-style-type: none;
-      background-color: white;
+      background-color: #faf0e6;
       color: black;
       display: inline-block;
+      width: 90%;
+      border-radius: 15px;
+      margin-left: 60px;
+      padding: 10px;
+    }
+    &-comments p,
+    li {
+      color: black;
+    }
+    &-comments li {
+      color: black;
     }
     &-comment_button {
       float: right;
