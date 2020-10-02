@@ -6,6 +6,7 @@ import TutorRate from '../components/TutorSessions/TutorRate';
 import TutorFilter from '../components/TutorSessions/TutorFilter';
 import TutorShowPoints from '../components/TutorSessions/TutorShowPoints';
 import MessageTutorSuccess from '../components/messages/MessageTutorSuccess';
+import setUnseenTutor from '../helpers/setUnseenTutor';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
@@ -86,6 +87,20 @@ export default function TutorSessions() {
         setCount(count + 1);
       })
   }
+
+  useEffect(() => {
+
+    const userID = document.cookie.split('=')[1];
+
+    axios.put('http://localhost:8001/api/tutor_experiences/see_all', { userID })
+      .then(res => {
+        console.log('newRes', res.data);
+        setUnseenTutor(0);
+        localStorage.removeItem('unreadTutor');
+      })
+
+
+  }, [])
 
   function declineCancelAction(tutorSessionID) {
 

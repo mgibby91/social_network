@@ -82,6 +82,7 @@ export default function LoginLogout() {
     localStorage.removeItem('username');
     localStorage.removeItem('avatarUrl');
     localStorage.removeItem('unreadMessages');
+    localStorage.removeItem('unreadTutor');
     // MATT'S CODE************************************************************
   }
 
