@@ -176,12 +176,20 @@ export default function PostListItem(props: IProps) {
                       </Button>
 
                       {/* LIKE COUNT */}
+                      {likeSum > 1 ?
                       <p>
                         <b>{likeSum} Likes</b>
-                      </p>
+                      </p> : ""
+                      }
+                      {likeSum === 1 ?
+                      <p>
+                        <b>{likeSum} Like</b>
+                      </p> : ""
+                      }
 
                       {/* COMMENTS LIST FOR POST */}
-                      <h6>{commentsLength > 1 ? commentsLength : ""} </h6>
+                      {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
+                      {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
                       {/* <div className={commentListStyle}> */}
                       <ul className={commentListStyle}>{commentList}</ul>
                       {/* </div> */}
