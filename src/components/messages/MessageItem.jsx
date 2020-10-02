@@ -3,7 +3,7 @@ import timeSince from '../../helpers/timeSince';
 
 export default function MessageItem(props) {
 
-  const firstInitial = props.username[0].toUpperCase();
+  console.log('MessageItemprops', props);
 
   let messageBody;
   if (props.recentMessage.textBody.length > 25) {
@@ -21,6 +21,15 @@ export default function MessageItem(props) {
     }
   }
 
+  function checkUsernameUnread(props) {
+    for (let username of props.usernamesUnread) {
+      if (props.username === username) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   return (
     <div className='message-item-container' onClick={() => props.clickMe(props.username)}>
       <div className="message-icon-container">
@@ -35,6 +44,11 @@ export default function MessageItem(props) {
       <div className="message-time">
         {timeAgo}
       </div>
+      {checkUsernameUnread(props) && (
+        <div className="message-unread-label">
+          NEW!
+        </div>
+      )}
     </div>
   )
 

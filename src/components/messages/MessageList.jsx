@@ -41,6 +41,7 @@ export default function MessageList(props) {
         username={message[0]}
         clickMe={props.clickMe}
         avatarList={props.avatarList}
+        usernamesUnread={props.usernamesUnread}
       />
     })
   }

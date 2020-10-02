@@ -37,6 +37,7 @@
   width: 100%;
   height: 100px;
   border: 1px solid white;
+  position: relative;
 }
 
 .message-item-container:hover{
@@ -359,4 +360,15 @@
   width: 18px;
   height: 18px;
   font-size: 0.7rem;
+}
+
+
+/* message unread label */
+.message-unread-label {
+  font-size: 0.7rem;
+  position: absolute;
+  top: 75px;
+  background: rgb(250, 70, 70);
+  border-radius: 5px;
+  padding: 0 0.3rem;
 }

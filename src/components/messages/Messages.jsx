@@ -26,6 +26,7 @@ export default function Messages(props) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [routeUsername, setRouteUsername] = useState('');
   const [totalUnread, setTotalUnread] = useState(0);
+  const [usernamesUnread, setUsernamesUnread] = useState([]);
 
   useEffect(() => {
 
@@ -35,7 +36,6 @@ export default function Messages(props) {
       .then((data) => {
         const currentUserID = data.data.userId;
         const currentData = data.data.data;
-        // console.log('currentData', currentData);
 
         const unreadCount = unreadCounter(Number(userID), currentData);
         setTotalUnread(unreadCount);
@@ -49,7 +49,7 @@ export default function Messages(props) {
 
         const newMessageList = messageCleanSort(currentUserID, currentData);
 
-        // console.log('messageList', newMessageList);
+        console.log('messageList', newMessageList);
 
         setMessageList({ messageList: newMessageList });
 
@@ -69,6 +69,17 @@ export default function Messages(props) {
         if (currentUsername) {
           changeBg(currentUsername);
         }
+
+        console.log('currentData', currentData);
+        let usernamesNotRead = [];
+        for (let message of currentData) {
+          if (message.senderid !== userID && !message.receiver_read && message.sender) {
+            usernamesNotRead.push(message.sender);
+          }
+        }
+        usernamesNotRead = [...new Set(usernamesNotRead)];
+        console.log('usernamesNotRead', usernamesNotRead);
+        setUsernamesUnread(usernamesNotRead);
 
       });
 
@@ -340,6 +351,7 @@ export default function Messages(props) {
             clickMe={clickMe}
             username={currentUsername}
             avatarList={avatars}
+            usernamesUnread={usernamesUnread}
           />
         </div>
         <div className='right-message-container'>
