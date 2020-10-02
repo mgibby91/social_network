@@ -31,6 +31,7 @@ export default function TutorSessions() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showPointsGiven, setShowPointsGiven] = useState(false);
   const [pointsArray, setPointsArray] = useState([]);
+  const [showCopyLink, setShowCopyLink] = useState(false);
 
   useEffect(() => {
 
@@ -122,7 +123,6 @@ export default function TutorSessions() {
 
     axios.put('http://localhost:8001/api/tutor_experiences/complete', { tutorSessionID, isMentor, rating, comments })
       .then((res) => {
-        console.log('resresres', res);
         setCount(count + 1);
 
         setPointsArray([ratingUsername, rating]);
@@ -152,7 +152,6 @@ export default function TutorSessions() {
 
     axios.put('http://localhost:8001/api/tutor_experiences/complete-other', { isMentorRating, rating, comments, tutorSessionID })
       .then((res) => {
-        console.log('updatedRes', res)
         setUnratedSession(null);
         setCount(count + 1);
         setPointsArray([ratingUsername, rating]);
@@ -216,7 +215,7 @@ export default function TutorSessions() {
       return;
     } else {
       axios.post('http://localhost:8001/api/tutor_experiences/new', { mentorID, studentID, creatorID })
-        .then(() => {
+        .then((res) => {
           setCount(count + 1);
           document.querySelector('#search-user-input').value = '';
           setShowSuccess(true);
@@ -244,9 +243,30 @@ export default function TutorSessions() {
     setCount(count + 1);
 
   }
-
-
   // FILTER STATUS *************************************************
+
+  // GENERATE GOOGLE HANGOUTS LINK *************************************************
+  function generateGoogleLink(receiverID) {
+    console.log('otheruserID', receiverID);
+    const senderID = loggedInUserID;
+
+    const textInput = 'https://meet.google.com/nnj-hsyf-xft';
+
+    axios.post('http://localhost:8001/api/messages/new', { textInput, receiverID, senderID })
+      .then(res => {
+        console.log(res);
+        const link = 'http://meet.google.com/new/';
+        // const link = 'https://meet.google.com/nnj-hsyf-xft';
+        navigator.clipboard.writeText(link)
+
+        setShowCopyLink(true);
+        setTimeout(() => {
+          setShowCopyLink(false);
+        }, 2500);
+      });
+  }
+
+  // GENERATE GOOGLE HANGOUTS LINK *************************************************
 
 
   return (
@@ -256,6 +276,11 @@ export default function TutorSessions() {
         createTutorSession={createTutorSession}
         createError={createError}
       />
+      )}
+      {showCopyLink && (
+        <div className="copy-link">
+          Link sent and copied to clipboard!
+        </div>
       )}
       {showSuccess && (
         <MessageTutorSuccess
@@ -293,6 +318,7 @@ export default function TutorSessions() {
         cancelConfirmDelete={cancelConfirmDelete}
         confirmConfirmDelete={confirmConfirmDelete}
         tutorSessionID={tutorSessionID}
+        generateGoogleLink={generateGoogleLink}
       />
     </div>
   );

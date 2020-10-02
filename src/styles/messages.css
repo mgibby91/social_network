@@ -227,7 +227,7 @@
   align-items: center;
 }
 
-textarea {
+.message-text-area textarea {
   resize: none;
   border-radius: 8px;
   margin-top: 3px;
@@ -243,7 +243,8 @@ textarea {
   overflow: hidden;
 }
 
-textarea:focus {
+.message-text-area textarea:focus,
+.message-text-area textarea:hover {
   outline: none;
   border: 1px solid #3366ff;
 }
@@ -335,4 +336,20 @@ textarea:focus {
   font-size: 1.4rem;
   font-weight: 600;
   color: #1cd454;
+}
+
+/* Notifications */
+.message-notification-num {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 108px;
+  color: white;
+  top: 5px;
+  background: rgb(250, 70, 70);
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
 }
