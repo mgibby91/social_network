@@ -10,7 +10,7 @@ import { getPathReady } from "./Sidebar";
 import { Location } from "@reach/router";
 import { breakpointDown } from "@paljs/ui/breakpoints";
 import LoginLogout from "../components/LoginLogout/LoginLogout";
-
+import Experience from "../components/Profile/UserExperience"
 const HeaderStyle = styled.div`
   display: flex;
   width: 100%;
@@ -35,10 +35,6 @@ const HeaderStyle = styled.div`
 const Label = styled.span`
   display: flex;
   align-items: center;
-`;
-
-const SelectStyled = styled(Select)`
-  min-width: 150px;
 `;
 
 interface HeaderProps {
@@ -119,22 +115,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             },
             {
               content: (
-                // <Location>
-                //   {({ location }) => (
-                //     <ContextMenu
-                //       style={{ cursor: "pointer" }}
-                //       placement="bottom"
-                //       currentPath={getPathReady(location.pathname)}
-                //       items={[
-                //         { title: "Profile", link: { to: "/user-profile" } },
-                //         { title: "Log out", link: { to: "/logout" } },
-                //       ]}
-                //       Link={Link}
-                //     >
                   <LoginLogout/>                
-                    // </ContextMenu>
-                  // )}
-                // </Location>
               ),
             },
           ]}
