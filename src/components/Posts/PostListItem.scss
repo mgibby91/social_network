@@ -66,10 +66,10 @@
       margin-left: 60px;
       padding: 10px;
     }
-    &-comments p,
-    li {
-      color: black;
-    }
+    // &-comments p,
+    // li {
+    //   color: black;
+    // }
     &-comments li {
       color: black;
     }
@@ -111,5 +111,25 @@
       background: #3366ff;
       color: white;
     }
+    &-delete_button {
+      border: 1px solid #3366ff;
+      color: #3366ff;
+      font-weight: 700;
+      border-radius: 5px;
+      padding: 0.2rem 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      font-size: 1.1em;
+    }
+    &-delete_button:hover {
+      cursor: pointer;
+      background: #3366ff;
+      color: white;
+    }
   }
+}
+.delete-button {
+  color: #3366ff;
 }

@@ -167,13 +167,11 @@ export default function useApplicationData() {
     return promise;
   };
 
-  const addLike = (commentDetails, postId, likerId) => {
+  const addLike = (postId, likerId) => {
     console.log("like data in hook: ", postId, likerId);
     const newLike = {
       post_id: postId,
-      liker_id: likerId,
-      avatar: commentDetails.avatar,
-      username: commentDetails.username,
+      liker_id: likerId
     };
     const promise = axios
       .post(`http://localhost:8001/api/likes`, { newLike })
@@ -211,12 +209,14 @@ export default function useApplicationData() {
     return promise;
   }
 
-  const createComment = (postId, commenterId, commentDetails) => {
+  const createComment = (postId, commenterId, commentDetails, commentObj) => {
     console.log(" data in comment hook: ", postId, commenterId, commentDetails);
     const newComment = {
       post_id: postId,
       commenter_id: commenterId,
       text_body: commentDetails,
+      avatar: commentObj.avatar,
+      username: commentObj.username
     };
     console.log("new comment in hook: ", newComment);
 

@@ -27,6 +27,7 @@ export default function Home() {
   const users = state.users;
   return (
     <div className="App">
+      <h1>Request or offer assistance:</h1>
       <Editor 
         createPost={createPost} 
         suggestion={state.stack_preferences} 

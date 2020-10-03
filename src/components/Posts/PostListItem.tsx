@@ -24,10 +24,10 @@ interface IProps {
   data: any;
   users: IUsers;
   createComment: (
-    comment_details: (avatar: string, username: string) => void,
     post_id: number,
     commenter_id: number,
-    text_body: string
+    text_body: string,
+    comment_details: (avatar: any, username: any) => void
   ) => void;
   onChange: () => void;
   then: () => void;
@@ -63,7 +63,7 @@ export default function PostListItem(props: IProps) {
   const list = classNames("post_body__item-list");
   const commentStyle = classNames("post_body__item-comments");
   const commentAvatar = classNames("post_body__item-comment_avatar");
-
+  const deleteButton = classNames("post_body__item-delete_button");
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
       <li className={list} key={index}>
@@ -72,20 +72,21 @@ export default function PostListItem(props: IProps) {
     );
   });
 
-  const commentData = props.comments.filter((comment) => {
+  const postComments = props.comments.filter((comment) => {
     if (props.post.post_id === comment.post_id) {
-      return comment;
+      return true;
     }
   });
 
-  const commentList = commentData.map((comment, index) => {
+  const commentList = postComments.map((comment, index) => {
     return (
       <div key={index}>
         <img className={commentAvatar} src={comment.avatar} alt="avatar" />
         <div className={commentStyle}>
-          <p>
+          <p className={deleteButton}>Delete</p>
+          <li>
             <b>{comment.username}</b>
-          </p>
+          </li>
           <li>{comment.text_body}</li>
         </div>
       </div>
@@ -116,7 +117,7 @@ export default function PostListItem(props: IProps) {
   const likeButton = classNames("post_body__item-like_button");
 
   console.log("comments in list item: ", props.comments);
-  console.log("post in list item: ", props.post.post_id);
+  // console.log("post in list item: ", props.post.post_id);
 
   return (
     <>
@@ -131,7 +132,12 @@ export default function PostListItem(props: IProps) {
             (like) => currentUser.id === like.liker_id
           );
 
+          const myComments = postComments.filter(
+            (comment) => currentUser.id === comment.commenter_id
+          );
+
           const iAlreadyLikeThis = myLikes.length > 0;
+          const iAlreadyCommented = myComments.length > 0;
 
           const commentObj = {
             avatar: currentUser.avatar,
@@ -142,10 +148,10 @@ export default function PostListItem(props: IProps) {
             //check for empty input here
             props
               .createComment(
-                commentObj,
                 props.post.post_id,
                 currentUser.id,
-                value
+                value,
+                commentObj
               )
               .then(() => {
                 setValue("");
