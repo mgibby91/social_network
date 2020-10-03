@@ -38,6 +38,10 @@ function UserProfileItem(props) {
     transition(EDITING);
   }
 
+  function onSave() {
+    transition(SHOW);
+  }
+
   function onCancel() {
     back();
   }
@@ -55,7 +59,7 @@ function UserProfileItem(props) {
           console.log("data in context: ", data.state.users);
 
           if (!currentUser) {
-            currentUser = data.state.users.find(
+            currentUser = state.users.find(
               (user) => user.username === data.selected
             );
             console.log("current user in context: ", currentUser);
@@ -65,8 +69,14 @@ function UserProfileItem(props) {
             return <h1>You must be logged in to view this page.</h1>;
           }
 
-          if (currentUser.id || currentUser.student_id || currentUser.mentor_id)
+          if (
+            currentUser.id ||
+            currentUser.student_id ||
+            currentUser.mentor_id
+          ) {
             senderID = currentUser;
+          }
+          const comments = state.comments;
 
           const posts = getUserPosts(state.posts, senderID.id);
 
@@ -89,6 +99,7 @@ function UserProfileItem(props) {
 
                 {mode === SHOW && (
                   <>
+                    {console.log("after reducer", state.users[0])}
                     <UserInfo
                       user={currentUser}
                       loggedInUser={data.selected}
@@ -107,6 +118,7 @@ function UserProfileItem(props) {
                       avatars={state.avatars}
                       onSaveNewInfo={updateUserInfo}
                       onSaveNewStack={updateMentorStack}
+                      onSave={onSave}
                       onCancel={onCancel}
                     />
                   </>
@@ -134,7 +146,7 @@ function UserProfileItem(props) {
                     <h2>Recent Posts...</h2>
                   </Col>
                 </Row>
-                <PostList posts={posts} />
+                <PostList comments={comments} posts={posts} />
               </Col>
             </Row>
           );

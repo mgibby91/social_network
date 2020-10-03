@@ -64,6 +64,7 @@ function EditUserInfo(props) {
 
     console.log("new stack?", oldStack, newStack, removed, added);
     props.onSaveNewInfo(newDetails, props.user.id);
+    props.onSave();
   }
   return (
     <Card>

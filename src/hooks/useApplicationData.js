@@ -12,6 +12,8 @@ import reducer, {
   SET_NEW_INFO,
   SET_LIKES,
   SET_COMMENTS,
+  ADD_TO_STACK,
+  REMOVE_FROM_STACK,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -155,12 +157,9 @@ export default function useApplicationData() {
       axios
         .all(
           techStack.map((element) => {
-            const newStack = {
-              post_id: id,
-              stack_id: element.id,
-            };
             axios.post(`http://localhost:8001/api/posts_stacks`, {
-              newStack,
+              post_id: res.id,
+              stack_id: element.id,
             });
           })
         )
@@ -217,20 +216,6 @@ export default function useApplicationData() {
         console.log("I don't *comment* this mess", err);
       });
 
-    const getNewPostId = (res) => {
-      console.log(res);
-      Promise.all(
-        techStack.map((element) => {
-          // const newStack = {};
-          return axios.post(`http://localhost:8001/api/posts_stacks`, {
-            post_id: res.id,
-            stack_id: element.id,
-          });
-        })
-      ).then((postsstacks_replies) => {
-        console.log("my goodness", postsstacks_replies);
-      });
-    };
     return promise;
   };
 
@@ -249,16 +234,40 @@ export default function useApplicationData() {
   };
 
   const updateMentorStack = (removed, added, id) => {
-    console.log("here in stack", removed, added);
-
     const arrOfRemoved = makeStackObj(removed, id);
     const arrOfAdded = makeStackObj(added, id);
-    // console.log(arrOfRemoved);
-    dispatch({
-      type: SET_NEW_STACK,
-      removed: arrOfRemoved,
-      added: arrOfAdded,
-    });
+
+    if (arrOfRemoved.length !== 0) {
+      axios
+        .all(
+          arrOfRemoved.map((element) => {
+            axios.delete(`http://localhost:8001/api/mentor_stack`, {
+              params: element,
+            });
+          })
+        )
+        .then(
+          dispatch({
+            type: REMOVE_FROM_STACK,
+            removed: arrOfRemoved,
+          })
+        );
+    }
+
+    if (arrOfAdded.length !== 0) {
+      axios
+        .all(
+          arrOfAdded.map((element) => {
+            axios.post(`http://localhost:8001/api/mentor_stack`, element);
+          })
+        )
+        .then(
+          dispatch({
+            type: ADD_TO_STACK,
+            added: arrOfAdded,
+          })
+        );
+    }
   };
 
   return {
