@@ -118,6 +118,7 @@ export default function PostListItem(props: IProps) {
       <ContextConsumer>
         {({ data }) => {
           if (!data.state) return null;
+          if (!data.selected) return null;
           const currentUser = props.users.find(
             (user) => user.username === data.selected
           );

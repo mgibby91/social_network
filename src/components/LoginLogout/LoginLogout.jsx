@@ -75,7 +75,7 @@ export default function LoginLogout() {
     });
   }
   // console.log("State in login: ", state);
-  function logout() {
+  function logout(data, set) {
     document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
     // const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
@@ -97,6 +97,8 @@ export default function LoginLogout() {
     localStorage.removeItem('username');
     localStorage.removeItem('avatarUrl');
     localStorage.removeItem('unreadMessages');
+    set({ ...data, state: state, selected: null });
+
     // MATT'S CODE************************************************************
   }
 
@@ -122,7 +124,7 @@ export default function LoginLogout() {
               Login
               </button>
             <Link to={'/'}>
-              <button type="button" name="logout" onClick={() => logout()}>
+              <button type="button" name="logout" onClick={() => logout(data, set)}>
                 Logout
               </button>
             </Link>

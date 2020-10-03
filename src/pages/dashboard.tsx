@@ -4,6 +4,9 @@ import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
 import { getDashboardPosts } from "../helpers/profileHelpers";
+import ContextConsumer from '../context/context'
+import LoginLogout from '../components/LoginLogout/LoginLogout'
+import Register from '../components/LoginLogout/Register'
 
 interface IProps {
   value: object;
@@ -26,24 +29,37 @@ export default function Home() {
   const likes = state.likes;
   const users = state.users;
   return (
-    <div className="App">
-      <h1>Request or offer assistance:</h1>
-      <Editor 
-        createPost={createPost} 
-        suggestion={state.stack_preferences} 
-        users={users}
-      />
-      <PostList
-        users={users}
-        posts={dashPosts} 
-        comments={comments}
-        likes={likes}
-        addLike={addLike}
-        removeLike={removeLike}
-        createComment={createComment}
-        removeComment={removeComment}
-        editComment={editComment}
-      />
-    </div>
+    <ContextConsumer>
+    {({ data }) => {
+      if (!data.state) return (
+        <div>
+          <h1>Please login or register before using Stack.</h1>
+          <LoginLogout></LoginLogout>
+          <Register></Register>
+        </div>
+      )
+      return (
+        <div className="App">
+          <h1>Request or offer assistance:</h1>
+          <Editor 
+            createPost={createPost} 
+            suggestion={state.stack_preferences} 
+            users={users}
+          />
+          <PostList
+            users={users}
+            posts={dashPosts} 
+            comments={comments}
+            likes={likes}
+            addLike={addLike}
+            removeLike={removeLike}
+            createComment={createComment}
+            removeComment={removeComment}
+            editComment={editComment}
+          />
+        </div>
+        );
+      }}
+    </ContextConsumer>
   );
 }

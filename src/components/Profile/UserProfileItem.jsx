@@ -47,6 +47,7 @@ function UserProfileItem(props) {
       <ContextConsumer>
         {({ data, set }) => {
           if (!data.state) return null;
+          if (!data.selected) return null;
           console.log("data in context: ", data.state.users);
 
           if (!currentUser) {

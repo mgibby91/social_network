@@ -114,6 +114,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <ContextConsumer>
                     {({ data }) => {
                       if (!data.state) return null;
+                      if (!data.selected) return null;
                       const currentUser = data.state.users.find(
                         (user) => user.username === data.selected
                       );
@@ -142,6 +143,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <ContextConsumer>
                     {({ data }) => {
                       if (!data.state) return null;
+                      if (!data.selected) return null;
                       const currentUser = data.state.users.find(
                         (user) => user.username === data.selected
                       );
@@ -172,6 +174,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <ContextConsumer>
                     {({ data }) => {
                       if (!data.state) return null;
+                      if (!data.selected) return null;
                       const currentUser = data.state.users.find(
                         (user) => user.username === data.selected
                       );
@@ -200,6 +203,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <ContextConsumer>
                     {({ data }) => {
                       if (!data.state) return null;
+                      if (!data.selected) return null;
                       const currentUser = data.state.users.find(
                         (user) => user.username === data.selected
                       );
