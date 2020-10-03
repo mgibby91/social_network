@@ -18,6 +18,11 @@ interface IProps {
     commenter_id: number,
     text_body: string
   ) => void;
+  editComment: (
+    post_id: number,
+    commenter_id: number,
+    text_body: string
+  ) => void;
 }
 
 interface IUsers {
@@ -54,6 +59,7 @@ export default function PostList(props: IProps) {
         removeLike={props.removeLike}
         createComment={props.createComment}
         removeComment={props.removeComment}
+        editComment={props.editComment}
         users={props.users}
       />
     );

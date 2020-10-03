@@ -18,7 +18,7 @@ interface IUsers {
 }
 
 export default function Home() {
-  const { state, createPost, addLike, createComment, removeLike, removeComment } = useApplicationData();
+  const { state, createPost, addLike, createComment, removeLike, removeComment, editComment } = useApplicationData();
 
   const dashPosts = getDashboardPosts(state.posts);
   // console.log("dashposts in dash: ", dashPosts);
@@ -42,6 +42,7 @@ export default function Home() {
         removeLike={removeLike}
         createComment={createComment}
         removeComment={removeComment}
+        editComment={editComment}
       />
     </div>
   );

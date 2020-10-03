@@ -34,6 +34,12 @@ interface IProps {
     commenter_id: number,
     text_body: string
   ) => void;
+  editComment: (
+    post_id: number,
+    commenter_id: number,
+    text_body: string,
+    value: string
+  ) => void;
   onChange: () => void;
   then: () => void;
 }
@@ -43,7 +49,7 @@ interface IUsers {
 }
 
 interface IComments {
-  [index: number]: { id: number; user_id: number; name: string };
+  [index: number]: { id: number; user_id: number; name: string, post_id: number, text_body: string };
 }
 
 interface ILikes {
@@ -60,15 +66,31 @@ interface IPost {
   username: string;
   post_id: number;
   id: number;
+  owner_id: number;
 }
+
+const list = classNames("post_body__item-list");
+const commentStyle = classNames("post_body__item-comments");
+const commentAvatar = classNames("post_body__item-comment_avatar");
+const deleteButton = classNames("post_body__item-delete_button");
+const postBody = classNames("post_body");
+const textBody = classNames("post_body__item-text_body");
+const userLink = classNames("post_body__item-user_link");
+const messageButton = classNames("post_body__item-message_button");
+const commentListStyle = classNames("post_body__item-comment_list");
+const commentButton = classNames("post_body__item-comment_button");
+const userCard = classNames("post_body__item-user_card");
+const circle = classNames("post_body__item-circle");
+const inline = classNames("post_body__item-inline");
+const likesComments = classNames("post_body__item-likes_comments");
+const bg = classNames("post_body__item-bg");
+const floatRight = classNames("post_body__item-float_right");
+const blueButton = classNames("post_body__item-blue_button");
+const likeButton = classNames("post_body__item-like_button");
 
 export default function PostListItem(props: IProps) {
   const [value, setValue] = React.useState("Comment here...");
 
-  const list = classNames("post_body__item-list");
-  const commentStyle = classNames("post_body__item-comments");
-  const commentAvatar = classNames("post_body__item-comment_avatar");
-  const deleteButton = classNames("post_body__item-delete_button");
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
       <li className={list} key={index}>
@@ -89,23 +111,7 @@ export default function PostListItem(props: IProps) {
 
   const likeSum = postLikes.length;
 
-  const postBody = classNames("post_body");
-  const textBody = classNames("post_body__item-text_body");
-  const userLink = classNames("post_body__item-user_link");
-  const messageButton = classNames("post_body__item-message_button");
-  const commentListStyle = classNames("post_body__item-comment_list");
-  const commentButton = classNames("post_body__item-comment_button");
-  const userCard = classNames("post_body__item-user_card");
-  const circle = classNames("post_body__item-circle");
-  const inline = classNames("post_body__item-inline");
-  const likesComments = classNames("post_body__item-likes_comments");
-  const bg = classNames("post_body__item-bg");
-  const floatRight = classNames("post_body__item-float_right");
-  const blueButton = classNames("post_body__item-blue_button");
-  const likeButton = classNames("post_body__item-like_button");
 
-  // console.log("comments in list item: ", props.comments);
-  // console.log("post in list item: ", props.post.post_id);
 
   return (
     <>
@@ -120,52 +126,58 @@ export default function PostListItem(props: IProps) {
             (like) => currentUser.id === like.liker_id
           );
 
-          const myComments = postComments.filter(
-            (comment) => currentUser.id === comment.commenter_id
-          );
-          // console.log("my comments in post list: ", myComments.length);
-
           const iAlreadyLikeThis = myLikes.length > 0;
-          const iAlreadyCommented = myComments.length > 0;
-
+          
           const commentList = postComments.map((comment, index) => {
-            const onRemove = () => {
-              //check for empty input here
-              props.removeComment(props.post.post_id, currentUser.id, value);
-            };
 
-            return (
-              <div key={index}>
-                <img
-                  className={commentAvatar}
-                  src={comment.avatar}
-                  alt="avatar"
-                />
-                <div className={commentStyle}>
-                  {iAlreadyCommented ? (
+          const myComment = currentUser.id === comment.commenter_id;
+
+          const myCommentOrPost = currentUser.id === comment.commenter_id || currentUser.id === props.post.owner_id ;
+            
+          return (
+            <div key={index}>
+              <img
+                className={commentAvatar}
+                src={comment.avatar}
+                alt="avatar"
+              />
+              <div className={commentStyle}>
+                <div className={inline}>
+                  {myComment ? (
                     <p onClick={() => onRemove()} className={deleteButton}>
+                      Edit
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {myCommentOrPost ? (
+                    <p onClick={() => onEdit()} className={deleteButton}>
                       Delete
                     </p>
                   ) : (
                     ""
                   )}
-                  <li>
-                    <b>{comment.username}</b>
-                  </li>
-                  <li>{comment.text_body}</li>
                 </div>
-              </div>
-            );
-          });
 
+                <li>
+                  <b>{comment.username}</b>
+                </li>
+                <li>{comment.text_body}</li>
+              </div>
+            </div>
+          );
+        });
+          
           const commentsLength = commentList.length;
           const commentObj = {
             avatar: currentUser.avatar,
             username: currentUser.username,
           };
-
+          // FOR COMMENTS
           const onSave = () => {
             //check for empty input here
+            console.log("props post id: ", props.post.post_id);
+            
             props
               .createComment(
                 props.post.post_id,
@@ -176,6 +188,16 @@ export default function PostListItem(props: IProps) {
               .then(() => {
                 setValue("");
               });
+          };
+
+          const onEdit = () => {
+            //check for empty input here
+            props.editComment(props.comment.post_id, currentUser.id, value, props.comment.text_body);
+          };
+
+          const onRemove = () => {
+            //check for empty input here
+            props.removeComment(props.post.post_id, currentUser.id, value);
           };
 
           const timeAgo = timeSince(props.post.time_posted);

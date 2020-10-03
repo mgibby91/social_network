@@ -9,6 +9,7 @@ import reducer, {
   SET_COMMENTS,
   REMOVE_LIKE,
   REMOVE_COMMENT,
+  EDIT_COMMENT,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -238,6 +239,31 @@ export default function useApplicationData() {
     return promise;
   };
 
+  const editComment = (postId, commenterId, commentDetails, oldTextBody) => {
+    console.log(" data in comment hook: ", postId, commenterId, commentDetails);
+    const updatedComment = {
+      post_id: postId,
+      commenter_id: commenterId,
+      text_body: commentDetails,
+      value: oldTextBody
+    };
+    console.log("new comment in hook: ", updatedComment);
+
+    const promise = axios
+      .put(`http://localhost:8001/api/comments`, { updatedComment })
+      .then((response) => {
+        console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: EDIT_COMMENT,
+          data: updatedComment,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err)
+      });
+    return promise;
+  };
+
   const removeComment = (postId, commenterId) => {
     console.log("unlike data in hook: ", postId, commenterId);
     const removeComment = {
@@ -267,5 +293,6 @@ export default function useApplicationData() {
     createComment,
     removeLike,
     removeComment,
+    editComment,
   };
 }

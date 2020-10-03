@@ -17,6 +17,8 @@ function Editor(props) {
     setCheckbox({ ...checkbox, [name]: value });
   };
 
+  const { avatarUrl, userID, username } = localStorage;
+
   return (
       <>
         <ContextConsumer>
@@ -35,8 +37,8 @@ function Editor(props) {
             const postObj = {
               text: value,
               mentor: checkbox[1],
-              avatar: currentUser.avatar,
-              username: currentUser.username,
+              avatar: avatarUrl,
+              username: username,
               stack: techTags,
             };
             const onSave = () => {
