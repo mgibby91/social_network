@@ -24,6 +24,7 @@ interface IProps {
   data: any;
   users: IUsers;
   createComment: (
+    comment_details: (avatar: string, username: string) => void,
     post_id: number,
     commenter_id: number,
     text_body: string
@@ -113,6 +114,10 @@ export default function PostListItem(props: IProps) {
   const floatRight = classNames("post_body__item-float_right");
   const blueButton = classNames("post_body__item-blue_button");
   const likeButton = classNames("post_body__item-like_button");
+
+  console.log("comments in list item: ", props.comments);
+  console.log("post in list item: ", props.post.post_id);
+
   return (
     <>
       <ContextConsumer>
@@ -128,10 +133,20 @@ export default function PostListItem(props: IProps) {
 
           const iAlreadyLikeThis = myLikes.length > 0;
 
+          const commentObj = {
+            avatar: currentUser.avatar,
+            username: currentUser.username,
+          };
+
           const onSave = () => {
             //check for empty input here
             props
-              .createComment(props.post.post_id, currentUser.id, value)
+              .createComment(
+                commentObj,
+                props.post.post_id,
+                currentUser.id,
+                value
+              )
               .then(() => {
                 setValue("");
               });
@@ -166,7 +181,7 @@ export default function PostListItem(props: IProps) {
                             </span>
 
                             <span>
-                              {props.active ? (
+                              {props.post.active ? (
                                 <h6>User is online</h6>
                               ) : (
                                 <h6>User is offline</h6>

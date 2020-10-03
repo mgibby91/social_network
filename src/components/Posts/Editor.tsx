@@ -5,6 +5,7 @@ import { Button, ButtonLink } from "@paljs/ui/Button";
 import Tags from "./StackTag";
 import ContextConsumer from "../../context/context";
 import Col from "@paljs/ui/Col";
+import "./Editor.scss";
 
 function Editor(props) {
   const [value, setValue] = React.useState("**Hello world!!!**");
@@ -24,22 +25,22 @@ function Editor(props) {
             const currentUser = props.users.find(
               (user) => user.username === data.selected
             );
+            
+            let techTags = [];
+            const onChangeInput = (selectedTags) => {
+              // console.log("HELLOOOOO");
+              techTags = selectedTags;
+            };
+            
             const postObj = {
               text: value,
               mentor: checkbox[1],
               avatar: currentUser.avatar,
               username: currentUser.username,
+              stack: techTags,
             };
-          
-            let techTags = [];
-            const onChangeInput = (selectedTags) => {
-              console.log("HELLOOOOO");
-              techTags = selectedTags;
-            };
-          
             const onSave = () => {
               //check for empty input here
-          
               console.log("from editor", techTags);
               props.createPost(postObj, techTags, currentUser.id).then(() => {
                 setValue("");
@@ -48,7 +49,7 @@ function Editor(props) {
 
           return (
           <>
-            <MDEditor value={value} onChange={setValue} />
+            <MDEditor className='editor' value={value} onChange={setValue} />
             <Tags suggested={props.suggestion} onChange={onChangeInput} />
             <Checkbox
               checked={checkbox[1]}

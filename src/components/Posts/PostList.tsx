@@ -33,6 +33,10 @@ interface ILikes {
 export default function PostList(props: IProps) {
   const comments = props.comments;
   const likes = props.likes;
+  props.posts.sort(function(a, b) {
+    let dateA = new Date(a.time_posted), dateB = new Date(b.time_posted)
+    return dateB-dateA
+  })
   
   const postData = props.posts.map((post, index) => {
     return (
@@ -47,9 +51,7 @@ export default function PostList(props: IProps) {
         users={props.users}
       />
     );
-    // })
   });
-  console.log("posts in postlist: ", props.posts);
   
   return (
     <div>

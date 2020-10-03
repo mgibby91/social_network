@@ -118,7 +118,7 @@ export default function useApplicationData() {
       text_body: postDetails.text,
       active: true,
       owner_id: id,
-      stack: [],
+      stack: postDetails.stack,
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
@@ -167,11 +167,13 @@ export default function useApplicationData() {
     return promise;
   };
 
-  const addLike = (postId, likerId) => {
+  const addLike = (commentDetails, postId, likerId) => {
     console.log("like data in hook: ", postId, likerId);
     const newLike = {
       post_id: postId,
-      liker_id: likerId
+      liker_id: likerId,
+      avatar: commentDetails.avatar,
+      username: commentDetails.username,
     };
     const promise = axios
       .post(`http://localhost:8001/api/likes`, { newLike })

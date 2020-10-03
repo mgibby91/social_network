@@ -27,13 +27,11 @@ export default function Home() {
   const users = state.users;
   return (
     <div className="App">
-      <Row>
-        <Editor 
-          createPost={createPost} 
-          suggestion={state.stack_preferences} 
-          users={users}
-        />
-      </Row>
+      <Editor 
+        createPost={createPost} 
+        suggestion={state.stack_preferences} 
+        users={users}
+      />
       <PostList
         users={users}
         posts={dashPosts} 
