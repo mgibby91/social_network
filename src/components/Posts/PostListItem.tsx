@@ -78,23 +78,6 @@ export default function PostListItem(props: IProps) {
     }
   });
 
-  const commentList = postComments.map((comment, index) => {
-    return (
-      <div key={index}>
-        <img className={commentAvatar} src={comment.avatar} alt="avatar" />
-        <div className={commentStyle}>
-          <p className={deleteButton}>Delete</p>
-          <li>
-            <b>{comment.username}</b>
-          </li>
-          <li>{comment.text_body}</li>
-        </div>
-      </div>
-    );
-  });
-
-  const commentsLength = commentList.length;
-
   const postLikes = props.likes.filter(
     (like) => props.post.post_id === like.post_id
   );
@@ -116,7 +99,7 @@ export default function PostListItem(props: IProps) {
   const blueButton = classNames("post_body__item-blue_button");
   const likeButton = classNames("post_body__item-like_button");
 
-  console.log("comments in list item: ", props.comments);
+  // console.log("comments in list item: ", props.comments);
   // console.log("post in list item: ", props.post.post_id);
 
   return (
@@ -135,10 +118,48 @@ export default function PostListItem(props: IProps) {
           const myComments = postComments.filter(
             (comment) => currentUser.id === comment.commenter_id
           );
+          // console.log("my comments in post list: ", myComments.length);
 
           const iAlreadyLikeThis = myLikes.length > 0;
           const iAlreadyCommented = myComments.length > 0;
 
+          const commentList = postComments.map((comment, index) => {
+            const myComment = (comment) => {
+              myComments.map((myComment) => {
+                console.log(
+                  "my comment: ",
+                  myComment.commenter_id,
+                  "comment: ",
+                  comment.commenter_id
+                );
+                if (myComment.commenter_id === comment.commenter_id) {
+                  return true;
+                }
+              });
+            };
+            return (
+              <div key={index}>
+                <img
+                  className={commentAvatar}
+                  src={comment.avatar}
+                  alt="avatar"
+                />
+                <div className={commentStyle}>
+                  {iAlreadyCommented ? (
+                    <p className={deleteButton}>Delete</p>
+                  ) : (
+                    ""
+                  )}
+                  <li>
+                    <b>{comment.username}</b>
+                  </li>
+                  <li>{comment.text_body}</li>
+                </div>
+              </div>
+            );
+          });
+
+          const commentsLength = commentList.length;
           const commentObj = {
             avatar: currentUser.avatar,
             username: currentUser.username,
