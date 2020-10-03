@@ -19,6 +19,10 @@ import globalAppData from '../hooks/globalAppData';
 import setNotifications from '../helpers/setNotifications';
 import { ContextProviderComponent } from "../context/context";
 import "./layout.scss"
+import Row from "@paljs/ui/Row";
+import Col from "@paljs/ui/Col";
+import ProgressBar from "../Components/ProgressBar/ProgressBar";
+
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   children,
   pageContext,
@@ -44,10 +48,42 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   if (avatarUrl && userID) {
 
+    // MATHIUS' FIND USER
+    const currentUser = state.users.find(
+      (user) => user.id == userID
+    );
+
+    if (!currentUser) return null;
+    console.log("current user in index layout: ", currentUser, userID);
+    
+    
     const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
 
     const userDisplay = document.querySelector('.logged-in-username');
-
+    
+    // MATHIUS' XP BARS
+    const xpBars =
+    `<Col breakPoint={{ xs: 6, sm: 6, md: 8, lg: 6 }}>
+      <Row>         
+          ${currentUser.mentorrating ? 
+            <h4>Mentor Level</h4>
+          : ""}
+          ${currentUser.mentorrating ? 
+            <ProgressBar 
+              experience={Number(currentUser.mentorrating)}
+            />
+          : ""}
+          ${currentUser.studentrating ? 
+            <h4>Student Level</h4>
+          : ""}
+          ${currentUser.studentrating ? 
+            <ProgressBar
+              experience={Number(currentUser.studentrating)}
+            />
+          : ""}
+      </Row>       
+    </Col>`
+    
     if (userDisplay) {
       userDisplay.remove();
     }
@@ -60,8 +96,12 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
       `;
 
     if (rightNavContainer) {
-      rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
+      rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML)
+      rightNavContainer.insertAdjacentHTML("afterbegin", xpBars)
     }
+    // if (rightNavContainer) {
+    //   rightNavContainer.insertAdjacentHTML("afterbegin", xpBars);
+    // }
   } else {
     const userDisplay = document.querySelector('.logged-in-username');
 
