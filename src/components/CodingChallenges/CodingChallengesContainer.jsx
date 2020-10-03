@@ -36,11 +36,25 @@ export default function CodingChallengesContainer(props) {
     setCurrentFilteredChallenges(incompleteArray);
   }
 
+  function filterAll() {
+    setCurrentFilteredChallenges(props.allChallenges);
+  }
+
+  function filterDifficulty(difficulty) {
+    const filteredDifficultyArray = props.allChallenges.filter(item => {
+      return item.difficulty === difficulty;
+    });
+
+    setCurrentFilteredChallenges(filteredDifficultyArray);
+  }
+
   return (
     <div className='coding-challenges-container'>
       <CodingChallengesHeader
         filterCompleted={filterCompleted}
         filterIncomplete={filterIncomplete}
+        filterAll={filterAll}
+        filterDifficulty={filterDifficulty}
       />
       <CodingChallengesList
         allChallenges={currentFilteredChallenges.length ? currentFilteredChallenges : props.allChallenges}
