@@ -143,15 +143,15 @@ export default function PostListItem(props: IProps) {
               />
               <div className={commentStyle}>
                 <div className={inline}>
-                  {myComment ? (
-                    <p onClick={() => onRemove()} className={deleteButton}>
+                  {/* {myCommentOrPost ? (
+                    <p onClick={() => onEdit()} className={deleteButton}>
                       Edit
                     </p>
                   ) : (
                     ""
-                  )}
-                  {myCommentOrPost ? (
-                    <p onClick={() => onEdit()} className={deleteButton}>
+                  )} */}
+                  {myComment ? (
+                    <p onClick={() => onRemove()} className={deleteButton}>
                       Delete
                     </p>
                   ) : (
@@ -190,10 +190,10 @@ export default function PostListItem(props: IProps) {
               });
           };
 
-          const onEdit = () => {
-            //check for empty input here
-            props.editComment(props.comment.post_id, currentUser.id, value, props.comment.text_body);
-          };
+          // const onEdit = () => {
+          //   //check for empty input here
+          //   props.editComment(props.comment.post_id, currentUser.id, value, props.comment.text_body);
+          // };
 
           const onRemove = () => {
             //check for empty input here

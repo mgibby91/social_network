@@ -1,0 +1,14 @@
+.header {
+  &__item {
+    &-experience {
+      display: inline-block;
+      margin-top: -50px;
+      width: 120px;
+      margin-left: -40px;
+    }
+    &-title {
+      // width: 30px;
+      margin-right: -70px;
+    }
+  }
+}
