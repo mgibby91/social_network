@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import CodingChallengesHeader from './CodingChallengesHeader';
 import CodingChallengesList from './CodingChallengesList';
+import CodingChallengeDescription from './CodingChallengeDescription';
 
 export default function CodingChallengesContainer(props) {
 
   console.log('CodingChallenges Props', props);
 
   const [currentFilteredChallenges, setCurrentFilteredChallenges] = useState([]);
+  const [currentDescription, setCurrentDescription] = useState('');
 
   function filterCompleted() {
     let filteredCompleteArray = [];
@@ -48,18 +50,32 @@ export default function CodingChallengesContainer(props) {
     setCurrentFilteredChallenges(filteredDifficultyArray);
   }
 
+  function displayDescription(description) {
+    console.log(description);
+
+    setCurrentDescription(description);
+  }
+
   return (
-    <div className='coding-challenges-container'>
-      <CodingChallengesHeader
-        filterCompleted={filterCompleted}
-        filterIncomplete={filterIncomplete}
-        filterAll={filterAll}
-        filterDifficulty={filterDifficulty}
-      />
-      <CodingChallengesList
-        allChallenges={currentFilteredChallenges.length ? currentFilteredChallenges : props.allChallenges}
-        completedChallenges={props.completedChallenges}
-      />
+    <div className='coding-challenges-description-container'>
+      <div className='coding-challenges-container'>
+        <CodingChallengesHeader
+          filterCompleted={filterCompleted}
+          filterIncomplete={filterIncomplete}
+          filterAll={filterAll}
+          filterDifficulty={filterDifficulty}
+        />
+        <CodingChallengesList
+          allChallenges={currentFilteredChallenges.length ? currentFilteredChallenges : props.allChallenges}
+          completedChallenges={props.completedChallenges}
+          displayDescription={displayDescription}
+        />
+      </div>
+      <div className="coding-description-container">
+        <CodingChallengeDescription
+          currentDescription={currentDescription}
+        />
+      </div>
     </div>
   );
 

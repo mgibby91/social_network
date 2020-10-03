@@ -17,7 +17,7 @@ export default function CodingChallengesListItem(props) {
   console.log('completed?', getIsCompleted(props));
 
   return (
-    <div className='challenges-list-item'>
+    <div className='challenges-list-item' onClick={() => props.displayDescription(props.description)}>
       <div className="challenges-item-title">
         {props.title}
       </div>

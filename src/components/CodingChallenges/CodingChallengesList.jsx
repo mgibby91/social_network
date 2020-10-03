@@ -13,6 +13,7 @@ export default function CodingChallengesList(props) {
       description={challenge.description}
       difficulty={challenge.difficulty}
       completedChallenges={props.completedChallenges}
+      displayDescription={props.displayDescription}
     />
   })
 
