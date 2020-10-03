@@ -8,6 +8,7 @@ import reducer, {
   SET_LIKES,
   SET_COMMENTS,
   REMOVE_LIKE,
+  REMOVE_COMMENT,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -232,30 +233,31 @@ export default function useApplicationData() {
       .catch((err) => {
         console.log("I don't *comment* this mess", err)
       });
+    
 
-    const getNewPostId = (res) => {
-      console.log(res);
-      axios
-        .all(
-          techStack.map((element) => {
-            const newStack = {
-              post_id: id,
-              stack_id: element.id,
-            };
-            axios.post(`http://localhost:8001/api/posts_stacks`, {
-              newStack,
-            });
-          })
-        )
-        .then(
-          axios.spread(function (...res) {
-            // all requests are now complete
-            console.log(res);
-          })
-        );
-    };
     return promise;
   };
+
+  const removeComment = (postId, commenterId) => {
+    console.log("unlike data in hook: ", postId, commenterId);
+    const removeComment = {
+      post_id: postId,
+      commenter_id: commenterId
+    };
+    const promise = axios
+      .delete(`http://localhost:8001/api/comments`, {params: { removeComment: removeComment }})
+      .then((response) => {
+        console.log("response in likes hook: ", response);
+        dispatch({
+          type: REMOVE_COMMENT,
+          data: removeComment,
+        })
+      })
+      .catch(error => { 
+        console.log("I don't *like* this mess", error)
+      })
+    return promise;
+  }
 
   return {
     state,
@@ -264,5 +266,6 @@ export default function useApplicationData() {
     addLike,
     createComment,
     removeLike,
+    removeComment,
   };
 }

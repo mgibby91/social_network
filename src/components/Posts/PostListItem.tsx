@@ -29,6 +29,11 @@ interface IProps {
     text_body: string,
     comment_details: (avatar: any, username: any) => void
   ) => void;
+  removeComment: (
+    post_id: number,
+    commenter_id: number,
+    text_body: string
+  ) => void;
   onChange: () => void;
   then: () => void;
 }
@@ -124,19 +129,11 @@ export default function PostListItem(props: IProps) {
           const iAlreadyCommented = myComments.length > 0;
 
           const commentList = postComments.map((comment, index) => {
-            const myComment = (comment) => {
-              myComments.map((myComment) => {
-                console.log(
-                  "my comment: ",
-                  myComment.commenter_id,
-                  "comment: ",
-                  comment.commenter_id
-                );
-                if (myComment.commenter_id === comment.commenter_id) {
-                  return true;
-                }
-              });
+            const onRemove = () => {
+              //check for empty input here
+              props.removeComment(props.post.post_id, currentUser.id, value);
             };
+
             return (
               <div key={index}>
                 <img
@@ -146,7 +143,9 @@ export default function PostListItem(props: IProps) {
                 />
                 <div className={commentStyle}>
                   {iAlreadyCommented ? (
-                    <p className={deleteButton}>Delete</p>
+                    <p onClick={() => onRemove()} className={deleteButton}>
+                      Delete
+                    </p>
                   ) : (
                     ""
                   )}

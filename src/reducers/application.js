@@ -7,6 +7,7 @@ const SET_SELECTED_USER = "SET_SELECTED_USER";
 const SET_COMMENTS = "SET_COMMENTS";
 const SET_LIKES = "SET_LIKES";
 const REMOVE_LIKE = "REMOVE_LIKE";
+const REMOVE_COMMENT = "REMOVE_COMMENT";
 
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
@@ -51,6 +52,20 @@ export default function reducer(state, action) {
       console.log("after set comments reducer", state.comments);
 
       return state;
+    }
+
+    case REMOVE_COMMENT: {
+      const { data } = action;
+      const newComments = state.comments.filter(comment => {
+        if (comment.post_id === data.post_id && comment.commenter_id === data.commenter_id) {
+          return false;
+        } else {
+          return true;
+        }
+      })
+      console.log("newcomment in reducer: ", newComments);
+      state = {...state, comments: newComments}
+      return  state;
     }
 
     case SET_POINTS:
@@ -116,4 +131,5 @@ export {
   SET_LIKES,
   SET_POINTS,
   REMOVE_LIKE,
+  REMOVE_COMMENT,
 };
