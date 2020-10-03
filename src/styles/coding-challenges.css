@@ -10,8 +10,12 @@
 
 .coding-header-container {
   background-color: #222b45;
-  height: 150px;
+  height: 125px;
   border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.coding-header-container img {
   margin-bottom: 1rem;
 }
 
@@ -26,6 +30,7 @@
   height: 25px;
   background: rgb(224, 224, 222);
   border-radius: 50px;
+  position: relative;
 }
 
 .coding-progress-fill {
@@ -37,6 +42,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 0.1rem;
+}
+
+.coding-low-exp {
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  padding-top: 0.1rem;
 }
 
 .coding-challenges-container {

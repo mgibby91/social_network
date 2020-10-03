@@ -16,7 +16,7 @@ export default function CodingHeader(props) {
       for (let challenge of props.completedChallenges) {
         if (challenge.difficulty === 'Easy') count += 20;
         else if (challenge.difficulty === 'Medium') count += 40;
-        else if (challenge.difficulty === 'Hard') count += 80;
+        else if (challenge.difficulty === 'Hard') count += 60;
       }
     }
     return count;
