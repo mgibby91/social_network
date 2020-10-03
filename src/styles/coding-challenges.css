@@ -1,0 +1,38 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.coding-challenges-main-container {
+  max-width: 1000px;
+}
+
+.coding-header-container {
+  background-color: #222b45;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.coding-header-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.coding-progress-container {
+  width: 500px;
+  height: 25px;
+  background: rgb(224, 224, 222);
+  border-radius: 50px;
+}
+
+.coding-progress-fill {
+  font-weight: 700;
+  background: linear-gradient(to right, #1cd454, #14a841);
+  height: 100%;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
