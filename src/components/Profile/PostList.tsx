@@ -10,7 +10,15 @@ function PostList(props) {
   const { comments, posts } = props;
   console.log("from post list", comments, posts);
   const postData = posts.map((post, index) => {
-    return <PostListItem comments={comments} post={post} />;
+    return (
+      <PostListItem
+        index={index}
+        comments={comments}
+        post={post}
+        users={props.users}
+        createComment={props.createComment}
+      />
+    );
   });
   return <Row>{postData}</Row>;
 }
