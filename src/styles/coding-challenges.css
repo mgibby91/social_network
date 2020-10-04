@@ -57,13 +57,13 @@
 .coding-challenges-container {
   width: 50%;
   background-color: #222b45;
-  height: 400px;
+  height: 300px;
   border-radius: 10px;
   margin-right: 1rem;
 }
 
 .coding-challenges-container-header {
-  height: 30%;
+  height: 40%;
   border-bottom: 1px solid white;
   display: flex;
   justify-content: flex-start;
@@ -79,7 +79,7 @@
 }
 
 .coding-challenges-list-container {
-  height: 70%;
+  height: 60%;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -173,7 +173,7 @@
 }
 
 .coding-description-container {
-  height: 400px;
+  height: 300px;
   width: 50%;
   background-color: #222b45;
   border-radius: 10px;
@@ -192,4 +192,69 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 1rem;
+}
+
+
+.coding-space-container-container {
+  display: flex;
+  width: 100%;
+}
+
+.coding-editor-container {
+  height: 350px;
+  width: 50%;
+  border-radius: 10px;
+  background: #222b45;
+  margin-right: 1rem;
+}
+
+.coding-editor-title {
+  text-decoration: underline;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+.controlled-editor, .CodeMirror {
+  height: 260px;
+  margin-top: 1rem;
+}
+
+.coding-space-wrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.coding-editor-runner {
+  height: 350px;
+  width: 49%;
+  border-radius: 10px;
+  background: #222b45;
+}
+
+.coding-editor-run-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.editor-run-btn {
+  border: 1px solid #1cd454;
+  padding: 0.2rem 0.4rem;
+  color: #1cd454;
+  border-radius: 5px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editor-run-btn:hover {
+  cursor: pointer;
+  background: #1cd454;
+  color: white;
 }

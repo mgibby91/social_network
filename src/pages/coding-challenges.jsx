@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CodingHeader from '../components/CodingChallenges/CodingHeader';
 import CodingChallengesContainer from '../components/CodingChallenges/CodingChallengesContainer';
+import CodingSpaceContainer from '../components/CodingChallenges/CodingSpaceContainer';
 import axios from 'axios';
 import '../styles/coding-challenges.css'
 
@@ -54,6 +55,9 @@ export default function CodingChallenges() {
       <CodingChallengesContainer
         allChallenges={allChallenges}
         completedChallenges={userCompletedChallenges}
+      />
+      <CodingSpaceContainer
+
       />
     </div>
   );

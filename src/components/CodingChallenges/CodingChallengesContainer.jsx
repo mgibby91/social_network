@@ -5,7 +5,7 @@ import CodingChallengeDescription from './CodingChallengeDescription';
 
 export default function CodingChallengesContainer(props) {
 
-  console.log('CodingChallenges Props', props);
+  // console.log('CodingChallenges Props', props);
 
   const [currentFilteredChallenges, setCurrentFilteredChallenges] = useState([]);
   const [currentDescription, setCurrentDescription] = useState('');
