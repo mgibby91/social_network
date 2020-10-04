@@ -19,6 +19,7 @@ export default function reducer(state, action) {
     }
 
     case SET_NEW_INFO: {
+      console.log("HERE");
       const { data, id } = action;
       const index = state.users.findIndex((x) => x.id === id);
       const users = [...state.users];
@@ -30,7 +31,7 @@ export default function reducer(state, action) {
         user[el] = data[el];
       }
       state = { ...state, users: users };
-      console.log("after set posts reducer", state.users);
+      console.log("from reducer", state.users);
 
       return state;
     }

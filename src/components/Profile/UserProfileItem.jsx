@@ -28,6 +28,7 @@ function UserProfileItem(props) {
     createPost,
     updateUserInfo,
     updateMentorStack,
+    createComment,
   } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
 
@@ -146,7 +147,12 @@ function UserProfileItem(props) {
                     <h2>Recent Posts...</h2>
                   </Col>
                 </Row>
-                <PostList comments={comments} posts={posts} />
+                <PostList
+                  comments={comments}
+                  posts={posts}
+                  users={state.users}
+                  createComment={createComment}
+                />
               </Col>
             </Row>
           );

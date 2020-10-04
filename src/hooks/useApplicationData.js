@@ -104,17 +104,17 @@ export default function useApplicationData() {
     };
   }, []);
 
-  const editUserInfo = (newInfo) => {
-    const url = `/api/mentor_points`;
-    const promise = axios.put(url, { studentPoints }).then((req, res) => {
-      dispatch({
-        type: SET_POINTS,
-        points: studentPoints,
-        id: studentID,
-      });
-    });
-    return promise;
-  };
+  // const editUserInfo = (newInfo) => {
+  //   const url = `/api/mentor_points`;
+  //   const promise = axios.put(url, { studentPoints }).then((req, res) => {
+  //     dispatch({
+  //       type: SET_POINTS,
+  //       points: studentPoints,
+  //       id: studentID,
+  //     });
+  //   });
+  //   return promise;
+  // };
 
   const setSelectedUser = (userID) => {
     dispatch({
@@ -122,6 +122,7 @@ export default function useApplicationData() {
       userId: userID,
     });
   };
+
   const createPost = (postDetails, techStack, id) => {
     const newPost = {
       text_body: postDetails.text,
@@ -221,16 +222,27 @@ export default function useApplicationData() {
 
   const updateUserInfo = (newInfo, id) => {
     console.log(
-      "here in create",
+      "here in update",
       state.user_profiles,
       state.mentor_stack,
       newInfo
     );
-    dispatch({
-      type: SET_NEW_INFO,
-      data: newInfo,
-      id: id,
-    });
+
+    const promise = axios
+      .put(`http://localhost:8001/api/users`, { newInfo })
+      .then((response) => {
+        // console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: SET_NEW_INFO,
+          data: newInfo,
+          id: id,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err);
+      });
+
+    return promise;
   };
 
   const updateMentorStack = (removed, added, id) => {
