@@ -52,6 +52,8 @@
       overflow: scroll;
       background-color: white;
       height: 150px;
+      display: flex;
+      flex-direction: column-reverse;
     }
     &-comment_avatar {
       display: flex;

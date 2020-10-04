@@ -151,7 +151,7 @@ export default function PostListItem(props: IProps) {
                   ) : (
                     ""
                   )} */}
-                  {myComment ? (
+                  {myCommentOrPost ? (
                     <p onClick={() => onRemove()} className={deleteButton}>
                       Delete
                     </p>
