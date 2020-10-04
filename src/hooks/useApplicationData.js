@@ -86,6 +86,7 @@ export default function useApplicationData() {
 
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
+      console.log("websocket is working: ", event);
       const data = JSON.parse(event.data);
       if (data.type === ADD_COMMENT) {
         dispatch(data);

@@ -100,6 +100,7 @@ export default function PostListItem(props: IProps) {
   });
 
   const postComments = props.comments.filter((comment) => {
+    if (!props.post.post_id || !comment.post_id) return null;
     if (props.post.post_id === comment.post_id) {
       return true;
     }
