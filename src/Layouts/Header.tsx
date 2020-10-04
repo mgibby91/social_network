@@ -121,7 +121,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                       return (
                         <div className={title}>
                           <span>         
-                              {currentUser.studentrating ? 
+                              {currentUser.mentorrating ? 
                                 <span>
                                  Mentor Lvl:
                                 </span>

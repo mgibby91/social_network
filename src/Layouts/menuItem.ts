@@ -26,11 +26,11 @@ const items: MenuItemType[] = [
     icon: { name: "browser-outline" },
     link: { to: '/tutor-sessions' },
   },
-  {
-    title: "Register",
-    icon: { name: "lock-outline" },
-    link: { to: "/register" },
-  },
+  // {
+  //   title: "Register",
+  //   icon: { name: "lock-outline" },
+  //   link: { to: "/register" },
+  // },
 ];
 
 export default items;
