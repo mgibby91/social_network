@@ -5,8 +5,9 @@ export default function CodingEditorTests(props) {
   console.log('codingEditorProps', props);
 
   return (
-    <div>
-      {props.description}
+    <div className='test-runner-test-item'>
+      {props.num + ') '}
+      {props.description + '.'}
     </div>
   )
 

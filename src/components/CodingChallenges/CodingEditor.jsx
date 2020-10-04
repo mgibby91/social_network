@@ -8,6 +8,7 @@ import CodingEditorTests from './CodingEditorTests';
 export default function CodingEditor(props) {
 
   const [currentSrc, setCurrentSrc] = useState(``);
+  const [currentPass, setCurrentPass] = useState(false);
 
   console.log('codingEditor Props', props);
 
@@ -45,17 +46,30 @@ export default function CodingEditor(props) {
     </html>
   `;
 
+
+
   function runJS(JS) {
     console.log('JS', JS)
-    // setCurrentSrc(srcDoc);
+
+    setCurrentPass(true);
+
+    setTimeout(() => {
+      setCurrentPass(false);
+    }, 3000);
+
   }
 
 
-  // const testsData = props.currentTests.map(item => {
-  //   return <CodingEditorTests 
-
-  //   />
-  // })
+  const testsData = props.currentTests.map((item, index) => {
+    return <CodingEditorTests
+      key={index}
+      id={index}
+      description={item.description}
+      input={item.input}
+      output={item.output}
+      num={index + 1}
+    />
+  })
 
 
   return (
@@ -85,7 +99,15 @@ export default function CodingEditor(props) {
           <div className="runner-tests-title">
             Coding Challenge Tests
           </div>
-
+          <div className="runner-tests-tests">
+            {testsData}
+          </div>
+          {currentPass && (
+            <div className='current-pass'>
+              3 tests run: <span className='tests-passing'>0 passing</span>;
+              <span className='tests-failing'> 3 failing</span>
+            </div>
+          )}
         </div>
         <iframe
           title='output'
