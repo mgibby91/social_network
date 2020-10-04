@@ -100,6 +100,7 @@ export default function PostListItem(props: IProps) {
   });
 
   const postComments = props.comments.filter((comment) => {
+    if (!props.post.post_id || !comment.post_id) return null;
     if (props.post.post_id === comment.post_id) {
       return true;
     }
@@ -135,6 +136,11 @@ export default function PostListItem(props: IProps) {
 
           const myCommentOrPost = currentUser.id === comment.commenter_id || currentUser.id === props.post.owner_id ;
             
+          const onRemove = () => {
+            //check for empty input here
+            props.removeComment(props.post.post_id, currentUser.id, comment.id);
+          };
+
           return (
             <div key={index}>
               <img

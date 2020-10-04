@@ -9,7 +9,7 @@ import reducer, {
   SET_NEW_STACK,
   SET_NEW_INFO,
   SET_LIKES,
-  SET_COMMENTS,
+  ADD_COMMENT,
   REMOVE_LIKE,
   REMOVE_COMMENT,
   EDIT_COMMENT,
@@ -94,8 +94,9 @@ export default function useApplicationData() {
 
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
+      console.log("websocket is working: ", event);
       const data = JSON.parse(event.data);
-      if (data.type === SET_POINTS) {
+      if (data.type === ADD_COMMENT) {
         dispatch(data);
       }
     };
@@ -226,7 +227,7 @@ export default function useApplicationData() {
       commenter_id: commenterId,
       text_body: commentDetails,
       avatar: commentObj.avatar,
-      username: commentObj.username
+      username: commentObj.username,
     };
     console.log("new comment in hook: ", newComment);
 
@@ -235,7 +236,7 @@ export default function useApplicationData() {
       .then((response) => {
         console.log("response.data in first .then", response.data[0]);
         dispatch({
-          type: SET_COMMENTS,
+          type: ADD_COMMENT,
           data: newComment,
         });
       })
@@ -333,11 +334,12 @@ export default function useApplicationData() {
     }
   };
 
-  const removeComment = (postId, commenterId) => {
+  const removeComment = (postId, commenterId, commentId) => {
     console.log("unlike data in hook: ", postId, commenterId);
     const removeComment = {
       post_id: postId,
-      commenter_id: commenterId
+      commenter_id: commenterId,
+      id: commentId
     };
     const promise = axios
       .delete(`http://localhost:8001/api/comments`, {params: { removeComment: removeComment }})

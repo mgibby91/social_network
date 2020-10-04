@@ -8,6 +8,7 @@ const SET_NEW_INFO = "SET_NEW_INFO";
 const REMOVE_FROM_STACK = "REMOVE_FROM_STACK";
 const ADD_TO_STACK = "ADD_TO_STACK";
 const SET_COMMENTS = "SET_COMMENTS";
+const ADD_COMMENT = "ADD_COMMENT";
 const SET_LIKES = "SET_LIKES";
 const REMOVE_LIKE = "REMOVE_LIKE";
 const EDIT_COMMENT = "EDIT_COMMENT";
@@ -45,22 +46,24 @@ export default function reducer(state, action) {
       state = { ...state, likes: [...state.likes, data] };
       return state;
     }
-    
+
     case REMOVE_LIKE: {
       const { data } = action;
-      const newLikes = state.likes.filter(like => {
+      const newLikes = state.likes.filter((like) => {
         if (like.post_id === data.post_id && like.liker_id === data.liker_id) {
           return false;
         } else {
           return true;
         }
-      })
+      });
       console.log("newlike in reducer: ", newLikes);
-      state = {...state, likes: newLikes}
-      return  state;
+      state = { ...state, likes: newLikes };
+      return state;
     }
 
-    case SET_COMMENTS: {
+    case ADD_COMMENT: {
+      console.log("before set comments reducer", state.comments);
+
       const { data } = action;
       state = { ...state, comments: [...state.comments, data] };
 
@@ -69,39 +72,45 @@ export default function reducer(state, action) {
 
     case EDIT_COMMENT: {
       const { data } = action;
-      const filteredComments = state.comments.filter(comment => {
-        if (comment.post_id === data.post_id && comment.commenter_id === data.commenter_id) {
+      const filteredComments = state.comments.filter((comment) => {
+        if (
+          comment.post_id === data.post_id &&
+          comment.commenter_id === data.commenter_id
+        ) {
           return false;
         } else {
           return true;
         }
-      })
+      });
       const newComment = {
         post_id: data.post_id,
         commenter_id: data.commenter_id,
-        text_body: data.text_body
-      }
+        text_body: data.text_body,
+      };
 
-      filteredComments.push(newComment)
+      filteredComments.push(newComment);
       console.log("newcomment in reducer: ", filteredComments);
-      state = {...state, comments: filteredComments}
-      return  state;
+      state = { ...state, comments: filteredComments };
+      return state;
     }
 
     case REMOVE_COMMENT: {
       const { data } = action;
-      const newComments = state.comments.filter(comment => {
-        if (comment.post_id === data.post_id && comment.commenter_id === data.commenter_id) {
+      const newComments = state.comments.filter((comment) => {
+        if (
+          comment.post_id === data.post_id &&
+          comment.commenter_id === data.commenter_id
+        ) {
           return false;
         } else {
           return true;
         }
-      })
+      });
       console.log("newcomment in reducer: ", newComments);
-      state = {...state, comments: newComments}
-      return  state;
+      state = { ...state, comments: newComments };
+      return state;
     }
-    
+
     case REMOVE_FROM_STACK: {
       const { removed } = action;
       const removedState = state.mentor_stack.filter((stack) => {
@@ -182,7 +191,7 @@ export default function reducer(state, action) {
 
 export {
   SET_POSTS,
-  SET_COMMENTS,
+  ADD_COMMENT,
   SET_APPLICATION_DATA,
   SET_MENTOR_POINTS,
   SET_STUDENT_POINTS,
