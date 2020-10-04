@@ -4,7 +4,7 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_MENTOR_POINTS = "SET_MENTOR_POINTS";
 const SET_STUDENT_POINTS = "SET_STUDENT_POINTS";
 const SET_SELECTED_USER = "SET_SELECTED_USER";
-const SET_COMMENTS = "SET_COMMENTS";
+const ADD_COMMENT = "ADD_COMMENT";
 const SET_LIKES = "SET_LIKES";
 const REMOVE_LIKE = "REMOVE_LIKE";
 const EDIT_COMMENT = "EDIT_COMMENT";
@@ -43,7 +43,7 @@ export default function reducer(state, action) {
       return  state;
     }
 
-    case SET_COMMENTS: {
+    case ADD_COMMENT: {
       console.log("before set comments reducer", state.comments);
 
       const { data } = action;
@@ -145,7 +145,7 @@ export default function reducer(state, action) {
 
 export {
   SET_POSTS,
-  SET_COMMENTS,
+  ADD_COMMENT,
   SET_APPLICATION_DATA,
   SET_MENTOR_POINTS,
   SET_STUDENT_POINTS,
