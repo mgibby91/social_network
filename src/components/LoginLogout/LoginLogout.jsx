@@ -82,12 +82,7 @@ export default function LoginLogout() {
     localStorage.removeItem('username');
     localStorage.removeItem('avatarUrl');
     localStorage.removeItem('unreadMessages');
-<<<<<<< HEAD
-    set({ ...data, state: null, selected: null });
-
-=======
     localStorage.removeItem('unreadTutor');
->>>>>>> e47dd4d5765244e07e086b142ec4dc579e3a779a
     // MATT'S CODE************************************************************
   }
 
