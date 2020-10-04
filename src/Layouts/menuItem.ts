@@ -31,6 +31,11 @@ const items: MenuItemType[] = [
   //   icon: { name: "lock-outline" },
   //   link: { to: "/register" },
   // },
+  {
+    title: "Coding Challenges",
+    icon: { name: "lock-outline" },
+    link: { to: "/coding-challenges" },
+  },
 ];
 
 export default items;

@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import useApplicationData from "../../hooks/useApplicationData";
 import setNotifications from '../../helpers/setNotifications';
+import setUnseenTutor from '../../helpers/setUnseenTutor';
 import ContextConsumer from "../../context/context";
 import { Link } from "gatsby";
 
@@ -16,25 +17,6 @@ export default function LoginLogout() {
       const username = res.data[0].username;
     console.log("data in login: ", res.data[0]);
       set({ ...data, state: state, selected: res.data[0].username });
-      // const rightNavContainer = document.querySelector(
-      //   ".sc-kEqYlL.gyZWym.right"
-      // );
-
-      // if (
-      //   rightNavContainer.firstElementChild.className === "logged-in-username"
-      // ) {
-      //   rightNavContainer.firstElementChild.remove();
-      // }
-
-      // console.log(rightNavContainer);
-
-      // const usernameHTML = `
-      //     <div class='logged-in-username'>
-      //       <p>Welcome <strong>${username}!</strong></p>
-      //     </div>
-      //   `;
-
-      // rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
 
       // MATT'S CODE************************************************************
       const avatar = res.data[0].avatar;
@@ -72,19 +54,22 @@ export default function LoginLogout() {
 
       // MATT'S CODE FOR ADDING MESSAGES NOTIFICATIONS ON LOGIN************************************************************
 
+      // MATT'S CODE FOR ADDING TUTOR SESSION NOTIFICATION ON LOGIN************************************************************
+
+      axios.post('http://localhost:8001/api/tutor_experiences/unseen_count', { userID })
+        .then(res => {
+          console.log('unseen count', res.data[0]);
+          setUnseenTutor(Number(res.data[0].count))
+          localStorage.setItem('unreadTutor', Number(res.data[0].count))
+        })
+
+      // MATT'S CODE FOR ADDING TUTOR SESSION NOTIFICATION ON LOGIN************************************************************
+
     });
   }
   // console.log("State in login: ", state);
   function logout(data, set) {
     document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-
-    // const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
-
-    // if (
-    //   rightNavContainer.firstElementChild.className === "logged-in-username"
-    // ) {
-    //   rightNavContainer.firstElementChild.remove();
-    // }
 
     // MATT'S CODE************************************************************
     const userDisplay = document.querySelector('.logged-in-username');
@@ -97,8 +82,12 @@ export default function LoginLogout() {
     localStorage.removeItem('username');
     localStorage.removeItem('avatarUrl');
     localStorage.removeItem('unreadMessages');
+<<<<<<< HEAD
     set({ ...data, state: null, selected: null });
 
+=======
+    localStorage.removeItem('unreadTutor');
+>>>>>>> e47dd4d5765244e07e086b142ec4dc579e3a779a
     // MATT'S CODE************************************************************
   }
 

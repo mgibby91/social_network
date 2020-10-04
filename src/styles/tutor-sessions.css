@@ -470,3 +470,20 @@
   font-weight: 600;
   color:#1cd454;
 }
+
+
+/* unseen tutor */
+.tutor-notification-num {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 137px;
+  color: white;
+  top: 5px;
+  background: rgb(250, 70, 70);
+  border-radius: 100%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+}
