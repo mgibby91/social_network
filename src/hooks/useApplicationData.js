@@ -1,15 +1,20 @@
 import { useReducer, useEffect } from "react";
+import { getStack, makeStackObj } from "../helpers/profileHelpers";
 import axios from "axios";
 import reducer, {
   SET_POINTS,
   SET_APPLICATION_DATA,
   SET_SELECTED_USER,
   SET_POSTS,
+  SET_NEW_STACK,
+  SET_NEW_INFO,
   SET_LIKES,
   SET_COMMENTS,
   REMOVE_LIKE,
   REMOVE_COMMENT,
   EDIT_COMMENT,
+  ADD_TO_STACK,
+  REMOVE_FROM_STACK,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -27,6 +32,7 @@ export default function useApplicationData() {
     student_points: [],
     stack_preferences: [],
     posts_stacks: [],
+    avatars: [],
     selected: {},
   });
 
@@ -45,7 +51,7 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/student_points"),
       axios.get("http://localhost:8001/api/stack_preferences"),
       axios.get("http://localhost:8001/api/posts_stacks"),
-      // axios.get('http://localhost:8001/api/student_rating/1'),
+      axios.get("http://localhost:8001/api/register/avatars"),
     ]).then((all) => {
       // console.log("all from applicatin data hook: ", all);
       const comments = all[0].data;
@@ -60,6 +66,7 @@ export default function useApplicationData() {
       const student_points = all[9].data;
       const stack_preferences = all[10].data;
       const posts_stacks = all[11].data;
+      const avatars = all[12].data;
       const selected = {};
       dispatch({
         type: SET_APPLICATION_DATA,
@@ -75,6 +82,7 @@ export default function useApplicationData() {
         student_points,
         stack_preferences,
         posts_stacks,
+        avatars,
         selected,
       });
     });
@@ -138,8 +146,10 @@ export default function useApplicationData() {
 
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { newPost })
-      .then((response, reject) => {
+      .then((response) => {
+        console.log("response.data in first .then", response.data);
         getNewPostId(response.data);
+
         dispatch({
           type: SET_POSTS,
           data: newPost,
@@ -150,12 +160,9 @@ export default function useApplicationData() {
       axios
         .all(
           techStack.map((element) => {
-            const newStack = {
-              post_id: id,
-              stack_id: element.id,
-            };
             axios.post(`http://localhost:8001/api/posts_stacks`, {
-              newStack,
+              post_id: res.id,
+              stack_id: element.id,
             });
           })
         )
@@ -173,7 +180,7 @@ export default function useApplicationData() {
     console.log("like data in hook: ", postId, likerId);
     const newLike = {
       post_id: postId,
-      liker_id: likerId
+      liker_id: likerId,
     };
     const promise = axios
       .post(`http://localhost:8001/api/likes`, { newLike })
@@ -182,13 +189,13 @@ export default function useApplicationData() {
         dispatch({
           type: SET_LIKES,
           data: newLike,
-        })
+        });
       })
-      .catch(error => {
-        console.log("I don't *like* this mess", error)
-      })
+      .catch((error) => {
+        console.log("I don't *like* this mess", error);
+      });
     return promise;
-  }
+  };
 
   const removeLike = (postId, unlikerId) => {
     console.log("unlike data in hook: ", postId, unlikerId);
@@ -232,7 +239,7 @@ export default function useApplicationData() {
         });
       })
       .catch((err) => {
-        console.log("I don't *comment* this mess", err)
+        console.log("I don't *comment* this mess", err);
       });
     
 
@@ -263,6 +270,56 @@ export default function useApplicationData() {
       });
     return promise;
   };
+  const updateUserInfo = (newInfo, id) => {
+    console.log(
+      "here in create",
+      state.user_profiles,
+      state.mentor_stack,
+      newInfo
+    );
+    dispatch({
+      type: SET_NEW_INFO,
+      data: newInfo,
+      id: id,
+    });
+  };
+
+  const updateMentorStack = (removed, added, id) => {
+    const arrOfRemoved = makeStackObj(removed, id);
+    const arrOfAdded = makeStackObj(added, id);
+
+    if (arrOfRemoved.length !== 0) {
+      axios
+        .all(
+          arrOfRemoved.map((element) => {
+            axios.delete(`http://localhost:8001/api/mentor_stack`, {
+              params: element,
+            });
+          })
+        )
+        .then(
+          dispatch({
+            type: REMOVE_FROM_STACK,
+            removed: arrOfRemoved,
+          })
+        );
+    }
+
+    if (arrOfAdded.length !== 0) {
+      axios
+        .all(
+          arrOfAdded.map((element) => {
+            axios.post(`http://localhost:8001/api/mentor_stack`, element);
+          })
+        )
+        .then(
+          dispatch({
+            type: ADD_TO_STACK,
+            added: arrOfAdded,
+          })
+        );
+    }
+  };
 
   const removeComment = (postId, commenterId) => {
     console.log("unlike data in hook: ", postId, commenterId);
@@ -289,6 +346,8 @@ export default function useApplicationData() {
     state,
     createPost,
     setSelectedUser,
+    updateUserInfo,
+    updateMentorStack,
     addLike,
     createComment,
     removeLike,
