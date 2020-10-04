@@ -1,35 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/mode/javascript/javascript';
 import { Controlled as ControlledEditor } from 'react-codemirror2';
+import CodingEditorTests from './CodingEditorTests';
 
 export default function CodingEditor(props) {
+
+  const [currentSrc, setCurrentSrc] = useState(``);
 
   console.log('codingEditor Props', props);
 
   const { value, onChange } = props;
 
   function handleChange(editor, data, value) {
-    onChange(value)
-  }
-
-  function runJS(JS) {
-    console.log('JS', JS)
+    onChange(value);
   }
 
   const srcDoc = `
     <html>
+      <style>
+      * {
+        color: white;
+        padding: 0.3rem;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: -apple-system,BlinkMacSystemFont, "Segoe UI",Roboto,"Helvetica Neue", Arial,sans-serif,"Apple Color Emoji", "Segoe UI Emoji","Segoe UI Symbol";
+      }
+      </style>
       <body>
-        <h1 class='hello'>HIIII</h1>
+        
       </body>
       <script>
 
-        document.querySelector('.hello').textContent = 'Not HI';
+        function whatName(name) {
+          return name;
+        }
+
+        const whatup = whatName('bob');
+
+        document.querySelector('.hello').textContent = whatup;
 
       </script>
     </html>
-  `
+  `;
+
+  function runJS(JS) {
+    console.log('JS', JS)
+    // setCurrentSrc(srcDoc);
+  }
+
+
+  // const testsData = props.currentTests.map(item => {
+  //   return <CodingEditorTests 
+
+  //   />
+  // })
+
 
   return (
     <div className="coding-space-wrapper">
@@ -54,13 +81,19 @@ export default function CodingEditor(props) {
         </div>
       </div>
       <div className="coding-editor-runner">
+        <div className="coding-runner-tests">
+          <div className="runner-tests-title">
+            Coding Challenge Tests
+          </div>
+
+        </div>
         <iframe
           title='output'
           frameborder="0"
           sandbox='allow-scripts'
           width='100%'
-          height='100%'
-          srcDoc={srcDoc}
+          height='50%'
+          srcDoc={currentSrc}
         >
         </iframe>
       </div>

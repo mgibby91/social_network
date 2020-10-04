@@ -50,8 +50,11 @@ export default function CodingChallengesContainer(props) {
     setCurrentFilteredChallenges(filteredDifficultyArray);
   }
 
-  function displayDescription(description) {
-    console.log(description);
+  function displayDescription(description, title, id) {
+    // console.log(description);
+
+    props.setFunctionTitle(title);
+    props.setCodingTests(id);
 
     setCurrentDescription(description);
   }

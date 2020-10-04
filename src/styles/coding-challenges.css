@@ -15,6 +15,10 @@
   margin-bottom: 1rem;
 }
 
+.header-avatar-container {
+  margin: 0 2.5rem 0 1.5rem;
+}
+
 .coding-header-container img {
   margin-bottom: 1rem;
 }
@@ -26,11 +30,15 @@
 }
 
 .coding-progress-container {
-  width: 500px;
+  width: 700px;
   height: 25px;
   background: rgb(224, 224, 222);
   border-radius: 50px;
   position: relative;
+}
+
+.header-progress-text {
+  font-size: 1.2rem;
 }
 
 .coding-progress-fill {
@@ -257,4 +265,13 @@
   cursor: pointer;
   background: #1cd454;
   color: white;
+}
+
+.runner-tests-title {
+  text-decoration: underline;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  text-align: center;
 }
