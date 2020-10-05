@@ -87,7 +87,7 @@ export default function CommentListItem(props: IProps) {
         {({ data }) => {
           if (!data.state) return null;
           const currentUser = props.users.find(
-            (user) => user.username === data.selected
+            (user) => user.id === data.selected
           );
           
           const commentList = postComments.map((comment, index) => {

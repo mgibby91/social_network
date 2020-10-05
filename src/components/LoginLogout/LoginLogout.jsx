@@ -15,8 +15,8 @@ export default function LoginLogout() {
 
     axios.post("http://localhost:8001/api/login", { userID }).then((res) => {
       const username = res.data[0].username;
-    console.log("data in login: ", res.data[0]);
-      set({ ...data, state: state, selected: res.data[0].username });
+      console.log("data in login: ", res.data[0]);
+      set({ ...data, state: state, selected: res.data[0].id });
 
       // MATT'S CODE************************************************************
       const avatar = res.data[0].avatar;

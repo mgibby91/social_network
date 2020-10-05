@@ -9,7 +9,7 @@ import reducer, {
   SET_NEW_STACK,
   SET_NEW_INFO,
   SET_LIKES,
-  SET_COMMENTS,
+  ADD_COMMENT,
   REMOVE_LIKE,
   REMOVE_COMMENT,
   EDIT_COMMENT,
@@ -226,7 +226,7 @@ export default function useApplicationData() {
       .then((response) => {
         console.log("response.data in first .then", response.data[0]);
         dispatch({
-          type: SET_COMMENTS,
+          type: ADD_COMMENT,
           data: newComment,
         });
       })

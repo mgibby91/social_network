@@ -70,7 +70,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
         {({ data }) => {
           if (!data.state) return null;
           const currentUser = state.users.find(
-            (user) => user.username === data.selected
+            (user) => user.id === data.selected
           );
           return (
             `<div>

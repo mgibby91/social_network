@@ -121,7 +121,7 @@ export default function PostListItem(props: IProps) {
           if (!data.state) return null;
           if (!data.selected) return null;
           const currentUser = props.users.find(
-            (user) => user.username === data.selected
+            (user) => user.id === data.selected
           );
 
           const myLikes = postLikes.filter(

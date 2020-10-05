@@ -61,7 +61,7 @@ function PostListItem(props) {
       {({ data }) => {
         if (!data.state) return null;
         const currentUser = props.users.find(
-          (user) => user.username === data.selected
+          (user) => user.id === data.selected
         );
         const onSave = () => {
           //check for empty input here

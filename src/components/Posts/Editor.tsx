@@ -20,62 +20,62 @@ function Editor(props) {
   const { avatarUrl, userID, username } = localStorage;
 
   return (
-      <>
-        <ContextConsumer>
-          {({ data }) => {
-            if (!data.state) return null;
-            const currentUser = props.users.find(
-              (user) => user.username === data.selected
-            );
-            
-            let techTags = [];
-            const onChangeInput = (selectedTags) => {
-              // console.log("HELLOOOOO");
-              techTags = selectedTags;
-            };
-            
-            const postObj = {
-              text: value,
-              mentor: checkbox[1],
-              avatar: avatarUrl,
-              username: username,
-              stack: techTags,
-            };
-            const onSave = () => {
-              //check for empty input here
-              console.log("from editor", techTags);
-              props.createPost(postObj, techTags, currentUser.id).then(() => {
-                setValue("");
-              });
-            };
+    <>
+      <ContextConsumer>
+        {({ data }) => {
+          if (!data.state) return null;
+          const currentUser = props.users.find(
+            (user) => user.id === data.selected
+          );
+
+          let techTags = [];
+          const onChangeInput = (selectedTags) => {
+            // console.log("HELLOOOOO");
+            techTags = selectedTags;
+          };
+
+          const postObj = {
+            text: value,
+            mentor: checkbox[1],
+            avatar: avatarUrl,
+            username: username,
+            stack: techTags,
+          };
+          const onSave = () => {
+            //check for empty input here
+            console.log("from editor", techTags);
+            props.createPost(postObj, techTags, currentUser.id).then(() => {
+              setValue("");
+            });
+          };
 
           return (
-          <>
-            <MDEditor className='editor' value={value} onChange={setValue} />
-            <Tags suggested={props.suggestion} onChange={onChangeInput} />
-            <Checkbox
-              checked={checkbox[1]}
-              status="Success"
-              onChange={(value) => onChangeCheckbox(value, 1)}
-            >
-              Mentor Help Needed
-            </Checkbox>
-            <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
-              <Button
-                fullWidth
-                appearance="hero"
+            <>
+              <MDEditor className="editor" value={value} onChange={setValue} />
+              <Tags suggested={props.suggestion} onChange={onChangeInput} />
+              <Checkbox
+                checked={checkbox[1]}
                 status="Success"
-                onClick={() => onSave()}
+                onChange={(value) => onChangeCheckbox(value, 1)}
               >
-                Post
-              </Button>
-            </Col>
-          </>
+                Mentor Help Needed
+              </Checkbox>
+              <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
+                <Button
+                  fullWidth
+                  appearance="hero"
+                  status="Success"
+                  onClick={() => onSave()}
+                >
+                  Post
+                </Button>
+              </Col>
+            </>
           );
         }}
-        </ContextConsumer>
+      </ContextConsumer>
     </>
-  )
+  );
 }
 
 export default Editor;

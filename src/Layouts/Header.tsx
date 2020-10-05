@@ -116,7 +116,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                       if (!data.state) return null;
                       if (!data.selected) return null;
                       const currentUser = data.state.users.find(
-                        (user) => user.username === data.selected
+                        (user) => user.id === data.selected
                       );
                       return (
                         <div className={title}>
@@ -145,7 +145,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                       if (!data.state) return null;
                       if (!data.selected) return null;
                       const currentUser = data.state.users.find(
-                        (user) => user.username === data.selected
+                        (user) => user.id === data.selected
                       );
                       return (
                         <div className={experience}>
@@ -176,7 +176,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                       if (!data.state) return null;
                       if (!data.selected) return null;
                       const currentUser = data.state.users.find(
-                        (user) => user.username === data.selected
+                        (user) => user.id === data.selected
                       );
                       return (
                         <div className={title}>
@@ -205,7 +205,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                       if (!data.state) return null;
                       if (!data.selected) return null;
                       const currentUser = data.state.users.find(
-                        (user) => user.username === data.selected
+                        (user) => user.id === data.selected
                       );
                       return (
                         <div className={experience}>

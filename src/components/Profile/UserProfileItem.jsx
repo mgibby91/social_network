@@ -64,7 +64,7 @@ function UserProfileItem(props) {
 
           if (!currentUser) {
             currentUser = state.users.find(
-              (user) => user.username === data.selected
+              (user) => user.id === data.selected
             );
             console.log("current user in context: ", currentUser);
           }
