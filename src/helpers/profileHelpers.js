@@ -65,24 +65,19 @@ export function getDashboardPosts(posts) {
   return postsByUser;
 }
 
-export function filterDashboardPosts(posts, filter) {
+export function getFilterOptions(posts) {
   const seen = new Set();
-  const postsByUser = posts.filter((el) => {
-    const duplicate = seen.has(el.stack);
-    seen.add(el.stack);
-    return !duplicate;
-  });
+  const postsByUser = posts
+    .filter((el) => {
+      const duplicate = seen.has(el.name);
+      seen.add(el.name);
+      return !duplicate;
+    })
+    .map((el) => {
+      return el["name"];
+    });
 
-  for (let post of postsByUser) {
-    post["stack"] = [];
-
-    for (let stack of posts) {
-      if (post["post_id"] === stack["post_id"]) {
-        post["stack"].push(stack["name"]);
-      }
-    }
-  }
-
+  //console.log("filter", postsByUser);
   return postsByUser;
 }
 

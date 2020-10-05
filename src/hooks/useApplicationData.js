@@ -116,18 +116,19 @@ export default function useApplicationData() {
   };
 
   const createPost = (postDetails, techStack, id) => {
+    console.log("post details: ", techStack);
     const newPost = {
       text_body: postDetails.text,
       active: true,
       owner_id: id,
-      stack: postDetails.stack,
+      stack: [],
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
       avatar: postDetails.avatar,
       username: postDetails.username,
     };
-
+    console.log("newpost in hooked: ", newPost);
     if (!postDetails.mentor) {
       (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }

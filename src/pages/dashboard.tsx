@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Row from "@paljs/ui/Row";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
+import Select from "react-dropdown-select";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
 import LoginLogout from "../components/LoginLogout/LoginLogout";
 import Register from "../components/LoginLogout/Register";
 import { Button } from "@paljs/ui/Button";
-import {
-  getDashboardPosts,
-  filterDashboardPosts,
-} from "../helpers/profileHelpers";
+import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
 
 interface IProps {
   value: object;
@@ -36,7 +34,15 @@ export default function Home() {
     filterDashboardPosts,
   } = useApplicationData();
 
-  let dashPosts = getDashboardPosts(state.posts);
+  const [options, setOptions] = useState([]);
+  const [value, setValue] = useState("Filter by");
+
+  const dashPosts = getDashboardPosts(state.posts);
+  const filterOptions = getFilterOptions(state.posts);
+
+  // useEffect(() => {
+  //   setOptions(filterOptions);
+  // }, []);
 
   // console.log("dashposts in dash: ", dashPosts);
   const comments = state.comments;
