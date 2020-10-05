@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Row from "@paljs/ui/Row";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
+import Select from "react-dropdown-select";
 import useApplicationData from "../hooks/useApplicationData";
 import { Button } from "@paljs/ui/Button";
-import {
-  getDashboardPosts,
-  filterDashboardPosts,
-} from "../helpers/profileHelpers";
+import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
 
 interface IProps {
   value: object;
@@ -22,15 +20,17 @@ interface IUsers {
 }
 
 export default function Home() {
-  const {
-    state,
-    createPost,
-    addLike,
-    createComment,
-    filterDashboardPosts,
-  } = useApplicationData();
+  const { state, createPost, addLike, createComment } = useApplicationData();
 
-  let dashPosts = getDashboardPosts(state.posts);
+  const [options, setOptions] = useState([]);
+  const [value, setValue] = useState("Filter by");
+
+  const dashPosts = getDashboardPosts(state.posts);
+  const filterOptions = getFilterOptions(state.posts);
+
+  // useEffect(() => {
+  //   setOptions(filterOptions);
+  // }, []);
 
   // console.log("dashposts in dash: ", dashPosts);
   const comments = state.comments;
@@ -42,7 +42,9 @@ export default function Home() {
         <Editor createPost={createPost} suggestion={state.stack_preferences} />
       </Row>
       <Row>
-        <Button onClick={() => filterDashboardPosts("CSS")}>CSS</Button>
+        {/* <Button onClick={() => filterDashboardPosts("CSS")}>CSS</Button> */}
+
+        {/* <Select options={options} onChange={() => setValue(value)} /> */}
       </Row>
       <PostList
         users={users}
