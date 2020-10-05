@@ -1,0 +1,105 @@
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.main-login-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #222b45;
+  border-radius: 10px;
+  padding: 2rem;
+  height: 500px;
+  width: 1000px;
+}
+
+.login-left-container {
+  width: 50%;
+  height: 100%;
+  border: 1px solid #475991;
+  border-radius: 10px;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding-bottom: 50px; */
+}
+
+.login-form-header {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+#login-username-input,
+#login-password-input {
+  margin-bottom: 0.35rem;
+  height: 36px; 
+  width: 210px;
+  padding-left: 35px;
+}
+
+.login-username-container,
+.login-password-container {
+  position: relative;
+}
+
+#username-icon,
+#password-icon {
+  position: absolute;
+  width: 20px;
+  left: 7px;
+  top:7px;
+  color: white;
+}
+
+.login-btn {
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 0.3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  width: 210px;
+}
+
+.login-btn:hover {
+  cursor: pointer;
+  background: #3366ff;
+  color: white;
+}
+
+.no-account {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 100;
+}
+
+#register-account-click {
+  color: #3366ff;
+  text-decoration: underline;
+}
+
+#register-account-click:hover {
+  cursor: pointer;
+}
+
+.login-right-container {
+  width: 50%;
+  height: 100%;
+  border: 1px solid #475991;
+  margin-left: 1rem;
+  border-radius: 10px;
+}
+
+.login-username-password-error {
+  color:#fa4646;
+  font-size: 0.9rem;
+}
