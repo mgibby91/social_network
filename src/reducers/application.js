@@ -9,12 +9,69 @@ const REMOVE_FROM_STACK = "REMOVE_FROM_STACK";
 const ADD_TO_STACK = "ADD_TO_STACK";
 const SET_COMMENTS = "SET_COMMENTS";
 const SET_LIKES = "SET_LIKES";
+const EDIT_POST = "EDIT_POST";
+const DELETE_POST = "DELETE_POST";
+const FILTER_POSTS = "FILTER_POSTS";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_POSTS: {
       const { data } = action;
       state = { ...state, posts: [...state.posts, data] };
+      return state;
+    }
+
+    case FILTER_POSTS: {
+      console.log("from filter", state.posts);
+      const { filter } = action;
+      const clone = [...state.posts];
+      // const filteredPosts = state.posts.filter((post) => {
+      //   console.log(post.stack);
+      //   // if (post["name"] !== filter) {
+      //   //   return false;
+      //   // } else {
+      //   //   return true;
+      //   // }
+      // });
+      const filtered = [];
+      for (let el of clone) {
+        if (el["stack"]) {
+          console.log(el);
+        }
+      }
+      console.log("from filter", filtered);
+      // state = { ...state, posts: filteredPosts };
+      return state;
+    }
+
+    case EDIT_POST: {
+      console.log("from reducer edit post");
+      const { text, post_id } = action;
+      //console.log("WTF?");
+      const removedState = state.posts.map((post) => {
+        if (post.post_id === post_id) {
+          post.text_body = text;
+        }
+        return post;
+      });
+      console.log("from reducer", removedState);
+      state = { ...state, posts: removedState };
+      return state;
+    }
+
+    case DELETE_POST: {
+      console.log("from reducer edit post");
+      const { post_id } = action;
+      console.log("WTF?", post_id);
+      const removedState = state.posts.filter((post) => {
+        if (post.post_id === post_id) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+      console.log("from reducer", removedState);
+      state = { ...state, posts: removedState };
       return state;
     }
 
@@ -139,4 +196,7 @@ export {
   ADD_TO_STACK,
   SET_LIKES,
   SET_POINTS,
+  EDIT_POST,
+  DELETE_POST,
+  FILTER_POSTS,
 };

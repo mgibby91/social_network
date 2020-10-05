@@ -3,7 +3,7 @@ import ReactTags from "react-tag-autocomplete";
 
 function Tags(props) {
   // console.log("tags", props.suggested);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(props.tags || []);
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {

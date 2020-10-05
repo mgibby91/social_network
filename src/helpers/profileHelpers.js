@@ -65,6 +65,27 @@ export function getDashboardPosts(posts) {
   return postsByUser;
 }
 
+export function filterDashboardPosts(posts, filter) {
+  const seen = new Set();
+  const postsByUser = posts.filter((el) => {
+    const duplicate = seen.has(el.stack);
+    seen.add(el.stack);
+    return !duplicate;
+  });
+
+  for (let post of postsByUser) {
+    post["stack"] = [];
+
+    for (let stack of posts) {
+      if (post["post_id"] === stack["post_id"]) {
+        post["stack"].push(stack["name"]);
+      }
+    }
+  }
+
+  return postsByUser;
+}
+
 export function getStack(stack, senderId) {
   let currentStack = stack.filter((lang) => {
     return lang.user_id === parseInt(senderId, 10);

@@ -3,7 +3,11 @@ import Row from "@paljs/ui/Row";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
-import { getDashboardPosts } from "../helpers/profileHelpers";
+import { Button } from "@paljs/ui/Button";
+import {
+  getDashboardPosts,
+  filterDashboardPosts,
+} from "../helpers/profileHelpers";
 
 interface IProps {
   value: object;
@@ -18,9 +22,16 @@ interface IUsers {
 }
 
 export default function Home() {
-  const { state, createPost, addLike, createComment } = useApplicationData();
+  const {
+    state,
+    createPost,
+    addLike,
+    createComment,
+    filterDashboardPosts,
+  } = useApplicationData();
 
-  const dashPosts = getDashboardPosts(state.posts);
+  let dashPosts = getDashboardPosts(state.posts);
+
   // console.log("dashposts in dash: ", dashPosts);
   const comments = state.comments;
   const likes = state.likes;
@@ -30,9 +41,12 @@ export default function Home() {
       <Row>
         <Editor createPost={createPost} suggestion={state.stack_preferences} />
       </Row>
+      <Row>
+        <Button onClick={() => filterDashboardPosts("CSS")}>CSS</Button>
+      </Row>
       <PostList
-        users ={users} 
-        posts={dashPosts} 
+        users={users}
+        posts={dashPosts}
         comments={comments}
         likes={likes}
         addLike={addLike}

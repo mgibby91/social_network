@@ -7,8 +7,8 @@ import CommentList from "../Comments/CommentListItem";
 import PostListItem from "./PostListItem";
 
 function PostList(props) {
-  const { comments, posts } = props;
-  console.log("from post list", comments, posts);
+  const { comments, posts, updatePost, deletePost } = props;
+  //console.log("from post list", comments, posts);
   const postData = posts.map((post, index) => {
     return (
       <PostListItem
@@ -17,6 +17,8 @@ function PostList(props) {
         post={post}
         users={props.users}
         createComment={props.createComment}
+        updatePost={updatePost}
+        deletePost={deletePost}
       />
     );
   });

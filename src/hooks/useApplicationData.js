@@ -14,6 +14,9 @@ import reducer, {
   SET_COMMENTS,
   ADD_TO_STACK,
   REMOVE_FROM_STACK,
+  EDIT_POST,
+  DELETE_POST,
+  FILTER_POSTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -104,18 +107,6 @@ export default function useApplicationData() {
     };
   }, []);
 
-  // const editUserInfo = (newInfo) => {
-  //   const url = `/api/mentor_points`;
-  //   const promise = axios.put(url, { studentPoints }).then((req, res) => {
-  //     dispatch({
-  //       type: SET_POINTS,
-  //       points: studentPoints,
-  //       id: studentID,
-  //     });
-  //   });
-  //   return promise;
-  // };
-
   const setSelectedUser = (userID) => {
     dispatch({
       type: SET_SELECTED_USER,
@@ -155,7 +146,7 @@ export default function useApplicationData() {
       });
     const getNewPostId = (res) => {
       console.log(res.id);
-      axios
+      promise
         .all(
           techStack.map((element) => {
             axios.post(`http://localhost:8001/api/posts_stacks`, {
@@ -220,6 +211,29 @@ export default function useApplicationData() {
     return promise;
   };
 
+  const updatePost = (editedPost, post_id, id) => {
+    console.log("from hook", editedPost, post_id, id);
+
+    const promise = axios
+      .put(`http://localhost:8001/api/posts`, {
+        text_body: editedPost,
+        post_id: post_id,
+      })
+      .then((response) => {
+        // console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: EDIT_POST,
+          text: editedPost,
+          post_id: post_id,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err);
+      });
+
+    return promise;
+  };
+
   const updateUserInfo = (newInfo, id) => {
     console.log(
       "here in update",
@@ -228,14 +242,37 @@ export default function useApplicationData() {
       newInfo
     );
 
-    const promise = axios
-      .put(`http://localhost:8001/api/users`, { newInfo })
-      .then((response) => {
-        // console.log("response.data in first .then", response.data[0]);
+    const promise = Promise.all([
+      axios.put("http://localhost:8001/api/users/edit", {
+        id: id,
+        username: newInfo["username"],
+      }),
+      axios.put("http://localhost:8001/api/user_profiles/edit", {
+        id: id,
+        avatar: newInfo["avatar"],
+        location: newInfo["location"],
+      }),
+    ])
+      .then(
         dispatch({
           type: SET_NEW_INFO,
           data: newInfo,
           id: id,
+        })
+      )
+      .catch((err) => console.log("something went wrong in the update"));
+  };
+
+  const deletePost = (post_id) => {
+    console.log("here in delete", post_id);
+
+    const promise = axios
+      .delete(`http://localhost:8001/api/posts`, { params: post_id })
+      .then((response) => {
+        // console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: DELETE_POST,
+          post_id: post_id,
         });
       })
       .catch((err) => {
@@ -282,6 +319,15 @@ export default function useApplicationData() {
     }
   };
 
+  const filterDashboardPosts = (filter) => {
+    console.log("from filter", filter);
+
+    dispatch({
+      type: FILTER_POSTS,
+      text: filter,
+    });
+  };
+
   return {
     state,
     createPost,
@@ -290,5 +336,8 @@ export default function useApplicationData() {
     updateMentorStack,
     addLike,
     createComment,
+    updatePost,
+    deletePost,
+    filterDashboardPosts,
   };
 }
