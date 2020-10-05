@@ -69,7 +69,8 @@ export default function LoginLogout() {
   }
   // console.log("State in login: ", state);
   function logout() {
-    document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    const currentUserID = document.cookie.split('=')[1];
+    document.cookie = `userID=${currentUserID}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
     // MATT'S CODE************************************************************
     const userDisplay = document.querySelector('.logged-in-username');
@@ -83,6 +84,7 @@ export default function LoginLogout() {
     localStorage.removeItem('avatarUrl');
     localStorage.removeItem('unreadMessages');
     localStorage.removeItem('unreadTutor');
+    localStorage.removeItem('Login');
     // MATT'S CODE************************************************************
   }
 

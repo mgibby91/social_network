@@ -82,17 +82,15 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   // LOGOUT FUNCTIONALITY ************************
 
-
-
   const logoutBtnTitle = document.querySelector('.logout-btn-enabled');
   let logoutBtn;
   if (logoutBtnTitle) {
     logoutBtn = logoutBtnTitle.parentElement.parentElement
-    console.log('logoutBtn', logoutBtn);
 
     logoutBtn.addEventListener('click', () => {
 
-      document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      const currentUserID = document.cookie.split('=')[1];
+      document.cookie = `userID=${currentUserID}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
       // MATT'S CODE************************************************************
       const userDisplay = document.querySelector('.logged-in-username');
@@ -115,15 +113,17 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   }
 
   setTimeout(() => {
-    if (localStorage.getItem('Login')) {
+    const loginFormHeader = document.querySelector('.login-form-header');
+    if (localStorage.getItem('Login') && !loginFormHeader) {
       const allMenuTitles = document.querySelectorAll('.menu-title');
       for (let title of allMenuTitles) {
         if (title.textContent === 'Login') {
           title.textContent = 'Logout';
+          title.classList.add('logout-btn-enabled');
         }
       }
     }
-  }, 100);
+  }, 1000);
 
 
   // LOGOUT FUNCTIONALITY ************************
