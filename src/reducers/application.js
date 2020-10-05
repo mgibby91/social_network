@@ -13,13 +13,66 @@ const SET_LIKES = "SET_LIKES";
 const REMOVE_LIKE = "REMOVE_LIKE";
 const EDIT_COMMENT = "EDIT_COMMENT";
 const REMOVE_COMMENT = "REMOVE_COMMENT";
-
+const EDIT_POST = "EDIT_POST";
+const DELETE_POST = "DELETE_POST";
+const FILTER_POSTS = "FILTER_POSTS";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_POSTS: {
       const { data } = action;
       state = { ...state, posts: [...state.posts, data] };
+      return state;
+    }
+
+    case FILTER_POSTS: {
+      console.log("from filter", state.posts);
+      const { filter } = action;
+      const clone = [...state.posts];
+
+      const filtered = [];
+      for (let el of clone) {
+        if (el["stack"]) {
+          filtered.push(el);
+        }
+      }
+
+      const final = filtered.filter((post) => {
+        return post.name === filter;
+      });
+      console.log("from filter", final);
+      // state = { ...state, posts: filteredPosts };
+      return state;
+    }
+
+    case EDIT_POST: {
+      console.log("from reducer edit post");
+      const { text, post_id } = action;
+      //console.log("WTF?");
+      const removedState = state.posts.map((post) => {
+        if (post.post_id === post_id) {
+          post.text_body = text;
+        }
+        return post;
+      });
+      console.log("from reducer", removedState);
+      state = { ...state, posts: removedState };
+      return state;
+    }
+
+    case DELETE_POST: {
+      console.log("from reducer edit post");
+      const { post_id } = action;
+      console.log("WTF?", post_id);
+      const removedState = state.posts.filter((post) => {
+        if (post.post_id === post_id) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+      console.log("from reducer", removedState);
+      state = { ...state, posts: removedState };
       return state;
     }
 
@@ -207,4 +260,7 @@ export {
   REMOVE_LIKE,
   REMOVE_COMMENT,
   EDIT_COMMENT,
+  EDIT_POST,
+  DELETE_POST,
+  FILTER_POSTS,
 };

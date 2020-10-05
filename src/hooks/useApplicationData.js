@@ -9,13 +9,15 @@ import reducer, {
   SET_NEW_STACK,
   SET_NEW_INFO,
   SET_LIKES,
-  ADD_COMMENT,
+  SET_COMMENTS,
   REMOVE_LIKE,
   REMOVE_COMMENT,
   EDIT_COMMENT,
   ADD_TO_STACK,
   REMOVE_FROM_STACK,
-  SET_COMMENTS,
+  EDIT_POST,
+  DELETE_POST,
+  FILTER_POSTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -95,17 +97,8 @@ export default function useApplicationData() {
 
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
-      // console.log("websocket is working: ", event);
       const data = JSON.parse(event.data);
-      console.log("data in websocket: ", data.type);
-      if (data.type === ADD_COMMENT) {
-        console.log("data in websocket hook: ", data);
-        dispatch(data);
-      }
-      if (data.type === REMOVE_COMMENT) {
-        dispatch(data);
-      }
-      if (data.type === SET_APPLICATION_DATA) {
+      if (data.type === SET_POINTS) {
         dispatch(data);
       }
     };
@@ -156,21 +149,19 @@ export default function useApplicationData() {
       });
     const getNewPostId = (res) => {
       console.log(res.id);
-      axios
-        .all(
-          techStack.map((element) => {
-            axios.post(`http://localhost:8001/api/posts_stacks`, {
-              post_id: res.id,
-              stack_id: element.id,
-            });
-          })
-        )
-        .then(
-          axios.spread(function (...res) {
-            // all requests are now complete
-            console.log("success");
-          })
-        );
+      Promise.all(
+        techStack.map((element) => {
+          axios.post(`http://localhost:8001/api/posts_stacks`, {
+            post_id: res.id,
+            stack_id: element.id,
+          });
+        })
+      ).then(
+        axios.spread(function (...res) {
+          // all requests are now complete
+          console.log("success");
+        })
+      );
     };
     return promise;
   };
@@ -233,9 +224,9 @@ export default function useApplicationData() {
     const promise = axios
       .post(`http://localhost:8001/api/comments`, { newComment })
       .then((response) => {
-        console.log("response.data in first .then", response);
+        console.log("response.data in first .then", response.data[0]);
         dispatch({
-          type: ADD_COMMENT,
+          type: SET_COMMENTS,
           data: newComment,
         });
       })
@@ -270,6 +261,29 @@ export default function useApplicationData() {
       });
     return promise;
   };
+  const updatePost = (editedPost, post_id, id) => {
+    console.log("from hook", editedPost, post_id, id);
+
+    const promise = axios
+      .put(`http://localhost:8001/api/posts`, {
+        text_body: editedPost,
+        post_id: post_id,
+      })
+      .then((response) => {
+        // console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: EDIT_POST,
+          text: editedPost,
+          post_id: post_id,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err);
+      });
+
+    return promise;
+  };
+
   const updateUserInfo = (newInfo, id) => {
     console.log(
       "here in update",
@@ -278,14 +292,37 @@ export default function useApplicationData() {
       newInfo
     );
 
-    const promise = axios
-      .put(`http://localhost:8001/api/users`, { newInfo })
-      .then((response) => {
-        // console.log("response.data in first .then", response.data[0]);
+    const promise = Promise.all([
+      axios.put("http://localhost:8001/api/users/edit", {
+        id: id,
+        username: newInfo["username"],
+      }),
+      axios.put("http://localhost:8001/api/user_profiles/edit", {
+        id: id,
+        avatar: newInfo["avatar"],
+        location: newInfo["location"],
+      }),
+    ])
+      .then(
         dispatch({
           type: SET_NEW_INFO,
           data: newInfo,
           id: id,
+        })
+      )
+      .catch((err) => console.log("something went wrong in the update"));
+  };
+
+  const deletePost = (post_id) => {
+    console.log("here in delete", post_id);
+
+    const promise = axios
+      .delete(`http://localhost:8001/api/posts`, { params: post_id })
+      .then((response) => {
+        // console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: DELETE_POST,
+          post_id: post_id,
         });
       })
       .catch((err) => {
@@ -332,12 +369,11 @@ export default function useApplicationData() {
     }
   };
 
-  const removeComment = (postId, commenterId, commentId) => {
+  const removeComment = (postId, commenterId) => {
     console.log("unlike data in hook: ", postId, commenterId);
     const removeComment = {
       post_id: postId,
       commenter_id: commenterId,
-      id: commentId,
     };
     const promise = axios
       .delete(`http://localhost:8001/api/comments`, {
@@ -355,6 +391,14 @@ export default function useApplicationData() {
       });
     return promise;
   };
+  const filterDashboardPosts = (filter) => {
+    console.log("from filter", filter);
+
+    dispatch({
+      type: FILTER_POSTS,
+      text: filter,
+    });
+  };
 
   return {
     state,
@@ -367,5 +411,8 @@ export default function useApplicationData() {
     removeLike,
     removeComment,
     editComment,
+    updatePost,
+    deletePost,
+    filterDashboardPosts,
   };
 }

@@ -29,6 +29,8 @@ function UserProfileItem(props) {
     updateUserInfo,
     updateMentorStack,
     createComment,
+    updatePost,
+    deletePost,
   } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
 
@@ -153,6 +155,8 @@ function UserProfileItem(props) {
                   posts={posts}
                   users={state.users}
                   createComment={createComment}
+                  updatePost={updatePost}
+                  deletePost={deletePost}
                 />
               </Col>
             </Row>
