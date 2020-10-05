@@ -146,21 +146,19 @@ export default function useApplicationData() {
       });
     const getNewPostId = (res) => {
       console.log(res.id);
-      promise
-        .all(
-          techStack.map((element) => {
-            axios.post(`http://localhost:8001/api/posts_stacks`, {
-              post_id: res.id,
-              stack_id: element.id,
-            });
-          })
-        )
-        .then(
-          axios.spread(function (...res) {
-            // all requests are now complete
-            console.log("success");
-          })
-        );
+      Promise.all(
+        techStack.map((element) => {
+          axios.post(`http://localhost:8001/api/posts_stacks`, {
+            post_id: res.id,
+            stack_id: element.id,
+          });
+        })
+      ).then(
+        axios.spread(function (...res) {
+          // all requests are now complete
+          console.log("success");
+        })
+      );
     };
     return promise;
   };

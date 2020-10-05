@@ -25,21 +25,18 @@ export default function reducer(state, action) {
       console.log("from filter", state.posts);
       const { filter } = action;
       const clone = [...state.posts];
-      // const filteredPosts = state.posts.filter((post) => {
-      //   console.log(post.stack);
-      //   // if (post["name"] !== filter) {
-      //   //   return false;
-      //   // } else {
-      //   //   return true;
-      //   // }
-      // });
+
       const filtered = [];
       for (let el of clone) {
         if (el["stack"]) {
-          console.log(el);
+          filtered.push(el);
         }
       }
-      console.log("from filter", filtered);
+
+      const final = filtered.filter((post) => {
+        return post.name === filter;
+      });
+      console.log("from filter", final);
       // state = { ...state, posts: filteredPosts };
       return state;
     }
