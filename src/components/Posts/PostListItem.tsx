@@ -81,7 +81,7 @@ const commentListStyle = classNames("post_body__item-comment_list");
 const commentButton = classNames("post_body__item-comment_button");
 const userCard = classNames("post_body__item-user_card");
 const circle = classNames("post_body__item-circle");
-const inline = classNames("post_body__item-inline");
+const flex = classNames("post_body__item-flex");
 const likesComments = classNames("post_body__item-likes_comments");
 const bg = classNames("post_body__item-bg");
 const floatRight = classNames("post_body__item-float_right");
@@ -149,7 +149,7 @@ export default function PostListItem(props: IProps) {
                 alt="avatar"
               />
               <div className={commentStyle}>
-                <div className={inline}>
+                <div className={flex}>
                   {/* {myCommentOrPost ? (
                     <p onClick={() => onEdit()} className={deleteButton}>
                       Edit
@@ -211,124 +211,85 @@ export default function PostListItem(props: IProps) {
 
           return (
             <div>
-              <Row>
-                <Col breakPoint={{ xs: 12 }}>
-                  <Card>
-                    <CardBody className={postBody}>
-                      {/* POST TEXT BODY */}
-                      <div className={floatRight}>
-                        <small className={floatRight}>{timeAgo}</small>
-                        <p className={textBody}>{props.post.text_body}</p>
+              <Card>
+                <CardBody className={postBody}>
+                  {/* POST TEXT BODY */}
+                  <div className={floatRight}>
+                    <small className={floatRight}>{timeAgo}</small>
+                    <p className={textBody}>{props.post.text_body}</p>
+                  </div>
+
+                  {/* USERS DETAILS */}
+                  <Link
+                    className={userLink}
+                    to={`/user-profiles/${props.post.username}`}
+                  >
+                    <div>
+                      <div className={flex}>
+                        <div className={circle}>
+                          <img src={props.post.avatar} alt="avatar"></img>
+                        </div>    
                       </div>
+                      <div className={userCard}>
+                        <span className={bg}>
+                          <h3>{props.post.username}</h3>
+                        </span>
 
-                      {/* USERS DETAILS */}
-                      <Link
-                        className={userLink}
-                        to={`/user-profiles/${props.post.username}`}
-                      >
-                        <div className={inline}>
-                          <div className={circle}>
-                            <img src={props.post.avatar} alt="avatar"></img>
-                          </div>
-                          <div className={userCard}>
-                            <span className={bg}>
-                              <h3>{props.post.username}</h3>
-                            </span>
-
-                            <span>
-                              {props.post.active ? (
-                                <h6>User is online</h6>
-                              ) : (
-                                <h6>User is offline</h6>
-                              )}
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* MESSAGE BUTTON */}
-                      <div className={messageButton}>
-                        <Link
-                          className={userLink}
-                          to={`/messages/`}
-                          state={{ username: props.post.username }}
-                        >
-                          <div className={blueButton}>Message User</div>
-                        </Link>
+                        <span>{props.post.active ? <h6>User is online</h6> : <h6>User is offline</h6>}
+                        </span>
                       </div>
+                    </div>
+                  </Link>
 
-                      {/* POST STACK LIST */}
-                      <h5>Stack: {stack}</h5>
+                  {/* MESSAGE BUTTON */}
+                  <div className={messageButton}>
+                    <Link
+                      className={userLink}
+                      to={`/messages/`}
+                      state={{ username: props.post.username }}
+                    >
+                      <div className={blueButton}>Message User</div>
+                    </Link>
+                  </div>
 
-                      {/* BUTTON FOR LIKES */}
+                  {/* POST STACK LIST */}
+                  <h5>Stack: {stack}</h5>
 
-                      {iAlreadyLikeThis ? (
-                        <div
-                          className={likeButton}
-                          onClick={() =>
-                            props.removeLike(props.post.post_id, currentUser.id)
-                          }
-                        >
-                          Unlike
-                        </div>
-                      ) : (
-                        <div
-                          className={likeButton}
-                          onClick={() =>
-                            props.addLike(props.post.post_id, currentUser.id)
-                          }
-                        >
-                          Like
-                        </div>
-                      )}
+                  {/* BUTTON FOR LIKES */}
 
-                      <div className={likesComments}>
-                        {/* LIKE COUNT */}
-                        {likeSum > 1 ? (
-                          <p>
-                            <b>{likeSum} Likes</b>
-                          </p>
-                        ) : (
-                          ""
-                        )}
-                        {likeSum === 1 ? (
-                          <p>
-                            <b>{likeSum} Like</b>
-                          </p>
-                        ) : (
-                          ""
-                        )}
-                        {/* COMMENTS LIST FOR POST */}
-                        {commentsLength > 1 ? (
-                          <h6>{commentsLength} comments</h6>
-                        ) : (
-                          ""
-                        )}
-                        {commentsLength === 1 ? (
-                          <h6>{commentsLength} comment</h6>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <ul className={commentListStyle}>{commentList}</ul>
+                  {iAlreadyLikeThis ? (
+                  <div
+                    className={likeButton}
+                    onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
+                    >Unlike</div>
+                  ) : (
+                  <div
+                    className={likeButton}
+                    onClick={() => props.addLike(props.post.post_id, currentUser.id)}
+                    >Like</div>
+                  )}
 
-                      {/* FOR COMMENTING */}
-                      <textarea
-                        value={value}
-                        onChange={(event) => {
-                          setValue(event.target.value);
-                        }}
-                        rows="2"
-                        cols="80"
-                        placeholder="Leave a comment here.."
-                      ></textarea>
-                      <div className={commentButton}>
-                        <Button onClick={() => onSave()}>Comment</Button>
-                      </div>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
+                  <div className={likesComments}>
+                    {/* LIKE COUNT */}
+                    {likeSum > 1 ? <p><b>{likeSum} Likes</b></p> : ""}
+                    {likeSum === 1 ? <p><b>{likeSum} Like</b></p> : ""}
+                    {/* COMMENTS LIST FOR POST */}
+                    {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
+                    {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
+                  </div>
+                  <ul className={commentListStyle}>{commentList}</ul>
+
+                  {/* FOR COMMENTING */}
+                  <textarea
+                    value={value}
+                    onChange={(event) => {setValue(event.target.value);}} 
+                    rows="2" cols="80" placeholder="Leave a comment here.."
+                  ></textarea>
+                  {/* <div className={commentButton}> */}
+                  <div className={commentButton}onClick={() => onSave()}>Comment</div>
+                  {/* </div> */}
+                </CardBody>
+              </Card>
             </div>
           );
         }}

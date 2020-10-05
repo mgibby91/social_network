@@ -8,7 +8,7 @@ import Col from "@paljs/ui/Col";
 import "./Editor.scss";
 
 function Editor(props) {
-  const [value, setValue] = React.useState("**Hello world!!!**");
+  const [value, setValue] = React.useState();
   const [checkbox, setCheckbox] = React.useState({
     1: false,
   });
