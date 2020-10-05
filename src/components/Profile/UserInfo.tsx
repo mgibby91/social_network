@@ -34,7 +34,7 @@ function UserInfo(props) {
               {/* <Experience /> */}
             </Col>
             <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-              {props.active ? (
+              {props.user.active ? (
                 <p className="status">
                   User is <span className="online">online</span>
                 </p>
