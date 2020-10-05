@@ -40,7 +40,7 @@ export default function RegisterPassword(props) {
   }
 
   return (
-    <div className='register-username-container'>
+    <div className={!props.confirmPassword ? 'register-password-container' : 'register-confirm-container'}>
       <div className="password-title register-title">
         {!props.confirmPassword ? 'Password: ' : 'Confirm Password: '}
       </div>
@@ -54,7 +54,7 @@ export default function RegisterPassword(props) {
           onBlur={() => setError()}
         />
       </div>
-      <div className="password-error register-error">
+      <div className={!props.confirmPassword ? "password-error register-error" : "confirm-error register-error"}>
         {errorMsg && !props.confirmPassword && (
           'Password must at least 5 characters!'
         )}

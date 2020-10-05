@@ -25,7 +25,7 @@ export default function RegisterEmail(props) {
 
 
   return (
-    <div className='register-username-container'>
+    <div className='register-email-container'>
       <div className="email-title register-title">
         Email:
       </div>
