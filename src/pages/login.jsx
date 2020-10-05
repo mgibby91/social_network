@@ -42,13 +42,13 @@ export default function Login() {
     }
   }
 
-  // useEffect(() => {
-  //   const avatarUrl = randomizeAvatar(avatarList);
-  //   setCurrentAvatar(avatarUrl);
-  //   setTimeout(() => {
-  //     setCount(count + 1);
-  //   }, 2000);
-  // }, [count]);
+  useEffect(() => {
+    const avatarUrl = randomizeAvatar(avatarList);
+    setCurrentAvatar(avatarUrl);
+    setTimeout(() => {
+      setCount(count + 1);
+    }, 2000);
+  }, [count]);
 
   function userLogin(username, password) {
 

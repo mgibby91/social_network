@@ -84,6 +84,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   const logoutBtnTitle = document.querySelector('.logout-btn-enabled');
   let logoutBtn;
+
   if (logoutBtnTitle) {
     logoutBtn = logoutBtnTitle.parentElement.parentElement
 
