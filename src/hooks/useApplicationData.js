@@ -15,6 +15,7 @@ import reducer, {
   EDIT_COMMENT,
   ADD_TO_STACK,
   REMOVE_FROM_STACK,
+  SET_COMMENTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -94,9 +95,17 @@ export default function useApplicationData() {
 
     socket.onopen = () => socket.send("ping");
     socket.onmessage = (event) => {
-      console.log("websocket is working: ", event);
+      // console.log("websocket is working: ", event);
       const data = JSON.parse(event.data);
+      console.log("data in websocket: ", data.type);
       if (data.type === ADD_COMMENT) {
+        console.log("data in websocket hook: ", data);
+        dispatch(data);
+      }
+      if (data.type === REMOVE_COMMENT) {
+        dispatch(data);
+      }
+      if (data.type === SET_APPLICATION_DATA) {
         dispatch(data);
       }
     };
@@ -105,18 +114,6 @@ export default function useApplicationData() {
       socket.close();
     };
   }, []);
-
-  // const editUserInfo = (newInfo) => {
-  //   const url = `/api/mentor_points`;
-  //   const promise = axios.put(url, { studentPoints }).then((req, res) => {
-  //     dispatch({
-  //       type: SET_POINTS,
-  //       points: studentPoints,
-  //       id: studentID,
-  //     });
-  //   });
-  //   return promise;
-  // };
 
   const setSelectedUser = (userID) => {
     dispatch({
@@ -203,22 +200,24 @@ export default function useApplicationData() {
     console.log("unlike data in hook: ", postId, unlikerId);
     const removeLike = {
       post_id: postId,
-      liker_id: unlikerId
+      liker_id: unlikerId,
     };
     const promise = axios
-      .delete(`http://localhost:8001/api/likes`, {params: { removeLike: removeLike }})
+      .delete(`http://localhost:8001/api/likes`, {
+        params: { removeLike: removeLike },
+      })
       .then((response) => {
         console.log("response in likes hook: ", response);
         dispatch({
           type: REMOVE_LIKE,
           data: removeLike,
-        })
+        });
       })
-      .catch(error => { 
-        console.log("I don't *like* this mess", error)
-      })
+      .catch((error) => {
+        console.log("I don't *like* this mess", error);
+      });
     return promise;
-  }
+  };
 
   const createComment = (postId, commenterId, commentDetails, commentObj) => {
     console.log(" data in comment hook: ", postId, commenterId, commentDetails);
@@ -234,7 +233,7 @@ export default function useApplicationData() {
     const promise = axios
       .post(`http://localhost:8001/api/comments`, { newComment })
       .then((response) => {
-        console.log("response.data in first .then", response.data[0]);
+        console.log("response.data in first .then", response);
         dispatch({
           type: ADD_COMMENT,
           data: newComment,
@@ -243,7 +242,6 @@ export default function useApplicationData() {
       .catch((err) => {
         console.log("I don't *comment* this mess", err);
       });
-    
 
     return promise;
   };
@@ -254,7 +252,7 @@ export default function useApplicationData() {
       post_id: postId,
       commenter_id: commenterId,
       text_body: commentDetails,
-      value: oldTextBody
+      value: oldTextBody,
     };
     console.log("new comment in hook: ", updatedComment);
 
@@ -268,7 +266,7 @@ export default function useApplicationData() {
         });
       })
       .catch((err) => {
-        console.log("I don't *comment* this mess", err)
+        console.log("I don't *comment* this mess", err);
       });
     return promise;
   };
@@ -339,22 +337,24 @@ export default function useApplicationData() {
     const removeComment = {
       post_id: postId,
       commenter_id: commenterId,
-      id: commentId
+      id: commentId,
     };
     const promise = axios
-      .delete(`http://localhost:8001/api/comments`, {params: { removeComment: removeComment }})
+      .delete(`http://localhost:8001/api/comments`, {
+        params: { removeComment: removeComment },
+      })
       .then((response) => {
         console.log("response in likes hook: ", response);
         dispatch({
           type: REMOVE_COMMENT,
           data: removeComment,
-        })
+        });
       })
-      .catch(error => { 
-        console.log("I don't *like* this mess", error)
-      })
+      .catch((error) => {
+        console.log("I don't *like* this mess", error);
+      });
     return promise;
-  }
+  };
 
   return {
     state,

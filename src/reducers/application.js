@@ -67,6 +67,7 @@ export default function reducer(state, action) {
       const { data } = action;
       state = { ...state, comments: [...state.comments, data] };
 
+      console.log("after set comments reducer: ", state.comments);
       return state;
     }
 
@@ -97,6 +98,8 @@ export default function reducer(state, action) {
     case REMOVE_COMMENT: {
       const { data } = action;
       const newComments = state.comments.filter((comment) => {
+        if (typeof comment === "undefined" || typeof data === "undefined")
+          return {};
         if (
           comment.post_id === data.post_id &&
           comment.commenter_id === data.commenter_id
