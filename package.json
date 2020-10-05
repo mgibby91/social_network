@@ -16,6 +16,7 @@
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "class-names": "^1.0.0",
+    "codemirror": "^5.58.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "env": "0.0.2",
@@ -33,6 +34,7 @@
     "helmet": "^4.1.1",
     "pusher-js": "^7.0.0",
     "react": "^16.13.1",
+    "react-codemirror2": "^7.2.1",
     "react-dom": "^16.13.1",
     "react-ladda": "^6.0.0",
     "react-modal": "^3.11.2",
@@ -40,6 +42,7 @@
     "react-scripts": "3.4.3",
     "react-slidedown": "^2.4.5",
     "react-tag-autocomplete": "^6.1.0",
+    "sandbox": "^0.8.6",
     "styled-components": "^5.2.0",
     "ws": "^7.3.1"
   },

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CodingChallengeDescription(props) {
 
-  console.log('CodingChallengeDesc Props', props);
+  // console.log('CodingChallengeDesc Props', props);
 
   return (
     <div className='coding-description-container-container'>

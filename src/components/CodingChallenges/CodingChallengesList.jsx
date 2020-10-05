@@ -3,7 +3,7 @@ import CodingChallengesListItem from './CodingChallengesListItem';
 
 export default function CodingChallengesList(props) {
 
-  console.log('CodingChallengesList Props', props);
+  // console.log('CodingChallengesList Props', props);
 
   const challengesItems = props.allChallenges.map(challenge => {
     return <CodingChallengesListItem

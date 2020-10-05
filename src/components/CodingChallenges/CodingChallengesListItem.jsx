@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CodingChallengesListItem(props) {
 
-  console.log('CodingChallengesListItem Props', props);
+  // console.log('CodingChallengesListItem Props', props);
 
   function getIsCompleted(props) {
 
@@ -14,10 +14,10 @@ export default function CodingChallengesListItem(props) {
     return false;
   }
 
-  console.log('completed?', getIsCompleted(props));
+  // console.log('completed?', getIsCompleted(props));
 
   return (
-    <div className='challenges-list-item' onClick={() => props.displayDescription(props.description)}>
+    <div className='challenges-list-item' onClick={() => props.displayDescription(props.description, props.title, props.id)}>
       <div className="challenges-item-title">
         {props.title}
       </div>
