@@ -15,7 +15,7 @@
   height: 350px;
   background: #222b45;
   border-radius: 10px;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .tutor-history-header-container {
@@ -256,6 +256,7 @@
   border-radius: 10px;
   padding: 1.25rem;
   margin-bottom: 1.25rem;
+  width: 100%;
 }
 
 .tutor-create-header {
