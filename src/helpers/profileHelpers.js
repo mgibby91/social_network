@@ -65,10 +65,40 @@ export function getDashboardPosts(posts) {
   return postsByUser;
 }
 
+export function getFilterOptions(posts) {
+  const seen = new Set();
+  const postsByUser = posts
+    .filter((el) => {
+      const duplicate = seen.has(el.name);
+      seen.add(el.name);
+      return !duplicate;
+    })
+    .map((el) => {
+      return el["name"];
+    });
+
+  //console.log("filter", postsByUser);
+  return postsByUser;
+}
+
 export function getStack(stack, senderId) {
   let currentStack = stack.filter((lang) => {
     return lang.user_id === parseInt(senderId, 10);
   });
   // console.log("stack", currentStack);
   return currentStack;
+}
+
+export function makeStackObj(stackArray, id) {
+  const arrOfObj = [];
+
+  for (let el of stackArray) {
+    let obj = {
+      user_id: id,
+      name: el,
+    };
+    arrOfObj.push(obj);
+  }
+
+  return arrOfObj;
 }

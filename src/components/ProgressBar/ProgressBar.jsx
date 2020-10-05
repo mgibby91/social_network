@@ -17,10 +17,6 @@ const ProgressBar = (props) => {
     fontWeight: "bold",
   };
 
-  function add() {
-    props.addPoints(points).catch((err) => console.log("error: ", err));
-  }
-
   let level = 1;
   let experiencePoints = 0;
   let width;

@@ -160,7 +160,13 @@ export default function Messages(props) {
     }
     changeBg(username);
 
-    const otherUserID = intMessages[0].senderid ? intMessages[0].senderid : intMessages[0].receiverid;
+    console.log('intMessages', intMessages);
+
+    let otherUserID;
+    if (intMessages.length) {
+      otherUserID = intMessages[0].senderid ? intMessages[0].senderid : intMessages[0].receiverid;
+    }
+
     const currentUserID = Number(document.cookie.split('=')[1]);
 
     axios.put('http://localhost:8001/api/messages/read', { currentUserID, otherUserID })

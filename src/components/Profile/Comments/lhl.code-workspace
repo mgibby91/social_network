@@ -1,0 +1,17 @@
+{
+  "folders": [
+	{
+		"path": "../../../../../../jungle-project"
+	},
+	{
+		"path": "../../../../../../scheduler"
+	},
+	{
+		"path": "../../../../../../scheduler-api"
+	},
+	{
+		"path": "../../../.."
+	}
+],
+  "settings": {}
+}

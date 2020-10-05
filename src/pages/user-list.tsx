@@ -4,27 +4,42 @@ import Col from "@paljs/ui/Col";
 import React from "react";
 import Users from "../components/UserList/UserList";
 import useApplicationData from "../hooks/useApplicationData";
+import ContextConsumer from '../context/context'
+import LoginLogout from '../components/LoginLogout/LoginLogout'
+import Register from '../components/LoginLogout/Register'
 
-export default function MentorList() {
+export default function UserList() {
   const { state, setSelectedUser } = useApplicationData();
 
   const users = state.users;
-  
   return (
-    <>
-      <Row>
-        <Col breakPoint={{ xs: 12 }}>
-          <Card>
-            <CardBody>
-              <Users 
-                users={users}
-                setSelectedUser={setSelectedUser}
-                mentor_stack={state.mentor_stack}
-              />
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </>
+    <ContextConsumer>
+    {({ data }) => {
+      if (!data.state) return (
+        <div>
+          <h1>Please login or register before using Stack.</h1>
+          <LoginLogout></LoginLogout>
+          <Register></Register>
+        </div>
+      )
+      return (
+        <>
+          <Row>
+            <Col breakPoint={{ xs: 12 }}>
+              <Card>
+                <CardBody>
+                  <Users 
+                    users={users}
+                    setSelectedUser={setSelectedUser}
+                    mentor_stack={state.mentor_stack}
+                  />
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </>
+      );
+    }}
+  </ContextConsumer>
   );
 }

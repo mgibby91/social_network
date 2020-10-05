@@ -1,14 +1,23 @@
 import { useReducer, useEffect } from "react";
+import { getStack, makeStackObj } from "../helpers/profileHelpers";
 import axios from "axios";
 import reducer, {
   SET_POINTS,
   SET_APPLICATION_DATA,
   SET_SELECTED_USER,
-  SET_STUDENT_POINTS,
-  SET_MENTOR_POINTS,
   SET_POSTS,
+  SET_NEW_STACK,
+  SET_NEW_INFO,
   SET_LIKES,
-  SET_COMMENTS,
+  ADD_COMMENT,
+  REMOVE_LIKE,
+  REMOVE_COMMENT,
+  EDIT_COMMENT,
+  ADD_TO_STACK,
+  REMOVE_FROM_STACK,
+  EDIT_POST,
+  DELETE_POST,
+  FILTER_POSTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -26,6 +35,7 @@ export default function useApplicationData() {
     student_points: [],
     stack_preferences: [],
     posts_stacks: [],
+    avatars: [],
     selected: {},
   });
 
@@ -44,7 +54,7 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/student_points"),
       axios.get("http://localhost:8001/api/stack_preferences"),
       axios.get("http://localhost:8001/api/posts_stacks"),
-      // axios.get('http://localhost:8001/api/student_rating/1'),
+      axios.get("http://localhost:8001/api/register/avatars"),
     ]).then((all) => {
       // console.log("all from applicatin data hook: ", all);
       const comments = all[0].data;
@@ -59,6 +69,7 @@ export default function useApplicationData() {
       const student_points = all[9].data;
       const stack_preferences = all[10].data;
       const posts_stacks = all[11].data;
+      const avatars = all[12].data;
       const selected = {};
       dispatch({
         type: SET_APPLICATION_DATA,
@@ -74,6 +85,7 @@ export default function useApplicationData() {
         student_points,
         stack_preferences,
         posts_stacks,
+        avatars,
         selected,
       });
     });
@@ -96,25 +108,15 @@ export default function useApplicationData() {
     };
   }, []);
 
-  const editUserInfo = (newInfo) => {
-    const url = `/api/mentor_points`;
-    const promise = axios.put(url, { studentPoints }).then((req, res) => {
-      dispatch({
-        type: SET_POINTS,
-        points: studentPoints,
-        id: studentID,
-      });
-    });
-    return promise;
-  };
-
   const setSelectedUser = (userID) => {
     dispatch({
       type: SET_SELECTED_USER,
       userId: userID,
     });
   };
+
   const createPost = (postDetails, techStack, id) => {
+    console.log("post details: ", techStack);
     const newPost = {
       text_body: postDetails.text,
       active: true,
@@ -123,8 +125,10 @@ export default function useApplicationData() {
       time_posted: new Date().toISOString(),
       is_mentor: false,
       is_student: true,
+      avatar: postDetails.avatar,
+      username: postDetails.username,
     };
-
+    console.log("newpost in hooked: ", newPost);
     if (!postDetails.mentor) {
       (newPost["is_mentor"] = true), (newPost["is_student"] = false);
     }
@@ -135,8 +139,10 @@ export default function useApplicationData() {
 
     const promise = axios
       .post(`http://localhost:8001/api/posts`, { newPost })
-      .then((response, reject) => {
+      .then((response) => {
+        console.log("response.data in first .then", response.data);
         getNewPostId(response.data);
+
         dispatch({
           type: SET_POSTS,
           data: newPost,
@@ -144,24 +150,19 @@ export default function useApplicationData() {
       });
     const getNewPostId = (res) => {
       console.log(res.id);
-      axios
-        .all(
-          techStack.map((element) => {
-            const newStack = {
-              post_id: id,
-              stack_id: element.id,
-            };
-            axios.post(`http://localhost:8001/api/posts_stacks`, {
-              newStack,
-            });
-          })
-        )
-        .then(
-          axios.spread(function (...res) {
-            // all requests are now complete
-            console.log("success");
-          })
-        );
+      Promise.all(
+        techStack.map((element) => {
+          axios.post(`http://localhost:8001/api/posts_stacks`, {
+            post_id: res.id,
+            stack_id: element.id,
+          });
+        })
+      ).then(
+        axios.spread(function (...res) {
+          // all requests are now complete
+          console.log("success");
+        })
+      );
     };
     return promise;
   };
@@ -170,7 +171,7 @@ export default function useApplicationData() {
     console.log("like data in hook: ", postId, likerId);
     const newLike = {
       post_id: postId,
-      liker_id: likerId
+      liker_id: likerId,
     };
     const promise = axios
       .post(`http://localhost:8001/api/likes`, { newLike })
@@ -179,20 +180,45 @@ export default function useApplicationData() {
         dispatch({
           type: SET_LIKES,
           data: newLike,
-        })
+        });
       })
-      .catch(error => {
-        console.log("I don't *like* this mess", error)
-      })
+      .catch((error) => {
+        console.log("I don't *like* this mess", error);
+      });
     return promise;
-  }
+  };
 
-  const createComment = (postId, commenterId, commentDetails) => {
+  const removeLike = (postId, unlikerId) => {
+    console.log("unlike data in hook: ", postId, unlikerId);
+    const removeLike = {
+      post_id: postId,
+      liker_id: unlikerId,
+    };
+    const promise = axios
+      .delete(`http://localhost:8001/api/likes`, {
+        params: { removeLike: removeLike },
+      })
+      .then((response) => {
+        console.log("response in likes hook: ", response);
+        dispatch({
+          type: REMOVE_LIKE,
+          data: removeLike,
+        });
+      })
+      .catch((error) => {
+        console.log("I don't *like* this mess", error);
+      });
+    return promise;
+  };
+
+  const createComment = (postId, commenterId, commentDetails, commentObj) => {
     console.log(" data in comment hook: ", postId, commenterId, commentDetails);
     const newComment = {
       post_id: postId,
       commenter_id: commenterId,
       text_body: commentDetails,
+      avatar: commentObj.avatar,
+      username: commentObj.username,
     };
     console.log("new comment in hook: ", newComment);
 
@@ -201,43 +227,193 @@ export default function useApplicationData() {
       .then((response) => {
         console.log("response.data in first .then", response.data[0]);
         dispatch({
-          type: SET_COMMENTS,
+          type: ADD_COMMENT,
           data: newComment,
         });
       })
       .catch((err) => {
-        console.log("I don't *comment* this mess", err)
+        console.log("I don't *comment* this mess", err);
       });
 
-    const getNewPostId = (res) => {
-      console.log(res);
+    return promise;
+  };
+
+  const editComment = (postId, commenterId, commentDetails, oldTextBody) => {
+    console.log(" data in comment hook: ", postId, commenterId, commentDetails);
+    const updatedComment = {
+      post_id: postId,
+      commenter_id: commenterId,
+      text_body: commentDetails,
+      value: oldTextBody,
+    };
+    console.log("new comment in hook: ", updatedComment);
+
+    const promise = axios
+      .put(`http://localhost:8001/api/comments`, { updatedComment })
+      .then((response) => {
+        console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: EDIT_COMMENT,
+          data: updatedComment,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err);
+      });
+    return promise;
+  };
+  const updatePost = (editedPost, post_id, id) => {
+    console.log("from hook", editedPost, post_id, id);
+
+    const promise = axios
+      .put(`http://localhost:8001/api/posts`, {
+        text_body: editedPost,
+        post_id: post_id,
+      })
+      .then((response) => {
+        // console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: EDIT_POST,
+          text: editedPost,
+          post_id: post_id,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err);
+      });
+
+    return promise;
+  };
+
+  const updateUserInfo = (newInfo, id) => {
+    console.log(
+      "here in update",
+      state.user_profiles,
+      state.mentor_stack,
+      newInfo
+    );
+
+    const promise = Promise.all([
+      axios.put("http://localhost:8001/api/users/edit", {
+        id: id,
+        username: newInfo["username"],
+      }),
+      axios.put("http://localhost:8001/api/user_profiles/edit", {
+        id: id,
+        avatar: newInfo["avatar"],
+        location: newInfo["location"],
+      }),
+    ])
+      .then(
+        dispatch({
+          type: SET_NEW_INFO,
+          data: newInfo,
+          id: id,
+        })
+      )
+      .catch((err) => console.log("something went wrong in the update"));
+  };
+
+  const deletePost = (post_id) => {
+    console.log("here in delete", post_id);
+
+    const promise = axios
+      .delete(`http://localhost:8001/api/posts`, { params: post_id })
+      .then((response) => {
+        // console.log("response.data in first .then", response.data[0]);
+        dispatch({
+          type: DELETE_POST,
+          post_id: post_id,
+        });
+      })
+      .catch((err) => {
+        console.log("I don't *comment* this mess", err);
+      });
+
+    return promise;
+  };
+
+  const updateMentorStack = (removed, added, id) => {
+    const arrOfRemoved = makeStackObj(removed, id);
+    const arrOfAdded = makeStackObj(added, id);
+
+    if (arrOfRemoved.length !== 0) {
       axios
         .all(
-          techStack.map((element) => {
-            const newStack = {
-              post_id: id,
-              stack_id: element.id,
-            };
-            axios.post(`http://localhost:8001/api/posts_stacks`, {
-              newStack,
+          arrOfRemoved.map((element) => {
+            axios.delete(`http://localhost:8001/api/mentor_stack`, {
+              params: element,
             });
           })
         )
         .then(
-          axios.spread(function (...res) {
-            // all requests are now complete
-            console.log(res);
+          dispatch({
+            type: REMOVE_FROM_STACK,
+            removed: arrOfRemoved,
           })
         );
+    }
+
+    if (arrOfAdded.length !== 0) {
+      axios
+        .all(
+          arrOfAdded.map((element) => {
+            axios.post(`http://localhost:8001/api/mentor_stack`, element);
+          })
+        )
+        .then(
+          dispatch({
+            type: ADD_TO_STACK,
+            added: arrOfAdded,
+          })
+        );
+    }
+  };
+
+  const removeComment = (postId, commenterId) => {
+    console.log("unlike data in hook: ", postId, commenterId);
+    const removeComment = {
+      post_id: postId,
+      commenter_id: commenterId,
     };
+    const promise = axios
+      .delete(`http://localhost:8001/api/comments`, {
+        params: { removeComment: removeComment },
+      })
+      .then((response) => {
+        console.log("response in likes hook: ", response);
+        dispatch({
+          type: REMOVE_COMMENT,
+          data: removeComment,
+        });
+      })
+      .catch((error) => {
+        console.log("I don't *like* this mess", error);
+      });
     return promise;
+  };
+  const filterDashboardPosts = (filter) => {
+    console.log("from filter", filter);
+
+    dispatch({
+      type: FILTER_POSTS,
+      text: filter,
+    });
   };
 
   return {
     state,
     createPost,
     setSelectedUser,
+    updateUserInfo,
+    updateMentorStack,
     addLike,
     createComment,
+    removeLike,
+    removeComment,
+    editComment,
+    updatePost,
+    deletePost,
+    filterDashboardPosts,
   };
 }

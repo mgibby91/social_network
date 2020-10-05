@@ -6,8 +6,19 @@ interface IProps {
   posts: IPosts;
   likes: ILikes;
   addLike: (post_id: number, liker_id: number) => void;
+  removeLike: (post_id: number, liker_id: number) => void;
   users: IUsers;
   createComment: (
+    post_id: number,
+    commenter_id: number,
+    text_body: string
+  ) => void;
+  removeComment: (
+    post_id: number,
+    commenter_id: number,
+    text_body: string
+  ) => void;
+  editComment: (
     post_id: number,
     commenter_id: number,
     text_body: string
@@ -32,6 +43,11 @@ interface ILikes {
 export default function PostList(props: IProps) {
   const comments = props.comments;
   const likes = props.likes;
+  props.posts.sort(function(a, b) {
+    let dateA = new Date(a.time_posted), dateB = new Date(b.time_posted)
+    return dateB-dateA
+  })
+  
   const postData = props.posts.map((post, index) => {
     return (
       <PostListItem
@@ -40,13 +56,15 @@ export default function PostList(props: IProps) {
         comments={comments}
         likes={likes}
         addLike={props.addLike}
+        removeLike={props.removeLike}
         createComment={props.createComment}
+        removeComment={props.removeComment}
+        editComment={props.editComment}
         users={props.users}
       />
     );
-    // })
   });
-
+  
   return (
     <div>
       <section>
