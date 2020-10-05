@@ -9,11 +9,6 @@ export default function CodingProgressBar(props) {
       {props.leftoverExp === 0 && (
         <div className='coding-low-exp'>{props.leftoverExp} / 100 XP</div>
       )}
-      {props.leftoverExp <= 10 && (
-        <div className="coding-progress-fill" style={{ width: props.leftoverExp + '%' }}>
-          <div style={{ marginLeft: '6rem', color: 'black' }}>{props.leftoverExp}XP</div>
-        </div>
-      )}
       {props.leftoverExp > 10 && (
         <div className="coding-progress-fill" style={{ width: props.leftoverExp + '%' }}>
           {props.leftoverExp} / 100 XP

@@ -132,6 +132,54 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   // MATT'S STUFF FOR MESSAGES + TUTOR NOTIFICATIONS *************************************************
 
+  // LOGOUT FUNCTIONALITY ************************
+
+
+
+  const logoutBtnTitle = document.querySelector('.logout-btn-enabled');
+  let logoutBtn;
+  if (logoutBtnTitle) {
+    logoutBtn = logoutBtnTitle.parentElement.parentElement
+    console.log('logoutBtn', logoutBtn);
+
+    logoutBtn.addEventListener('click', () => {
+
+      document.cookie = `userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
+      // MATT'S CODE************************************************************
+      const userDisplay = document.querySelector('.logged-in-username');
+
+      if (userDisplay) {
+        userDisplay.remove();
+      }
+
+      localStorage.removeItem('userID');
+      localStorage.removeItem('username');
+      localStorage.removeItem('avatarUrl');
+      localStorage.removeItem('unreadMessages');
+      localStorage.removeItem('unreadTutor');
+      localStorage.removeItem('Login');
+
+      logoutBtnTitle.textContent = 'Login';
+
+      // MATT'S CODE************************************************************
+    })
+  }
+
+  setTimeout(() => {
+    if (localStorage.getItem('Login')) {
+      const allMenuTitles = document.querySelectorAll('.menu-title');
+      for (let title of allMenuTitles) {
+        if (title.textContent === 'Login') {
+          title.textContent = 'Logout';
+        }
+      }
+    }
+  }, 100);
+
+
+  // LOGOUT FUNCTIONALITY ************************
+
   return (
     <ContextProviderComponent>
       <ThemeProvider theme={themes(theme, dir)}>

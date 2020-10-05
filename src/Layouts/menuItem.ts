@@ -26,15 +26,20 @@ const items: MenuItemType[] = [
     icon: { name: "browser-outline" },
     link: { to: '/tutor-sessions' },
   },
-  // {
-  //   title: "Register",
-  //   icon: { name: "lock-outline" },
-  //   link: { to: "/register" },
-  // },
   {
     title: "Coding Challenges",
-    icon: { name: "lock-outline" },
+    icon: { name: "edit-2-outline" },
     link: { to: "/coding-challenges" },
+  },
+  {
+    title: "Login",
+    icon: { name: "lock-outline" },
+    link: { to: "/login" },
+  },
+  {
+    title: "Register",
+    icon: { name: "lock-outline" },
+    link: { to: "/register" },
   },
 ];
 
