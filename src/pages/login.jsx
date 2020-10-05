@@ -13,6 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState(false);
   const [count, setCount] = useState(0);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
 
@@ -123,6 +124,9 @@ export default function Login() {
 
           // MATT'S CODE FOR ADDING TUTOR SESSION NOTIFICATION ON LOGIN************************************************************
 
+          setRedirect(true);
+          document.querySelector('.dashboard-redirect').click();
+
         } else {
           // if username or password are not correct
           setErrorMsg('Username/password are incorrect!');
@@ -173,6 +177,9 @@ export default function Login() {
            <Link to={`/register/`}><span id='register-account-click'>here</span>
           </Link>
         </div>
+        {redirect && (
+          <Link to={'/dashboard/'} className='dashboard-redirect'></Link>
+        )}
       </div>
       <div className="login-right-container">
         <img src={currentAvatar ? currentAvatar : 'https://robohash.org/voluptatemnemolaborum.png?size=400x400&set=set1'} alt="" />
