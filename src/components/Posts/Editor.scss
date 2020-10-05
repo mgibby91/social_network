@@ -1,5 +1,47 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+}
+
+.flex-row {
+  float: right;
+}
 .editor {
-  width: 80%;
-  margin-left: 100px;
+  margin-left: 50px;
   box-shadow: 0 8px 8px -6px black;
+}
+
+.post-btn {
+  border: 1px solid #1cd454;
+  color: #1cd454;
+  font-weight: 900;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+  margin-top: 20px;
+}
+
+.post-btn:hover {
+  cursor: pointer;
+  color: white;
+  border: 1px solid white;
+  background-color: #1cd454;
+}
+
+.checkbox {
+  float: right;
+  margin-top: 10px;
+
+}
+
+.tags {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
 }

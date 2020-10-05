@@ -84,6 +84,8 @@ export default function LoginLogout() {
     localStorage.removeItem('unreadMessages');
     localStorage.removeItem('unreadTutor');
     // MATT'S CODE************************************************************
+    set({ ...data, state: null, selected: null});
+
   }
 
   return (

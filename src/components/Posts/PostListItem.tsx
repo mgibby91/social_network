@@ -69,31 +69,12 @@ interface IPost {
   owner_id: number;
 }
 
-const list = classNames("post_body__item-list");
-const commentStyle = classNames("post_body__item-comments");
-const commentAvatar = classNames("post_body__item-comment_avatar");
-const deleteButton = classNames("post_body__item-delete_button");
-const postBody = classNames("post_body");
-const textBody = classNames("post_body__item-text_body");
-const userLink = classNames("post_body__item-user_link");
-const messageButton = classNames("post_body__item-message_button");
-const commentListStyle = classNames("post_body__item-comment_list");
-const commentButton = classNames("post_body__item-comment_button");
-const userCard = classNames("post_body__item-user_card");
-const circle = classNames("post_body__item-circle");
-const flex = classNames("post_body__item-flex");
-const likesComments = classNames("post_body__item-likes_comments");
-const bg = classNames("post_body__item-bg");
-const floatRight = classNames("post_body__item-float_right");
-const blueButton = classNames("post_body__item-blue_button");
-const likeButton = classNames("post_body__item-like_button");
-
 export default function PostListItem(props: IProps) {
   const [value, setValue] = React.useState("Comment here...");
 
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
-      <li className={list} key={index}>
+      <li className="list" key={index}>
         {tech_stack}&nbsp;
       </li>
     );
@@ -144,12 +125,12 @@ export default function PostListItem(props: IProps) {
           return (
             <div key={index}>
               <img
-                className={commentAvatar}
+                className="comment-avatar"
                 src={comment.avatar}
                 alt="avatar"
               />
-              <div className={commentStyle}>
-                <div className={flex}>
+              <div className="comments">
+                <div className="flex">
                   {/* {myCommentOrPost ? (
                     <p onClick={() => onEdit()} className={deleteButton}>
                       Edit
@@ -158,7 +139,7 @@ export default function PostListItem(props: IProps) {
                     ""
                   )} */}
                   {myCommentOrPost ? (
-                    <p onClick={() => onRemove()} className={deleteButton}>
+                    <p onClick={() => onRemove()} className="delete-button">
                       Delete
                     </p>
                   ) : (
@@ -212,45 +193,38 @@ export default function PostListItem(props: IProps) {
           return (
             <div>
               <Card>
-                <CardBody className={postBody}>
-                  {/* POST TEXT BODY */}
-                  <div className={floatRight}>
-                    <small className={floatRight}>{timeAgo}</small>
-                    <p className={textBody}>{props.post.text_body}</p>
-                  </div>
-
+                <CardBody className="post-body">
+                
                   {/* USERS DETAILS */}
-                  <Link
-                    className={userLink}
-                    to={`/user-profiles/${props.post.username}`}
-                  >
-                    <div>
-                      <div className={flex}>
-                        <div className={circle}>
-                          <img src={props.post.avatar} alt="avatar"></img>
-                        </div>    
-                      </div>
-                      <div className={userCard}>
-                        <span className={bg}>
-                          <h3>{props.post.username}</h3>
-                        </span>
 
-                        <span>{props.post.active ? <h6>User is online</h6> : <h6>User is offline</h6>}
-                        </span>
-                      </div>
+                  <Link className="user-link" to={`/user-profiles/${props.post.username}`}>
+                    <div className="user-card">
+                      <div className="circle">
+                        <img src={props.post.avatar} alt="avatar"></img>
+                      </div>    
+                      <span className="bg">
+                        <h3>{props.post.username}</h3>
+                      </span>
                     </div>
                   </Link>
-
+                  <Link className="online-link" to={`/user-profiles/${props.post.username}`}>
+                    <span>{props.post.active ? <h6>User is online</h6> : <h6>User is offline</h6>}
+                    </span>
+                  </Link>
                   {/* MESSAGE BUTTON */}
-                  <div className={messageButton}>
+                  <div className="message-button">
                     <Link
-                      className={userLink}
+                      className="user-link"
                       to={`/messages/`}
                       state={{ username: props.post.username }}
                     >
-                      <div className={blueButton}>Message User</div>
+                      <div className="blue-button">Message User</div>
                     </Link>
                   </div>
+                  <small className="float-right">{timeAgo}</small>
+
+                  {/* POST TEXT BODY */}
+                  <p className="text-body">{props.post.text_body}</p>
 
                   {/* POST STACK LIST */}
                   <h5>Stack: {stack}</h5>
@@ -259,17 +233,17 @@ export default function PostListItem(props: IProps) {
 
                   {iAlreadyLikeThis ? (
                   <div
-                    className={likeButton}
+                    className="like-button"
                     onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
                     >Unlike</div>
                   ) : (
                   <div
-                    className={likeButton}
+                    className="like-button"
                     onClick={() => props.addLike(props.post.post_id, currentUser.id)}
                     >Like</div>
                   )}
 
-                  <div className={likesComments}>
+                  <div className="likes-comments">
                     {/* LIKE COUNT */}
                     {likeSum > 1 ? <p><b>{likeSum} Likes</b></p> : ""}
                     {likeSum === 1 ? <p><b>{likeSum} Like</b></p> : ""}
@@ -277,7 +251,7 @@ export default function PostListItem(props: IProps) {
                     {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
                     {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
                   </div>
-                  <ul className={commentListStyle}>{commentList}</ul>
+                  <ul className="comment-list">{commentList}</ul>
 
                   {/* FOR COMMENTING */}
                   <textarea
@@ -285,9 +259,7 @@ export default function PostListItem(props: IProps) {
                     onChange={(event) => {setValue(event.target.value);}} 
                     rows="2" cols="80" placeholder="Leave a comment here.."
                   ></textarea>
-                  {/* <div className={commentButton}> */}
-                  <div className={commentButton}onClick={() => onSave()}>Comment</div>
-                  {/* </div> */}
+                  <div className="comment-button"onClick={() => onSave()}>Comment</div>
                 </CardBody>
               </Card>
             </div>

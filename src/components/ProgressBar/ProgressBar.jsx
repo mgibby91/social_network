@@ -1,7 +1,7 @@
 import React from "react";
-
+import "./ProgressBar.scss"
 const ProgressBar = (props) => {
-  let { points, experience } = props;
+  let { experience } = props;
 
   const containerStyles = {
     height: 20,
@@ -9,12 +9,6 @@ const ProgressBar = (props) => {
     backgroundColor: "#e0e0de",
     borderRadius: 50,
     margin: 50,
-  };
-
-  const labelStyles = {
-    padding: 5,
-    color: "black",
-    fontWeight: "bold",
   };
 
   let level = 1;
@@ -69,16 +63,15 @@ const ProgressBar = (props) => {
   const fillerStyles = {
     height: "100%",
     width: `${width}%`,
-    backgroundColor: "red",
     borderRadius: "inherit",
     textAlign: "right",
   };
 
   return (
     <div style={containerStyles}>
-      <div style={fillerStyles}>
+      <div style={fillerStyles}class="bg-color">
         <span
-          style={labelStyles}
+          class="label-styles"
         >{`${experiencePoints}/${fullExperience}`}</span>
       </div>
       <span>Level {level}</span>

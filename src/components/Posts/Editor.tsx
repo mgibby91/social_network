@@ -1,7 +1,6 @@
 import React from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { Checkbox } from "@paljs/ui/Checkbox";
-import { Button, ButtonLink } from "@paljs/ui/Button";
 import Tags from "./StackTag";
 import ContextConsumer from "../../context/context";
 import Col from "@paljs/ui/Col";
@@ -51,25 +50,31 @@ function Editor(props) {
 
           return (
             <>
-              <MDEditor className="editor" value={value} onChange={setValue} />
-              <Tags suggested={props.suggestion} onChange={onChangeInput} />
-              <Checkbox
-                checked={checkbox[1]}
-                status="Success"
-                onChange={(value) => onChangeCheckbox(value, 1)}
-              >
-                Mentor Help Needed
-              </Checkbox>
+            <div className="flex">
+              <MDEditor className="editor" value={value} onChange={setValue} />  
+              <div className="flex-row">
+                <div className="checkbox">
+                  <Checkbox
+                    checked={checkbox[1]}
+                    status="Success"
+                    onChange={(value) => onChangeCheckbox(value, 1)}
+                  >
+                    Mentor Help Needed
+                  </Checkbox>
+                </div>
+                <div className="tags">
+                  <Tags suggested={props.suggestion} onChange={onChangeInput} />
+                </div>
+              </div>
               <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
-                <Button
-                  fullWidth
-                  appearance="hero"
-                  status="Success"
+                <div
+                  className="post-btn"
                   onClick={() => onSave()}
                 >
                   Post
-                </Button>
+                </div>
               </Col>
+            </div>
             </>
           );
         }}

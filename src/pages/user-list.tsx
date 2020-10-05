@@ -5,8 +5,7 @@ import React from "react";
 import Users from "../components/UserList/UserList";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from '../context/context'
-import LoginLogout from '../components/LoginLogout/LoginLogout'
-import Register from '../components/LoginLogout/Register'
+import NewLogin from '../pages/login'
 
 export default function UserList() {
   const { state, setSelectedUser } = useApplicationData();
@@ -18,8 +17,7 @@ export default function UserList() {
       if (!data.state) return (
         <div>
           <h1>Please login or register before using Stack.</h1>
-          <LoginLogout></LoginLogout>
-          <Register></Register>
+          <NewLogin></NewLogin>
         </div>
       )
       return (

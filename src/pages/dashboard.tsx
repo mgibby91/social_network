@@ -5,9 +5,7 @@ import Editor from "../components/Posts/Editor";
 import Select from "react-dropdown-select";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
-import LoginLogout from "../components/LoginLogout/LoginLogout";
-import Register from "../components/LoginLogout/Register";
-import { Button } from "@paljs/ui/Button";
+import NewLogin from "../components/LoginLogout/NewLogin";
 import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
 
 interface IProps {
@@ -55,8 +53,7 @@ export default function Home() {
           return (
             <div>
               <h1>Please login or register before using Stack.</h1>
-              <LoginLogout></LoginLogout>
-              <Register></Register>
+              <NewLogin></NewLogin>
             </div>
           );
         return (

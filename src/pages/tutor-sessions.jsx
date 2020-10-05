@@ -11,8 +11,7 @@ import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
 import ContextConsumer from '../context/context'
-import LoginLogout from '../components/LoginLogout/LoginLogout'
-import Register from '../components/LoginLogout/Register'
+import NewLogin from '../pages/login'
 import axios from 'axios';
 
 export default function TutorSessions() {
@@ -293,8 +292,7 @@ export default function TutorSessions() {
       if (!data.state) return (
         <div>
           <h1>Please login or register before using Stack.</h1>
-          <LoginLogout></LoginLogout>
-          <Register></Register>
+          <NewLogin></NewLogin>
         </div>
       )
   return (

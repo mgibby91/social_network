@@ -1,158 +1,166 @@
-.post_body {
-  &__item {
-    &-flex_between {
-      display: flex;
-      justify-content: space-between;
-    }
-    &-float_right {
-      float: right;
-    }
-    &-text_body {
-      float: right;
-      width: 60%;
-      padding-top: 20px;
-      margin-top: 50px;
-    }
-    &-user_card {
-      margin-left: 10px;
-      margin-top: 10px;
-      width: 22%;
-      height: 10%;
-      padding-left: 18px;
-    }
+.post-body {
+  display: flex;
+  flex-direction: column;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+.float-right {
+  display: flex;
+  float: right;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 15px;
+}
+.text-body {
+  width: 60%;
+  padding-top: 20px;
+  margin-top: 50px;
+}
+.user-link {
+  text-decoration: none;
+  width: 30%;
+}
+.online-link {
+  text-decoration: none;
+}
+.user-card {
+  width: 22%;
+  height: 10%;
+  // padding-left: 18px;
+}
 
-    &-likes_comments {
-      display: flex;
-      justify-content: space-between;
-    }
-    &-circle {
-      display: flex;
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      background-color: white;
-      padding: 15px;
-      margin-bottom: 5px;
-    }
-    &-flex {
-      display: flex;
-    }
-    &-user_link {
-      text-decoration: none;
-    }
-    &-message_button {
-      padding-top: 15px;
-    }
-    &-list {
-      list-style-type: none;
-      display: inline-block;
-    }
-    &-comment_list {
-      border-radius: 5px;
-      overflow: scroll;
-      background-color: white;
-      height: 150px;
-      display: flex;
-      flex-direction: column-reverse;
-    }
-    &-comment_avatar {
-      display: flex;
-    }
-    &-comments {
-      list-style-type: none;
-      background-color: #faf0e6;
-      color: black;
-      display: inline-block;
-      width: 90%;
-      border-radius: 15px;
-      margin-left: 60px;
-      padding: 10px;
-    }
-    // &-comments p,
-    // li {
-    //   color: black;
-    // }
-    &-comments li {
-      color: black;
-    }
-    &-comment_button {
-      float: right;
-      margin-top: 10px;
-      padding-top: 3px;
-      border: 1px solid #3366ff;
-      color: #3366ff;
-      font-weight: 900;
-      border-radius: 50px;
-      padding: 0.5rem 0.8rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 180px;
-      text-transform: uppercase;
-      transition: all 0.2s ease-in-out;
-    }
-    &-comment_button:hover {
-      cursor: pointer;
-      color: white;
-      border: 1px solid white;
+.likes-comments {
+  display: flex;
+  justify-content: space-between;
+}
+.circle {
+  display: flex;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 5px;
+}
+// .flex {
+//   display: flex;
+// }
 
-      box-shadow: 5px 5px 25px rgba(145, 92, 182, 0.4);
-    }
-    &-blue_button {
-      border: 1px solid #3366ff;
-      color: #3366ff;
-      font-weight: 900;
-      border-radius: 50px;
-      padding: 0.5rem 0.8rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 180px;
-      text-transform: uppercase;
-      transition: all 0.2s ease-in-out;
-    }
-    &-blue_button:hover {
-      cursor: pointer;
-      color: white;
-      border: 1px solid white;
-      box-shadow: 5px 5px 25px rgba(145, 92, 182, 0.4);
-    }
-    &-like_button {
-      border: 1px solid #3366ff;
-      color: #3366ff;
-      font-weight: 700;
-      border-radius: 50px;
-      padding: 0.2rem 0.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;
-      text-transform: uppercase;
-      transition: all 0.2s ease-in-out;
-    }
-    &-like_button:hover {
-      cursor: pointer;
-      color: white;
-      border: 1px solid white;
-      box-shadow: 5px 5px 25px rgba(145, 92, 182, 0.4);
-    }
-    &-delete_button {
-      // border: 1px solid #3366ff;
-      color: #3366ff;
-      font-weight: 700;
-      border-radius: 15px;
-      padding: 0.2rem 0.8rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;
-      font-size: 1.1em;
-    }
-    &-delete_button:hover {
-      cursor: pointer;
-      color: rgb(250, 70, 70);
-    }
-  }
+.user-row {
+  display: inline-block;
+}
+.message-button {
+  padding-top: 15px;
+}
+.list {
+  list-style-type: none;
+  display: inline-block;
+}
+.comment-list {
+  border-radius: 5px;
+  overflow: scroll;
+  background-color: white;
+  height: 150px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.comment-avatar {
+  display: flex;
+}
+.comments {
+  list-style-type: none;
+  background-color: #faf0e6;
+  color: black;
+  display: inline-block;
+  width: 90%;
+  border-radius: 15px;
+  margin-left: 60px;
+  padding: 10px;
+}
+.comments li {
+  color: black;
+}
+.comment-button {
+  float: right;
+  margin-top: 10px;
+  padding-top: 3px;
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 900;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+
+.comment-button:hover {
+  cursor: pointer;
+  color: #1cd454;
+  border: 1px solid #1cd454;
+  box-shadow: 5px 5px 25px rgba(145, 92, 182, 0.4);
+}
+.blue-button {
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 900;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+.blue-button:hover {
+  cursor: pointer;
+  color: #1cd454;
+  border: 1px solid #1cd454;
+  box-shadow: 5px 5px 25px rgba(145, 92, 182, 0.4);
+}
+.like-button {
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+.like-button:hover {
+  cursor: pointer;
+  color: #1cd454;
+  border: 1px solid #1cd454;
+  box-shadow: 5px 5px 25px rgba(145, 92, 182, 0.4);
+}
+.delete-button {
+  // border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 700;
+  border-radius: 15px;
+  padding: 0.2rem 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  font-size: 1.1em;
+}
+.delete-button:hover {
+  cursor: pointer;
+  color: rgb(250, 70, 70);
 }
 .list {
   list-style-type: none;
