@@ -3,7 +3,6 @@ import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import timeSince from "../../helpers/timeSince";
-import CommentList from "../Comments/CommentListItem";
 import PostListItem from "./PostListItem";
 
 function PostList(props) {
@@ -12,6 +11,7 @@ function PostList(props) {
   const postData = posts.map((post, index) => {
     return (
       <PostListItem
+        user={props.user}
         key={index}
         index={index}
         comments={comments}

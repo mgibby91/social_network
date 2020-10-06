@@ -6,7 +6,7 @@ import Editor from "./Editor";
 import PostList from "./PostList";
 import UserInfo from "./UserInfo";
 import EditUserInfo from "./EditUserInfo";
-import Experience from "./UserExperience";
+
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
 
@@ -33,9 +33,8 @@ function UserProfileItem(props) {
     deletePost,
   } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
-
+  const loggedUser = document.cookie.split("=")[1];
   let senderID = document.cookie.split("=")[1];
-  // console.log("from user-profile", senderID);
 
   function onEdit() {
     transition(EDITING);
@@ -63,9 +62,7 @@ function UserProfileItem(props) {
           console.log("data in context: ", data.state.users);
 
           if (!currentUser) {
-            currentUser = state.users.find(
-              (user) => user.id === data.selected
-            );
+            currentUser = state.users.find((user) => user.id === data.selected);
             console.log("current user in context: ", currentUser);
           }
 
@@ -127,30 +124,26 @@ function UserProfileItem(props) {
                     />
                   </>
                 )}
-
-                <Experience
-                  mentor={currentUser.mentorrating}
-                  student={currentUser.studentrating}
-                  user={currentUser}
-                  // userId={state.user.id}
-                  // username={state.user.username}
-                />
-
-                <Row>
-                  <Col breakPoint={{ xs: 12, md: 12 }}>
-                    <Editor
-                      id={user.id}
-                      createPost={createPost}
-                      suggestion={state.stack_preferences}
-                    />
-                  </Col>
-                </Row>
+                {currentUser.id === parseInt(loggedUser, 10) ? (
+                  <Row>
+                    <Col breakPoint={{ xs: 12, md: 12 }}>
+                      <Editor
+                        id={user.id}
+                        createPost={createPost}
+                        suggestion={state.stack_preferences}
+                      />
+                    </Col>
+                  </Row>
+                ) : (
+                  ""
+                )}
                 <Row>
                   <Col breakPoint={{ xs: 12, md: 12 }}>
                     <h2>Recent Posts...</h2>
                   </Col>
                 </Row>
                 <PostList
+                  user={currentUser}
                   comments={comments}
                   posts={posts}
                   users={state.users}
