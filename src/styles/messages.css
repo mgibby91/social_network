@@ -130,6 +130,7 @@
   padding: 0.5rem;
   max-width: 60%;
   margin: 0.6rem 0.4rem;
+  background: #192038;
   /* border-radius: 8px; */
 }
 
@@ -197,7 +198,7 @@
   font-weight: 500;
   transition: all 0.2s ease-in-out;
 }
-.msg-btn-complete, .msg-btn-send {
+.msg-btn-complete {
   border: 1px solid #1cd454;
   color: #1cd454;
   font-weight: 500;
@@ -290,7 +291,7 @@
 }
 
 .msg-btn-send:hover {
-  background: linear-gradient(to right, white, #1cd454 50%, white 50%);
+  background: linear-gradient(to right, white, rgb(201, 201, 201) 50%, white 50%);
   overflow: hidden;
   background-clip: text;
   -webkit-background-clip: text;
@@ -298,11 +299,10 @@
   background-position: 110%;
   transition: background-position 275ms ease;
   text-decoration: none;
-  color:#1cd454;
   background-position: 100% 0;
   transition: .2s;
   cursor: pointer;
-  color: white;
+  color: rgb(201, 201, 201);
   background-position: 0 100%;
   -webkit-text-fill-color: transparent;
   box-shadow: 1px 1px 9px #FFF0F5;
