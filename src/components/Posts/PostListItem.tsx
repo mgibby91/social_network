@@ -9,8 +9,6 @@ import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
 import timeSince from "../../helpers/timeSince";
 
-const classNames = require("class-names");
-
 interface IProps {
   key: number;
   post: IPost;
@@ -241,13 +239,19 @@ export default function PostListItem(props: IProps) {
                   {/* POST STACK LIST */}
                   <h5 className="stack"> {stack}</h5>
 
-
                   <div className="wrap-collapsible">
-                    <input id={"collapsible" + props.index} className="toggle"  type="checkbox"></input>
+
+                    <input 
+                      id={"collapsible" + props.index} className="toggle"  type="checkbox">
+                    </input>
+
                     <label for={"collapsible" + props.index} className="lbl-toggle">
                     {/* COMMENTS LIST FOR POST */}
+
                     {commentsLength > 1 ? <span>{commentsLength} comments</span> : ""}
+
                     {commentsLength === 1 ? <span>{commentsLength} comment</span> : ""}
+
                     </label>
                     <ul className="collapsible-content">{commentList}</ul>
                     <div className="anchor"></div>

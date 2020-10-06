@@ -25,7 +25,8 @@ interface IProps {
   ) => void;
   deletePost: (
     post_id: number,
-  ) => void;}
+  ) => void;
+}
 
 interface IUsers {
   [index: number]: { id: number; user_id: number; name: string };
