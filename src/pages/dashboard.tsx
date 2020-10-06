@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Row from "@paljs/ui/Row";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
-import Select from "react-dropdown-select";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
-import LoginLogout from "../components/LoginLogout/LoginLogout";
-import Register from "../components/LoginLogout/Register";
-import { Button } from "@paljs/ui/Button";
+import NewLogin from "../components/LoginLogout/NewLogin";
 import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
 import Col from "@paljs/ui/Col";
+import { Button } from "@paljs/ui/Button";
 
+import './dashboard.scss'
 interface IProps {
   value: object;
   submitPost: (username: string) => void;
@@ -59,13 +58,12 @@ export default function Home() {
           return (
             <div>
               <h1>Please login or register before using Stack.</h1>
-              <LoginLogout></LoginLogout>
-              <Register></Register>
+              <NewLogin></NewLogin>
             </div>
           );
         return (
           <div className="App">
-            <h1>Request or offer assistance:</h1>
+            <h1 className="title">Looking for help or have something to offer? Let others know!</h1>
             <Row>
               <Editor
                 createPost={createPost}

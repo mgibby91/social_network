@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/login.css';
+import '../../styles/login.css';
 import axios from 'axios';
 import { Link } from "@reach/router";
-import setNotifications from '../helpers/setNotifications';
-import setUnseenTutor from '../helpers/setUnseenTutor';
-import ContextConsumer from "../context/context";
-import useApplicationData from "../hooks/useApplicationData";
+import setNotifications from '../../helpers/setNotifications';
+import setUnseenTutor from '../../helpers/setUnseenTutor';
+import ContextConsumer from "../../context/context";
+import useApplicationData from "../../hooks/useApplicationData";
 
 export default function Login() {
   const { state } = useApplicationData();
@@ -41,7 +41,7 @@ export default function Login() {
     const randomAvatar = avatarList[randomNum];
 
     if (randomAvatar) {
-      return randomAvatar.url.replace(/50/g, 500);
+      return randomAvatar.url.replace(/50/g, 400);
     }
   }
 
@@ -149,9 +149,6 @@ export default function Login() {
 
           // redirect to home page
           setRedirect(true);
-          setTimeout(() => {
-            document.querySelector('.dashboard-redirect').click();            
-          }, 500);
 
         } else {
           // if username or password are not correct

@@ -7,17 +7,18 @@
 /* main container */
 .main-message-container {
   display: flex;
-  height: 600px;
-  width: 1000px;
-  border: 1px solid white;
-  border-radius: 5px;
+  height: 80vh;
+  width: 100%;
+  /* border: 1px solid #475991; */
+  border-radius: 10px;
+  background: #222b45;
 }
 
 /* left container - message list */
 .left-message-container {
   height: 100%;
   width: 40%;
-  border: 1px solid white;
+  /* border: 1px solid #475991; */
   border-radius: 5px 0 0 5px;
 }
 
@@ -25,7 +26,7 @@
 .right-message-container {
   height: 100%;
   width: 60%;
-  border: 1px solid white;
+  /* border: 1px solid #475991; */
   border-radius: 0 5px 5px 0;
 }
 
@@ -35,13 +36,17 @@
   align-items: center;
   width: 100%;
   height: 100px;
-  border: 1px solid white;
+  border-bottom: 0.5px solid #151a30;
   position: relative;
+}
+
+.message-item-container:nth-child(odd) {
+  background: #2b3858;
 }
 
 .message-item-container:hover {
   cursor: pointer;
-  background: #3366ff;
+  background: #475991;
 }
 
 /* icon left side */
@@ -104,8 +109,10 @@
   overflow: auto;
   display: flex;
   flex-direction: column-reverse;
-  height: 80%;
+  height: 70%;
   padding-bottom: 0.6rem;
+  border-left: 0.5px solid #151a30;
+  /* border: 1px solid #475991; */
 }
 
 .text-container {
@@ -162,7 +169,9 @@
 /* Header */
 .message-text-header {
   height: 10%;
-  border: 1px solid white;
+  /* border: 1px solid #475991; */
+  border-bottom: 0.5px solid #151a30;
+  border-left: 0.5px solid #151a30;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -180,7 +189,24 @@
   padding: 0.3rem 0.6rem;
   margin: 0 0.35rem;
   border-radius: 5px;
+  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  /* color:#3366ff; */
 }
+
+.msg-btn:hover {
+  cursor: pointer;
+  color: green;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+}
+
 
 .msg-btn-create {
   border: 1px solid #3366ff;
@@ -219,10 +245,12 @@
 /* message text area */
 .message-text-area-container {
   position: relative;
-  height: 10%;
-  max-height: 10%;
+  height: 20%;
+  max-height: 20%;
   max-width: 100%;
-  border: 1px solid white;
+  /* border: 1px solid #475991; */
+  border-left: 0.5px solid #151a30;
+  border-top: 0.5px solid #151a30;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,12 +261,12 @@
   border-radius: 8px;
   margin-top: 3px;
   margin-right: 0.4rem;
-  padding: 0.2rem 0.4rem;
+  padding: 0.4rem 0.6rem;
   border: none;
   background: #192038;
   color: white;
   border: 1px solid #222b45;
-  height: 45px;
+  height: 75px;
   border-radius: 5px;
   font-size: 1rem;
   overflow: hidden;
@@ -253,7 +281,7 @@
 .msg-btn-send:hover {
   cursor: pointer;
   color: black;
-  background: white;
+  /* background: white; */
 }
 
 /* error show */
@@ -271,21 +299,23 @@
 
 /* message list selected */
 .message-list-selected {
-  background: #3366ff;
+  background: #475991 !important;
 }
 
 /* Message List Header */
 .message-list-header {
-  height: 9.9%;
-  border: 1px solid white;
+  height: 10%;
+  /* border: 1px solid #475991; */
+  /* border-right: 0.5px solid #151a30; */
+  border-bottom: 0.5px solid #151a30;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
 .message-list-title {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .message-list-create:hover {
@@ -326,8 +356,8 @@
   border-radius: 10px;
   padding: 1.25rem;
   margin-bottom: 1.25rem;
-  height: 180px;
-  width: 1000px;
+  height: 188px;
+  width: 100%;
 }
 
 .message-success-title {
@@ -364,3 +394,9 @@
   border-radius: 5px;
   padding: 0 0.3rem;
 }
+
+.tutor-create-container {
+  width: 100% !important;
+}
+
+

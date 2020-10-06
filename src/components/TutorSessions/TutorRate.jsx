@@ -72,7 +72,7 @@ export default function TutorRate(props) {
         />
       </div>
       <div className="rate-tutor-comments">
-        <textarea name="tutor-rate-comment" id="tutor-rate-comments" cols="43" rows="7" placeholder='Comments...'></textarea>
+        <textarea name="tutor-rate-comment" id="tutor-rate-comments" cols="60" rows="7" placeholder='Comments...'></textarea>
       </div>
       {!props.unratedSession && (
         <div className="tutor-rate-btns-container">

@@ -1,14 +1,14 @@
 .register-main-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  /* background: #222b45; */
+  justify-content: center;
+  align-items: center;
+  background: #222b45;
   border-radius: 10px;
-  border: 10px solid #222b45;
   padding: 2rem;
-  height: 1000px;
-  width: 1000px;
+  padding-right: 5rem;
+  height: 96%;
+  width: 100%;
 }
 
 .register-avatar-list-title {
@@ -97,11 +97,27 @@
 
 
 /* Username */
-.register-username-container {
+.register-username-container,
+.register-email-container,
+.register-password-container,
+.register-confirm-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 1rem;
+  position: relative;
+}
+
+.register-username-container {
+  margin-left: 11.5rem;
+}
+
+.register-password-container {
+  margin-right: 2.8rem;
+}
+
+.register-confirm-container {
+  margin-right: 8.4rem;
 }
 
 .username-random-container {
@@ -161,4 +177,43 @@
 
 .submit-success-container {
   color: #1cd454;
+}
+
+.register-avatar-list-title {
+  margin-right: 10.8rem;
+}
+
+.register-avatar-list-main-container {
+  margin-left: 2.8rem;
+}
+
+.username-error{
+  position: absolute;
+  left: -300px;
+}
+
+.email-error {
+  position: absolute;
+  left: -210px;
+}
+
+.password-error {
+  position: absolute;
+  left: -300px;
+}
+
+.confirm-error {
+  position: absolute;
+  left: -220px;
+}
+
+.password-match {
+  position: absolute;
+  left: -220px;
+}
+
+.register-main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
 }

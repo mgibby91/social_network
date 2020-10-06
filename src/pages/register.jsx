@@ -91,6 +91,9 @@ export default function Register() {
 
   return (
     <div className='register-main-container'>
+      <div className="register-main-title">
+        Sign up for Stack!
+      </div>
       <RegisterUsername
         randomUsernameList={randomUsernameList}
       />
