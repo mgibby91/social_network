@@ -1,3 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
+
 import React, { useRef } from "react";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
@@ -228,25 +232,7 @@ export default function PostListItem(props: IProps) {
                   {/* POST STACK LIST */}
                   <h5 className="stack"> {stack}</h5>
 
-                  {/* BUTTON FOR LIKES */}
 
-                  {iAlreadyLikeThis ? (
-                  <div
-                    className="unlike-button like-transition"
-                    onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
-                    >Unlike</div>
-                  ) : (
-                  <div
-                    className="like-button like-transition"
-                    onClick={() => props.addLike(props.post.post_id, currentUser.id)}
-                    >Add Like</div>
-                  )}
-
-                  <div className="likes-comments">
-                    {/* LIKE COUNT */}
-                    {likeSum > 1 ? <p><b>{likeSum} Likes</b></p> : ""}
-                    {likeSum === 1 ? <p><b>{likeSum} Like</b></p> : ""}
-                  </div>
                   <div className="wrap-collapsible">
                     <input id={"collapsible" + props.index} className="toggle"  type="checkbox"></input>
                     <label for={"collapsible" + props.index} className="lbl-toggle">
@@ -265,7 +251,44 @@ export default function PostListItem(props: IProps) {
                     onChange={(event) => {setValue(event.target.value);}} 
                     rows="2" cols="80" placeholder="Leave a comment here.."
                   ></textarea>
+                  <div className="comment-like-button-flex">
                   <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
+                  {/* BUTTON FOR LIKES */}
+                  <div className="likes">
+                    {iAlreadyLikeThis ? (
+                      <FontAwesomeIcon 
+                      onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
+                      className="unlove"
+                      icon={fasHeart} size="1x" />
+                    ) : (                  
+                      <FontAwesomeIcon 
+                        onClick={() => props.addLike(props.post.post_id, currentUser.id)}
+                        className="love"
+                        icon={farHeart} size="1x" />
+                    )}
+
+                    <div className="likes-comments">
+                      {/* LIKE COUNT */}
+
+                      {iAlreadyLikeThis ? 
+                        <p onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
+                        <b>You and {likeSum - 1} other people like this</b></p> : ""}
+
+                      {!iAlreadyLikeThis && likeSum > 1 ? 
+                        <p onClick={() => props.addLike(props.post.post_id, currentUser.id)}>
+                        <b>{likeSum}  likes</b></p> : ""}
+
+                      {iAlreadyLikeThis && likeSum === 1 ? 
+                        <p                       onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
+                        <b>You like this</b></p> : ""}
+
+                      {!iAlreadyLikeThis && likeSum === 1 ? 
+                      <p onClick={() => props.addLike(props.post.post_id, currentUser.id)}><b>{likeSum} like</b></p> : ""}
+                      
+                    </div>
+                  </div>
+
+                  </div>
                 </CardBody>
               </Card>
             </div>

@@ -22,13 +22,14 @@
 .text-body {
   float: right;
   width: 60%;
-  margin-left: 240px;
-  margin-top: -175px;
+  margin-left: 300px;
+  margin-top: -150px;
   font-size: 1.3em;
-  min-height: 150px;
+  min-height: 125px;
   border-radius: 15px;
   padding: 25px;  
   background-color: #2E3138;
+  
 }
 .user-link {
   text-decoration: none;
@@ -37,19 +38,30 @@
 
 .online-link {
   text-decoration: none;
+  margin-left: 15px;
+
 }
 
 .user-card {
   width: 22%;
   height: 10%;
+  margin-left: 15px;
   // padding-left: 18px;
 }
 
 .likes-comments {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 
+.likes-comments:hover {
+  cursor: pointer;
+}
+.likes {
+  display: flex;
+  align-items: center;
+}
 .circle {
   display: flex;
   border-radius: 50%;
@@ -71,15 +83,10 @@
   padding-top: 15px;
 }
 
-// .container {
-//   overflow: hidden;
-// }
-// .message-button div {
-//   padding-top: 15px;
-// }
 .stack {
-  // padding-top: 20px;
   margin-top: 30px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .list {
@@ -156,7 +163,7 @@
   background-position: 110%;
   transition: background-position 275ms ease;
   text-decoration: none;
-  color: white;
+  color:#3366ff;
 }
 
 .button-transition:hover {
@@ -183,53 +190,26 @@
   box-shadow: 1px 1px 9px #FFF0F5;
 }
 
-.like-button {
-  // border: 1px solid #3366ff;
-  color: #3366ff;
-  font-weight: 700;
-  border-radius: 5px;
-  padding: 0.2rem 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  transition: all 0.2s ease-in-out;
+.love {
+  color: none;
+  margin-bottom: 3px;
+  margin-right: 5px;
 }
 
-.like-transition {
-  background: linear-gradient(to right, #3366ff, white 50%, #3366ff 50%);
-  overflow: hidden;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 100%;
-  background-position: 110%;
-  transition: background-position 275ms ease;
-  text-decoration: none;
-  color: white;
-}
-
-.like-transition:hover {
+.love:hover {
+  color: red;
   cursor: pointer;
-  background-position: 0 100%;
+  margin-right: 5px;
 }
 
-.unlike-button {
-  color: #3366ff;
-  font-weight: 700;
-  border-radius: 5px;
-  padding: 0.2rem 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  transition: all 0.2s ease-in-out; 
+.unlove {
+  color: red;
+  margin-right: 5px;
+  margin-bottom: 3px;
 }
 
-.like-button:hover {
+.unlove:hover {
   cursor: pointer;
-  color: #3366ff;
-  // box-shadow: 1px 1px 9px #FFF0F5;
 }
 
 .delete-button {
@@ -273,7 +253,7 @@ input[type='checkbox'] {
   padding: 1rem;
 
   color: white;
-  background: #6DA34D;
+  background: #1cd454;
 
   cursor: pointer;
 
@@ -332,4 +312,10 @@ input[type='checkbox'] {
 .comment-textarea {
   border-radius: 5px;
   margin-top: 5px;
+}
+
+.comment-like-button-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
