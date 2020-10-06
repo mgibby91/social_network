@@ -153,24 +153,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-.button-transition {
-  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
-  overflow: hidden;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 100%;
-  background-position: 110%;
-  transition: background-position 275ms ease;
-  text-decoration: none;
-  color:#3366ff;
-}
-
-.button-transition:hover {
-  cursor: pointer;
-  background-position: 0 100%;
-}
-
 .blue-button {
   border: 1px solid #3366ff;
   color: #3366ff;
@@ -183,10 +165,29 @@
   width: 180px;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
+    // transition: .5s;
+
 }
 
-.blue-button:hover {
+.button-transition {
+  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color:#3366ff;
+  background-position: 100% 0;
+  transition: .5s;
+}
+
+.button-transition:hover {
   cursor: pointer;
+  color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
   box-shadow: 1px 1px 9px #FFF0F5;
 }
 

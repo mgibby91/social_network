@@ -68,7 +68,7 @@ function Editor(props) {
               </div>
               <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
                 <div
-                  className="post-btn post-button-transition"
+                  className="post-btn"
                   onClick={() => onSave()}
                 >
                   Post

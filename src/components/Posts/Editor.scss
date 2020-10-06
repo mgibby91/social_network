@@ -12,24 +12,7 @@
   box-shadow: 0 8px 8px -6px black;
 }
 
-.post-button-transition {
-  background: linear-gradient(to right, white, #1cd454 50%, white 50%);
-  overflow: hidden;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 100%;
-  background-position: 110%;
-  transition: background-position 275ms ease;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: white;
-}
-.post-button-transition:hover {
-  cursor: pointer;
-  background-position: 0 100%;
-  box-shadow: 1px 1px 9px #FFF0F5;
-}
+
 
 .post-btn {
   border: 1px solid #1cd454;
@@ -44,6 +27,22 @@
   text-transform: uppercase;
   transition: all 0.36s ease-in-out;
   margin-top: 20px;
+  background: linear-gradient(to right, white, #1cd454 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color: #1cd454;
+}
+
+.post-btn:hover {
+  cursor: pointer;
+  background-position: 0 100%;
+  box-shadow: 1px 1px 9px #FFF0F5;
+  -webkit-text-fill-color: transparent;
 }
 
 

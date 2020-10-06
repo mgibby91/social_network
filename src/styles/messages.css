@@ -189,7 +189,24 @@
   padding: 0.3rem 0.6rem;
   margin: 0 0.35rem;
   border-radius: 5px;
+  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  /* color:#3366ff; */
 }
+
+.msg-btn:hover {
+  cursor: pointer;
+  color: green;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+}
+
 
 .msg-btn-create {
   border: 1px solid #3366ff;
@@ -264,7 +281,7 @@
 .msg-btn-send:hover {
   cursor: pointer;
   color: black;
-  background: white;
+  /* background: white; */
 }
 
 /* error show */
