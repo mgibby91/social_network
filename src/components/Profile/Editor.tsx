@@ -64,14 +64,14 @@ function Editor(props) {
               </Checkbox>
             </div>
             <div>
-              <Button
+              <button
                 fullWidth
                 appearance="hero"
-                status="Success"
+                className="green-button green button-transition"
                 onClick={() => onSave()}
               >
                 Post
-              </Button>
+              </button>
             </div>
           </div>
         </div>

@@ -95,15 +95,18 @@ function PostListItem(props) {
                 <CardBody>
                   {props.user.id === parseInt(senderID, 10) ? (
                     <div class="edit-post-button">
-                      <Button
+                      <button
                         className="blue-button button-transition"
                         onClick={onEdit}
                       >
                         Edit
-                      </Button>
-                      <Button className="red-button" onClick={onDelete}>
+                      </button>
+                      <button
+                        className="red-button red-button-transition"
+                        onClick={onDelete}
+                      >
                         Delete
-                      </Button>
+                      </button>
                     </div>
                   ) : (
                     ""

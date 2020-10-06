@@ -56,24 +56,24 @@ function UserInfo(props) {
           </Row>
           <Row>
             {props.user.id === parseInt(senderID, 10) ? (
-              <Button
+              <button
                 fullWidth
                 appearance="hero"
-                status="Success"
+                className="green-button green button-transition"
                 onClick={props.onEdit}
               >
                 Edit
-              </Button>
+              </button>
             ) : (
               <Link to={`/messages/`} state={{ username: props.user.username }}>
-                <Button
+                <button
                   fullWidth
                   appearance="hero"
-                  status="Success"
+                  className="green-button green button-transition"
                   // onClick={props.onEdit}
                 >
                   Message
-                </Button>
+                </button>
               </Link>
             )}
           </Row>
