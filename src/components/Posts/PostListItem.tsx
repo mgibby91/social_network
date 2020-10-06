@@ -122,7 +122,7 @@ export default function PostListItem(props: IProps) {
 
           const myComment = currentUser.id === comment.commenter_id;
 
-          const myCommentOrPost = currentUser.id === comment.commenter_id || currentUser.id === props.post.owner_id ;
+          const myCommentOrPost = currentUser.id === comment.commenter_id || currentUser.id === props.post.owner_id;
             
           const onRemove = () => {
             //check for empty input here
@@ -130,6 +130,9 @@ export default function PostListItem(props: IProps) {
           };
 
           return (
+            <div className="dashboard">
+
+
             <div className="content-inner" key={index}>
               <img
                 className="comment-avatar"
@@ -157,9 +160,8 @@ export default function PostListItem(props: IProps) {
                   ) : (
                     ""
                   )}
-              <div className="comment-delete-edit">
                 </div>
-              </div>
+            </div>
             </div>
           );
         });
@@ -197,12 +199,17 @@ export default function PostListItem(props: IProps) {
           };
 
           const timeAgo = timeSince(props.post.time_posted);
+          const myPost = currentUser.id === props.post.owner_id ;
 
           return (
             <div>
               <Card>
+              <div className="dashboard">
+
                 <CardBody className="post-body">
-                <Button onClick={onDelete}>Delete</Button>
+                  { myPost ?
+                    <div className="blue-button blue-button-transition delete-btn float-right" onClick={onDelete}>Delete</div> : ""
+                  }
 
                   {/* USERS DETAILS */}
 
@@ -303,6 +310,7 @@ export default function PostListItem(props: IProps) {
 
                   </div>
                 </CardBody>
+                </div>
               </Card>
             </div>
           );
