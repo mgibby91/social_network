@@ -7,6 +7,7 @@ import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
 import NewLogin from "../components/LoginLogout/NewLogin";
 import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
+import Col from "@paljs/ui/Col";
 
 interface IProps {
   value: object;
@@ -32,16 +33,19 @@ export default function Home() {
     filterDashboardPosts,
   } = useApplicationData();
 
-  const [options, setOptions] = useState([]);
-  const [value, setValue] = useState("Filter by");
-
-  const dashPosts = getDashboardPosts(state.posts);
-  const filterOptions = getFilterOptions(state.posts);
+  let dashPosts = getDashboardPosts(state.posts);
+  // const filterOptions = getFilterOptions(state.posts);
 
   // useEffect(() => {
   //   setOptions(filterOptions);
   // }, []);
-
+  function filterPost(filter) {
+    // if (filter !== "") {
+    filterDashboardPosts(filter);
+    // dashPosts = getDashboardPosts(state.filtered_posts);
+    //}
+  }
+  // dashPosts = state.filtered_posts;
   // console.log("dashposts in dash: ", dashPosts);
   const comments = state.comments;
   const likes = state.likes;
@@ -66,9 +70,15 @@ export default function Home() {
                 users={users}
               />
             </Row>
-            {/* <Row>
-              <Button onClick={() => filterDashboardPosts("CSS")}>CSS</Button> 
-            </Row> */}
+            <Row>
+              <Button onClick={() => filterPost("")}>All</Button>
+              <Button onClick={() => filterPost("CSS")}>CSS</Button>
+
+              <Button onClick={() => filterPost("Ruby")}>Ruby</Button>
+              <Button onClick={() => filterPost("Javascript")}>
+                Javascript
+              </Button>
+            </Row>
             <PostList
               users={users}
               posts={dashPosts}
