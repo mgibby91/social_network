@@ -40,6 +40,10 @@
   position: relative;
 }
 
+.message-item-container:nth-child(odd) {
+  background: #2b3858;
+}
+
 .message-item-container:hover {
   cursor: pointer;
   background: #475991;
@@ -278,7 +282,7 @@
 
 /* message list selected */
 .message-list-selected {
-  background: #475991;
+  background: #475991 !important;
 }
 
 /* Message List Header */

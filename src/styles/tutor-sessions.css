@@ -47,6 +47,10 @@
   position: relative;
 }
 
+.tutor-history-item-container:nth-child(odd) {
+  background: #2b3858;
+}
+
 .tutor-history-header-date {
   position: absolute;
   left: 5%;

@@ -203,7 +203,7 @@ export default function Login() {
         )}
       </div>
       <div className="login-right-container">
-        <img src={currentAvatar ? currentAvatar : 'https://robohash.org/voluptatemnemolaborum.png?size=400x400&set=set1'} alt="" />
+        <img src={currentAvatar ? currentAvatar : 'https://robohash.org/voluptatemnemolaborum.png?size=500x500&set=set1'} alt="" />
       </div>
     </div>
   )
