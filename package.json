@@ -101,5 +101,5 @@
     "simple-react-comments": "^1.1.0",
     "typescript": "4.0.2"
   },
-  "proxy": "http://localhost:8001"
+  "proxy": "https://stack-network.herokuapp.com/"
 }
