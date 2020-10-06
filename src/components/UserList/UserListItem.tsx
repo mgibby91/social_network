@@ -26,22 +26,26 @@ export default function UserListItem(props) {
               <CardBody className="post-body">
                   {/* EXPERIENCE BARS */}
                 <div className="experience-bars">
-                  {props.mentorExperience ? 
-                    <h4>Mentor Level</h4>
-                  : ""}
-                  {props.mentorExperience ? 
-                    <ProgressBar 
-                      experience={Number(props.mentorExperience)}
-                    />
-                  : ""}
-                  {props.studentExperience ? 
-                    <h4>Student Level</h4>
-                  : ""}
-                  {props.studentExperience ? 
-                    <ProgressBar
-                      experience={Number(props.studentExperience)}
-                    />
-                  : ""}
+                  <div className="mentor-xp-bar">
+                    {props.mentorExperience ? 
+                      <h4>Mentor Level</h4>
+                    : ""}
+                    {props.mentorExperience ? 
+                      <ProgressBar 
+                        experience={Number(props.mentorExperience)}
+                      />
+                    : ""}
+                  </div>
+                  <div className="student-xp-bar">
+                    {props.studentExperience ? 
+                      <h4>Student Level</h4>
+                    : ""}
+                    {props.studentExperience ? 
+                      <ProgressBar
+                        experience={Number(props.studentExperience)}
+                      />
+                    : ""}
+                  </div>
                   {!props.studentExperience && !props.mentorExperience ? 
                   <div className="new-user">
                     <h4>{props.username} is new.</h4>
@@ -71,6 +75,7 @@ export default function UserListItem(props) {
                 <div className="message-button">
                   <Link
                     to={`/messages/`}
+                    className="no-decoration"
                     state={{ username: props.username }}
                   >
                   <div className="blue-button button-transition">Message User</div>

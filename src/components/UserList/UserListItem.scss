@@ -95,12 +95,24 @@
     box-shadow: 1px 1px 9px #FFF0F5;
 	}
 	
+	.no-decoration {
+		text-decoration: none;
+	}
+	
 	.experience-bars {
 		width: 70%;
 		margin-left: 280px;
 		display: inline-block;
 		// margin-bottom: -40px;
 		position: absolute;
+	}
+
+	.mentor-xp-bar {
+		margin-top: 20px;
+	}
+
+	.student-xp-bar {
+		margin-top: 20px;
 	}
 
 	.new-user {
