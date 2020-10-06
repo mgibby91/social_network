@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
-
+import { Button } from "@paljs/ui/Button";
 import React, { useRef } from "react";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
@@ -43,6 +43,9 @@ interface IProps {
   ) => void;
   onChange: () => void;
   then: () => void;
+  deletePost: (
+    post_id: number,
+  ) => void;
 }
 
 interface IUsers {
@@ -95,6 +98,11 @@ export default function PostListItem(props: IProps) {
   const likeSum = postLikes.length;
 
 
+
+  function onDelete() {
+    props.deletePost(props.post.post_id);
+    // transition(EDITING);
+  }
 
   return (
     <>
@@ -196,7 +204,8 @@ export default function PostListItem(props: IProps) {
             <div>
               <Card>
                 <CardBody className="post-body">
-                
+                <Button onClick={onDelete}>Delete</Button>
+
                   {/* USERS DETAILS */}
 
                   <Link className="user-link" to={`/user-profiles/${props.post.username}`}>

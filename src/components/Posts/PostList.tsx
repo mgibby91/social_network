@@ -23,7 +23,9 @@ interface IProps {
     commenter_id: number,
     text_body: string
   ) => void;
-}
+  deletePost: (
+    post_id: number,
+  ) => void;}
 
 interface IUsers {
   [index: number]: { id: number; user_id: number; name: string };
@@ -61,6 +63,7 @@ export default function PostList(props: IProps) {
         removeComment={props.removeComment}
         editComment={props.editComment}
         users={props.users}
+        deletePost={props.deletePost}
       />
     );
   });
