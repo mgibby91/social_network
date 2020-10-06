@@ -6,7 +6,7 @@ import { EvaIcon } from "@paljs/ui/Icon";
 import { Actions } from "@paljs/ui/Actions";
 import { breakpointDown } from "@paljs/ui/breakpoints";
 import LoginLogout from "../components/LoginLogout/LoginLogout";
-import ProgressBar from "../Components/ProgressBar/ProgressBar";
+import ProgressBar from "../components/ProgressBar/ProgressBar";
 import ContextConsumer from "../context/context";
 import './Header.scss'
 const HeaderStyle = styled.div`

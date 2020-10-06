@@ -31,10 +31,7 @@ export default function Home() {
     <ContextConsumer>
     {({ data }) => {
       if (!data.state && !data.selected) return (
-        <div>
-          <h1>Please login or register before using Stack.</h1>
-          <NewLogin></NewLogin>
-        </div>
+        <NewLogin></NewLogin>
       )
       return (
         <div className="App">
