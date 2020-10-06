@@ -295,7 +295,7 @@ export default function PostListItem(props: IProps) {
 
                       {iAlreadyLikeThis ? 
                         <p onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
-                        <b>You and {likeSum - 1} other people like this</b></p> : ""}
+                        <b>You and {likeSum - 1} others</b></p> : ""}
 
                       {!iAlreadyLikeThis && likeSum > 1 ? 
                         <p onClick={() => props.addLike(props.post.post_id, currentUser.id)}>
