@@ -208,7 +208,7 @@ export default function PostListItem(props: IProps) {
 
                 <CardBody className="post-body">
                   { myPost ?
-                    <div className="blue-button blue-button-transition delete-btn float-right" onClick={onDelete}>Delete</div> : ""
+                    <div className="blue-button button-transition delete-btn float-right" onClick={onDelete}>Delete</div> : ""
                   }
 
                   {/* USERS DETAILS */}
@@ -261,18 +261,21 @@ export default function PostListItem(props: IProps) {
                     {commentsLength === 1 ? <span>{commentsLength} comment</span> : ""}
 
                     </label>
-                    <ul className="collapsible-content">{commentList}</ul>
+                    <div className="collapsible-content">{commentList}
+                    {/* FOR COMMENTING */}
+                    <div className="center-textarea">
+                      <textarea 
+                        className="comment-textarea"
+                        value={value}
+                        onChange={(event) => {setValue(event.target.value);}} 
+                        rows="2" placeholder="Leave a comment here.."
+                      ></textarea>
+                    </div>
+                    <div className="comment-like-button-flex">
+                      <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
+                    </div>
+                    
                   </div>
-
-                  {/* FOR COMMENTING */}
-                  <textarea 
-                    className="comment-textarea"
-                    value={value}
-                    onChange={(event) => {setValue(event.target.value);}} 
-                    rows="2" cols="80" placeholder="Leave a comment here.."
-                  ></textarea>
-                  <div className="comment-like-button-flex">
-                  <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
                   {/* BUTTON FOR LIKES */}
                   <div className="likes">
                     {iAlreadyLikeThis ? (
