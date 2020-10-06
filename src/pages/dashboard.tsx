@@ -8,6 +8,7 @@ import ContextConsumer from "../context/context";
 import NewLogin from "../components/LoginLogout/NewLogin";
 import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
 import Col from "@paljs/ui/Col";
+import { Button } from "@paljs/ui/Button";
 
 interface IProps {
   value: object;
