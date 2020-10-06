@@ -3,11 +3,13 @@ import Col from "@paljs/ui/Col";
 import React from "react";
 import { Button } from "@paljs/ui/Button";
 import Stack from "./UserStack";
+
 import Experience from "./UserExperience";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
 
 function UserInfo(props) {
+  const senderID = document.cookie.split("=")[1];
   if (!props.user) return null;
   console.log("props in userinfo: ", props.user);
 
@@ -31,10 +33,7 @@ function UserInfo(props) {
               </p>
             </Col>
             <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-              {/* <Experience /> */}
-            </Col>
-            <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-              {props.active ? (
+              {props.user.active ? (
                 <p className="status">
                   User is <span className="online">online</span>
                 </p>
@@ -47,26 +46,36 @@ function UserInfo(props) {
             <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
               <Stack mentor={props.mentor_stack} />
             </Col>
+            {/* <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}> */}
+            <Experience
+              mentor={props.user.mentorrating}
+              student={props.user.studentrating}
+              user={props.user}
+            />
+            {/* </Col> */}
           </Row>
           <Row>
-            <Link to={`/messages/`} state={{ username: props.user.username }}>
+            {props.user.id === parseInt(senderID, 10) ? (
               <Button
                 fullWidth
                 appearance="hero"
                 status="Success"
-                // onClick={props.onEdit}
+                onClick={props.onEdit}
               >
-                Message
+                Edit
               </Button>
-            </Link>
-            <Button
-              fullWidth
-              appearance="hero"
-              status="Success"
-              onClick={props.onEdit}
-            >
-              Edit
-            </Button>
+            ) : (
+              <Link to={`/messages/`} state={{ username: props.user.username }}>
+                <Button
+                  fullWidth
+                  appearance="hero"
+                  status="Success"
+                  // onClick={props.onEdit}
+                >
+                  Message
+                </Button>
+              </Link>
+            )}
           </Row>
         </div>
       </CardBody>

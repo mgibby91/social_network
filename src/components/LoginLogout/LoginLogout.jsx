@@ -15,8 +15,8 @@ export default function LoginLogout() {
 
     axios.post("http://localhost:8001/api/login", { userID }).then((res) => {
       const username = res.data[0].username;
-
-      set({ ...data, state: state, selected: res.data[0].username });
+      console.log("data in login: ", res.data[0]);
+      set({ ...data, state: state, selected: res.data[0].id });
 
       // MATT'S CODE************************************************************
       const avatar = res.data[0].avatar;
@@ -68,7 +68,7 @@ export default function LoginLogout() {
     });
   }
   // console.log("State in login: ", state);
-  function logout() {
+  function logout(data, set) {
     const currentUserID = document.cookie.split('=')[1];
     document.cookie = `userID=${currentUserID}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
@@ -86,6 +86,8 @@ export default function LoginLogout() {
     localStorage.removeItem('unreadTutor');
     localStorage.removeItem('Login');
     // MATT'S CODE************************************************************
+    set({ ...data, state: null, selected: null});
+
   }
 
   return (
@@ -110,7 +112,7 @@ export default function LoginLogout() {
               Login
               </button>
             <Link to={'/'}>
-              <button type="button" name="logout" onClick={() => logout()}>
+              <button type="button" name="logout" onClick={() => logout(data, set)}>
                 Logout
               </button>
             </Link>

@@ -34,15 +34,18 @@ const SidebarCustom: React.ForwardRefRenderFunction<
     },
   }));
 
-  const getState = (
-    state?: "hidden" | "visible" | "compacted" | "expanded"
-  ) => {
-    setSeeHeader(state !== "compacted");
-  };
+  // ********************************----------
+  // !!!!!!!!!!!!! Do we need this? !!!!!!!!!!!!!!!!!
+  // ********************************----------
+  // const getState = (
+  //   state?: "hidden" | "visible" | "compacted" | "expanded"
+  // ) => {
+  //   setSeeHeader(state !== "compacted");
+  // };
 
   return (
     <Sidebar
-      getState={getState}
+      // getState={getState}
       ref={sidebarRef}
       property="start"
       containerFixed

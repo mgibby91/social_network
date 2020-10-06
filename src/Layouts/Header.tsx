@@ -1,16 +1,14 @@
 import React from "react";
 import { Link } from "gatsby";
 import styled, { DefaultTheme } from "styled-components";
-import Select from "@paljs/ui/Select";
 import { LayoutHeader } from "@paljs/ui/Layout";
 import { EvaIcon } from "@paljs/ui/Icon";
 import { Actions } from "@paljs/ui/Actions";
-import ContextMenu from "@paljs/ui/ContextMenu";
-import { getPathReady } from "./Sidebar";
-import { Location } from "@reach/router";
 import { breakpointDown } from "@paljs/ui/breakpoints";
 import LoginLogout from "../components/LoginLogout/LoginLogout";
-
+import ProgressBar from "../Components/ProgressBar/ProgressBar";
+import ContextConsumer from "../context/context";
+import './Header.scss'
 const HeaderStyle = styled.div`
   display: flex;
   width: 100%;
@@ -37,9 +35,8 @@ const Label = styled.span`
   align-items: center;
 `;
 
-const SelectStyled = styled(Select)`
-  min-width: 150px;
-`;
+const experience = ("header__item-experience")
+const title = ("header__item-title")
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -111,30 +108,131 @@ const Header: React.FC<HeaderProps> = (props) => {
         />
         <Actions
           size="Small"
+          actions={[
+            {
+              content: (
+                <ContextConsumer>
+                    {({ data }) => {
+                      if (!data.state) return null;
+                      if (!data.selected) return null;
+                      const currentUser = data.state.users.find(
+                        (user) => user.id === data.selected
+                      );
+                      return (
+                        <div className={title}>
+                          <span>         
+                              {currentUser.mentorrating ? 
+                                <span>
+                                 Mentor Lvl:
+                                </span>
+                              : ""}
+                          </span>       
+                        </div>
+                      )
+                    }}
+                </ContextConsumer>
+              ),
+            },
+          ]}
+        />
+        <Actions
+          size="Small"
+          actions={[
+            {
+              content: (
+                <ContextConsumer>
+                    {({ data }) => {
+                      if (!data.state) return null;
+                      if (!data.selected) return null;
+                      const currentUser = data.state.users.find(
+                        (user) => user.id === data.selected
+                      );
+                      return (
+                        <div className={experience}>
+                          <span>         
+                              {currentUser.mentorrating ? 
+                                <span>
+                                  <ProgressBar 
+                                    experience={Number(currentUser.mentorrating)}
+                                  />
+                                </span>
+                              : ""}
+                          </span>       
+                        </div>
+                      )
+                    }}
+                </ContextConsumer>
+              ),
+            },
+          ]}
+        />
+        <Actions
+          size="Small"
+          actions={[
+            {
+              content: (
+                <ContextConsumer>
+                    {({ data }) => {
+                      if (!data.state) return null;
+                      if (!data.selected) return null;
+                      const currentUser = data.state.users.find(
+                        (user) => user.id === data.selected
+                      );
+                      return (
+                        <div className={title}>
+                          <span>         
+                              {currentUser.studentrating ? 
+                                <span>
+                                  Student Lvl:
+                                </span>
+                              : ""}
+                          </span>       
+                        </div>
+                      )
+                    }}
+                </ContextConsumer>
+              ),
+            },
+          ]}
+        />
+        <Actions
+          size="Small"
+          actions={[
+            {
+              content: (
+                <ContextConsumer>
+                    {({ data }) => {
+                      if (!data.state) return null;
+                      if (!data.selected) return null;
+                      const currentUser = data.state.users.find(
+                        (user) => user.id === data.selected
+                      );
+                      return (
+                        <div className={experience}>
+                          <span>         
+                              {currentUser.studentrating ? 
+                                <span>
+                                  <ProgressBar
+                                    experience={Number(currentUser.studentrating)}
+                                  />
+                                </span>
+                              : ""}
+                          </span>       
+                        </div>
+                      )
+                    }}
+                </ContextConsumer>
+              ),
+            },
+          ]}
+        />
+        <Actions
+          size="Small"
           className="right"
           actions={[
             {
-              icon: { name: "message-square-outline" },
-              link: { to: "/messages" },
-            },
-            {
               content: (
-                // <Location>
-                //   {({ location }) => (
-                //     <ContextMenu
-                //       style={{ cursor: "pointer" }}
-                //       placement="bottom"
-                //       currentPath={getPathReady(location.pathname)}
-                //       items={[
-                //         { title: "Profile", link: { to: "/user-profile" } },
-                //         { title: "Log out", link: { to: "/logout" } },
-                //       ]}
-                //       Link={Link}
-                //     >
                   <LoginLogout/>                
-                    // </ContextMenu>
-                  // )}
-                // </Location>
               ),
             },
           ]}

@@ -1,12 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
+
 import React, { useRef } from "react";
-import Row from "@paljs/ui/Row";
-import Col from "@paljs/ui/Col";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
-import { Button } from "@paljs/ui/Button";
 import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
-import timeSince from '../../helpers/timeSince'
+import timeSince from "../../helpers/timeSince";
 
 const classNames = require("class-names");
 
@@ -18,6 +19,7 @@ interface IProps {
   comments: IComments;
   comment: object;
   addLike: (post_id: number, liker_id: number) => void;
+  removeLike: (post_id: number, liker_id: number) => void;
   onClick: () => void;
   id: number;
   data: any;
@@ -25,7 +27,19 @@ interface IProps {
   createComment: (
     post_id: number,
     commenter_id: number,
+    text_body: string,
+    comment_details: (avatar: any, username: any) => void
+  ) => void;
+  removeComment: (
+    post_id: number,
+    commenter_id: number,
     text_body: string
+  ) => void;
+  editComment: (
+    post_id: number,
+    commenter_id: number,
+    text_body: string,
+    value: string
   ) => void;
   onChange: () => void;
   then: () => void;
@@ -36,7 +50,7 @@ interface IUsers {
 }
 
 interface IComments {
-  [index: number]: { id: number; user_id: number; name: string };
+  [index: number]: { id: number; user_id: number; name: string, post_id: number, text_body: string };
 }
 
 interface ILikes {
@@ -53,185 +67,230 @@ interface IPost {
   username: string;
   post_id: number;
   id: number;
+  owner_id: number;
 }
 
 export default function PostListItem(props: IProps) {
   const [value, setValue] = React.useState("Comment here...");
 
-  const list = classNames("post_body__item-list");
-  const commentStyle = classNames("post_body__item-comments");
-  const commentAvatar = classNames("post_body__item-comment_avatar")
-
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
-      <li className={list} key={index}>
+      <li className="list" key={index}>
         {tech_stack}&nbsp;
       </li>
     );
   });
 
-  const commentData = props.comments.filter((comment) => {
+  const postComments = props.comments.filter((comment) => {
+    if (typeof props.post === 'undefined' || typeof comment === 'undefined') return null;
     if (props.post.post_id === comment.post_id) {
-      return comment;
+      return true;
     }
   });
 
-  const commentList = commentData.map((comment, index) => {
-    return (
-      <div key={index}>
-        <img className={commentAvatar} src={comment.avatar} alt="avatar" />
-        <div className={commentStyle}>
-          <p>
-            <b>{comment.username}</b>
-          </p>
-          <li>{comment.text_body}</li>
-        </div>
-      </div>
-    );
-  });
+  const postLikes = props.likes.filter(
+    (like) => props.post.post_id === like.post_id
+  );
 
-  const commentsLength = commentList.length;
+  const likeSum = postLikes.length;
 
-  const likesData = props.likes.filter((like) => {
-    if (props.post.post_id === like.post_id) {
-      return like.liker_id;
-    }
-  });
 
-  const likeSum = likesData.length;
 
-  const postBody = classNames("post_body");
-  const textBody = classNames("post_body__item-text_body")
-  const userLink = classNames("post_body__item-user_link");
-  const messageButton = classNames("post_body__item-message_button");
-  const commentListStyle = classNames("post_body__item-comment_list");
-  const commentButton = classNames("post_body__item-comment_button");
-  console.log("comment in item: ", props.comment);
-  const userCard = classNames("post_body__item-user_card");
-  const circle = classNames("post_body__item-circle");
-  const inline = classNames("post_body__item-inline");
-  const likesComments = classNames("post_body__item-likes_comments");
-  const bg = classNames("post_body__item-bg")
-  const floatRight = classNames("post_body__item-float_right")
-  const blueButton = classNames("post_body__item-blue_button")
-  const likeButton = classNames("post_body__item-like_button")
   return (
     <>
       <ContextConsumer>
         {({ data }) => {
           if (!data.state) return null;
+          if (!data.selected) return null;
           const currentUser = props.users.find(
-            (user) => user.username === data.selected
+            (user) => user.id === data.selected
           );
 
+          const myLikes = postLikes.filter(
+            (like) => currentUser.id === like.liker_id
+          );
+
+          const iAlreadyLikeThis = myLikes.length > 0;
+          
+          const commentList = postComments.map((comment, index) => {
+
+          const myComment = currentUser.id === comment.commenter_id;
+
+          const myCommentOrPost = currentUser.id === comment.commenter_id || currentUser.id === props.post.owner_id ;
+            
+          const onRemove = () => {
+            //check for empty input here
+            props.removeComment(props.post.post_id, currentUser.id, comment.id);
+          };
+
+          return (
+            <div className="content-inner" key={index}>
+              <img
+                className="comment-avatar"
+                src={comment.avatar}
+                alt="avatar"
+              />
+              <div className="comments">
+              <Link className="user-link" to={`/user-profiles/${comment.username}`}>
+                  <span className="comment-username">
+                    <b>{comment.username}&nbsp;&nbsp;</b>
+                  </span>
+                </Link>
+                <span>{comment.text_body}</span>
+                  {/* {myCommentOrPost ? (
+                    <p onClick={() => onEdit()} className={deleteButton}>
+                      Edit
+                    </p>
+                  ) : (
+                    ""
+                  )} */}
+                  {myCommentOrPost ? (
+                    <span onClick={() => onRemove()} className="delete-button">
+                      Remove Comment
+                    </span>
+                  ) : (
+                    ""
+                  )}
+              <div className="comment-delete-edit">
+                </div>
+              </div>
+            </div>
+          );
+        });
+          
+          const commentsLength = commentList.length;
+          const commentObj = {
+            avatar: currentUser.avatar,
+            username: currentUser.username,
+          };
+          // FOR COMMENTS
           const onSave = () => {
             //check for empty input here
+            console.log("props post id: ", props.post.post_id);
+            
             props
-              .createComment(props.post.post_id, currentUser.id, value)
+              .createComment(
+                props.post.post_id,
+                currentUser.id,
+                value,
+                commentObj
+              )
               .then(() => {
                 setValue("");
               });
           };
-          console.log("post in listitem props: ", props.post);
-          const timeAgo = timeSince(props.post.time_posted)
+
+          // const onEdit = () => {
+          //   //check for empty input here
+          //   props.editComment(props.comment.post_id, currentUser.id, value, props.comment.text_body);
+          // };
+
+          const onRemove = () => {
+            //check for empty input here
+            props.removeComment(props.post.post_id, currentUser.id, value);
+          };
+
+          const timeAgo = timeSince(props.post.time_posted);
+
           return (
             <div>
-              <Row>
-                <Col breakPoint={{ xs: 12 }}>
-                  <Card>
-                    <CardBody className={postBody}>
+              <Card>
+                <CardBody className="post-body">
+                
+                  {/* USERS DETAILS */}
 
-                      {/* POST TEXT BODY */}
-                      <div className={floatRight}>
-                        <small className={floatRight}>{timeAgo}</small>
-                        <p className={textBody}>{props.post.text_body}</p>
+                  <Link className="user-link" to={`/user-profiles/${props.post.username}`}>
+                    <div className="user-card">
+                      <div className="circle">
+                        <img src={props.post.avatar} alt="avatar"></img>
+                      </div>    
+                      <span className="bg">
+                        <h3>{props.post.username}</h3>
+                      </span>
+                    </div>
+                  </Link>
+                  <Link className="online-link" to={`/user-profiles/${props.post.username}`}>
+                    <span>{props.post.active ? <h6>User is online</h6> : <h6>User is offline</h6>}
+                    </span>
+                  </Link>
+                  {/* MESSAGE BUTTON */}
+                  <div className="message-button">
+                    <Link
+                      className="user-link"
+                      to={`/messages/`}
+                      state={{ username: props.post.username }}
+                    >
+                      <div className="blue-button button-transition">Message User</div>
+                    </Link>
+                  </div>
+                  <small className="float-right">{timeAgo}</small>
 
-                      </div>
+                  {/* POST TEXT BODY */}
 
-                      {/* USERS DETAILS */}
-                      <Link
-                        className={userLink}
-                        to={`/user-profiles/${props.post.username}`}
-                      >
-                        <div className={inline}>
-                          <div className={circle}>
-                            <img src={props.post.avatar} alt="avatar"></img>
-                          </div>
-                          <div className={userCard}>
-                          <span className={bg}>
-                            <h3>{props.post.username}</h3>
-                            </span>
+                    <p className="text-body">{props.post.text_body}</p>
 
-                            <span>
-                              {props.active ? (
-                                <h6>User is online</h6>
-                              ) : (
-                                <h6>User is offline</h6>
-                              )}
-                            </span>
-                            
-                          </div>
-                        </div>
-                      </Link>
+                  {/* POST STACK LIST */}
+                  <h5 className="stack"> {stack}</h5>
 
-                      {/* MESSAGE BUTTON */}
-                      <div className={messageButton}>
-                        <Link className={userLink}
-                          to={`/messages/`}
-                          state={{ username: props.post.username }}
-                        >
-                          <div className={blueButton}>Message User</div>
-                        </Link>
-                      </div>
 
-                      {/* POST STACK LIST */}
-                      <h5>Stack: {stack}</h5>
+                  <div className="wrap-collapsible">
+                    <input id={"collapsible" + props.index} className="toggle"  type="checkbox"></input>
+                    <label for={"collapsible" + props.index} className="lbl-toggle">
+                    {/* COMMENTS LIST FOR POST */}
+                    {commentsLength > 1 ? <span>{commentsLength} comments</span> : ""}
+                    {commentsLength === 1 ? <span>{commentsLength} comment</span> : ""}
+                    </label>
+                    <ul className="collapsible-content">{commentList}</ul>
+                    <div className="anchor"></div>
+                  </div>
 
-                      {/* BUTTON FOR LIKES */}
-                      <div 
-                        className={likeButton}
-                        onClick={() =>
-                          props.addLike(props.post.post_id, currentUser.id)
-                        }
-                      >
-                        Like
-                      </div>
+                  {/* FOR COMMENTING */}
+                  <textarea 
+                    className="comment-textarea"
+                    value={value}
+                    onChange={(event) => {setValue(event.target.value);}} 
+                    rows="2" cols="80" placeholder="Leave a comment here.."
+                  ></textarea>
+                  <div className="comment-like-button-flex">
+                  <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
+                  {/* BUTTON FOR LIKES */}
+                  <div className="likes">
+                    {iAlreadyLikeThis ? (
+                      <FontAwesomeIcon 
+                      onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
+                      className="unlove"
+                      icon={fasHeart} size="1x" />
+                    ) : (                  
+                      <FontAwesomeIcon 
+                        onClick={() => props.addLike(props.post.post_id, currentUser.id)}
+                        className="love"
+                        icon={farHeart} size="1x" />
+                    )}
 
-                      <div className={likesComments}>
-                        {/* LIKE COUNT */}
-                        {likeSum > 1 ?
-                        <p>
-                          <b>{likeSum} Likes</b>
-                        </p> : ""
-                        }
-                        {likeSum === 1 ?
-                        <p>
-                          <b>{likeSum} Like</b>
-                        </p> : ""
-                        }
-                        {/* COMMENTS LIST FOR POST */}
-                        {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
-                        {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
-                      </div>
-                        <ul className={commentListStyle}>{commentList}</ul>
+                    <div className="likes-comments">
+                      {/* LIKE COUNT */}
 
-                      {/* FOR COMMENTING */}
-                      <textarea
-                        value={value}
-                        onChange={(event) => {
-                          setValue(event.target.value);
-                        }}
-                        rows="2"
-                        cols="80"
-                        placeholder="Leave a comment here.."
-                      ></textarea>
-                      <div className={commentButton}>
-                        <Button onClick={() => onSave()}>Comment</Button>
-                      </div>
-                    </CardBody>
-                  </Card>
-                </Col>
-              </Row>
+                      {iAlreadyLikeThis ? 
+                        <p onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
+                        <b>You and {likeSum - 1} other people like this</b></p> : ""}
+
+                      {!iAlreadyLikeThis && likeSum > 1 ? 
+                        <p onClick={() => props.addLike(props.post.post_id, currentUser.id)}>
+                        <b>{likeSum}  likes</b></p> : ""}
+
+                      {iAlreadyLikeThis && likeSum === 1 ? 
+                        <p                       onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
+                        <b>You like this</b></p> : ""}
+
+                      {!iAlreadyLikeThis && likeSum === 1 ? 
+                      <p onClick={() => props.addLike(props.post.post_id, currentUser.id)}><b>{likeSum} like</b></p> : ""}
+                      
+                    </div>
+                  </div>
+
+                  </div>
+                </CardBody>
+              </Card>
             </div>
           );
         }}

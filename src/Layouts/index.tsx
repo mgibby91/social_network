@@ -20,6 +20,11 @@ import setNotifications from '../helpers/setNotifications';
 import setUnseenTutor from '../helpers/setUnseenTutor';
 import { ContextProviderComponent } from "../context/context";
 import "./layout.scss"
+
+import ProgressBar from "../Components/ProgressBar/ProgressBar";
+import ContextConsumer from "../context/context";
+
+
 const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   children,
   pageContext,
@@ -45,10 +50,53 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   if (avatarUrl && userID) {
 
+    // MATHIUS' FIND USER
+    const currentUser = state.users.find(
+      (user) => user.id == userID
+    );
+
+    // if (!currentUser) return null;
+    console.log("current user in index layout: ", currentUser, userID);
+    
+    
     const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
 
     const userDisplay = document.querySelector('.logged-in-username');
-
+    
+    // MATHIUS' XP BARS
+    const leftNavContainer = document.querySelector('.Header__HeaderStyle-hhdliK bxFSuo')
+    const xpBars =
+      <ContextConsumer>
+        {({ data }) => {
+          if (!data.state) return null;
+          const currentUser = state.users.find(
+            (user) => user.id === data.selected
+          );
+          return (
+            `<div>
+              <div>         
+                  ${currentUser.mentorrating ? 
+                    <h4>Mentor Level</h4>
+                  : ""}
+                  ${currentUser.mentorrating ? 
+                    <ProgressBar 
+                      experience={Number(currentUser.mentorrating)}
+                    />
+                  : ""}
+                  ${currentUser.studentrating ? 
+                    <h4>Student Level</h4>
+                  : ""}
+                  ${currentUser.studentrating ? 
+                    <ProgressBar
+                      experience={Number(currentUser.studentrating)}
+                    />
+                  : ""}
+              </div>       
+            </div>`
+          )
+      }}
+    </ContextConsumer>
+    
     if (userDisplay) {
       userDisplay.remove();
     }
@@ -61,7 +109,11 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
       `;
 
     if (rightNavContainer) {
-      rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
+      rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML)
+    }
+
+    if (leftNavContainer) {
+      rightNavContainer.insertAdjacentHTML("afterend", xpBars);
     }
   } else {
     const userDisplay = document.querySelector('.logged-in-username');

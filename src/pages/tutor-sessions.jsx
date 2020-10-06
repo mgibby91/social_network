@@ -10,7 +10,8 @@ import setUnseenTutor from '../helpers/setUnseenTutor';
 import { SlideDown } from 'react-slidedown';
 import 'react-slidedown/lib/slidedown.css';
 import { sortFilterAllTutorData } from '../helpers/tutor-helpers';
-
+import ContextConsumer from '../context/context'
+import NewLogin from '../pages/login'
 import axios from 'axios';
 
 export default function TutorSessions() {
@@ -78,7 +79,7 @@ export default function TutorSessions() {
         setRateTutor(false);
       })
 
-  }, [count]);
+  }, [count, filterStatus, loggedInUserID]);
 
   function acceptAction(tutorSessionID) {
 
@@ -285,7 +286,15 @@ export default function TutorSessions() {
 
   // GENERATE GOOGLE HANGOUTS LINK *************************************************
 
-
+  return (
+    <ContextConsumer>
+    {({ data }) => {
+      if (!data.state) return (
+        <div>
+          <h1>Please login or register before using Stack.</h1>
+          <NewLogin></NewLogin>
+        </div>
+      )
   return (
     <div className='main-tutor-container'>
       {!showSuccess && (<TutorCreate
@@ -338,6 +347,8 @@ export default function TutorSessions() {
         generateGoogleLink={generateGoogleLink}
       />
     </div>
+      );
+    }}
+  </ContextConsumer>
   );
-
 }

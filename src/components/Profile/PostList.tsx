@@ -3,24 +3,24 @@ import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
 import timeSince from "../../helpers/timeSince";
+import PostListItem from "./PostListItem";
 
 function PostList(props) {
-  const postData = props.posts.map((post, index) => {
+  const { comments, posts, updatePost, deletePost } = props;
+  //console.log("from post list", comments, posts);
+  const postData = posts.map((post, index) => {
     return (
-      <Col className="post" key={index} breakPoint={{ xs: 12, md: 6 }}>
-        <Card accent="Info">
-          <CardBody>
-            <p className="time-posted">{timeSince(post.time_posted)} </p>
-            <p className="post-body">{post.text_body}</p>
-            <ul className="post-stack">
-              <span className="bold">Stack:</span>
-              {post.stack.map((tech_stack, idx) => {
-                return <li key={idx}>{tech_stack}</li>;
-              })}
-            </ul>
-          </CardBody>
-        </Card>
-      </Col>
+      <PostListItem
+        user={props.user}
+        key={index}
+        index={index}
+        comments={comments}
+        post={post}
+        users={props.users}
+        createComment={props.createComment}
+        updatePost={updatePost}
+        deletePost={deletePost}
+      />
     );
   });
   return <Row>{postData}</Row>;

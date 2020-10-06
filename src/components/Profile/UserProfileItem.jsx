@@ -6,7 +6,7 @@ import Editor from "./Editor";
 import PostList from "./PostList";
 import UserInfo from "./UserInfo";
 import EditUserInfo from "./EditUserInfo";
-import Experience from "./UserExperience";
+
 import ContextConsumer from "../../context/context";
 import { getUser, getUserPosts, getStack } from "../../helpers/profileHelpers";
 
@@ -23,14 +23,25 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 function UserProfileItem(props) {
-  const { state, createPost } = useApplicationData();
+  const {
+    state,
+    createPost,
+    updateUserInfo,
+    updateMentorStack,
+    createComment,
+    updatePost,
+    deletePost,
+  } = useApplicationData();
   const { mode, transition, back } = useVisualMode(SHOW);
-
+  const loggedUser = document.cookie.split("=")[1];
   let senderID = document.cookie.split("=")[1];
-  // console.log("from user-profile", senderID);
 
   function onEdit() {
     transition(EDITING);
+  }
+
+  function onSave() {
+    transition(SHOW);
   }
 
   function onCancel() {
@@ -47,12 +58,11 @@ function UserProfileItem(props) {
       <ContextConsumer>
         {({ data, set }) => {
           if (!data.state) return null;
+          if (!data.selected) return null;
           console.log("data in context: ", data.state.users);
 
           if (!currentUser) {
-            currentUser = data.state.users.find(
-              (user) => user.username === data.selected
-            );
+            currentUser = state.users.find((user) => user.id === data.selected);
             console.log("current user in context: ", currentUser);
           }
 
@@ -60,8 +70,14 @@ function UserProfileItem(props) {
             return <h1>You must be logged in to view this page.</h1>;
           }
 
-          if (currentUser.id || currentUser.student_id || currentUser.mentor_id)
+          if (
+            currentUser.id ||
+            currentUser.student_id ||
+            currentUser.mentor_id
+          ) {
             senderID = currentUser;
+          }
+          const comments = state.comments;
 
           const posts = getUserPosts(state.posts, senderID.id);
 
@@ -80,54 +96,61 @@ function UserProfileItem(props) {
           return (
             <Row className="user-profile">
               <Col breakPoint={{ xs: 12 }}>
+                {/* <header>Profile</header> */}
 
-                    {mode === SHOW && (
-                      <>
-                        <UserInfo
-                          user={currentUser}
-                          loggedInUser={data.selected}
-                          onEdit={onEdit}
-                          mentor_stack={mentor_stack}
-                        />
-                      </>
-                    )}
-                    {mode === EDITING && (
-                      <>
-                        <EditUserInfo
-                          user={currentUser}
-                          loggedInUser={data.selected}
-                          mentor_stack={mentor_stack}
-                          suggestion={state.stack_preferences}
-                          // onSave={onSave}
-                          onCancel={onCancel}
-                        />
-                      </>
-                    )}
-
-
-                <Experience
-                  mentor={currentUser.mentorrating}
-                  student={currentUser.studentrating}
-                  user={currentUser}
-                  // userId={state.user.id}
-                  // username={state.user.username}
-                />
-
-                <Row>
-                  <Col breakPoint={{ xs: 12, md: 12 }}>
-                    <Editor
-                      id={user.id}
-                      createPost={createPost}
-                      suggestion={state.stack_preferences}
+                {mode === SHOW && (
+                  <>
+                    {console.log("after reducer", state.users[0])}
+                    <UserInfo
+                      user={currentUser}
+                      loggedInUser={data.selected}
+                      onEdit={onEdit}
+                      mentor_stack={mentor_stack}
                     />
-                  </Col>
-                </Row>
+                  </>
+                )}
+                {mode === EDITING && (
+                  <>
+                    <EditUserInfo
+                      user={currentUser}
+                      loggedInUser={data.selected}
+                      mentor_stack={mentor_stack}
+                      suggestion={state.stack_preferences}
+                      avatars={state.avatars}
+                      onSaveNewInfo={updateUserInfo}
+                      onSaveNewStack={updateMentorStack}
+                      onSave={onSave}
+                      onCancel={onCancel}
+                    />
+                  </>
+                )}
+                {currentUser.id === parseInt(loggedUser, 10) ? (
+                  <Row>
+                    <Col breakPoint={{ xs: 12, md: 12 }}>
+                      <Editor
+                        id={user.id}
+                        createPost={createPost}
+                        suggestion={state.stack_preferences}
+                      />
+                    </Col>
+                  </Row>
+                ) : (
+                  ""
+                )}
                 <Row>
                   <Col breakPoint={{ xs: 12, md: 12 }}>
                     <h2>Recent Posts...</h2>
                   </Col>
                 </Row>
-                <PostList posts={posts} />
+                <PostList
+                  user={currentUser}
+                  comments={comments}
+                  posts={posts}
+                  users={state.users}
+                  createComment={createComment}
+                  updatePost={updatePost}
+                  deletePost={deletePost}
+                />
               </Col>
             </Row>
           );

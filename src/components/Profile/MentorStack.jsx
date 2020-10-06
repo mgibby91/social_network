@@ -35,7 +35,7 @@ function Tags(props) {
       suggestions={suggestions}
       onDelete={onDelete}
       onAddition={onAddition}
-      // onChange={props.onChange(tags)}
+      onChange={props.onChange(tags)}
     />
   );
 }
