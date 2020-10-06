@@ -16,6 +16,7 @@ const REMOVE_COMMENT = "REMOVE_COMMENT";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const FILTER_POSTS = "FILTER_POSTS";
+const FETCH_POSTS = "FETCH_POSTS";
 // REDUCER INCLUDES SETTING POINTS
 export default function reducer(state, action) {
   switch (action.type) {
@@ -26,16 +27,33 @@ export default function reducer(state, action) {
     }
 
     case FILTER_POSTS: {
-      console.log("from filter", state.posts);
+      console.log("from filter", state.filtered_posts);
       const { text } = action;
 
-      const final = state.posts.filter((post) => {
-        if (post.name === text) {
-          return true;
-        }
-      });
-      console.log("from filter", final);
-      state = { ...state, posts: final };
+      console.log("from filter", text);
+
+      if (text !== "") {
+        const postWithStack = state.filtered_posts.filter((post) => {
+          if (post.name === text) {
+            return true;
+          }
+        });
+        console.log("from filter", postWithStack);
+        const final = postWithStack.filter((post) => {
+          for (let el of postWithStack) {
+            if (el.post_id === post.post_id) {
+              return true;
+            }
+          }
+          return false;
+        });
+        console.log("from filter", state);
+        console.log("from filter", final);
+        state = { ...state, posts: final };
+      } else {
+        state = { ...state, posts: [...state.filtered_posts] };
+      }
+
       return state;
     }
 
@@ -184,6 +202,11 @@ export default function reducer(state, action) {
       return state;
     }
 
+    case FETCH_POSTS: {
+      state = { ...state, filtered_posts: [...state.posts] };
+      return state;
+    }
+
     case SET_POINTS:
       return { ...state, points: action.points };
 
@@ -204,6 +227,7 @@ export default function reducer(state, action) {
         posts_stacks,
         avatars,
         selected,
+        filtered_posts,
       } = action;
 
       return {
@@ -223,6 +247,7 @@ export default function reducer(state, action) {
         posts_stacks,
         avatars,
         selected,
+        filtered_posts,
       };
 
     case SET_SELECTED_USER:
@@ -257,4 +282,5 @@ export {
   EDIT_POST,
   DELETE_POST,
   FILTER_POSTS,
+  FETCH_POSTS,
 };

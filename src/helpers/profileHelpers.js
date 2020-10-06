@@ -65,21 +65,21 @@ export function getDashboardPosts(posts) {
   return postsByUser;
 }
 
-export function getFilterOptions(posts) {
-  const seen = new Set();
-  const postsByUser = posts
-    .filter((el) => {
-      const duplicate = seen.has(el.name);
-      seen.add(el.name);
-      return !duplicate;
-    })
-    .map((el) => {
-      return el["name"];
-    });
+// export function getFilterOptions(posts) {
+//   const seen = new Set();
+//   const postsByUser = posts
+//     .filter((el) => {
+//       const duplicate = seen.has(el.name);
+//       seen.add(el.name);
+//       return !duplicate;
+//     })
+//     .map((el) => {
+//       return el["name"];
+//     });
 
-  //console.log("filter", postsByUser);
-  return postsByUser;
-}
+//   //console.log("filter", postsByUser);
+//   return postsByUser;
+// }
 
 export function getStack(stack, senderId) {
   let currentStack = stack.filter((lang) => {
