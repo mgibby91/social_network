@@ -5,8 +5,7 @@ import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
 import { getDashboardPosts } from "../helpers/profileHelpers";
 import ContextConsumer from '../context/context'
-import LoginLogout from '../components/LoginLogout/LoginLogout'
-import Register from '../components/LoginLogout/Register'
+import NewLogin from '../components/LoginLogout/NewLogin'
 
 interface IProps {
   value: object;
@@ -34,8 +33,7 @@ export default function Home() {
       if (!data.state && !data.selected) return (
         <div>
           <h1>Please login or register before using Stack.</h1>
-          <LoginLogout></LoginLogout>
-          <Register></Register>
+          <NewLogin></NewLogin>
         </div>
       )
       return (

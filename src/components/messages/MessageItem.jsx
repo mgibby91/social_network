@@ -12,7 +12,7 @@ export default function MessageItem(props) {
     messageBody = props.recentMessage.textBody;
   }
 
-  const timeAgo = timeSince(props.recentMessage.timeSent) + ' ago';
+  const timeAgo = timeSince(props.recentMessage.timeSent);
 
   let avatar;
   for (let item of props.avatarList) {

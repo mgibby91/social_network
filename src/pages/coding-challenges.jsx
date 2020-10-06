@@ -4,7 +4,8 @@ import CodingChallengesContainer from '../components/CodingChallenges/CodingChal
 import CodingSpaceContainer from '../components/CodingChallenges/CodingSpaceContainer';
 import axios from 'axios';
 import '../styles/coding-challenges.css'
-
+import ContextConsumer from '../context/context'
+import NewLogin from '../components/LoginLogout/NewLogin'
 
 export default function CodingChallenges() {
 
@@ -80,24 +81,35 @@ export default function CodingChallenges() {
   }
 
 
-
   return (
-    <div className='coding-challenges-main-container'>
-      <CodingHeader
-        userInfo={currentUserInfo}
-        completedChallenges={userCompletedChallenges}
-      />
-      <CodingChallengesContainer
-        allChallenges={allChallenges}
-        completedChallenges={userCompletedChallenges}
-        setFunctionTitle={setFunctionTitle}
-        setCodingTests={setCodingTests}
-      />
-      <CodingSpaceContainer
-        currentFunction={currentFunctionTitle}
-        currentTests={currentTests}
-      />
-    </div>
+    <ContextConsumer>
+      {({ data }) => {
+        if (!data.state) return (
+          <div>
+            <h1>Please login or register before using Stack.</h1>
+            <NewLogin></NewLogin>
+          </div>
+        )
+        return (
+          <div className='coding-challenges-main-container'>
+            <CodingHeader
+              userInfo={currentUserInfo}
+              completedChallenges={userCompletedChallenges}
+            />
+            <CodingChallengesContainer
+              allChallenges={allChallenges}
+              completedChallenges={userCompletedChallenges}
+              setFunctionTitle={setFunctionTitle}
+              setCodingTests={setCodingTests}
+            />
+            <CodingSpaceContainer
+              currentFunction={currentFunctionTitle}
+              currentTests={currentTests}
+            />
+          </div>
+        );
+      }}
+    </ContextConsumer>
   );
 
 }

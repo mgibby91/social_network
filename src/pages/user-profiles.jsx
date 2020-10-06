@@ -2,8 +2,7 @@ import React from "react";
 import { Router } from "@reach/router";
 import UserProfileItem from "../components/Profile/UserProfileItem";
 import ContextConsumer from '../context/context'
-import LoginLogout from '../components/LoginLogout/LoginLogout'
-import Register from '../components/LoginLogout/Register'
+import NewLogin from '../components/LoginLogout/NewLogin'
 
 function Profile(props) {
   // console.log("props in prof: ", props);
@@ -13,8 +12,7 @@ function Profile(props) {
       if (!data.state) return (
         <div>
           <h1>Please login or register before using Stack.</h1>
-          <LoginLogout></LoginLogout>
-          <Register></Register>
+          <NewLogin></NewLogin>
         </div>
       )
       return (
