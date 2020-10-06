@@ -46,8 +46,14 @@ p.username {
 }
 
 .user-profile .react-tags__search-input {
+  background: #192038;
+  color: white;
   margin: 0.4em 0;
   width: 400px;
+  border: 1px solid #222b45;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
 .user-profile h2 {
@@ -67,25 +73,218 @@ p.username {
 }
 
 .user-profile .time-posted {
-  /* width: 70%; */
   text-align: right;
   font-size: 13px;
 }
 
 .user-profile .post-body {
   margin: 1em 0;
-  /* font-size: 20px; */
 }
 
 .edit-user-info input {
-  /* margin: 0.2em 0; */
-  border: none;
-  background-color: transparent;
-  color: #fff;
-  border-bottom: solid 1px;
+  background: #192038;
+  color: white;
+  margin: 0.4em 0;
+  border: 1px solid #222b45;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 1rem;
   padding: 0.4em;
 }
 
-/* .edit-user-info .avatar-list-container{
+.profile-progress .mentor-progress,
+.profile-progress .student-progress {
+  display: flex;
+}
 
-} */
+.user-info a {
+  width: 100%;
+}
+
+.user-info .avatar-list-item {
+  width: 50px;
+}
+
+.user-info .avatar-list-item img {
+  width: 40px;
+}
+
+.user-info .register-avatar-list-title {
+  flex-direction: column;
+}
+
+.user-info button {
+  margin-top: 1em;
+}
+
+input.react-tags__search-input {
+  width: 200px !important;
+  border: none;
+  background: none;
+  border-bottom: white 1px solid;
+  padding: 0.3em;
+  color: white;
+}
+
+.user-profile .bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0.6em;
+}
+
+.user-profile .bottom .right {
+  margin: 0.7em 0;
+  display: flex;
+  justify-content: space-between;
+}
+.user-profile .right .checkbox {
+  margin: 0.7em;
+}
+
+button.react-tags__selected-tag {
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+  border: #08d991 solid 1px;
+  background: transparent;
+  padding: 0.2em 0.3em;
+  border-radius: 3px;
+}
+
+button span.react-tags__selected-tag-name {
+  color: #fff;
+  font-weight: 700;
+}
+
+.edit-post-button button {
+  margin-right: 0.4em;
+}
+.user-profile .post-body {
+  padding: 1em 0;
+  height: 100px;
+}
+textarea.edit-post {
+  height: 100px;
+  border: none;
+  width: 100%;
+  background: transparent;
+  border-bottom: #fff 1px solid;
+  color: #fff;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.lbl-toggle {
+  display: block;
+  text-transform: uppercase;
+  text-align: center;
+
+  padding: 1rem;
+
+  color: #fff;
+  background: #22e298;
+
+  cursor: pointer;
+
+  /* border-radius: 7px; */
+  transition: all 0.25s ease-out;
+}
+
+.lbl-toggle:hover {
+  /* color: #7c5a0b; */
+  background-color: #8cfac7;
+}
+.lbl-toggle::before {
+  content: " ";
+  display: inline-block;
+
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+
+  vertical-align: middle;
+  margin-right: 0.7rem;
+  transform: translateY(-2px);
+
+  transition: transform 0.2s ease-out;
+}
+
+.collapsible-content .content-inner {
+  /* background: rgba(250, 224, 66, 0.2); */
+  border-bottom: 1px solid rgba(250, 224, 66, 0.45);
+
+  /* border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px; */
+  padding: 0.5rem 1rem;
+}
+
+.collapsible-content {
+  max-height: 0px;
+  overflow: hidden;
+
+  transition: max-height 0.25s ease-in-out;
+}
+
+.toggle:checked + .lbl-toggle + .collapsible-content {
+  max-height: 100vh;
+}
+
+.toggle:checked + .lbl-toggle::before {
+  transform: rotate(90deg) translateX(-3px);
+}
+
+.toggle:checked + .lbl-toggle {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+textarea.profile-new-comment {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 1em;
+}
+
+.profile-comment {
+  margin-bottom: 1em;
+  /* display: flex; */
+}
+
+.profile-comment .avatar img {
+  width: 100px;
+}
+
+.blue-button {
+  border: 1px solid #3366ff;
+  color: #3366ff;
+  font-weight: 900;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 180px; */
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+.button-transition {
+  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color: #3366ff;
+  background-position: 100% 0;
+  transition: 0.5s;
+}
+.button-transition:hover {
+  cursor: pointer;
+  color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #fff0f5;
+}

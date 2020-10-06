@@ -18,6 +18,7 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 function PostListItem(props) {
+  const senderID = document.cookie.split("=")[1];
   const [value, setValue] = React.useState("Comment here...");
   const { mode, transition, back } = useVisualMode(SHOW);
 
@@ -37,7 +38,6 @@ function PostListItem(props) {
   function onCancel() {
     back();
   }
-
   const commentData = props.comments.filter((comment) => {
     if (props.post.post_id === comment.post_id) {
       return comment;
@@ -63,14 +63,27 @@ function PostListItem(props) {
         const currentUser = props.users.find(
           (user) => user.id === data.selected
         );
+        const commentsLength = commentList.length;
+        const commentObj = {
+          avatar: currentUser.avatar,
+          username: currentUser.username,
+        };
         const onSave = () => {
           //check for empty input here
+          console.log("props post id: ", props.post.post_id);
+
           props
-            .createComment(props.post.post_id, currentUser.id, value)
+            .createComment(
+              props.post.post_id,
+              currentUser.id,
+              value,
+              commentObj
+            )
             .then(() => {
               setValue("");
             });
         };
+
         return (
           <Col
             className="post"
@@ -80,8 +93,21 @@ function PostListItem(props) {
             <Card accent="Info">
               {mode === SHOW && (
                 <CardBody>
-                  <Button onClick={onEdit}>Edit</Button>
-                  <Button onClick={onDelete}>Delete</Button>
+                  {props.user.id === parseInt(senderID, 10) ? (
+                    <div class="edit-post-button">
+                      <Button
+                        className="blue-button button-transition"
+                        onClick={onEdit}
+                      >
+                        Edit
+                      </Button>
+                      <Button className="red-button" onClick={onDelete}>
+                        Delete
+                      </Button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <p className="time-posted">
                     {timeSince(props.post.time_posted)}{" "}
                   </p>
@@ -106,10 +132,22 @@ function PostListItem(props) {
                 />
               )}
 
-              <CardBody>{commentList}</CardBody>
-              <CardBody>
-                <CommentForm onSave={onSave} />
-              </CardBody>
+              <div class="wrap-collabsible">
+                <input
+                  id={"collapsible" + props.index}
+                  class="toggle"
+                  type="checkbox"
+                />
+                <label for={"collapsible" + props.index} class="lbl-toggle">
+                  Comments
+                </label>
+                <div class="collapsible-content">
+                  <div class="content-inner">
+                    {commentList}
+                    <CommentForm onSave={onSave} />
+                  </div>
+                </div>
+              </div>
             </Card>
           </Col>
         );

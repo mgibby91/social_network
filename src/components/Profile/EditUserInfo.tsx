@@ -75,27 +75,32 @@ function EditUserInfo(props) {
               className="avatar edit-user-info"
               breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}
             >
-              <RegisterAvatarList
-                user={props.user}
-                avatarList={avatarList}
-                selectAvatar={selectAvatar}
-                selectedAvatarUrl={selectedAvatarUrl}
-                toggleAvatarList={toggleAvatarList}
-                showAvatarList={showAvatarList}
-              />
-              <input
-                type="text"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                placeholder="Round border"
-              />
-              <input
-                type="text"
-                value={location}
-                onChange={(event) => setLocation(event.target.value)}
-                placeholder="Round border"
-              />
+              <div id="avatar-list-holder">
+                <RegisterAvatarList
+                  user={props.user}
+                  avatarList={avatarList}
+                  selectAvatar={selectAvatar}
+                  selectedAvatarUrl={selectedAvatarUrl}
+                  toggleAvatarList={toggleAvatarList}
+                  showAvatarList={showAvatarList}
+                />
+              </div>
+              <div className="input">
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                  placeholder="Round border"
+                />
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(event) => setLocation(event.target.value)}
+                  placeholder="Round border"
+                />
+              </div>
             </Col>
+            <Col></Col>
             <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
               {props.active ? (
                 <p className="status">

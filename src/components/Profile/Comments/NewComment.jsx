@@ -7,6 +7,7 @@ function CommentForm(props) {
   return (
     <>
       <textarea
+        className="profile-new-comment"
         value={value}
         onChange={(event) => {
           setValue(event.target.value);

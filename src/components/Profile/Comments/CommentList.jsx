@@ -3,13 +3,13 @@ import React from "react";
 function CommentList(props) {
   const { index, avatar, username, text_body } = props;
   return (
-    <div key={index}>
+    <div className="profile-comment" key={index}>
       <img src={avatar} alt="avatar" />
       <div>
-        <p>
-          <b>{username}</b>
-        </p>
-        <li>{text_body}</li>
+        <div>
+          <b>{username} commented:</b>
+        </div>
+        <div className="text-body">{text_body}</div>
       </div>
     </div>
   );

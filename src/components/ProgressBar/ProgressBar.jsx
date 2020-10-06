@@ -6,10 +6,9 @@ const ProgressBar = (props) => {
 
   const containerStyles = {
     height: 20,
-    width: "90%",
+    width: "100%",
     backgroundColor: "#e0e0de",
     borderRadius: 50,
-    margin: 50,
   };
 
   let level = 1;
@@ -69,6 +68,7 @@ const ProgressBar = (props) => {
   };
 
   return (
+
     <div>
       <div className="container-styles">
         <div style={fillerStyles}className="bg-color">
@@ -76,6 +76,7 @@ const ProgressBar = (props) => {
             class="label-styles"
           >{`${experiencePoints}/${fullExperience}`}</span>
         </div>
+
       </div>
       <span>Level {level}</span>
 
