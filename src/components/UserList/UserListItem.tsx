@@ -21,7 +21,7 @@ export default function UserListItem(props) {
     if (stack.user_id === props.userId) {
 			console.log("stack name: ", stack.name);
 			
-      return <li className={list} key={index}>{stack.name}&nbsp;</li>
+      return <li className="list" key={index}>{stack.name}&nbsp;</li>
     }
 	})
 	console.log("props stack: ", stack);
@@ -31,18 +31,18 @@ export default function UserListItem(props) {
       <Row>
         <Col breakPoint={{ xs: 12 }}>
           <Card>
-            <CardBody className={postBody}>
+            <CardBody className="post-body">
               {/* USERS DETAILS */}
               <Link
-                className={userLink}
+                className="user-link"
                 to={`/user-profiles/${props.username}`}
               >
-                <div className={inline}>
-                  <div className={circle}>
+                <div className="inline">
+                  <div className="circle">
                     <img src={props.avatar} alt="avatar"></img>
                   </div>
 
-                  <div className={userCard}>
+                  <div className="user-card">
                     <h3>{props.username}</h3>
                     <span>
                       {props.active ? (
@@ -56,17 +56,17 @@ export default function UserListItem(props) {
               </Link>
 
               {/* MESSAGE BUTTON */}
-              <div className={messageButton}>
+              <div className="message-button">
                 <Link
                   to={`/messages/`}
                   state={{ username: props.username }}
                 >
-                  <Button>Message User</Button>
+                      <div className="blue-button button-transition">Message User</div>
                 </Link>
               </div>
               {/* POST STACK LIST */}
-              <h5>Stack: {stack}</h5>
-
+              <h5 className="stack">Stack:</h5>
+              <ul>{stack}</ul>
               {/* EXPERIENCE BARS */}
 							{props.mentorExperience ? 
 								<h4>Mentor Level</h4>

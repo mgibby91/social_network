@@ -26,9 +26,9 @@
   margin-top: -150px;
   font-size: 1.3em;
   min-height: 125px;
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 25px;  
-  background-color: #2E3138;
+  background-color: #2b3858;
   
 }
 .user-link {
@@ -114,11 +114,11 @@
 
 .comments {
   list-style-type: none;
-  background-color: #faf0e6;
-  color: black;
+  background-color: #2b3858;
+  color: white;
   display: inline-block;
   width: 90%;
-  border-radius: 15px;
+  border-radius: 5px;
   margin-left: 60px;
   padding: 10px;
   margin-top: -40px;
@@ -188,6 +188,10 @@
   box-shadow: 1px 1px 9px #FFF0F5;
 }
 
+.delete-btn {
+  width: 80px;
+  margin-top: 30px;
+}
 .love {
   color: none;
   margin-bottom: 3px;
@@ -223,18 +227,6 @@
   opacity: .7;
 }
 
-.scroller {
-  overflow-anchor: none;
-}
-
-.anchor {
-  /* allow the final child to be selected as an anchor node */
-  overflow-anchor: auto;
-
-  /* anchor nodes are required to have non-zero area */
-  height: 1px;
-}
-
 input[type='checkbox'] {
   display: none;
 }
@@ -259,9 +251,9 @@ input[type='checkbox'] {
   transition: all 0.25s ease-out;
 }
 
-.lbl-toggle:hover {
-  color: #7C5A0B;
-}
+// .lbl-toggle:hover {
+//   color: #7C5A0B;
+// }
 
 .lbl-toggle::before {
   content: ' ';
@@ -280,10 +272,7 @@ input[type='checkbox'] {
 
 .collapsible-content .content-inner {
   background-color: #222b45;
-  border-bottom: 1px solid rgba(250, 224, 66, .45);
 
-  border-bottom-left-radius: 7px;
-  border-bottom-right-radius: 7px;
   padding: .5rem 1rem;
 }
 
@@ -302,10 +291,10 @@ input[type='checkbox'] {
   transform: rotate(90deg) translateX(-3px);
 }
 
-.toggle:checked + .lbl-toggle {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
+// .toggle:checked + .lbl-toggle {
+//   border-bottom-right-radius: 0;
+//   border-bottom-left-radius: 0;
+// }
 
 .comment-textarea {
   border-radius: 5px;

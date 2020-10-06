@@ -1,15 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
-
+import { Button } from "@paljs/ui/Button";
 import React, { useRef } from "react";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
 import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
 import timeSince from "../../helpers/timeSince";
-
-const classNames = require("class-names");
 
 interface IProps {
   key: number;
@@ -43,6 +41,9 @@ interface IProps {
   ) => void;
   onChange: () => void;
   then: () => void;
+  deletePost: (
+    post_id: number,
+  ) => void;
 }
 
 interface IUsers {
@@ -96,6 +97,11 @@ export default function PostListItem(props: IProps) {
 
 
 
+  function onDelete() {
+    props.deletePost(props.post.post_id);
+    // transition(EDITING);
+  }
+
   return (
     <>
       <ContextConsumer>
@@ -116,7 +122,7 @@ export default function PostListItem(props: IProps) {
 
           const myComment = currentUser.id === comment.commenter_id;
 
-          const myCommentOrPost = currentUser.id === comment.commenter_id || currentUser.id === props.post.owner_id ;
+          const myCommentOrPost = currentUser.id === comment.commenter_id || currentUser.id === props.post.owner_id;
             
           const onRemove = () => {
             //check for empty input here
@@ -124,6 +130,9 @@ export default function PostListItem(props: IProps) {
           };
 
           return (
+            <div className="dashboard">
+
+
             <div className="content-inner" key={index}>
               <img
                 className="comment-avatar"
@@ -151,9 +160,8 @@ export default function PostListItem(props: IProps) {
                   ) : (
                     ""
                   )}
-              <div className="comment-delete-edit">
                 </div>
-              </div>
+            </div>
             </div>
           );
         });
@@ -191,12 +199,18 @@ export default function PostListItem(props: IProps) {
           };
 
           const timeAgo = timeSince(props.post.time_posted);
+          const myPost = currentUser.id === props.post.owner_id ;
 
           return (
             <div>
               <Card>
+              <div className="dashboard">
+
                 <CardBody className="post-body">
-                
+                  { myPost ?
+                    <div className="blue-button blue-button-transition delete-btn float-right" onClick={onDelete}>Delete</div> : ""
+                  }
+
                   {/* USERS DETAILS */}
 
                   <Link className="user-link" to={`/user-profiles/${props.post.username}`}>
@@ -232,16 +246,22 @@ export default function PostListItem(props: IProps) {
                   {/* POST STACK LIST */}
                   <h5 className="stack"> {stack}</h5>
 
-
                   <div className="wrap-collapsible">
-                    <input id={"collapsible" + props.index} className="toggle"  type="checkbox"></input>
+
+                    <input 
+                      id={"collapsible" + props.index} className="toggle"  
+                      type="checkbox">
+                    </input>
+
                     <label for={"collapsible" + props.index} className="lbl-toggle">
                     {/* COMMENTS LIST FOR POST */}
+
                     {commentsLength > 1 ? <span>{commentsLength} comments</span> : ""}
+
                     {commentsLength === 1 ? <span>{commentsLength} comment</span> : ""}
+
                     </label>
                     <ul className="collapsible-content">{commentList}</ul>
-                    <div className="anchor"></div>
                   </div>
 
                   {/* FOR COMMENTING */}
@@ -290,6 +310,7 @@ export default function PostListItem(props: IProps) {
 
                   </div>
                 </CardBody>
+                </div>
               </Card>
             </div>
           );

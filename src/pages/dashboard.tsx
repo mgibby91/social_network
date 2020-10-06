@@ -32,6 +32,7 @@ export default function Home() {
     removeComment,
     editComment,
     filterDashboardPosts,
+    deletePost,
   } = useApplicationData();
 
   let dashPosts = getDashboardPosts(state.posts);
@@ -90,6 +91,7 @@ export default function Home() {
               createComment={createComment}
               removeComment={removeComment}
               editComment={editComment}
+              deletePost={deletePost}
             />
           </div>
         );
