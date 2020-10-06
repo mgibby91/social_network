@@ -38,7 +38,7 @@ export default function Login() {
     const randomAvatar = avatarList[randomNum];
 
     if (randomAvatar) {
-      return randomAvatar.url.replace(/50/g, 400);
+      return randomAvatar.url.replace(/50/g, 500);
     }
   }
 

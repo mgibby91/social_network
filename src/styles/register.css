@@ -6,7 +6,8 @@
   background: #222b45;
   border-radius: 10px;
   padding: 2rem;
-  /* height: 100%; */
+  padding-right: 5rem;
+  height: 96%;
   width: 100%;
 }
 
@@ -186,19 +187,33 @@
   margin-left: 2.8rem;
 }
 
-.username-error,
-.email-error,
-.password-error {
+.username-error{
   position: absolute;
-  left: -400px;
+  left: -300px;
 }
 
-.password-match {
+.email-error {
   position: absolute;
-  left: -260px;
+  left: -210px;
+}
+
+.password-error {
+  position: absolute;
+  left: -300px;
 }
 
 .confirm-error {
   position: absolute;
-  left: -280px;
+  left: -220px;
+}
+
+.password-match {
+  position: absolute;
+  left: -220px;
+}
+
+.register-main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
 }
