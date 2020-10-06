@@ -25,7 +25,7 @@
   align-items: center;
   width: 180px;
   text-transform: uppercase;
-  transition: all 0.36s ease-in-out;
+  // transition: all 0.36s ease-in-out;
   margin-top: 20px;
   background: linear-gradient(to right, white, #1cd454 50%, white 50%);
   overflow: hidden;
@@ -33,7 +33,7 @@
   -webkit-background-clip: text;
   background-size: 200% 100%;
   background-position: 110%;
-  transition: background-position 275ms ease;
+  transition: background-position 350ms ease;
   text-decoration: none;
   color: #1cd454;
 }
