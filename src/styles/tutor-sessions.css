@@ -5,28 +5,33 @@
 }
 
 .main-tutor-container {
-  width: 1000px;
+  width: 100%;
   /* height: 700px; */
-  border: 5px solid #222b45;
   padding: 1rem;
 }
 
 .tutor-history-container {
   width: 100%;
-  height: 350px;
-  border: 1px solid white;
+  height: 325px;
+  background: #222b45;
+  border-radius: 10px;
+  /* padding: 1rem; */
 }
 
 .tutor-history-header-container {
   width: 100%;
   height: 35px;
-  border: 1px solid white;
+  /* border: 1px solid #475991; */
+  background: #475991;
+  border-bottom: 1px;
+  border-radius: 5px 5px 0 0;
 }
 
 .tutor-history-body-container {
   width: 100%;
   height: 90%;
-  border: 1px solid white;
+  /* border: 1px solid #475991;s */
+  border-radius: 0 0 5px 5px;
   overflow: auto;
 }
 
@@ -35,32 +40,36 @@
 .tutor-history-item-container {
   width: 100%;
   height: 50px;
-  border: 1px solid white;
+  border-bottom: 0.5px solid #151a30;
   display: flex;
   /* justify-content: space-evenly; */
   align-items: center;
   position: relative;
 }
-/* 
+
+.tutor-history-item-container:nth-child(odd) {
+  background: #2b3858;
+}
+
 .tutor-history-header-date {
   position: absolute;
-  left: 85px;
+  left: 5%;
 }
 
 .tutor-history-header-usernames {
   position: absolute;
-  left: 318px;
+  left: 25%;
 }
 
 .tutor-history-header-status {
   position: absolute;
-  left: 575px;
+  left: 50%;
 }
 
 .tutor-history-header-actions {
   position: absolute;
-  left: 760px;
-} */
+  left: 65%;
+}
 
 
 .tutor-history-item-date {
@@ -71,7 +80,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   position: absolute;
-  left: 60px;
+  left: 5%;
 }
 
 .tutor-history-item-student-mentor {
@@ -83,11 +92,11 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 290px;
+  left: 30%;
 }
 
 .tutor-history-item-status {
-  border: 1px solid white;
+  border: 1px solid #475991;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   width: 100px;
@@ -96,12 +105,12 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 560px;
+  left: 60%;
 }
 
 .tutor-history-item-btns {
   position: absolute;
-  left: 700px;
+  left: 75%;
 }
 
 
@@ -220,22 +229,22 @@
 
 .tutor-history-header-date {
   position: absolute;
-  left: 85px;
+  left: 8%;
 }
 
 .tutor-history-header-usernames {
   position: absolute;
-  left: 318px;
+  left: 32.5%;
 }
 
 .tutor-history-header-status {
   position: absolute;
-  left: 575px;
+  left: 61%;
 }
 
 .tutor-history-header-actions {
   position: absolute;
-  left: 760px;
+  left: 79%;
 }
 
 
@@ -251,6 +260,7 @@
   border-radius: 10px;
   padding: 1.25rem;
   margin-bottom: 1.25rem;
+  width: 100%;
 }
 
 .tutor-create-header {
@@ -263,7 +273,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .create-mentor-student-header,
@@ -336,10 +346,12 @@
   color: white;
   padding: 0.75rem;
   border: 1px solid #222b45;
+  border-radius: 5px;
 }
 
 #tutor-rate-comments:focus {
   border: 1px solid #3366ff;
+  outline: none;
 }
 
 
@@ -374,7 +386,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 0.25rem;
-  margin-left: 0.25rem;
+  margin-left: 1rem;
 }
 
 .tutor-filter-title {
@@ -445,7 +457,8 @@
 }
 
 #tutor-success-id {
-  width: 958px;
+  width: 100%;
+  height: 188px;
 }
 
 
@@ -454,8 +467,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 958px;
-  height: 330px;
+  width: 100%;
+  height: 327px;
   background: #222b45;
   border-radius: 10px;
   padding: 1.25rem;

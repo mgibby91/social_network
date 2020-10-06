@@ -127,12 +127,12 @@ export default function PostListItem(props: IProps) {
                 alt="avatar"
               />
               <div className="comments">
-                <li>
-                  <b>{comment.username}</b>
-                </li>
-                <li>{comment.text_body}</li>
-              </div>
-              <div className="comment-delete-edit">
+              <Link className="user-link" to={`/user-profiles/${comment.username}`}>
+                  <span className="comment-username">
+                    <b>{comment.username}&nbsp;&nbsp;</b>
+                  </span>
+                </Link>
+                <span>{comment.text_body}</span>
                   {/* {myCommentOrPost ? (
                     <p onClick={() => onEdit()} className={deleteButton}>
                       Edit
@@ -141,13 +141,15 @@ export default function PostListItem(props: IProps) {
                     ""
                   )} */}
                   {myCommentOrPost ? (
-                    <p onClick={() => onRemove()} className="delete-button">
+                    <span onClick={() => onRemove()} className="delete-button">
                       Remove Comment
-                    </p>
+                    </span>
                   ) : (
                     ""
                   )}
+              <div className="comment-delete-edit">
                 </div>
+              </div>
             </div>
           );
         });
@@ -214,29 +216,30 @@ export default function PostListItem(props: IProps) {
                       to={`/messages/`}
                       state={{ username: props.post.username }}
                     >
-                      <div className="blue-button">Message User</div>
+                      <div className="blue-button button-transition">Message User</div>
                     </Link>
                   </div>
                   <small className="float-right">{timeAgo}</small>
 
                   {/* POST TEXT BODY */}
-                  <p className="text-body">{props.post.text_body}</p>
+
+                    <p className="text-body">{props.post.text_body}</p>
 
                   {/* POST STACK LIST */}
-                  <h5> {stack}</h5>
+                  <h5 className="stack"> {stack}</h5>
 
                   {/* BUTTON FOR LIKES */}
 
                   {iAlreadyLikeThis ? (
                   <div
-                    className="like-button"
+                    className="unlike-button like-transition"
                     onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
                     >Unlike</div>
                   ) : (
                   <div
-                    className="like-button"
+                    className="like-button like-transition"
                     onClick={() => props.addLike(props.post.post_id, currentUser.id)}
-                    >Like</div>
+                    >Add Like</div>
                   )}
 
                   <div className="likes-comments">
@@ -262,7 +265,7 @@ export default function PostListItem(props: IProps) {
                     onChange={(event) => {setValue(event.target.value);}} 
                     rows="2" cols="80" placeholder="Leave a comment here.."
                   ></textarea>
-                  <div className="comment-button"onClick={() => onSave()}>Comment</div>
+                  <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
                 </CardBody>
               </Card>
             </div>
