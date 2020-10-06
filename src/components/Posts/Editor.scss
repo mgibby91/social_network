@@ -12,6 +12,8 @@
   box-shadow: 0 8px 8px -6px black;
 }
 
+
+
 .post-btn {
   border: 1px solid #1cd454;
   color: #1cd454;
@@ -23,16 +25,26 @@
   align-items: center;
   width: 180px;
   text-transform: uppercase;
-  transition: all 0.2s ease-in-out;
   margin-top: 20px;
+  background: linear-gradient(to right, white, #1cd454 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 350ms ease;
+  text-decoration: none;
+  color: #1cd454;
 }
 
 .post-btn:hover {
   cursor: pointer;
-  color: white;
-  border: 1px solid white;
-  background-color: #1cd454;
+  background-position: 0 100%;
+  box-shadow: 1px 1px 9px #FFF0F5;
+  -webkit-text-fill-color: transparent;
 }
+
+
 
 .checkbox {
   float: right;
