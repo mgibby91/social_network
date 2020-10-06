@@ -25,11 +25,10 @@
   margin-left: 240px;
   margin-top: -175px;
   font-size: 1.3em;
-  height: 150px;
-  border: 1px solid white;
+  min-height: 150px;
   border-radius: 15px;
-  // margin-right: 150px;
-  padding: 25px;
+  padding: 25px;  
+  background-color: #2E3138;
 }
 .user-link {
   text-decoration: none;
