@@ -1,9 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
+
 import React, { useRef } from "react";
-import Row from "@paljs/ui/Row";
-import Col from "@paljs/ui/Col";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
-import { Button } from "@paljs/ui/Button";
 import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
 import timeSince from "../../helpers/timeSince";
@@ -69,31 +70,12 @@ interface IPost {
   owner_id: number;
 }
 
-const list = classNames("post_body__item-list");
-const commentStyle = classNames("post_body__item-comments");
-const commentAvatar = classNames("post_body__item-comment_avatar");
-const deleteButton = classNames("post_body__item-delete_button");
-const postBody = classNames("post_body");
-const textBody = classNames("post_body__item-text_body");
-const userLink = classNames("post_body__item-user_link");
-const messageButton = classNames("post_body__item-message_button");
-const commentListStyle = classNames("post_body__item-comment_list");
-const commentButton = classNames("post_body__item-comment_button");
-const userCard = classNames("post_body__item-user_card");
-const circle = classNames("post_body__item-circle");
-const flex = classNames("post_body__item-flex");
-const likesComments = classNames("post_body__item-likes_comments");
-const bg = classNames("post_body__item-bg");
-const floatRight = classNames("post_body__item-float_right");
-const blueButton = classNames("post_body__item-blue_button");
-const likeButton = classNames("post_body__item-like_button");
-
 export default function PostListItem(props: IProps) {
   const [value, setValue] = React.useState("Comment here...");
 
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
-      <li className={list} key={index}>
+      <li className="list" key={index}>
         {tech_stack}&nbsp;
       </li>
     );
@@ -142,14 +124,19 @@ export default function PostListItem(props: IProps) {
           };
 
           return (
-            <div key={index}>
+            <div className="content-inner" key={index}>
               <img
-                className={commentAvatar}
+                className="comment-avatar"
                 src={comment.avatar}
                 alt="avatar"
               />
-              <div className={commentStyle}>
-                <div className={flex}>
+              <div className="comments">
+              <Link className="user-link" to={`/user-profiles/${comment.username}`}>
+                  <span className="comment-username">
+                    <b>{comment.username}&nbsp;&nbsp;</b>
+                  </span>
+                </Link>
+                <span>{comment.text_body}</span>
                   {/* {myCommentOrPost ? (
                     <p onClick={() => onEdit()} className={deleteButton}>
                       Edit
@@ -158,18 +145,14 @@ export default function PostListItem(props: IProps) {
                     ""
                   )} */}
                   {myCommentOrPost ? (
-                    <p onClick={() => onRemove()} className={deleteButton}>
-                      Delete
-                    </p>
+                    <span onClick={() => onRemove()} className="delete-button">
+                      Remove Comment
+                    </span>
                   ) : (
                     ""
                   )}
+              <div className="comment-delete-edit">
                 </div>
-
-                <li>
-                  <b>{comment.username}</b>
-                </li>
-                <li>{comment.text_body}</li>
               </div>
             </div>
           );
@@ -212,82 +195,100 @@ export default function PostListItem(props: IProps) {
           return (
             <div>
               <Card>
-                <CardBody className={postBody}>
-                  {/* POST TEXT BODY */}
-                  <div className={floatRight}>
-                    <small className={floatRight}>{timeAgo}</small>
-                    <p className={textBody}>{props.post.text_body}</p>
-                  </div>
-
+                <CardBody className="post-body">
+                
                   {/* USERS DETAILS */}
-                  <Link
-                    className={userLink}
-                    to={`/user-profiles/${props.post.username}`}
-                  >
-                    <div>
-                      <div className={flex}>
-                        <div className={circle}>
-                          <img src={props.post.avatar} alt="avatar"></img>
-                        </div>    
-                      </div>
-                      <div className={userCard}>
-                        <span className={bg}>
-                          <h3>{props.post.username}</h3>
-                        </span>
 
-                        <span>{props.post.active ? <h6>User is online</h6> : <h6>User is offline</h6>}
-                        </span>
-                      </div>
+                  <Link className="user-link" to={`/user-profiles/${props.post.username}`}>
+                    <div className="user-card">
+                      <div className="circle">
+                        <img src={props.post.avatar} alt="avatar"></img>
+                      </div>    
+                      <span className="bg">
+                        <h3>{props.post.username}</h3>
+                      </span>
                     </div>
                   </Link>
-
+                  <Link className="online-link" to={`/user-profiles/${props.post.username}`}>
+                    <span>{props.post.active ? <h6>User is online</h6> : <h6>User is offline</h6>}
+                    </span>
+                  </Link>
                   {/* MESSAGE BUTTON */}
-                  <div className={messageButton}>
+                  <div className="message-button">
                     <Link
-                      className={userLink}
+                      className="user-link"
                       to={`/messages/`}
                       state={{ username: props.post.username }}
                     >
-                      <div className={blueButton}>Message User</div>
+                      <div className="blue-button button-transition">Message User</div>
                     </Link>
                   </div>
+                  <small className="float-right">{timeAgo}</small>
+
+                  {/* POST TEXT BODY */}
+
+                    <p className="text-body">{props.post.text_body}</p>
 
                   {/* POST STACK LIST */}
-                  <h5>Stack: {stack}</h5>
+                  <h5 className="stack"> {stack}</h5>
 
-                  {/* BUTTON FOR LIKES */}
 
-                  {iAlreadyLikeThis ? (
-                  <div
-                    className={likeButton}
-                    onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
-                    >Unlike</div>
-                  ) : (
-                  <div
-                    className={likeButton}
-                    onClick={() => props.addLike(props.post.post_id, currentUser.id)}
-                    >Like</div>
-                  )}
-
-                  <div className={likesComments}>
-                    {/* LIKE COUNT */}
-                    {likeSum > 1 ? <p><b>{likeSum} Likes</b></p> : ""}
-                    {likeSum === 1 ? <p><b>{likeSum} Like</b></p> : ""}
+                  <div className="wrap-collapsible">
+                    <input id={"collapsible" + props.index} className="toggle"  type="checkbox"></input>
+                    <label for={"collapsible" + props.index} className="lbl-toggle">
                     {/* COMMENTS LIST FOR POST */}
-                    {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
-                    {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
+                    {commentsLength > 1 ? <span>{commentsLength} comments</span> : ""}
+                    {commentsLength === 1 ? <span>{commentsLength} comment</span> : ""}
+                    </label>
+                    <ul className="collapsible-content">{commentList}</ul>
+                    <div className="anchor"></div>
                   </div>
-                  <ul className={commentListStyle}>{commentList}</ul>
 
                   {/* FOR COMMENTING */}
-                  <textarea
+                  <textarea 
+                    className="comment-textarea"
                     value={value}
                     onChange={(event) => {setValue(event.target.value);}} 
                     rows="2" cols="80" placeholder="Leave a comment here.."
                   ></textarea>
-                  {/* <div className={commentButton}> */}
-                  <div className={commentButton}onClick={() => onSave()}>Comment</div>
-                  {/* </div> */}
+                  <div className="comment-like-button-flex">
+                  <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
+                  {/* BUTTON FOR LIKES */}
+                  <div className="likes">
+                    {iAlreadyLikeThis ? (
+                      <FontAwesomeIcon 
+                      onClick={() => props.removeLike(props.post.post_id, currentUser.id)}
+                      className="unlove"
+                      icon={fasHeart} size="1x" />
+                    ) : (                  
+                      <FontAwesomeIcon 
+                        onClick={() => props.addLike(props.post.post_id, currentUser.id)}
+                        className="love"
+                        icon={farHeart} size="1x" />
+                    )}
+
+                    <div className="likes-comments">
+                      {/* LIKE COUNT */}
+
+                      {iAlreadyLikeThis ? 
+                        <p onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
+                        <b>You and {likeSum - 1} other people like this</b></p> : ""}
+
+                      {!iAlreadyLikeThis && likeSum > 1 ? 
+                        <p onClick={() => props.addLike(props.post.post_id, currentUser.id)}>
+                        <b>{likeSum}  likes</b></p> : ""}
+
+                      {iAlreadyLikeThis && likeSum === 1 ? 
+                        <p                       onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
+                        <b>You like this</b></p> : ""}
+
+                      {!iAlreadyLikeThis && likeSum === 1 ? 
+                      <p onClick={() => props.addLike(props.post.post_id, currentUser.id)}><b>{likeSum} like</b></p> : ""}
+                      
+                    </div>
+                  </div>
+
+                  </div>
                 </CardBody>
               </Card>
             </div>
