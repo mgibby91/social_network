@@ -1,9 +1,6 @@
 import React, { useRef } from "react";
-import Row from "@paljs/ui/Row";
-import Col from "@paljs/ui/Col";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
-import { Button } from "@paljs/ui/Button";
 import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
 import timeSince from "../../helpers/timeSince";
@@ -123,14 +120,19 @@ export default function PostListItem(props: IProps) {
           };
 
           return (
-            <div key={index}>
+            <div className="content-inner" key={index}>
               <img
                 className="comment-avatar"
                 src={comment.avatar}
                 alt="avatar"
               />
               <div className="comments">
-                <div className="flex">
+                <li>
+                  <b>{comment.username}</b>
+                </li>
+                <li>{comment.text_body}</li>
+              </div>
+              <div className="comment-delete-edit">
                   {/* {myCommentOrPost ? (
                     <p onClick={() => onEdit()} className={deleteButton}>
                       Edit
@@ -140,18 +142,12 @@ export default function PostListItem(props: IProps) {
                   )} */}
                   {myCommentOrPost ? (
                     <p onClick={() => onRemove()} className="delete-button">
-                      Delete
+                      Remove Comment
                     </p>
                   ) : (
                     ""
                   )}
                 </div>
-
-                <li>
-                  <b>{comment.username}</b>
-                </li>
-                <li>{comment.text_body}</li>
-              </div>
             </div>
           );
         });
@@ -227,7 +223,7 @@ export default function PostListItem(props: IProps) {
                   <p className="text-body">{props.post.text_body}</p>
 
                   {/* POST STACK LIST */}
-                  <h5>Stack: {stack}</h5>
+                  <h5> {stack}</h5>
 
                   {/* BUTTON FOR LIKES */}
 
@@ -247,14 +243,21 @@ export default function PostListItem(props: IProps) {
                     {/* LIKE COUNT */}
                     {likeSum > 1 ? <p><b>{likeSum} Likes</b></p> : ""}
                     {likeSum === 1 ? <p><b>{likeSum} Like</b></p> : ""}
-                    {/* COMMENTS LIST FOR POST */}
-                    {commentsLength > 1 ? <h6>{commentsLength} comments</h6> : ""}
-                    {commentsLength === 1 ? <h6>{commentsLength} comment</h6> : ""}
                   </div>
-                  <ul className="comment-list">{commentList}</ul>
+                  <div className="wrap-collapsible">
+                    <input id={"collapsible" + props.index} className="toggle"  type="checkbox"></input>
+                    <label for={"collapsible" + props.index} className="lbl-toggle">
+                    {/* COMMENTS LIST FOR POST */}
+                    {commentsLength > 1 ? <span>{commentsLength} comments</span> : ""}
+                    {commentsLength === 1 ? <span>{commentsLength} comment</span> : ""}
+                    </label>
+                    <ul className="collapsible-content">{commentList}</ul>
+                    <div className="anchor"></div>
+                  </div>
 
                   {/* FOR COMMENTING */}
-                  <textarea
+                  <textarea 
+                    className="comment-textarea"
                     value={value}
                     onChange={(event) => {setValue(event.target.value);}} 
                     rows="2" cols="80" placeholder="Leave a comment here.."

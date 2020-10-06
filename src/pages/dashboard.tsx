@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Row from "@paljs/ui/Row";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
-import Select from "react-dropdown-select";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
 import NewLogin from "../components/LoginLogout/NewLogin";
 import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
-
+import './dashboard.scss'
 interface IProps {
   value: object;
   submitPost: (username: string) => void;
@@ -58,7 +57,7 @@ export default function Home() {
           );
         return (
           <div className="App">
-            <h1>Request or offer assistance:</h1>
+            <h1 className="title">Looking for help or have something to offer? Let others know!</h1>
             <Row>
               <Editor
                 createPost={createPost}
