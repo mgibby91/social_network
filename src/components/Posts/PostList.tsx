@@ -54,6 +54,7 @@ export default function PostList(props: IProps) {
   const postData = props.posts.map((post, index) => {
     return (
       <PostListItem
+        index={index}
         key={index}
         post={post}
         comments={comments}

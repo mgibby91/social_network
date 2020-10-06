@@ -242,7 +242,8 @@ export default function PostListItem(props: IProps) {
                   <div className="wrap-collapsible">
 
                     <input 
-                      id={"collapsible" + props.index} className="toggle"  type="checkbox">
+                      id={"collapsible" + props.index} className="toggle"  
+                      type="checkbox">
                     </input>
 
                     <label for={"collapsible" + props.index} className="lbl-toggle">
@@ -254,7 +255,6 @@ export default function PostListItem(props: IProps) {
 
                     </label>
                     <ul className="collapsible-content">{commentList}</ul>
-                    <div className="anchor"></div>
                   </div>
 
                   {/* FOR COMMENTING */}

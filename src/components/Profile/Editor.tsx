@@ -45,33 +45,36 @@ function Editor(props) {
         </Col>
       </Row>
       <Row>
-        <Col breakPoint={{ xs: 4, sm: 4, md: 4, lg: 4 }}>
-          <Tags
-            className="tagging"
-            suggested={props.suggestion}
-            onChange={onChangeInput}
-          />
-        </Col>
-
-        <Col breakPoint={{ xs: 4, sm: 4, md: 4, lg: 4 }}>
-          <Checkbox
-            checked={checkbox[1]}
-            status="Success"
-            onChange={(value) => onChangeCheckbox(value, 1)}
-          >
-            Mentor Help Needed
-          </Checkbox>
-        </Col>
-        <Col breakPoint={{ xs: 4, sm: 4, md: 4, lg: 4 }}>
-          <Button
-            fullWidth
-            appearance="hero"
-            status="Success"
-            onClick={() => onSave()}
-          >
-            Post
-          </Button>
-        </Col>
+        <div className="bottom">
+          <div>
+            <Tags
+              className="tagging"
+              suggested={props.suggestion}
+              onChange={onChangeInput}
+            />
+          </div>
+          <div className="right">
+            <div className="checkbox">
+              <Checkbox
+                checked={checkbox[1]}
+                status="Success"
+                onChange={(value) => onChangeCheckbox(value, 1)}
+              >
+                Help Needed
+              </Checkbox>
+            </div>
+            <div>
+              <Button
+                fullWidth
+                appearance="hero"
+                status="Success"
+                onClick={() => onSave()}
+              >
+                Post
+              </Button>
+            </div>
+          </div>
+        </div>
       </Row>
     </div>
   );

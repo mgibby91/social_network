@@ -13,22 +13,6 @@ function EditPostItem(props) {
   };
 
   function onSave() {
-    // const oldStack = props.mentor_stack.map((val) => {
-    //   return val["name"];
-    // });
-    // const newStack = techTags.map((val) => {
-    //   return val["name"];
-    // });
-
-    // //removed from the list
-    // const removed = oldStack.filter((x) => !newStack.includes(x));
-    // //added to the list
-    // const added = newStack.filter((x) => !oldStack.includes(x));
-    // if (removed.length !== 0 || added.length !== 0) {
-    //   props.onSaveNewStack(removed, added, props.user.id);
-    // }
-
-    // console.log("new stack?", oldStack, newStack, removed, added);
     props.updatePost(post, props.id, props.user.id);
     props.onSaveEdit();
     // props.onSave();
@@ -36,9 +20,9 @@ function EditPostItem(props) {
   return (
     <CardBody>
       <Button onClick={onSave}>Save Changes</Button>
-      <p>EDITING</p>
       <p className="time-posted">{timeSince(props.time_posted)} </p>
       <textarea
+        className="edit-post"
         type="text"
         value={post}
         onChange={(event) => setPost(event.target.value)}
