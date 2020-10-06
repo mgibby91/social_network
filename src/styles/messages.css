@@ -130,6 +130,7 @@
   padding: 0.5rem;
   max-width: 60%;
   margin: 0.6rem 0.4rem;
+  background: #192038;
   /* border-radius: 8px; */
 }
 
@@ -212,22 +213,50 @@
   border: 1px solid #3366ff;
   color: #3366ff;
   font-weight: 500;
+  transition: all 0.2s ease-in-out;
 }
 .msg-btn-complete {
   border: 1px solid #1cd454;
   color: #1cd454;
   font-weight: 500;
+  transition: all 0.2s ease-in-out;
 }
 
 .msg-btn-create:hover {
+  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color:#3366ff;
+  background-position: 100% 0;
+  transition: .2s;
   cursor: pointer;
   color: white;
-  background: #3366ff;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #FFF0F5
 }
 .msg-btn-complete:hover {
+  background: linear-gradient(to right, white, #1cd454 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color:#1cd454;
+  background-position: 100% 0;
+  transition: .2s;
   cursor: pointer;
   color: white;
-  background: #1cd454;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #FFF0F5
 }
 
 .tutor-session-title {
@@ -258,7 +287,7 @@
 
 .message-text-area textarea {
   resize: none;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-top: 3px;
   margin-right: 0.4rem;
   padding: 0.4rem 0.6rem;
@@ -279,9 +308,21 @@
 }
 
 .msg-btn-send:hover {
+  background: linear-gradient(to right, white, rgb(201, 201, 201) 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  background-position: 100% 0;
+  transition: .2s;
   cursor: pointer;
-  color: black;
-  /* background: white; */
+  color: rgb(201, 201, 201);
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #FFF0F5;
 }
 
 /* error show */
