@@ -85,7 +85,6 @@ export default function UserListItem(props) {
                 <div className="stack">
                   <span className="language-title">Language Preferences:&nbsp;</span><span>{stack}</span>
                 </div>
-
               </CardBody>
             </Card>
           </Col>

@@ -68,7 +68,7 @@ export default function Home() {
                 users={users}
               />
             </Row>
-            <Row>
+            <Row className="filter-btns">
               <div className="filter-btn filter-btn-all" onClick={() => filterPost("")}>All</div>
               <div className="filter-btn filter-btn-css" onClick={() => filterPost("CSS")}>CSS</div>
 
