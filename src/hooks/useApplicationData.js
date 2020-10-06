@@ -18,6 +18,7 @@ import reducer, {
   EDIT_POST,
   DELETE_POST,
   FILTER_POSTS,
+  FETCH_POSTS,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -37,6 +38,7 @@ export default function useApplicationData() {
     posts_stacks: [],
     avatars: [],
     selected: {},
+    filtered_posts: [],
   });
 
   // RETRIEVES API AND SETS IT WITH REDUCER
@@ -55,6 +57,7 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/stack_preferences"),
       axios.get("http://localhost:8001/api/posts_stacks"),
       axios.get("http://localhost:8001/api/register/avatars"),
+      axios.get("http://localhost:8001/api/posts"),
     ]).then((all) => {
       // console.log("all from applicatin data hook: ", all);
       const comments = all[0].data;
@@ -71,6 +74,7 @@ export default function useApplicationData() {
       const posts_stacks = all[11].data;
       const avatars = all[12].data;
       const selected = {};
+      const filtered_posts = all[13].data;
       dispatch({
         type: SET_APPLICATION_DATA,
         comments,
@@ -87,6 +91,7 @@ export default function useApplicationData() {
         posts_stacks,
         avatars,
         selected,
+        filtered_posts,
       });
     });
   }, []);
@@ -318,7 +323,7 @@ export default function useApplicationData() {
     console.log("here in delete", post_id);
 
     const promise = axios
-      .delete(`http://localhost:8001/api/posts`, { params: post_id })
+      .delete(`http://localhost:8001/api/posts`, { params: { post_id } })
       .then((response) => {
         // console.log("response.data in first .then", response.data[0]);
         dispatch({
