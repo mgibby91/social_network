@@ -10,10 +10,7 @@ function Profile(props) {
     <ContextConsumer>
     {({ data }) => {
       if (!data.state) return (
-        <div>
-          <h1>Please login or register before using Stack.</h1>
-          <NewLogin></NewLogin>
-        </div>
+        <NewLogin></NewLogin>
       )
       return (
         <Router>

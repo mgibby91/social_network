@@ -5,9 +5,7 @@ import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
 import NewLogin from "../components/LoginLogout/NewLogin";
-import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
-import Col from "@paljs/ui/Col";
-import { Button } from "@paljs/ui/Button";
+import { getDashboardPosts } from "../helpers/profileHelpers";
 
 import './dashboard.scss'
 interface IProps {
@@ -53,14 +51,12 @@ export default function Home() {
   const likes = state.likes;
   const users = state.users;
   return (
+    <div className="dashboard-page">
     <ContextConsumer>
       {({ data }) => {
         if (!data.state && !data.selected)
           return (
-            <div>
-              <h1>Please login or register before using Stack.</h1>
-              <NewLogin></NewLogin>
-            </div>
+            <NewLogin></NewLogin>
           );
         return (
           <div className="App">
@@ -73,13 +69,13 @@ export default function Home() {
               />
             </Row>
             <Row>
-              <Button onClick={() => filterPost("")}>All</Button>
-              <Button onClick={() => filterPost("CSS")}>CSS</Button>
+              <div className="filter-btn filter-btn-all" onClick={() => filterPost("")}>All</div>
+              <div className="filter-btn filter-btn-css" onClick={() => filterPost("CSS")}>CSS</div>
 
-              <Button onClick={() => filterPost("Ruby")}>Ruby</Button>
-              <Button onClick={() => filterPost("Javascript")}>
+              <div className="filter-btn filter-btn-ruby" onClick={() => filterPost("Ruby")}>Ruby</div>
+              <div className="filter-btn filter-btn-javascript" onClick={() => filterPost("Javascript")}>
                 Javascript
-              </Button>
+              </div>
             </Row>
             <PostList
               users={users}
@@ -97,5 +93,6 @@ export default function Home() {
         );
       }}
     </ContextConsumer>
+    </div>
   );
 }

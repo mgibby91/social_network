@@ -253,7 +253,7 @@ export default function PostListItem(props: IProps) {
                       type="checkbox">
                     </input>
 
-                    <label for={"collapsible" + props.index} className="lbl-toggle">
+                    <label htmlFor={"collapsible" + props.index} className="lbl-toggle">
                     {/* COMMENTS LIST FOR POST */}
 
                     {commentsLength > 1 ? <span>{commentsLength} comments</span> : ""}
