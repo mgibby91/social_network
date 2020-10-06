@@ -149,34 +149,76 @@
 .tutor-btn-decline-cancel {
   color: rgb(250, 70, 70);
   border: 1px solid rgb(250, 70, 70);
+  transition: all 0.2s ease-in-out;
 }
 
 .tutor-btn-decline-cancel:hover {
+  background: linear-gradient(to right, white, rgb(250, 70, 70) 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color:rgb(250, 70, 70);
+  background-position: 100% 0;
+  transition: .2s;
   cursor: pointer;
-  background: rgb(250, 70, 70);
   color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #FFF0F5;
 }
 
 .tutor-btn-accept-complete {
   color: #1cd454;
   border: 1px solid #1cd454;
+  transition: all 0.2s ease-in-out;
 }
 
 .tutor-btn-accept-complete:hover {
+  background: linear-gradient(to right, white, #1cd454 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color:#1cd454;
+  background-position: 100% 0;
+  transition: .2s;
   cursor: pointer;
-  background: #1cd454;
   color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #FFF0F5;
 }
 
 .tutor-btn-video {
   color: #3366ff;
   border: 1px solid #3366ff;
+  transition: all 0.2s ease-in-out;
 }
 
 .tutor-btn-video:hover {
+  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color:#3366ff;
+  background-position: 100% 0;
+  transition: .2s;
   cursor: pointer;
-  background: #3366ff;
   color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #FFF0F5;
 }
 
 .tutor-btn-hide {
@@ -208,9 +250,9 @@
 }
 
 .msg-btn-create {
-  border: 1px solid #3366ff;
   color: #3366ff;
-  font-weight: 500;
+  border: 1px solid #3366ff;
+  transition: all 0.2s ease-in-out;
 }
 
 
@@ -298,17 +340,31 @@
 
 .tutor-create-btn,
 .rate-tutor-btn {
-  border: 1px solid #3366ff;
   color: #3366ff;
+  border: 1px solid #3366ff;
+  transition: all 0.2s ease-in-out;
   font-weight: 500;
   margin-top: 1rem;
 }
 
 .tutor-create-btn:hover,
 .rate-tutor-btn:hover {
+  background: linear-gradient(to right, white, #3366ff 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color:#3366ff;
+  background-position: 100% 0;
+  transition: .2s;
   cursor: pointer;
-  background: #3366ff;
   color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #FFF0F5
 }
 
 
