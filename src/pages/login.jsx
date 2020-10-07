@@ -91,12 +91,16 @@ export default function Login() {
             userDisplay.remove();
           }
 
+          console.log('before', username);
+
           const usernameHTML = `
             <div class='logged-in-username' style='display: flex; align-items: center; justify-content: center'>
             <p style='margin-right: 0.5rem;'>Welcome <strong>${username}!</strong></p>
             <img src='${avatar}' />
             </div>
         `;
+
+          console.log(usernameHTML);
 
           if (rightNavContainer) {
             rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML);
