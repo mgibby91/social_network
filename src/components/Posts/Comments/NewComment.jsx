@@ -1,6 +1,6 @@
 import React from "react";
 import '../PostListItem.scss'
-function CommentForm(props) {
+export default function CommentForm(props) {
   const [value, setValue] = React.useState("Comment here...");
   const [error, setError] = useState("");
 
@@ -17,6 +17,7 @@ function CommentForm(props) {
       setError("Comment cannot be blank");
       return;
     }
+
     if (value !== ""){
       setError("");
       props.createComment(
@@ -31,23 +32,22 @@ function CommentForm(props) {
 
   return (
     <>
-      <div className="center-textarea">
-        <textarea 
-          className="comment-textarea"
-          value={value}
-          onChange={(event) => {setValue(event.target.value);}} 
-          rows="2" placeholder="Leave a comment here.."
-        ></textarea>
-      </div>
+        <div className="center-textarea">
+          <textarea 
+            className="comment-textarea"
+            value={value}
+            onChange={(event) => {setValue(event.target.value);}} 
+            rows="2" placeholder="Leave a comment here.."
+          ></textarea>
+        </div>
 
-      <div>
-        <section className="validation">{error}</section>
-      </div>
-      <div className="comment-like-button-flex">
-        <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
-      </div>
-    </>
-  );
+        <div>
+          <section className="validation">{error}</section>
+        </div>
+        <div className="comment-like-button-flex">
+          <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
+        </div>
+      </>
+    );
+  }
 }
-
-export default CommentForm;
