@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
-import { Button } from "@paljs/ui/Button";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
 import ContextConsumer from "../../context/context";
 import "./PostListItem.scss";
 import timeSince from "../../helpers/timeSince";
-
+import useVisualMode from "../../hooks/useVisualMode";
+import EditPostItem from "./EditPost"
 interface IProps {
   key: number;
   post: IPost;
@@ -44,6 +44,11 @@ interface IProps {
   deletePost: (
     post_id: number,
   ) => void;
+  updatePost: (
+    editedPost: string,
+    post_id: number,
+    id: number
+  ) => void;
 }
 
 interface IUsers {
@@ -71,8 +76,25 @@ interface IPost {
   owner_id: number;
 }
 
+const SHOW = "SHOW";
+const CONFIRM = "CONFIRM";
+const SAVING = "SAVING";
+const EDITING = "EDITING";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
+
 export default function PostListItem(props: IProps) {
   const [value, setValue] = React.useState("Comment here...");
+  const [error, setError] = useState("");
+  const { mode, transition, back } = useVisualMode(SHOW);
+
+  function onEdit() {
+    transition(EDITING);
+  }
+
+  function onSaveEdit() {
+    transition(SHOW);
+  }
 
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
@@ -171,34 +193,32 @@ export default function PostListItem(props: IProps) {
             avatar: currentUser.avatar,
             username: currentUser.username,
           };
-          // FOR COMMENTS
-          const onSave = () => {
-            //check for empty input here
-            console.log("props post id: ", props.post.post_id);
-            
-            props
-              .createComment(
-                props.post.post_id,
+
+          function onValidateComment() {
+            if (value === "") {
+              setError("Comment cannot be blank");
+              return;
+            }
+            if (value !== ""){
+              setError("");
+              props.createComment(
+                props.post.post_id,                 
                 currentUser.id,
                 value,
-                commentObj
-              )
-              .then(() => {
-                setValue("");
-              });
-          };
+                commentObj)
+                .then(() => {
+              setValue("");
+              });         
+            }
+          }
 
           // const onEdit = () => {
           //   //check for empty input here
           //   props.editComment(props.comment.post_id, currentUser.id, value, props.comment.text_body);
           // };
 
-          const onRemove = () => {
-            //check for empty input here
-            props.removeComment(props.post.post_id, currentUser.id, value);
-          };
-
           const timeAgo = timeSince(props.post.time_posted);
+
           const myPost = currentUser.id === props.post.owner_id ;
 
           return (
@@ -208,7 +228,16 @@ export default function PostListItem(props: IProps) {
 
                 <CardBody className="post-body">
                   { myPost ?
-                    <div className="blue-button button-transition delete-btn float-right" onClick={onDelete}>Delete</div> : ""
+                  <div>
+                    <div
+                    className="blue-button button-transition edit-btn  float-right"
+                    onClick={onEdit}
+                    >
+                    Edit
+                    </div>
+                    <div className="blue-button button-transition delete-btn float-right" onClick={onDelete}>Delete</div> 
+                  </div> : ""
+
                   }
 
                   {/* USERS DETAILS */}
@@ -240,9 +269,21 @@ export default function PostListItem(props: IProps) {
                   <small className="float-right">{timeAgo}</small>
 
                   {/* POST TEXT BODY */}
-
+                  {mode === SHOW && (
                     <p className="text-body">{props.post.text_body}</p>
+                  )}
 
+                  {mode === EDITING && (
+                    <EditPostItem
+                    id={props.post.post_id}
+                    time_posted={props.post.time_posted}
+                    text_body={props.post.text_body}
+                    stack={props.post.stack}
+                    user={currentUser}
+                    updatePost={props.updatePost}
+                    onSaveEdit={onSaveEdit}
+                  />
+                  )}
                   {/* POST STACK LIST */}
                   <h5 className="stack"> {stack}</h5>
 
@@ -267,12 +308,19 @@ export default function PostListItem(props: IProps) {
                       <textarea 
                         className="comment-textarea"
                         value={value}
-                        onChange={(event) => {setValue(event.target.value);}} 
+                        onChange={(event) => {
+                          setValue(event.target.value) 
+                          setError("")
+                        }}
                         rows="2" placeholder="Leave a comment here.."
                       ></textarea>
                     </div>
+                    
                     <div className="comment-like-button-flex">
-                      <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
+                      <div className="comment-button button-transition"onClick={() => onValidateComment()}>Comment</div>
+                    </div>
+                    <div>
+                      <section className="validation">{error}</section>
                     </div>
                     
                   </div>

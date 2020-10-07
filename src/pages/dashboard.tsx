@@ -1,26 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import Row from "@paljs/ui/Row";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
-import NewLogin from "../components/LoginLogout/NewLogin";
+import NewLogin from '../components/LoginLogout/NewLogin'
 import { getDashboardPosts } from "../helpers/profileHelpers";
-
 import './dashboard.scss'
+
 interface IProps {
   value: object;
   submitPost: (username: string) => void;
   username: "string";
   onChange: void;
   users: IUsers;
+  onSaveEdit;
+  upDatePost: (
+    editedPost: string,
+    post_id: number,
+    id: number
+  ) => void;
 }
 
 interface IUsers {
   [index: number]: { id: number; user_id: number; name: string };
 }
 
-export default function Home() {
+export default function Home(index) {
   const {
     state,
     createPost,
@@ -31,6 +37,7 @@ export default function Home() {
     editComment,
     filterDashboardPosts,
     deletePost,
+    updatePost,
   } = useApplicationData();
 
   let dashPosts = getDashboardPosts(state.posts);
@@ -51,48 +58,49 @@ export default function Home() {
   const likes = state.likes;
   const users = state.users;
   return (
-    <div className="dashboard-page">
     <ContextConsumer>
       {({ data }) => {
-        if (!data.state && !data.selected)
-          return (
-            <NewLogin></NewLogin>
-          );
+      if (!data.state && !data.selected) return (
+          <NewLogin></NewLogin>
+      )
         return (
-          <div className="App">
-            <h1 className="title">Looking for help or have something to offer? Let others know!</h1>
-            <Row>
-              <Editor
-                createPost={createPost}
-                suggestion={state.stack_preferences}
-                users={users}
-              />
-            </Row>
-            <Row className="filter-btns">
-              <div className="filter-btn filter-btn-all" onClick={() => filterPost("")}>All</div>
-              <div className="filter-btn filter-btn-css" onClick={() => filterPost("CSS")}>CSS</div>
+          <div className="dashboard-page">
+            <div className="App">
+              <h1 className="title">Looking for help or have something to offer? Let others know!</h1>
+              <Row>
+                <Editor
+                  createPost={createPost}
+                  suggestion={state.stack_preferences}
+                  users={users}
+                />
+              </Row>
+              <Row className="filter-btns">
+                <div className="filter-btn filter-btn-all" onClick={() => filterPost("")}>All</div>
+                <div className="filter-btn filter-btn-css" onClick={() => filterPost("CSS")}>CSS</div>
 
-              <div className="filter-btn filter-btn-ruby" onClick={() => filterPost("Ruby")}>Ruby</div>
-              <div className="filter-btn filter-btn-javascript" onClick={() => filterPost("Javascript")}>
-                Javascript
-              </div>
-            </Row>
-            <PostList
-              users={users}
-              posts={dashPosts}
-              comments={comments}
-              likes={likes}
-              addLike={addLike}
-              removeLike={removeLike}
-              createComment={createComment}
-              removeComment={removeComment}
-              editComment={editComment}
-              deletePost={deletePost}
-            />
+                <div className="filter-btn filter-btn-ruby" onClick={() => filterPost("Ruby")}>Ruby</div>
+                <div className="filter-btn filter-btn-javascript" onClick={() => filterPost("Javascript")}>
+                  Javascript
+                </div>
+              </Row>
+              <PostList
+                key={index}
+                users={users}
+                posts={dashPosts}
+                comments={comments}
+                likes={likes}
+                addLike={addLike}
+                removeLike={removeLike}
+                createComment={createComment}
+                removeComment={removeComment}
+                editComment={editComment}
+                deletePost={deletePost}
+                updatePost={updatePost}
+              />
+            </div>
           </div>
         );
       }}
     </ContextConsumer>
-    </div>
   );
 }

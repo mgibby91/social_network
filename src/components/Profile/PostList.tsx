@@ -1,8 +1,5 @@
 import React from "react";
 import Row from "@paljs/ui/Row";
-import Col from "@paljs/ui/Col";
-import { Card, CardBody, CardHeader, CardFooter } from "@paljs/ui/Card";
-import timeSince from "../../helpers/timeSince";
 import PostListItem from "./PostListItem";
 
 function PostList(props) {

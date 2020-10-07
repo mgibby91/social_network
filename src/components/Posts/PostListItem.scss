@@ -192,7 +192,14 @@
     width: 60px;
     margin-top: 30px;
     font-size: .8em;
-    
+    padding: 0.2rem 0.5rem;
+  }
+
+  .edit-btn {
+    width: 60px;
+    margin-top: 80px;
+    font-size: .8em;
+    padding: 0.2rem 0.45rem;
   }
 
   .delete-btn:hover {
@@ -254,6 +261,8 @@
 
     color: white;
     background: #1cd454;
+    width: 60%;
+    margin: 0 auto;
 
     cursor: pointer;
 
@@ -305,8 +314,29 @@
   .comment-textarea {
     border-radius: 5px;
     margin-top: 5px;
-    width: 87%;
+    width: 86%;
     margin-left: 25px;
+    display: flex;
+    align-items: center;
+    background-color: #192038;
+    color: white;
+    border: 1px solid #222b45;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .validation {
+    color: red;
+  }
+
+  ::placeholder {
+    opacity: .9;
+  }
+
+  .comment-textarea:focus,
+  .comment-textarea:hover
+   {
+    outline: none;
+    border: 1px solid #3366ff;
   }
 
   .comment-like-button-flex {
