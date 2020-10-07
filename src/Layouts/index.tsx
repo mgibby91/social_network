@@ -65,7 +65,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
     console.log("current user in index layout: ", currentUser, userID);
 
 
-    const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.gyZWym.right");
+    const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.efNBuU.right");
 
     const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
 
