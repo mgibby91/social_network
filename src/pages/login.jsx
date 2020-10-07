@@ -83,6 +83,7 @@ export default function Login() {
 
           // MATT'S CODE************************************************************
           const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.efNBuU.right");
+          console.log('rightNAv!', rightNavContainer);
 
           const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
 

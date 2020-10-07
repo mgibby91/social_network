@@ -237,6 +237,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             },
           ]}
         /> */}
+        <div className='sc-kEqYlL efNBuU right'></div>
       </HeaderStyle>
     </LayoutHeader>
   );
