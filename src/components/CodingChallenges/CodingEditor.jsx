@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import 'codemirror/lib/codemirror.css';
 // import 'codemirror/theme/material.css';
 // import 'codemirror/mode/javascript/javascript';
-import { Controlled as ControlledEditor } from 'react-codemirror2';
+// import { Controlled as ControlledEditor } from 'react-codemirror2';
 import CodingEditorTests from './CodingEditorTests';
 
 export default function CodingEditor(props) {
