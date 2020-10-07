@@ -8,7 +8,7 @@ import NewLogin from '../components/LoginLogout/NewLogin'
 import { getDashboardPosts } from "../helpers/profileHelpers";
 import './dashboard.scss'
 
-]import { Router } from "@reach/router";
+import { Router } from "@reach/router";
 
 import "./dashboard.scss";
 import { Route } from "react-router-dom";

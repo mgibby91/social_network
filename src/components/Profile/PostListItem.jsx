@@ -104,7 +104,7 @@ function PostListItem(props) {
                         onClick={onEdit}
                       >
                         Edit
-                      </button>
+                      </Button>
                       <button
                         className="red-button red-button-transition"
                         onClick={onDelete}

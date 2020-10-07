@@ -41,13 +41,6 @@ function Editor(props) {
             username: username,
             stack: techTags,
           };
-          // const onSave = () => {
-          //   //check for empty input here
-          //   console.log("from editor", techTags);
-          //   props.createPost(postObj, techTags, currentUser.id).then(() => {
-          //     setValue("");
-          //   });
-          // };
 
           function validatePost() {
             if (value === "") {
@@ -63,6 +56,7 @@ function Editor(props) {
           }
           return (
             <>
+            <div className="flex">
               <MDEditor className="editor" value={value} onChange={setValue} />
               <div className="flex-row">
                 <div className="tags">
@@ -76,19 +70,20 @@ function Editor(props) {
                   >
                     Mentor Help Needed
                   </Checkbox>
-                  <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
-                    <div
-                      className="post-btn"
-                      onClick={() => validatePost()}
-                    >
-                      Post
-                    </div>
-                  </Col>
                 </div>
+              </div>
+              <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
+                <div
+                  className="post-btn"
+                  onClick={() => validatePost()}
+                >
+                  Post
+                </div>
+              </Col>
+            </div>
             <div>
               <section className="validation">{error}</section>
             </div>
-
             </>
           );
         }}
