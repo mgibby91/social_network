@@ -58,7 +58,7 @@ const ProgressBar = (props) => {
     }
   }
 
-  calculateLevel(experience * 5);
+  calculateLevel(experience * 3);
 
   const fillerStyles = {
     height: "100%",
