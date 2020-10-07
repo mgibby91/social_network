@@ -391,12 +391,16 @@ textarea.profile-new-comment {
   width: 100%;
 }
 
-.user-profile .experience-classification {
-  display: flex;
+.user-profile .experience {
+  width: 100%;
 }
 
 .user-profile .exp-classification {
   display: flex;
+}
+
+.user-profile .progress-bars {
+  width: 100%;
 }
 
 .editor-buttons {
