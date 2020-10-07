@@ -62,40 +62,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
     const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
 
     const userDisplay = document.querySelector('.logged-in-username');
-    
-    // MATHIUS' XP BARS
-    const leftNavContainer = document.querySelector('.Header__HeaderStyle-hhdliK bxFSuo')
-    const xpBars =
-      <ContextConsumer>
-        {({ data }) => {
-          if (!data.state) return null;
-          const currentUser = state.users.find(
-            (user) => user.id === data.selected
-          );
-          return (
-            `<div>
-              <div>         
-                  ${currentUser.mentorrating ? 
-                    <h4>Mentor Level</h4>
-                  : ""}
-                  ${currentUser.mentorrating ? 
-                    <ProgressBar 
-                      experience={Number(currentUser.mentorrating)}
-                    />
-                  : ""}
-                  ${currentUser.studentrating ? 
-                    <h4>Student Level</h4>
-                  : ""}
-                  ${currentUser.studentrating ? 
-                    <ProgressBar
-                      experience={Number(currentUser.studentrating)}
-                    />
-                  : ""}
-              </div>       
-            </div>`
-          )
-      }}
-    </ContextConsumer>
+
     
     if (userDisplay) {
       userDisplay.remove();
@@ -110,10 +77,6 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
     if (rightNavContainer) {
       rightNavContainer.insertAdjacentHTML("afterbegin", usernameHTML)
-    }
-
-    if (leftNavContainer) {
-      rightNavContainer.insertAdjacentHTML("afterend", xpBars);
     }
   } else {
     const userDisplay = document.querySelector('.logged-in-username');
@@ -134,49 +97,49 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   // LOGOUT FUNCTIONALITY ************************
 
-  const logoutBtnTitle = document.querySelector('.logout-btn-enabled');
-  let logoutBtn;
+  // const logoutBtnTitle = document.querySelector('.logout-btn-enabled');
+  // let logoutBtn;
 
-  if (logoutBtnTitle) {
-    logoutBtn = logoutBtnTitle.parentElement.parentElement
+  // if (logoutBtnTitle) {
+  //   logoutBtn = logoutBtnTitle.parentElement.parentElement
 
-    logoutBtn.addEventListener('click', () => {
+  //   logoutBtn.addEventListener('click', () => {
 
-      const currentUserID = document.cookie.split('=')[1];
-      document.cookie = `userID=${currentUserID}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  //     const currentUserID = document.cookie.split('=')[1];
+  //     document.cookie = `userID=${currentUserID}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
+  //     // MATT'S CODE************************************************************
+  //     const userDisplay = document.querySelector('.logged-in-username');
+
+  //     if (userDisplay) {
+  //       userDisplay.remove();
+  //     }
+
+  //     localStorage.removeItem('userID');
+  //     localStorage.removeItem('username');
+  //     localStorage.removeItem('avatarUrl');
+  //     localStorage.removeItem('unreadMessages');
+  //     localStorage.removeItem('unreadTutor');
+  //     localStorage.removeItem('Login');
+
+  //     logoutBtnTitle.textContent = 'Login';
 
       // MATT'S CODE************************************************************
-      const userDisplay = document.querySelector('.logged-in-username');
+  //   })
+  // }
 
-      if (userDisplay) {
-        userDisplay.remove();
-      }
-
-      localStorage.removeItem('userID');
-      localStorage.removeItem('username');
-      localStorage.removeItem('avatarUrl');
-      localStorage.removeItem('unreadMessages');
-      localStorage.removeItem('unreadTutor');
-      localStorage.removeItem('Login');
-
-      logoutBtnTitle.textContent = 'Login';
-
-      // MATT'S CODE************************************************************
-    })
-  }
-
-  setTimeout(() => {
-    const loginFormHeader = document.querySelector('.login-form-header');
-    if (localStorage.getItem('Login') && !loginFormHeader) {
-      const allMenuTitles = document.querySelectorAll('.menu-title');
-      for (let title of allMenuTitles) {
-        if (title.textContent === 'Login') {
-          title.textContent = 'Logout';
-          title.classList.add('logout-btn-enabled');
-        }
-      }
-    }
-  }, 1000);
+  // setTimeout(() => {
+  //   const loginFormHeader = document.querySelector('.login-form-header');
+  //   if (localStorage.getItem('Login') && !loginFormHeader) {
+  //     const allMenuTitles = document.querySelectorAll('.menu-title');
+  //     for (let title of allMenuTitles) {
+  //       if (title.textContent === 'Login') {
+  //         title.textContent = 'Logout';
+  //         title.classList.add('logout-btn-enabled');
+  //       }
+  //     }
+  //   }
+  // }, 1000);
 
 
   // LOGOUT FUNCTIONALITY ************************

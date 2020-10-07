@@ -95,7 +95,7 @@ export default function LoginLogout() {
       {({ data, set }) => {
         return (
           <div>
-            <label htmlFor="login">User ID:</label>
+            {/* <label htmlFor="login">User ID:</label>
             <select name="login" id="login-user-id">
               <option value="1">1</option>
               <option value="2">2</option>
@@ -107,10 +107,10 @@ export default function LoginLogout() {
               <option value="8">8</option>
               <option value="9">9</option>
               <option value="10">10</option>
-            </select>
-            <button type="button" name="login" onClick={() => login(data, set)}>
+            </select> */}
+            {/* <button type="button" name="login" onClick={() => login(data, set)}>
               Login
-              </button>
+              </button> */}
             <Link to={'/'}>
               <button type="button" name="logout" onClick={() => logout(data, set)}>
                 Logout
