@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Row from "@paljs/ui/Row";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
-import NewLogin from './login'
+import NewLogin from '../components/LoginLogout/NewLogin'
 import { getDashboardPosts } from "../helpers/profileHelpers";
-import { Router } from '@reach/router';
-
 import './dashboard.scss'
-import {Route} from "react-router-dom";
+
 interface IProps {
   value: object;
   submitPost: (username: string) => void;
