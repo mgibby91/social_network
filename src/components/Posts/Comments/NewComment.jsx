@@ -2,6 +2,7 @@ import React from "react";
 import '../PostListItem.scss'
 function CommentForm(props) {
   const [value, setValue] = React.useState("Comment here...");
+  const [error, setError] = useState("");
 
   const onSave = () => {
     //check for empty input here
@@ -12,16 +13,20 @@ function CommentForm(props) {
       username: props.currentUser.username,
     };
 
-    props
-      .createComment(
-        props.post.post_id,
-        props.currentUser.id,
+    if (value === "") {
+      setError("Comment cannot be blank");
+      return;
+    }
+    if (value !== ""){
+      setError("");
+      props.createComment(
+        props.post.post_id,                 
+        currentUser.id,
         value,
-        commentObj
-      )
-      .then(() => {
-        setValue("");
-      });
+        commentObj)
+        .then(() => {
+      setValue("");
+      });     
   };
 
   return (
@@ -35,6 +40,9 @@ function CommentForm(props) {
         ></textarea>
       </div>
 
+      <div>
+        <section className="validation">{error}</section>
+      </div>
       <div className="comment-like-button-flex">
         <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
       </div>

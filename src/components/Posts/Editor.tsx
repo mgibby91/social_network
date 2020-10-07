@@ -57,7 +57,11 @@ function Editor(props) {
           return (
             <>
             <div className="flex">
-              <MDEditor className="editor" value={value} onChange={setValue} />
+              <MDEditor className="editor" value={value}                         
+              onChange={(event) => {
+                setValue(event.target ? event.target.value : "") 
+                setError("")
+              }} />
               <div className="flex-row">
                 <div className="tags">
                   <Tags suggested={props.suggestion} onChange={onChangeInput} />
