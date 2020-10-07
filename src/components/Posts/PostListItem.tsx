@@ -84,7 +84,7 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function PostListItem(props: IProps) {
-  const [value, setValue] = React.useState("Comment here...");
+  const [value, setValue] = React.useState("");
   const [error, setError] = useState("");
   const { mode, transition, back } = useVisualMode(SHOW);
 

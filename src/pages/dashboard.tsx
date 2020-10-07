@@ -19,7 +19,7 @@ interface IProps {
   onChange: void;
   users: IUsers;
   onSaveEdit;
-  upDatePost: (
+  updatePost: (
     editedPost: string,
     post_id: number,
     id: number
