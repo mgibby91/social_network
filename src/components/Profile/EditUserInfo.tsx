@@ -121,22 +121,27 @@ function EditUserInfo(props) {
             </Col>
           </Row>
           <Row>
-            <Button
-              fullWidth
-              appearance="hero"
-              status="Success"
-              onClick={onSave}
-            >
-              Save
-            </Button>
-            <Button
-              fullWidth
-              appearance="hero"
-              status="Success"
-              onClick={props.onCancel}
-            >
-              Cancel
-            </Button>
+            <div className="edit-buttons">
+              <button
+                fullWidth
+                appearance="hero"
+                status="Success"
+                className="green-button green button-transition"
+                onClick={onSave}
+              >
+                Save
+              </button>
+              <button
+                fullWidth
+                appearance="hero"
+                status="Success"
+                className="red-button red-button-transition"
+                style={{ width: "100%" }}
+                onClick={props.onCancel}
+              >
+                Cancel
+              </button>
+            </div>
           </Row>
         </div>
       </CardBody>

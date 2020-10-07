@@ -17,7 +17,12 @@ function CommentForm(props) {
         placeholder="Leave a comment here.."
       ></textarea>
       <div>
-        <Button onClick={() => props.onSave()}>Comment</Button>
+        <button
+          className="blue-button blue-button-transition"
+          onClick={() => props.onSave()}
+        >
+          Comment
+        </button>
       </div>
     </>
   );
