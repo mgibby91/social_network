@@ -24,6 +24,7 @@ export default function RegisterAvatarList(props) {
         <div
           className="toggle-avatar-list-btn"
           onClick={() => props.toggleAvatarList()}
+          style={{ width: "100%" }}
         >
           Toggle List
         </div>

@@ -9,7 +9,7 @@ import Row from "@paljs/ui/Row";
 
 function Editor(props) {
   const [error, setError] = useState("");
-  const [value, setValue] = React.useState("**Hello world!!!**");
+  const [value, setValue] = React.useState("");
   const [checkbox, setCheckbox] = React.useState({
     1: false,
   });
@@ -35,6 +35,12 @@ function Editor(props) {
     props.createPost(postObj, techTags, props.id).then(() => {
       setValue("");
     });
+  };
+
+  const onCancel = () => {
+    //check for empty input here
+    //empty tags should also be checked here.
+    setValue("");
   };
 
   return (
@@ -63,7 +69,7 @@ function Editor(props) {
                 Help Needed
               </Checkbox>
             </div>
-            <div>
+            <div className="editor-buttons">
               <button
                 fullWidth
                 appearance="hero"
@@ -71,6 +77,14 @@ function Editor(props) {
                 onClick={() => onSave()}
               >
                 Post
+              </button>
+              <button
+                fullWidth
+                appearance="hero"
+                className="red-button red button-transition"
+                onClick={() => onCancel()}
+              >
+                Cancel
               </button>
             </div>
           </div>

@@ -116,7 +116,7 @@ function PostListItem(props) {
                   </p>
                   <p className="post-body">{props.post.text_body}</p>
                   <ul className="post-stack">
-                    <span className="bold">Stack:</span>
+                    {/* <span className="bold">Stack:</span> */}
                     {props.post.stack.map((tech_stack, idx) => {
                       return <li key={idx}>{tech_stack}</li>;
                     })}

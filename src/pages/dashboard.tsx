@@ -9,7 +9,7 @@ import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
 import Col from "@paljs/ui/Col";
 import { Button } from "@paljs/ui/Button";
 
-import './dashboard.scss'
+import "./dashboard.scss";
 interface IProps {
   value: object;
   submitPost: (username: string) => void;
@@ -64,7 +64,11 @@ export default function Home() {
           );
         return (
           <div className="App">
-            <h1 className="title">Looking for help or have something to offer? Let others know!</h1>
+            <div className="hero">
+              <h1 className="title">Build a better tech community</h1>
+              <p>Post to ask for help or to be a mentor.</p>
+            </div>
+
             <Row>
               <Editor
                 createPost={createPost}
