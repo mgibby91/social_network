@@ -48,11 +48,12 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
   let avatarUrl, userID, username;
   if (typeof localStorage !== 'undefined') {
-    avatarUrl = typeof localStorage !== 'undefined' && localStorage.avatarUrl
-    userID = typeof localStorage !== 'undefined' && localStorage.userID
-    username = typeof localStorage !== 'undefined' && localStorage.usreUrl
+    avatarUrl = typeof localStorage !== 'undefined' && localStorage.avatarUrl;
+    userID = typeof localStorage !== 'undefined' && localStorage.userID;
+    username = typeof localStorage !== 'undefined' && localStorage.username;
   }
   // const { avatarUrl, userID, username } = localStorage;
+  console.log('usernameeeeeeeee', username);
 
   if (avatarUrl && userID) {
 
