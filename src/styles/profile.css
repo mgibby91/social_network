@@ -90,6 +90,7 @@ p.username {
 
 .user-profile .post-body {
   margin: 1em 0;
+  height: 100%;
 }
 
 .edit-user-info input {
@@ -177,10 +178,7 @@ button span.react-tags__selected-tag-name {
 .edit-post-button button {
   margin-right: 0.4em;
 }
-.user-profile .post-body {
-  padding: 1em 0;
-  height: 100px;
-}
+
 textarea.edit-post {
   height: 100px;
   border: none;
@@ -413,6 +411,11 @@ textarea.profile-new-comment {
 
 .user-profile .post-body {
   background: #192038;
-  border-radius: 5px;
   padding: 1em;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.user-profile .kYdNcd {
+  overflow: visible;
 }
