@@ -14,6 +14,12 @@ interface IProps {
   username: "string";
   onChange: void;
   users: IUsers;
+  onSaveEdit;
+  upDatePost: (
+    editedPost: string,
+    post_id: number,
+    id: number
+  ) => void;
 }
 
 interface IUsers {
@@ -31,6 +37,7 @@ export default function Home(index) {
     editComment,
     filterDashboardPosts,
     deletePost,
+    updatePost,
   } = useApplicationData();
 
   let dashPosts = getDashboardPosts(state.posts);
@@ -88,6 +95,7 @@ export default function Home(index) {
                 removeComment={removeComment}
                 editComment={editComment}
                 deletePost={deletePost}
+                updatePost={updatePost}
               />
             </div>
           </div>

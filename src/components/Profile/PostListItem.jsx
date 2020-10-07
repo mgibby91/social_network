@@ -69,6 +69,7 @@ function PostListItem(props) {
           avatar: currentUser.avatar,
           username: currentUser.username,
         };
+        
         function onValidateComment() {
           if (value === "") {
             setError("Comment cannot be blank");
