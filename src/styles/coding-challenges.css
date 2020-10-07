@@ -244,11 +244,11 @@
   width: 100%;
   text-align: center;
 }
-
+/* 
 .controlled-editor, .CodeMirror {
   height: 260px;
   margin-top: 1rem;
-}
+} */
 
 .coding-space-wrapper {
   display: flex;
