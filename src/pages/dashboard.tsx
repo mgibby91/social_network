@@ -118,6 +118,7 @@ export default function Home(index) {
                   removeComment={removeComment}
                   editComment={editComment}
                   deletePost={deletePost}
+                  updatePost={updatePost}
                 />
               </div>
             </div>

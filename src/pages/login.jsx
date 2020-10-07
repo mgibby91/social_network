@@ -128,24 +128,24 @@ export default function Login() {
           // MATT'S CODE FOR ADDING TUTOR SESSION NOTIFICATION ON LOGIN************************************************************
 
           // display login page
-          const allMenuTitles = document.querySelectorAll('.menu-title');
-          let loginMenuTitle;
-          for (let title of allMenuTitles) {
-            if (title.textContent === 'Login') {
-              loginMenuTitle = title;
-            }
-          }
+          // const allMenuTitles = document.querySelectorAll('.menu-title');
+          // let loginMenuTitle;
+          // for (let title of allMenuTitles) {
+          //   if (title.textContent === 'Login') {
+          //     loginMenuTitle = title;
+          //   }
+          // }
 
-          console.log('loginMenuTItle', loginMenuTitle);
-          let loginMenuTitleParent;
-          if (loginMenuTitle) {
-            loginMenuTitleParent = loginMenuTitle.parentElement.parentElement;
-          }
-          console.log('parent', loginMenuTitleParent);
+          // console.log('loginMenuTItle', loginMenuTitle);
+          // let loginMenuTitleParent;
+          // if (loginMenuTitle) {
+          //   loginMenuTitleParent = loginMenuTitle.parentElement.parentElement;
+          // }
+          // console.log('parent', loginMenuTitleParent);
 
-          loginMenuTitle.textContent = 'Logout';
-          loginMenuTitle.classList.add('logout-btn-enabled');
-          localStorage.setItem('Login', true);
+          // loginMenuTitle.textContent = 'Logout';
+          // loginMenuTitle.classList.add('logout-btn-enabled');
+          // localStorage.setItem('Login', true);
 
           // redirect to home page
           setRedirect(true);

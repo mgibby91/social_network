@@ -52,10 +52,7 @@ function Editor(props) {
       <Row>
         <Col className="avatar" breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
           <MDEditor className="editor" value={value}               
-          onChange={(event) => {
-            setValue(event.target ? event.target.value : "") 
-            setError("")
-          }} />
+          onChange={setValue} />
         </Col>
       </Row>
       <Row>
