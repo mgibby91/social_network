@@ -18,7 +18,7 @@ export default function CodingChallenges() {
 
   useEffect(() => {
 
-    let userID = document.cookie.split('=')[1];
+    let userID = typeof document !== 'undefined' && document.cookie.split('=')[1];
     if (userID) userID = Number(userID);
 
     const promiseUserChallenges = axios.get('http://localhost:8001/api/user_challenges');

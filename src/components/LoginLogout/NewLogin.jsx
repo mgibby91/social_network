@@ -82,9 +82,9 @@ export default function Login() {
           set({ ...data, state: state, selected: res.data[0].id });
 
           // MATT'S CODE************************************************************
-          const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
+          const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.gyZWym.right");
 
-          const userDisplay = document.querySelector('.logged-in-username');
+          const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
 
           if (userDisplay) {
             userDisplay.remove();
@@ -102,16 +102,16 @@ export default function Login() {
           }
 
           // MATT'S CODE************************************************************
-          localStorage.setItem('userID', userID);
-          localStorage.setItem('username', username);
-          localStorage.setItem('avatarUrl', avatar);
+          typeof localStorage !== 'undefined' && localStorage.setItem('userID', userID);
+          typeof localStorage !== 'undefined' && localStorage.setItem('username', username);
+          typeof localStorage !== 'undefined' && localStorage.setItem('avatarUrl', avatar);
           // MATT'S CODE************************************************************
 
           // MATT'S CODE FOR ADDING MESSAGES NOTIFICATIONS ON LOGIN************************************************************
           axios.post('http://localhost:8001/api/messages/unread_count', { userID })
             .then(res => {
               setNotifications(Number(res.data[0].count));
-              localStorage.setItem('unreadMessages', Number(res.data[0].count))
+              typeof localStorage !== 'undefined' && localStorage.setItem('unreadMessages', Number(res.data[0].count))
             })
 
           // MATT'S CODE FOR ADDING MESSAGES NOTIFICATIONS ON LOGIN************************************************************
@@ -122,17 +122,20 @@ export default function Login() {
             .then(res => {
               console.log('unseen count', res.data[0]);
               setUnseenTutor(Number(res.data[0].count))
-              localStorage.setItem('unreadTutor', Number(res.data[0].count))
+              typeof localStorage !== 'undefined' && localStorage.setItem('unreadTutor', Number(res.data[0].count))
             })
 
           // MATT'S CODE FOR ADDING TUTOR SESSION NOTIFICATION ON LOGIN************************************************************
 
           // display login page
-          const allMenuTitles = document.querySelectorAll('.menu-title');
+          const allMenuTitles = typeof document !== 'undefined' && document.querySelectorAll('.menu-title');
           let loginMenuTitle;
-          for (let title of allMenuTitles) {
-            if (title.textContent === 'Login') {
-              loginMenuTitle = title;
+          if (allMenuTitles) {
+
+            for (let title of allMenuTitles) {
+              if (title.textContent === 'Login') {
+                loginMenuTitle = title;
+              }
             }
           }
 
@@ -145,7 +148,7 @@ export default function Login() {
 
           loginMenuTitle.textContent = 'Logout';
           loginMenuTitle.classList.add('logout-btn-enabled');
-          localStorage.setItem('Login', true);
+          typeof localStorage !== 'undefined' && localStorage.setItem('Login', true);
 
           // redirect to home page
           setRedirect(true);

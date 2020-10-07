@@ -46,7 +46,13 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   const props = {}
 
   // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
-  const { avatarUrl, userID, username } = localStorage;
+  let avatarUrl, userID, username;
+  if (typeof localStorage !== 'undefined') {
+    avatarUrl = typeof localStorage !== 'undefined' && localStorage.avatarUrl
+    userID = typeof localStorage !== 'undefined' && localStorage.userID
+    username = typeof localStorage !== 'undefined' && localStorage.usreUrl
+  }
+  // const { avatarUrl, userID, username } = localStorage;
 
   if (avatarUrl && userID) {
 
@@ -57,14 +63,14 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
     // if (!currentUser) return null;
     console.log("current user in index layout: ", currentUser, userID);
-    
-    
-    const rightNavContainer = document.querySelector(".sc-kEqYlL.gyZWym.right");
 
-    const userDisplay = document.querySelector('.logged-in-username');
-    
+
+    const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.gyZWym.right");
+
+    const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
+
     // MATHIUS' XP BARS
-    const leftNavContainer = document.querySelector('.Header__HeaderStyle-hhdliK bxFSuo')
+    const leftNavContainer = typeof document !== 'undefined' && document.querySelector('.Header__HeaderStyle-hhdliK bxFSuo')
     const xpBars =
       <ContextConsumer>
         {({ data }) => {
@@ -75,28 +81,28 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
           return (
             `<div>
               <div>         
-                  ${currentUser.mentorrating ? 
-                    <h4>Mentor Level</h4>
-                  : ""}
-                  ${currentUser.mentorrating ? 
-                    <ProgressBar 
-                      experience={Number(currentUser.mentorrating)}
-                    />
-                  : ""}
-                  ${currentUser.studentrating ? 
-                    <h4>Student Level</h4>
-                  : ""}
-                  ${currentUser.studentrating ? 
-                    <ProgressBar
-                      experience={Number(currentUser.studentrating)}
-                    />
-                  : ""}
+                  ${currentUser.mentorrating ?
+              <h4>Mentor Level</h4>
+              : ""}
+                  ${currentUser.mentorrating ?
+              <ProgressBar
+                experience={Number(currentUser.mentorrating)}
+              />
+              : ""}
+                  ${currentUser.studentrating ?
+              <h4>Student Level</h4>
+              : ""}
+                  ${currentUser.studentrating ?
+              <ProgressBar
+                experience={Number(currentUser.studentrating)}
+              />
+              : ""}
               </div>       
             </div>`
           )
-      }}
-    </ContextConsumer>
-    
+        }}
+      </ContextConsumer>
+
     if (userDisplay) {
       userDisplay.remove();
     }
@@ -116,7 +122,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
       rightNavContainer.insertAdjacentHTML("afterend", xpBars);
     }
   } else {
-    const userDisplay = document.querySelector('.logged-in-username');
+    const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
 
     if (userDisplay) {
       userDisplay.remove();
@@ -125,7 +131,12 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   // MATT'S STUFF FOR SETTING LOGIN NAME *************************************************
 
   // MATT'S STUFF FOR MESSAGES + TUTOR NOTIFICATIONS *************************************************
-  const { unreadMessages, unreadTutor } = localStorage;
+  let unreadMessages, unreadTutor;
+  if (typeof localStorage !== 'undefined') {
+    unreadMessages = typeof localStorage !== 'undefined' && localStorage.unreadMessages;
+    unreadTutor = typeof localStorage !== 'undefined' && localStorage.unreadTutor;
+  }
+  // const { unreadMessages, unreadTutor } = localStorage;
 
   setNotifications(unreadMessages);
   setUnseenTutor(unreadTutor);
@@ -134,7 +145,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   // LOGOUT FUNCTIONALITY ************************
 
-  const logoutBtnTitle = document.querySelector('.logout-btn-enabled');
+  const logoutBtnTitle = typeof document !== 'undefined' && document.querySelector('.logout-btn-enabled');
   let logoutBtn;
 
   if (logoutBtnTitle) {
@@ -142,22 +153,22 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
     logoutBtn.addEventListener('click', () => {
 
-      const currentUserID = document.cookie.split('=')[1];
+      const currentUserID = typeof document !== 'undefined' && document.cookie.split('=')[1];
       document.cookie = `userID=${currentUserID}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
       // MATT'S CODE************************************************************
-      const userDisplay = document.querySelector('.logged-in-username');
+      const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
 
       if (userDisplay) {
         userDisplay.remove();
       }
 
-      localStorage.removeItem('userID');
-      localStorage.removeItem('username');
-      localStorage.removeItem('avatarUrl');
-      localStorage.removeItem('unreadMessages');
-      localStorage.removeItem('unreadTutor');
-      localStorage.removeItem('Login');
+      typeof localStorage !== 'undefined' && localStorage.removeItem('userID');
+      typeof localStorage !== 'undefined' && localStorage.removeItem('username');
+      typeof localStorage !== 'undefined' && localStorage.removeItem('avatarUrl');
+      typeof localStorage !== 'undefined' && localStorage.removeItem('unreadMessages');
+      typeof localStorage !== 'undefined' && localStorage.removeItem('unreadTutor');
+      typeof localStorage !== 'undefined' && localStorage.removeItem('Login');
 
       logoutBtnTitle.textContent = 'Login';
 
@@ -166,13 +177,16 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
   }
 
   setTimeout(() => {
-    const loginFormHeader = document.querySelector('.login-form-header');
-    if (localStorage.getItem('Login') && !loginFormHeader) {
-      const allMenuTitles = document.querySelectorAll('.menu-title');
-      for (let title of allMenuTitles) {
-        if (title.textContent === 'Login') {
-          title.textContent = 'Logout';
-          title.classList.add('logout-btn-enabled');
+    const loginFormHeader = typeof document !== 'undefined' && document.querySelector('.login-form-header');
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('Login') && !loginFormHeader) {
+      const allMenuTitles = typeof document !== 'undefined' && document.querySelectorAll('.menu-title');
+      if (allMenuTitles) {
+
+        for (let title of allMenuTitles) {
+          if (title.textContent === 'Login') {
+            title.textContent = 'Logout';
+            title.classList.add('logout-btn-enabled');
+          }
         }
       }
     }

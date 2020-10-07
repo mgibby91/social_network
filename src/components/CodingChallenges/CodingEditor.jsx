@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
-import 'codemirror/mode/javascript/javascript';
+// import 'codemirror/lib/codemirror.css';
+// import 'codemirror/theme/material.css';
+// import 'codemirror/mode/javascript/javascript';
 import { Controlled as ControlledEditor } from 'react-codemirror2';
 import CodingEditorTests from './CodingEditorTests';
 
@@ -77,7 +77,7 @@ export default function CodingEditor(props) {
       <div className='coding-editor-container'>
         <div className="coding-editor-title">Code Editor</div>
         <div className="coding-editor-editor">
-          <ControlledEditor
+          { /*<ControlledEditor
             className='controlled-editor'
             onBeforeChange={handleChange}
             value={value}
@@ -87,7 +87,7 @@ export default function CodingEditor(props) {
               mode: 'javascript',
               lineNumbers: true,
               theme: 'material'
-            }}
+            }} */}
           />
         </div>
         <div className="coding-editor-run-container">
