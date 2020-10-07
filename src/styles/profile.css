@@ -1,5 +1,5 @@
 div.user-info {
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
   text-align: center;
   padding-bottom: 2em;
@@ -46,7 +46,7 @@ p.username {
   font-weight: 700;
 }
 
-.user-profile .react-tags__search-input {
+.react-tags__search-input {
   background: #192038;
   color: white;
   margin: 0.4em 0;
@@ -134,11 +134,11 @@ p.username {
 
 input.react-tags__search-input {
   width: 200px !important;
-  border: none;
+  /* border: none;
   background: none;
   border-bottom: white 1px solid;
   padding: 0.3em;
-  color: white;
+  color: white; */
 }
 
 .user-profile .bottom {
@@ -391,10 +391,17 @@ textarea.profile-new-comment {
   width: 100%;
 }
 
-.user-profile .experience {
-  width: 100%;
+.user-profile .experience-classification {
+  display: flex;
 }
 
+.user-profile .exp-classification {
+  display: flex;
+}
+
+.editor-buttons {
+  display: flex;
+}
 .editor-buttons .red-button {
   width: 100%;
   margin-left: 1em;

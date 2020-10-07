@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Row from "@paljs/ui/Row";
+import React from "react";
 import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
@@ -31,10 +30,7 @@ export default function Home() {
     <ContextConsumer>
     {({ data }) => {
       if (!data.state && !data.selected) return (
-        <div>
-          <h1>Please login or register before using Stack.</h1>
-          <NewLogin></NewLogin>
-        </div>
+        <NewLogin></NewLogin>
       )
       return (
         <div className="App">

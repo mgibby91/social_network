@@ -11,7 +11,7 @@ function Experience(props) {
 
   return (
     <div className="experience">
-      <div>
+      <div className="exp-classification">
         {props.user.mentorrating ? <p>Mentor Level</p> : ""}
         {props.user.mentorrating ? (
           <ProgressBar experience={Number(props.user.mentorrating)} />
@@ -20,12 +20,14 @@ function Experience(props) {
         )}
       </div>
 
-      {props.user.studentrating ? <p>Student Level</p> : ""}
-      {props.user.studentrating ? (
-        <ProgressBar experience={Number(props.user.studentrating)} />
-      ) : (
-        ""
-      )}
+      <div className="exp-classification">
+        {props.user.studentrating ? <p>Student Level</p> : ""}
+        {props.user.studentrating ? (
+          <ProgressBar experience={Number(props.user.studentrating)} />
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }

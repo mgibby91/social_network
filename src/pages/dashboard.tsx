@@ -4,12 +4,12 @@ import PostList from "../components/Posts/PostList";
 import Editor from "../components/Posts/Editor";
 import useApplicationData from "../hooks/useApplicationData";
 import ContextConsumer from "../context/context";
-import NewLogin from "../components/LoginLogout/NewLogin";
-import { getDashboardPosts, getFilterOptions } from "../helpers/profileHelpers";
-import Col from "@paljs/ui/Col";
-import { Button } from "@paljs/ui/Button";
+import NewLogin from "./login";
+import { getDashboardPosts } from "../helpers/profileHelpers";
+import { Router } from "@reach/router";
 
 import "./dashboard.scss";
+import { Route } from "react-router-dom";
 interface IProps {
   value: object;
   submitPost: (username: string) => void;
@@ -55,48 +55,63 @@ export default function Home() {
   return (
     <ContextConsumer>
       {({ data }) => {
-        if (!data.state && !data.selected)
-          return (
-            <div>
-              <h1>Please login or register before using Stack.</h1>
-              <NewLogin></NewLogin>
-            </div>
-          );
+        if (!data.state && !data.selected) return <NewLogin></NewLogin>;
         return (
-          <div className="App">
-            <div className="hero">
-              <h1 className="title">Build a better tech community</h1>
-              <p>Post to ask for help or to be a mentor.</p>
-            </div>
+          <div className="dashboard-page">
+            <div className="App">
+              <div className="hero">
+                {" "}
+                <h1 className="title">Build a better dev community.</h1>
+                <p>Ask for help or be a mentor.</p>
+              </div>
 
-            <Row>
               <Editor
                 createPost={createPost}
                 suggestion={state.stack_preferences}
                 users={users}
               />
-            </Row>
-            <Row>
-              <Button onClick={() => filterPost("")}>All</Button>
-              <Button onClick={() => filterPost("CSS")}>CSS</Button>
+              <div className="container">
+                <div className="post-filter">
+                  <div
+                    className="filter-btn filter-btn-all"
+                    onClick={() => filterPost("")}
+                  >
+                    All
+                  </div>
+                  <div
+                    className="filter-btn filter-btn-css"
+                    onClick={() => filterPost("CSS")}
+                  >
+                    CSS
+                  </div>
 
-              <Button onClick={() => filterPost("Ruby")}>Ruby</Button>
-              <Button onClick={() => filterPost("Javascript")}>
-                Javascript
-              </Button>
-            </Row>
-            <PostList
-              users={users}
-              posts={dashPosts}
-              comments={comments}
-              likes={likes}
-              addLike={addLike}
-              removeLike={removeLike}
-              createComment={createComment}
-              removeComment={removeComment}
-              editComment={editComment}
-              deletePost={deletePost}
-            />
+                  <div
+                    className="filter-btn filter-btn-ruby"
+                    onClick={() => filterPost("Ruby")}
+                  >
+                    Ruby
+                  </div>
+                  <div
+                    className="filter-btn filter-btn-javascript"
+                    onClick={() => filterPost("Javascript")}
+                  >
+                    Javascript
+                  </div>
+                </div>
+                <PostList
+                  users={users}
+                  posts={dashPosts}
+                  comments={comments}
+                  likes={likes}
+                  addLike={addLike}
+                  removeLike={removeLike}
+                  createComment={createComment}
+                  removeComment={removeComment}
+                  editComment={editComment}
+                  deletePost={deletePost}
+                />
+              </div>
+            </div>
           </div>
         );
       }}

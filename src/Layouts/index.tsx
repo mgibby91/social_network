@@ -21,7 +21,7 @@ import setUnseenTutor from '../helpers/setUnseenTutor';
 import { ContextProviderComponent } from "../context/context";
 import "./layout.scss"
 
-import ProgressBar from "../Components/ProgressBar/ProgressBar";
+import ProgressBar from "../components/ProgressBar/ProgressBar";
 import ContextConsumer from "../context/context";
 
 

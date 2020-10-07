@@ -25,24 +25,24 @@ function UserInfo(props) {
               <div className="avatar-container">
                 <img src={props.user.avatar} alt="avatar" />
               </div>
-
+              <div>
+                {props.user.active ? (
+                  <p className="status">
+                    User is <span className="online">online</span>
+                  </p>
+                ) : (
+                  <p className="status">
+                    User is <span className="offline">offline</span>
+                  </p>
+                )}
+              </div>
               <p className="username">
                 <span>@</span>
                 {props.user.username}
                 <span> ({props.user.location})</span>
               </p>
             </Col>
-            <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
-              {props.user.active ? (
-                <p className="status">
-                  User is <span className="online">online</span>
-                </p>
-              ) : (
-                <p className="status">
-                  User is <span className="offline">offline</span>
-                </p>
-              )}
-            </Col>
+            <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}></Col>
             <Col breakPoint={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
               <Stack mentor={props.mentor_stack} />
             </Col>
