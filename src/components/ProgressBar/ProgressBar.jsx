@@ -1,5 +1,5 @@
 import React from "react";
-import "./ProgressBar.scss"
+import "./ProgressBar.scss";
 const classNames = require("class-names");
 const ProgressBar = (props) => {
   let { experience } = props;
@@ -68,18 +68,15 @@ const ProgressBar = (props) => {
   };
 
   return (
-
-    <div>
+    <div className="progress-bars">
       <div className="container-styles">
         <div style={fillerStyles}className="bg-color">
           <span
             className="label-styles"
           >{`${experiencePoints}/${fullExperience}`}</span>
         </div>
-
       </div>
       <span>Level {level}</span>
-
     </div>
   );
 };

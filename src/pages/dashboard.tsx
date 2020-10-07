@@ -8,6 +8,10 @@ import NewLogin from '../components/LoginLogout/NewLogin'
 import { getDashboardPosts } from "../helpers/profileHelpers";
 import './dashboard.scss'
 
+]import { Router } from "@reach/router";
+
+import "./dashboard.scss";
+import { Route } from "react-router-dom";
 interface IProps {
   value: object;
   submitPost: (username: string) => void;
@@ -60,43 +64,62 @@ export default function Home(index) {
   return (
     <ContextConsumer>
       {({ data }) => {
-      if (!data.state && !data.selected) return (
-          <NewLogin></NewLogin>
-      )
+        if (!data.state && !data.selected) return <NewLogin></NewLogin>;
         return (
           <div className="dashboard-page">
             <div className="App">
-              <h1 className="title">Looking for help or have something to offer? Let others know!</h1>
-              <Row>
-                <Editor
-                  createPost={createPost}
-                  suggestion={state.stack_preferences}
-                  users={users}
-                />
-              </Row>
-              <Row className="filter-btns">
-                <div className="filter-btn filter-btn-all" onClick={() => filterPost("")}>All</div>
-                <div className="filter-btn filter-btn-css" onClick={() => filterPost("CSS")}>CSS</div>
+              <div className="hero">
+                {" "}
+                <h1 className="title">Build a better dev community.</h1>
+                <p>Ask for help or be a mentor.</p>
+              </div>
 
-                <div className="filter-btn filter-btn-ruby" onClick={() => filterPost("Ruby")}>Ruby</div>
-                <div className="filter-btn filter-btn-javascript" onClick={() => filterPost("Javascript")}>
-                  Javascript
-                </div>
-              </Row>
-              <PostList
-                key={index}
+              <Editor
+                createPost={createPost}
+                suggestion={state.stack_preferences}
                 users={users}
-                posts={dashPosts}
-                comments={comments}
-                likes={likes}
-                addLike={addLike}
-                removeLike={removeLike}
-                createComment={createComment}
-                removeComment={removeComment}
-                editComment={editComment}
-                deletePost={deletePost}
-                updatePost={updatePost}
               />
+              <div className="container">
+                <div className="post-filter">
+                  <div
+                    className="filter-btn filter-btn-all"
+                    onClick={() => filterPost("")}
+                  >
+                    All
+                  </div>
+                  <div
+                    className="filter-btn filter-btn-css"
+                    onClick={() => filterPost("CSS")}
+                  >
+                    CSS
+                  </div>
+
+                  <div
+                    className="filter-btn filter-btn-ruby"
+                    onClick={() => filterPost("Ruby")}
+                  >
+                    Ruby
+                  </div>
+                  <div
+                    className="filter-btn filter-btn-javascript"
+                    onClick={() => filterPost("Javascript")}
+                  >
+                    Javascript
+                  </div>
+                </div>
+                <PostList
+                  users={users}
+                  posts={dashPosts}
+                  comments={comments}
+                  likes={likes}
+                  addLike={addLike}
+                  removeLike={removeLike}
+                  createComment={createComment}
+                  removeComment={removeComment}
+                  editComment={editComment}
+                  deletePost={deletePost}
+                />
+              </div>
             </div>
           </div>
         );

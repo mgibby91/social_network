@@ -1,5 +1,5 @@
 div.user-info {
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
   text-align: center;
   padding-bottom: 2em;
@@ -14,9 +14,10 @@ div.user-info {
 }
 .user-info .avatar .avatar-container {
   background-color: white;
-  width: 80px;
+  width: 107px;
   margin: 1em auto;
   border-radius: 90px;
+  height: 104px;
 }
 
 p.username {
@@ -45,7 +46,7 @@ p.username {
   font-weight: 700;
 }
 
-.user-profile .react-tags__search-input {
+.react-tags__search-input {
   background: #192038;
   color: white;
   margin: 0.4em 0;
@@ -56,6 +57,15 @@ p.username {
   font-size: 1rem;
 }
 
+.react-tags__suggestions #ReactTags li {
+  list-style: none;
+}
+
+.react-tags__suggestions #ReactTags li span mark {
+  background-color: #08d991;
+  color: #fff;
+  padding: 0 0.3em;
+}
 .user-profile h2 {
   margin: 1em 0;
 }
@@ -63,6 +73,7 @@ p.username {
 .user-profile .post .post-stack {
   display: flex;
   list-style: none;
+  justify-content: flex-end;
 }
 .user-profile .post li {
   margin-left: 0.5em;
@@ -111,19 +122,23 @@ p.username {
 
 .user-info .register-avatar-list-title {
   flex-direction: column;
+  margin-right: 0;
 }
 
+.user-info .register-avatar-list-main-container {
+  margin: 0;
+}
 .user-info button {
   margin-top: 1em;
 }
 
 input.react-tags__search-input {
   width: 200px !important;
-  border: none;
+  /* border: none;
   background: none;
   border-bottom: white 1px solid;
   padding: 0.3em;
-  color: white;
+  color: white; */
 }
 
 .user-profile .bottom {
@@ -156,6 +171,9 @@ button span.react-tags__selected-tag-name {
   font-weight: 700;
 }
 
+.edit-post-button {
+  display: flex;
+}
 .edit-post-button button {
   margin-right: 0.4em;
 }
@@ -255,7 +273,7 @@ textarea.profile-new-comment {
   width: 100px;
 }
 
-.blue-button {
+.user-profile .blue-button {
   border: 1px solid #3366ff;
   color: #3366ff;
   font-weight: 900;
@@ -264,11 +282,11 @@ textarea.profile-new-comment {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 180px; */
+  width: 100px;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
 }
-.button-transition {
+.user-profile .button-transition {
   background: linear-gradient(to right, white, #3366ff 50%, white 50%);
   overflow: hidden;
   background-clip: text;
@@ -281,10 +299,120 @@ textarea.profile-new-comment {
   background-position: 100% 0;
   transition: 0.5s;
 }
-.button-transition:hover {
+.user-profile .button-transition:hover {
   cursor: pointer;
   color: white;
   background-position: 0 100%;
   -webkit-text-fill-color: transparent;
   box-shadow: 1px 1px 9px #fff0f5;
+}
+
+.user-profile .red-button {
+  border: 1px solid red;
+  color: red;
+  font-weight: 900;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  /* width: 100%; */
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+.user-profile .red-button-transition {
+  background: linear-gradient(to right, white, red 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color: red;
+  background-position: 100% 0;
+  transition: 0.5s;
+}
+.user-profile .red-button-transition:hover {
+  cursor: pointer;
+  color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #fff0f5;
+}
+
+.user-profile .green-button {
+  border: 1px solid#0cda92;
+  color: #0cda92;
+  font-weight: 900;
+  border-radius: 5px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-transform: uppercase;
+  transition: all 0.2s ease-in-out;
+}
+.user-profile .green-button-transition {
+  background: linear-gradient(to right, white, #0cda92 50%, white 50%);
+  overflow: hidden;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  background-position: 110%;
+  transition: background-position 275ms ease;
+  text-decoration: none;
+  color: #0cda92;
+  background-position: 100% 0;
+  transition: 0.5s;
+}
+.user-profile .green-button-transition:hover {
+  cursor: pointer;
+  color: white;
+  background-position: 0 100%;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 1px 1px 9px #fff0f5;
+}
+
+.user-profile .text-body {
+  float: none;
+  width: 100%;
+  margin-left: 0;
+  margin-top: -0;
+  font-size: 0.9em;
+  min-height: 90%;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #2b3858;
+}
+
+.edit-buttons {
+  width: 100%;
+}
+
+.user-profile .experience {
+  width: 100%;
+}
+
+.user-profile .exp-classification {
+  display: flex;
+}
+
+.user-profile .progress-bars {
+  width: 100%;
+}
+
+.editor-buttons {
+  display: flex;
+}
+.editor-buttons .red-button {
+  width: 100%;
+  margin-left: 1em;
+}
+
+.user-profile .post-body {
+  background: #192038;
+  border-radius: 5px;
+  padding: 1em;
 }

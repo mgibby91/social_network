@@ -1,33 +1,24 @@
-.flex {
-  display: flex;
-  flex-direction: column;
-  width: 96%;
-}
-
 .flex-row {
-  float: right;
-}
-.editor {
-  padding: 0 1em;
-
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-
+.checkbox {
+  display: flex;
+  align-items: center;
+}
 
 .post-btn {
+  text-align: center;
   border: 1px solid #1cd454;
   color: #1cd454;
   font-weight: 900;
   border-radius: 5px;
   padding: 0.5rem 0.8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 180px;
+  margin-left: 20px;
   text-transform: uppercase;
-  margin-top: 20px;
   background: linear-gradient(to right, white, #1cd454 50%, white 50%);
-  overflow: hidden;
   background-clip: text;
   -webkit-background-clip: text;
   background-size: 200% 100%;
@@ -40,20 +31,6 @@
 .post-btn:hover {
   cursor: pointer;
   background-position: 0 100%;
-  box-shadow: 1px 1px 9px #FFF0F5;
+  box-shadow: 1px 1px 9px #fff0f5;
   -webkit-text-fill-color: transparent;
-}
-
-
-
-.checkbox {
-  float: right;
-  margin-top: 10px;
-
-}
-
-.tags {
-  float: right;
-  margin-right: 10px;
-  margin-top: 10px;
 }
