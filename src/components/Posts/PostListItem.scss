@@ -25,12 +25,11 @@
     width: 60%;
     margin-left: 300px;
     margin-top: -150px;
-    font-size: 1.3em;
+    // font-size: 1.3em;
     min-height: 125px;
     border-radius: 5px;
-    padding: 25px;  
+    padding: 25px;
     background-color: #2b3858;
-    
   }
   .user-link {
     text-decoration: none;
@@ -40,7 +39,6 @@
   .online-link {
     text-decoration: none;
     margin-left: 15px;
-
   }
 
   .user-card {
@@ -94,7 +92,6 @@
     list-style-type: none;
     float: right;
     scroll-snap-align: start;
-
   }
   .comment-list {
     border-radius: 5px;
@@ -130,10 +127,9 @@
 
   /* -------------- BUTTONS ---------------*/
 
-
   .comment-delete-edit {
     display: flex;
-    font-size: .8em;
+    font-size: 0.8em;
   }
 
   .comment-button {
@@ -175,9 +171,9 @@
     background-position: 110%;
     transition: background-position 275ms ease;
     text-decoration: none;
-    color:#3366ff;
+    color: #3366ff;
     background-position: 100% 0;
-    transition: .2s;
+    transition: 0.2s;
   }
 
   .button-transition:hover {
@@ -185,7 +181,7 @@
     color: white;
     background-position: 0 100%;
     -webkit-text-fill-color: transparent;
-    box-shadow: 1px 1px 9px #FFF0F5;
+    box-shadow: 1px 1px 9px #fff0f5;
   }
 
   .delete-btn {
@@ -200,6 +196,7 @@
     margin-top: 80px;
     font-size: .8em;
     padding: 0.2rem 0.45rem;
+    font-size: 0.8em;
   }
 
   .delete-btn:hover {
@@ -224,7 +221,6 @@
     margin-right: 5px;
     margin-bottom: 3px;
     margin-top: 12px;
-    
   }
 
   .unlove:hover {
@@ -236,24 +232,22 @@
     font-weight: 500;
     display: flex;
     float: right;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 
   .delete-button:hover {
     cursor: pointer;
-    opacity: .7;
+    opacity: 0.7;
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     display: none;
   }
 
   .lbl-toggle {
     display: block;
 
-    font-weight: bold;
-    font-family: monospace;
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
     text-transform: uppercase;
     text-align: center;
 
@@ -270,9 +264,8 @@
     transition: all 0.25s ease-out;
   }
 
-
   .lbl-toggle::before {
-    content: ' ';
+    content: " ";
     display: inline-block;
 
     border-top: 5px solid transparent;
@@ -280,23 +273,23 @@
     border-left: 5px solid currentColor;
 
     vertical-align: middle;
-    margin-right: .7rem;
+    margin-right: 0.7rem;
     transform: translateY(-2px);
 
-    transition: transform .2s ease-out;
+    transition: transform 0.2s ease-out;
   }
 
   .collapsible-content .content-inner {
     background-color: #222b45;
 
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
   }
 
   .collapsible-content {
     max-height: 0px;
     overflow: hidden;
 
-    transition: max-height .25s ease-in-out;
+    transition: max-height 0.25s ease-in-out;
   }
 
   .toggle:checked + .lbl-toggle + .collapsible-content {
@@ -348,8 +341,7 @@
 
   .tutor-filter-btns {
     display: flex;
-    font-size: 0.75rem;
+    // font-size: 0.75rem;
     font-weight: 600;
   }
-  
 }

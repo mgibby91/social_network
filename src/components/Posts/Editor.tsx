@@ -63,9 +63,11 @@ function Editor(props) {
           }
           return (
             <>
-            <div className="flex">
-              <MDEditor className="editor" value={value} onChange={setValue} />  
+              <MDEditor className="editor" value={value} onChange={setValue} />
               <div className="flex-row">
+                <div className="tags">
+                  <Tags suggested={props.suggestion} onChange={onChangeInput} />
+                </div>
                 <div className="checkbox">
                   <Checkbox
                     checked={checkbox[1]}
@@ -74,16 +76,8 @@ function Editor(props) {
                   >
                     Mentor Help Needed
                   </Checkbox>
-                </div>
-                <div className="tags">
-                  <Tags suggested={props.suggestion} onChange={onChangeInput} />
-                </div>
-              </div>
               <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
-                <div
-                  className="post-btn"
-                  onClick={() => validatePost()}
-                >
+                <div className="post-btn" onClick={() => validatePost()}>
                   Post
                 </div>
               </Col>
@@ -91,7 +85,6 @@ function Editor(props) {
             <div>
               <section className="validation">{error}</section>
             </div>
-
             </>
           );
         }}

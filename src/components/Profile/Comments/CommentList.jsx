@@ -4,12 +4,14 @@ function CommentList(props) {
   const { index, avatar, username, text_body } = props;
   return (
     <div className="profile-comment" key={index}>
-      <img src={avatar} alt="avatar" />
       <div>
         <div>
-          <b>{username} commented:</b>
+          <img src={avatar} alt="avatar" />
         </div>
-        <div className="text-body">{text_body}</div>
+        <div className="text-body">
+          <b>{username} commented: </b>
+          {text_body}
+        </div>
       </div>
     </div>
   );
