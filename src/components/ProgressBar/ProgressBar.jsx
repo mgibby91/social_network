@@ -73,7 +73,7 @@ const ProgressBar = (props) => {
       <div className="container-styles">
         <div style={fillerStyles}className="bg-color">
           <span
-            class="label-styles"
+            className="label-styles"
           >{`${experiencePoints}/${fullExperience}`}</span>
         </div>
 

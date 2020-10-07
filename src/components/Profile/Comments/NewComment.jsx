@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@paljs/ui/Button";
 
 function CommentForm(props) {
   const [value, setValue] = React.useState("Comment here...");
+
+
 
   return (
     <>
@@ -10,14 +12,18 @@ function CommentForm(props) {
         className="profile-new-comment"
         value={value}
         onChange={(event) => {
-          setValue(event.target.value);
+          setValue(event.target.value) 
+          props.setError("")
         }}
         rows="2"
         cols="80"
         placeholder="Leave a comment here.."
       ></textarea>
       <div>
-        <Button onClick={() => props.onSave()}>Comment</Button>
+        <section className="validation">{props.error}</section>
+      </div>
+      <div>
+        <Button onClick={() => props.onValidateComment()}>Comment</Button>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { Checkbox } from "@paljs/ui/Checkbox";
 import Tags from "./StackTag";
@@ -11,6 +11,7 @@ function Editor(props) {
   const [checkbox, setCheckbox] = React.useState({
     1: false,
   });
+  const [error, setError] = useState("");
 
   const onChangeCheckbox = (value: boolean, name: number) => {
     setCheckbox({ ...checkbox, [name]: value });
@@ -40,14 +41,26 @@ function Editor(props) {
             username: username,
             stack: techTags,
           };
-          const onSave = () => {
-            //check for empty input here
-            console.log("from editor", techTags);
-            props.createPost(postObj, techTags, currentUser.id).then(() => {
-              setValue("");
-            });
-          };
+          // const onSave = () => {
+          //   //check for empty input here
+          //   console.log("from editor", techTags);
+          //   props.createPost(postObj, techTags, currentUser.id).then(() => {
+          //     setValue("");
+          //   });
+          // };
 
+          function validatePost() {
+            if (value === "") {
+              setError("Post cannot be blank");
+              return;
+            }
+            if (value !== ""){
+              setError("");
+              props.createPost(postObj, techTags, currentUser.id).then(() => {
+                setValue("");
+              });          
+            }
+          }
           return (
             <>
             <div className="flex">
@@ -69,12 +82,16 @@ function Editor(props) {
               <Col key={1} offset={{ xs: 11 - 1 }} breakPoint={{ xs: 1 + 1 }}>
                 <div
                   className="post-btn"
-                  onClick={() => onSave()}
+                  onClick={() => validatePost()}
                 >
                   Post
                 </div>
               </Col>
             </div>
+            <div>
+              <section className="validation">{error}</section>
+            </div>
+
             </>
           );
         }}

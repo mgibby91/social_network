@@ -20,7 +20,7 @@ interface IUsers {
   [index: number]: { id: number; user_id: number; name: string };
 }
 
-export default function Home() {
+export default function Home(index) {
   const {
     state,
     createPost,
@@ -77,6 +77,7 @@ export default function Home() {
                 </div>
               </Row>
               <PostList
+                key={index}
                 users={users}
                 posts={dashPosts}
                 comments={comments}

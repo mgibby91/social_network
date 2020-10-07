@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Row from "@paljs/ui/Row";
 import Col from "@paljs/ui/Col";
 import { Card, CardBody } from "@paljs/ui/Card";
@@ -21,6 +21,7 @@ function PostListItem(props) {
   const senderID = document.cookie.split("=")[1];
   const [value, setValue] = React.useState("Comment here...");
   const { mode, transition, back } = useVisualMode(SHOW);
+  const [error, setError] = useState("");
 
   function onDelete() {
     props.deletePost(props.post.post_id);
@@ -68,21 +69,23 @@ function PostListItem(props) {
           avatar: currentUser.avatar,
           username: currentUser.username,
         };
-        const onSave = () => {
-          //check for empty input here
-          console.log("props post id: ", props.post.post_id);
-
-          props
-            .createComment(
-              props.post.post_id,
+        function onValidateComment() {
+          if (value === "") {
+            setError("Comment cannot be blank");
+            return;
+          }
+          if (value !== ""){
+            setError("");
+            props.createComment(
+              props.post.post_id,                 
               currentUser.id,
               value,
-              commentObj
-            )
-            .then(() => {
-              setValue("");
-            });
-        };
+              commentObj)
+              .then(() => {
+            setValue("");
+          });         
+        }
+      }
 
         return (
           <Col
@@ -94,7 +97,7 @@ function PostListItem(props) {
               {mode === SHOW && (
                 <CardBody>
                   {props.user.id === parseInt(senderID, 10) ? (
-                    <div class="edit-post-button">
+                    <div className="edit-post-button">
                       <Button
                         className="blue-button button-transition"
                         onClick={onEdit}
@@ -132,19 +135,23 @@ function PostListItem(props) {
                 />
               )}
 
-              <div class="wrap-collabsible">
+              <div className="wrap-collabsible">
                 <input
                   id={"collapsible" + props.index}
-                  class="toggle"
+                  className="toggle"
                   type="checkbox"
                 />
-                <label for={"collapsible" + props.index} class="lbl-toggle">
+                <label htmlFor={"collapsible" + props.index} className="lbl-toggle">
                   Comments
                 </label>
-                <div class="collapsible-content">
-                  <div class="content-inner">
+                <div className="collapsible-content">
+                  <div className="content-inner">
                     {commentList}
-                    <CommentForm onSave={onSave} />
+                    <CommentForm 
+                      onValidateComment={onValidateComment} 
+                      error={error}
+                      setError={setError}
+                      />
                   </div>
                 </div>
               </div>

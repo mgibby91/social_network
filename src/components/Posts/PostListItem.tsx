@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { faHeart as fasHeart } from '@fortawesome/free-solid-svg-icons'
-import { Button } from "@paljs/ui/Button";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { Card, CardBody } from "@paljs/ui/Card";
 import { Link } from "@reach/router";
 import ContextConsumer from "../../context/context";
@@ -73,6 +72,7 @@ interface IPost {
 
 export default function PostListItem(props: IProps) {
   const [value, setValue] = React.useState("Comment here...");
+  const [error, setError] = useState("");
 
   const stack = props.post.stack.map((tech_stack, index) => {
     return (
@@ -172,22 +172,39 @@ export default function PostListItem(props: IProps) {
             username: currentUser.username,
           };
           // FOR COMMENTS
-          const onSave = () => {
-            //check for empty input here
-            console.log("props post id: ", props.post.post_id);
+          // const onSave = () => {
+          //   //check for empty input here
+          //   console.log("props post id: ", props.post.post_id);
             
-            props
-              .createComment(
-                props.post.post_id,
+          //   props
+          //     .createComment(
+          //       props.post.post_id,
+          //       currentUser.id,
+          //       value,
+          //       commentObj
+          //     )
+          //     .then(() => {
+          //       setValue("");
+          //     });
+          // };
+
+          function onValidateComment() {
+            if (value === "") {
+              setError("Comment cannot be blank");
+              return;
+            }
+            if (value !== ""){
+              setError("");
+              props.createComment(
+                props.post.post_id,                 
                 currentUser.id,
                 value,
-                commentObj
-              )
-              .then(() => {
-                setValue("");
-              });
-          };
-
+                commentObj)
+                .then(() => {
+              setValue("");
+            });         
+          }
+        }
           // const onEdit = () => {
           //   //check for empty input here
           //   props.editComment(props.comment.post_id, currentUser.id, value, props.comment.text_body);
@@ -267,12 +284,19 @@ export default function PostListItem(props: IProps) {
                       <textarea 
                         className="comment-textarea"
                         value={value}
-                        onChange={(event) => {setValue(event.target.value);}} 
+                        onChange={(event) => {
+                          setValue(event.target.value) 
+                          setError("")
+                        }}
                         rows="2" placeholder="Leave a comment here.."
                       ></textarea>
                     </div>
+                    
                     <div className="comment-like-button-flex">
-                      <div className="comment-button button-transition"onClick={() => onSave()}>Comment</div>
+                      <div className="comment-button button-transition"onClick={() => onValidateComment()}>Comment</div>
+                    </div>
+                    <div>
+                      <section className="validation">{error}</section>
                     </div>
                     
                   </div>
