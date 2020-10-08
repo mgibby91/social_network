@@ -20,7 +20,7 @@ export default function LoginLogout() {
 
       // MATT'S CODE************************************************************
       const avatar = res.data[0].avatar;
-      const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.gyZWym.right");
+      const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.efNBuU.right");
 
       const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
 
