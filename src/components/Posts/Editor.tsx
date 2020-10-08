@@ -65,7 +65,6 @@ function Editor(props) {
                 <div className="checkbox">
                   <Checkbox
                     checked={checkbox[1]}
-                    status="Success"
                     onChange={(value) => onChangeCheckbox(value, 1)}
                   >
                     Mentor Help Needed
