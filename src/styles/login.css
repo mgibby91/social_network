@@ -146,6 +146,7 @@
   background: #151a30;
   border: none;
   padding: 0.4rem 0.7rem;
+  outline: none;
 }
 
 #logout-btn-nav:hover {
