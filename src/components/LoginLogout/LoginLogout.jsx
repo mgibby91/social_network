@@ -20,7 +20,7 @@ export default function LoginLogout() {
 
       // MATT'S CODE************************************************************
       const avatar = res.data[0].avatar;
-      const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.gyZWym.right");
+      const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.efNBuU.right");
 
       const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
 
@@ -112,7 +112,7 @@ export default function LoginLogout() {
               Login
               </button> */}
             <Link to={'/'}>
-              <button type="button" name="logout" onClick={() => logout(data, set)}>
+              <button type="button" name="logout" id='logout-btn-nav' onClick={() => logout(data, set)}>
                 Logout
               </button>
             </Link>

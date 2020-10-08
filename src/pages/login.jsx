@@ -79,7 +79,6 @@ export default function Login() {
           console.log('username', username)
           console.log('userId', userID)
           console.log('avatat', avatar)
-          set({ ...data, state: state, selected: res.data[0].id });
 
           // MATT'S CODE************************************************************
           const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.efNBuU.right");
@@ -129,6 +128,9 @@ export default function Login() {
               setUnseenTutor(Number(res.data[0].count))
               typeof localStorage !== 'undefined' && localStorage.setItem('unreadTutor', Number(res.data[0].count))
             })
+
+          set({ ...data, state: state, selected: res.data[0].id });
+
 
           // MATT'S CODE FOR ADDING TUTOR SESSION NOTIFICATION ON LOGIN************************************************************
 

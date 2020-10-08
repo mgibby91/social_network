@@ -232,12 +232,11 @@ const Header: React.FC<HeaderProps> = (props) => {
           actions={[
             {
               content: (
-                  <LoginLogout/>                
+                <LoginLogout />
               ),
             },
           ]}
         />
-        <div className='sc-kEqYlL efNBuU right'></div>
       </HeaderStyle>
     </LayoutHeader>
   );
