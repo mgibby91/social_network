@@ -200,7 +200,7 @@ input[type="checkbox"] {
   padding: 1rem;
 
   color: #fff;
-  background: #22e298;
+  background: #16b446;
 
   cursor: pointer;
 
@@ -306,8 +306,8 @@ textarea.profile-new-comment {
 }
 
 .user-profile .red-button {
-  border: 1px solid red;
-  color: red;
+  border: 1px solid rgb(250, 70, 70);
+  color: rgb(250, 70, 70);
   font-weight: 900;
   border-radius: 5px;
   padding: 0.5rem 0.8rem;
@@ -319,7 +319,7 @@ textarea.profile-new-comment {
   transition: all 0.2s ease-in-out;
 }
 .user-profile .red-button-transition {
-  background: linear-gradient(to right, white, red 50%, white 50%);
+  background: linear-gradient(to right, white, rgb(250, 70, 70) 50%, white 50%);
   overflow: hidden;
   background-clip: text;
   -webkit-background-clip: text;
@@ -327,7 +327,7 @@ textarea.profile-new-comment {
   background-position: 110%;
   transition: background-position 275ms ease;
   text-decoration: none;
-  color: red;
+  color: rgb(250, 70, 70);
   background-position: 100% 0;
   transition: 0.5s;
 }
@@ -340,8 +340,8 @@ textarea.profile-new-comment {
 }
 
 .user-profile .green-button {
-  border: 1px solid#0cda92;
-  color: #0cda92;
+  border: 1px solid#16b446;
+  color: #16b446;
   font-weight: 900;
   border-radius: 5px;
   padding: 0.5rem 0.8rem;
@@ -353,7 +353,7 @@ textarea.profile-new-comment {
   transition: all 0.2s ease-in-out;
 }
 .user-profile .green-button-transition {
-  background: linear-gradient(to right, white, #0cda92 50%, white 50%);
+  background: linear-gradient(to right, white, #16b446 50%, white 50%);
   overflow: hidden;
   background-clip: text;
   -webkit-background-clip: text;
@@ -418,4 +418,12 @@ textarea.profile-new-comment {
 
 .user-profile .kYdNcd {
   overflow: visible;
+}
+
+.w-md-editor-toolbar {
+  background: #16b446;
+}
+
+.checkbox-input {
+  border-color: #16b446;
 }
