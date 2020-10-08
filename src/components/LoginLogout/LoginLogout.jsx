@@ -112,7 +112,7 @@ export default function LoginLogout() {
               Login
               </button> */}
             <Link to={'/'}>
-              <button type="button" name="logout" onClick={() => logout(data, set)}>
+              <button type="button" name="logout" id='logout-btn-nav' onClick={() => logout(data, set)}>
                 Logout
               </button>
             </Link>
