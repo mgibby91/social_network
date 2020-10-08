@@ -50,7 +50,7 @@ const ProgressBar = (props) => {
       return fullExperience, width, level, experiencePoints;
     }
     if (points >= 168) {
-      level = "MAX";
+      level = 5;
       width = 100;
       fullExperience = 68;
       experiencePoints = 68;
@@ -58,7 +58,7 @@ const ProgressBar = (props) => {
     }
   }
 
-  calculateLevel(experience * 3);
+  calculateLevel(experience * 2);
 
   const fillerStyles = {
     height: "100%",
