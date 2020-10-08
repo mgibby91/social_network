@@ -82,7 +82,7 @@ export default function Login() {
           set({ ...data, state: state, selected: res.data[0].id });
 
           // MATT'S CODE************************************************************
-          const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.efNBuU.right");
+          const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.gyZWym.right");
           console.log('rightNAv!', rightNavContainer);
 
           const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');

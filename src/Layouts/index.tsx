@@ -65,9 +65,16 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
     // if (!currentUser) return null;
     console.log("current user in index layout: ", currentUser, userID);
 
-    
 
-    const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.efNBuU.right");
+
+    const rightNavContainer = typeof document !== 'undefined' && document.querySelector(".sc-kEqYlL.gyZWym.right");
+
+
+    const userDisplay = typeof document !== 'undefined' && document.querySelector('.logged-in-username');
+
+    if (userDisplay) {
+      userDisplay.remove();
+    }
 
     const usernameHTML = `
     <div class='logged-in-username' style='display: flex; align-items: center; justify-content: center'>
@@ -130,7 +137,7 @@ const LayoutPage: React.FC<{ pageContext: { layout: string } }> = ({
 
   //     logoutBtnTitle.textContent = 'Login';
 
-      // MATT'S CODE************************************************************
+  // MATT'S CODE************************************************************
   //   })
   // }
 
