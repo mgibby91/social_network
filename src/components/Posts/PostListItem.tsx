@@ -341,7 +341,7 @@ export default function PostListItem(props: IProps) {
                     <div className="likes-comments">
                       {/* LIKE COUNT */}
 
-                      {iAlreadyLikeThis ? 
+                      {iAlreadyLikeThis && likeSum > 1 ? 
                         <p onClick={() => props.removeLike(props.post.post_id, currentUser.id)}>
                         <b>You and {likeSum - 1} others</b></p> : ""}
 
