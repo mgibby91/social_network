@@ -156,5 +156,6 @@
 }
 
 .demo-text {
-  margin-top: 0.5rem;
+  text-align: center;
+  margin: 1rem 2.5rem 0 2.5rem;
 }
