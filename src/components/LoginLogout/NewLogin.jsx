@@ -203,6 +203,7 @@ export default function Login() {
                 <Link to={`/register/`}><span id='register-account-click'>here</span>
                 </Link>
               </div>
+              <div className='demo-text'>For a quick peek: checkout users "mathluvr" and "coder4lyfe" with passwords "123"!</div>
               {redirect && (
                 <Link to={'/dashboard/'} className='dashboard-redirect'></Link>
               )}

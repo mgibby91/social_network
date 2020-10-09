@@ -154,3 +154,7 @@
   outline: none;
   border: none;
 }
+
+.demo-text {
+  margin-top: 0.5rem;
+}
